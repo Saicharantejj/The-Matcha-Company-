@@ -2,11 +2,21 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { moods, products } from '../data/products'
 import SachetGraphic from './SachetGraphic'
+import { useCart } from '../context/CartContext'
 
 export default function MoodMatcher() {
   const [activeId, setActiveId] = useState(moods[0].id)
+  const [added, setAdded] = useState(false)
+  const { addItem, openCart } = useCart()
   const active = moods.find((m) => m.id === activeId)
   const activeProduct = products.find((p) => p.id === active.productId)
+
+  const handleAdd = () => {
+    if (!activeProduct) return
+    addItem(activeProduct, 'sachet')
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1400)
+  }
 
   return (
     <div className="card-hard overflow-hidden">
@@ -58,6 +68,25 @@ export default function MoodMatcher() {
               <p className="font-mono text-[10px] uppercase tracking-widest text-moss">We'd hand you</p>
               <h4 className="mt-1 font-display text-xl tracking-display">{active.drink}</h4>
               <p className="mt-2 font-body text-sm leading-relaxed text-chocolate/75">{active.note}</p>
+
+              <div className="mt-5 flex flex-wrap items-center gap-4">
+                <button
+                  type="button"
+                  onClick={handleAdd}
+                  className="btn-hard border-chocolate bg-olive text-cream"
+                >
+                  {added ? 'Added ✓' : 'Add This Sachet'}
+                </button>
+                {added && (
+                  <button
+                    type="button"
+                    onClick={openCart}
+                    className="font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+                  >
+                    View cart
+                  </button>
+                )}
+              </div>
             </motion.div>
           </AnimatePresence>
         </div>

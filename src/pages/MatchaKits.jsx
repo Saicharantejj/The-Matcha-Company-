@@ -1,10 +1,21 @@
 import { motion } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { StaggerGroup, StaggerItem } from '../components/Reveal'
+import { useState } from 'react'
 import SachetGraphic from '../components/SachetGraphic'
+import { useCart } from '../context/CartContext'
 import { matchaKits } from '../data/products'
 
-function KitBundleCard({ kit, index, onAdd }) {
+function KitBundleCard({ kit }) {
+  const [added, setAdded] = useState(false)
+  const { addItem, openCart } = useCart()
+
+  const handleAdd = () => {
+    addItem(kit, 'bundle')
+    setAdded(true)
+    setTimeout(() => setAdded(false), 1400)
+  }
+
   return (
     <StaggerItem>
       <motion.div className="card-hard group grid grid-cols-1 overflow-hidden sm:grid-cols-5">
@@ -30,20 +41,31 @@ function KitBundleCard({ kit, index, onAdd }) {
             ))}
           </ul>
 
-          <button
-            type="button"
-            onClick={() => onAdd?.(kit)}
-            className="btn-hard mt-6 w-full border-chocolate bg-olive text-cream sm:w-auto sm:self-start"
-          >
-            Add Bundle to Cart
-          </button>
+          <div className="mt-6 flex flex-wrap items-center gap-4">
+            <button
+              type="button"
+              onClick={handleAdd}
+              className="btn-hard w-full border-chocolate bg-olive text-cream sm:w-auto"
+            >
+              {added ? 'Added ✓' : 'Add Bundle to Cart'}
+            </button>
+            {added && (
+              <button
+                type="button"
+                onClick={openCart}
+                className="font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+              >
+                View cart
+              </button>
+            )}
+          </div>
         </div>
       </motion.div>
     </StaggerItem>
   )
 }
 
-export default function MatchaKits({ onAddToCart }) {
+export default function MatchaKits() {
   return (
     <PageShell>
       <section className="border-b border-chocolate bg-card">
@@ -62,8 +84,8 @@ export default function MatchaKits({ onAddToCart }) {
       <section className="bg-camel">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
           <StaggerGroup className="flex flex-col gap-6 pb-6" stagger={0.1}>
-            {matchaKits.map((kit, i) => (
-              <KitBundleCard key={kit.id} kit={kit} index={i} onAdd={onAddToCart} />
+            {matchaKits.map((kit) => (
+              <KitBundleCard key={kit.id} kit={kit} />
             ))}
           </StaggerGroup>
         </div>

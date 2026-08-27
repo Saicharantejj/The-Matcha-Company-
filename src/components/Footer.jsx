@@ -3,7 +3,12 @@ import { Link } from 'react-router-dom'
 import Reveal from './Reveal'
 import logoWordmark from '../assets/logo-wordmark-cream.png'
 
-const SOCIALS = ['Instagram', 'TikTok', 'X / Twitter', 'Pinterest']
+const SOCIALS = [
+  { label: 'Instagram', href: 'https://instagram.com' },
+  { label: 'TikTok', href: 'https://tiktok.com' },
+  { label: 'X / Twitter', href: 'https://x.com' },
+  { label: 'Pinterest', href: 'https://pinterest.com' },
+]
 
 export default function Footer() {
   const [email, setEmail] = useState('')
@@ -23,7 +28,7 @@ export default function Footer() {
           <img
             src={logoWordmark}
             alt="The Matcha Company"
-            className="h-20 w-auto sm:h-28 lg:h-36"
+            className="h-28 w-auto sm:h-40 lg:h-52"
           />
         </Reveal>
 
@@ -92,12 +97,13 @@ export default function Footer() {
           <div className="flex flex-wrap gap-x-5 gap-y-2">
             {SOCIALS.map((s) => (
               <a
-                key={s}
-                href="#"
-                onClick={(e) => e.preventDefault()}
-                className="font-mono text-[10px] uppercase tracking-widest text-cream/70 hover:text-matcha"
+                key={s.label}
+                href={s.href}
+                target="_blank"
+                rel="noreferrer noopener"
+                className="font-mono text-[10px] uppercase tracking-widest text-cream/70 transition-colors hover:text-matcha"
               >
-                {s}
+                {s.label}
               </a>
             ))}
           </div>

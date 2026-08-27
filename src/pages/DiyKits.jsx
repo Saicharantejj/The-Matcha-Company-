@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { StaggerGroup, StaggerItem } from '../components/Reveal'
 import SachetGraphic from '../components/SachetGraphic'
+import { useCart } from '../context/CartContext'
 import { diyKits } from '../data/products'
 
 const DIFFICULTY_COLOR = {
@@ -11,13 +12,14 @@ const DIFFICULTY_COLOR = {
   HARD: 'bg-chocolate text-cream',
 }
 
-function KitCard({ kit, index, onAdd }) {
+function KitCard({ kit, index }) {
   const [open, setOpen] = useState(false)
   const [added, setAdded] = useState(false)
+  const { addItem, openCart } = useCart()
 
   const handleAdd = () => {
+    addItem(kit, 'diy-kit')
     setAdded(true)
-    onAdd?.(kit)
     setTimeout(() => setAdded(false), 1400)
   }
 
@@ -77,19 +79,30 @@ function KitCard({ kit, index, onAdd }) {
           )}
         </AnimatePresence>
 
-        <button
-          type="button"
-          onClick={handleAdd}
-          className="btn-hard mt-5 w-full border-chocolate bg-olive text-cream"
-        >
-          {added ? 'Added ✓' : 'Add Kit to Cart'}
-        </button>
+        <div className="mt-auto pt-5">
+          <button
+            type="button"
+            onClick={handleAdd}
+            className="btn-hard w-full border-chocolate bg-olive text-cream"
+          >
+            {added ? 'Added ✓' : 'Add Kit to Cart'}
+          </button>
+          {added && (
+            <button
+              type="button"
+              onClick={openCart}
+              className="mt-2 w-full font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+            >
+              View cart
+            </button>
+          )}
+        </div>
       </div>
     </motion.div>
   )
 }
 
-export default function DiyKits({ onAddToCart }) {
+export default function DiyKits() {
   return (
     <PageShell>
       <section className="border-b border-chocolate bg-card">
@@ -110,7 +123,7 @@ export default function DiyKits({ onAddToCart }) {
           <StaggerGroup className="grid grid-cols-1 gap-6 pb-6 sm:grid-cols-2 lg:grid-cols-3">
             {diyKits.map((kit, i) => (
               <StaggerItem key={kit.id}>
-                <KitCard kit={kit} index={i} onAdd={onAddToCart} />
+                <KitCard kit={kit} index={i} />
               </StaggerItem>
             ))}
           </StaggerGroup>

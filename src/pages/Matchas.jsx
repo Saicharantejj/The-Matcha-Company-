@@ -3,7 +3,7 @@ import Reveal, { StaggerGroup, StaggerItem } from '../components/Reveal'
 import ProductCard from '../components/ProductCard'
 import { products } from '../data/products'
 
-export default function Matchas({ onAddToCart }) {
+export default function Matchas() {
   return (
     <PageShell>
       <section className="border-b border-chocolate bg-card">
@@ -30,7 +30,7 @@ export default function Matchas({ onAddToCart }) {
           <StaggerGroup className="mt-6 grid grid-cols-1 gap-6 pb-20 sm:grid-cols-2 lg:grid-cols-3">
             {products.map((product, i) => (
               <StaggerItem key={product.id}>
-                <ProductCard product={product} onAdd={onAddToCart} index={i} />
+                <ProductCard product={product} index={i} />
               </StaggerItem>
             ))}
           </StaggerGroup>

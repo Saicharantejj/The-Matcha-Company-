@@ -1,13 +1,15 @@
 import { useState } from 'react'
 import { motion } from 'framer-motion'
 import SachetGraphic from './SachetGraphic'
+import { useCart } from '../context/CartContext'
 
-export default function ProductCard({ product, onAdd, index = 0 }) {
+export default function ProductCard({ product, index = 0 }) {
   const [added, setAdded] = useState(false)
+  const { addItem, openCart } = useCart()
 
   const handleAdd = () => {
+    addItem(product, 'sachet')
     setAdded(true)
-    onAdd?.(product)
     setTimeout(() => setAdded(false), 1400)
   }
 
@@ -38,13 +40,24 @@ export default function ProductCard({ product, onAdd, index = 0 }) {
           ))}
         </div>
 
-        <button
-          type="button"
-          onClick={handleAdd}
-          className="btn-hard mt-5 w-full border-chocolate bg-olive text-cream disabled:opacity-70"
-        >
-          {added ? 'Added ✓' : 'Add to Cart'}
-        </button>
+        <div className="mt-auto pt-5">
+          <button
+            type="button"
+            onClick={handleAdd}
+            className="btn-hard w-full border-chocolate bg-olive text-cream"
+          >
+            {added ? 'Added ✓' : 'Add to Cart'}
+          </button>
+          {added && (
+            <button
+              type="button"
+              onClick={openCart}
+              className="mt-2 w-full font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+            >
+              View cart
+            </button>
+          )}
+        </div>
       </div>
     </motion.div>
   )

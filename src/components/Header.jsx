@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Marquee from './Marquee'
 import logoWordmark from '../assets/logo-wordmark-chocolate.png'
+import { useCart } from '../context/CartContext'
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -20,8 +21,9 @@ const TICKER_ITEMS = [
   'STONE-GROUND, SOURCED FROM UJI',
 ]
 
-export default function Header({ cartCount = 0 }) {
+export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
+  const { count: cartCount, openCart, lastAddedId } = useCart()
 
   return (
     <header className="sticky top-0 z-50">
@@ -29,7 +31,7 @@ export default function Header({ cartCount = 0 }) {
       <div className="border-b border-chocolate bg-camel/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <NavLink to="/" aria-label="The Matcha Company — home" className="flex items-center">
-            <img src={logoWordmark} alt="The Matcha Company" className="h-6 w-auto sm:h-7" />
+            <img src={logoWordmark} alt="The Matcha Company" className="h-11 w-auto sm:h-14" />
           </NavLink>
 
           <nav className="hidden items-center gap-8 lg:flex">
@@ -61,13 +63,17 @@ export default function Header({ cartCount = 0 }) {
           </nav>
 
           <div className="flex items-center gap-3">
-            <button
+            <motion.button
               type="button"
-              className="border border-chocolate bg-olive px-4 py-2 font-mono text-xs uppercase tracking-widest text-cream transition-all hover:translate-x-[2px] hover:translate-y-[2px]"
+              onClick={openCart}
+              aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
+              animate={lastAddedId ? { scale: [1, 1.09, 1] } : { scale: 1 }}
+              transition={{ duration: 0.32, ease: 'easeOut' }}
+              className="border border-chocolate bg-olive px-4 py-2 font-mono text-xs uppercase tracking-widest text-cream transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#2B1F16]"
               style={{ boxShadow: '3px 3px 0px 0px #2B1F16' }}
             >
-              Cart ({cartCount})
-            </button>
+              Cart (<span className="tabular-nums">{cartCount}</span>)
+            </motion.button>
             <button
               type="button"
               aria-label="Toggle menu"

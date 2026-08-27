@@ -11,7 +11,7 @@ import { products, FLAVORS } from '../data/products'
 
 const FEATURED_IDS = ['strawberry-sachet', 'mango-sachet', 'ube-sachet']
 
-export default function Home({ onAddToCart }) {
+export default function Home() {
   const heroRef = useRef(null)
   const { scrollYProgress } = useScroll({
     target: heroRef,
@@ -157,7 +157,7 @@ export default function Home({ onAddToCart }) {
           <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {featured.map((product, i) => (
               <StaggerItem key={product.id}>
-                <ProductCard product={product} onAdd={onAddToCart} index={i} />
+                <ProductCard product={product} index={i} />
               </StaggerItem>
             ))}
           </StaggerGroup>
