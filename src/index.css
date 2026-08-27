@@ -1,0 +1,90 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    border-color: #2B1F16;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    @apply bg-camel text-chocolate font-body antialiased;
+    background-image:
+      radial-gradient(circle at 1px 1px, rgba(43,31,22,0.06) 1px, transparent 0);
+    background-size: 22px 22px;
+  }
+
+  ::selection {
+    background: #6F9E28;
+    color: #F6EFC6;
+  }
+
+  h1, h2, h3, h4, .font-display {
+    font-family: "Josefin Sans", sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    font-weight: 400;
+  }
+}
+
+@layer components {
+  .hard-border {
+    border: 1.5px solid #2B1F16;
+  }
+
+  .hard-shadow {
+    box-shadow: 4px 4px 0px 0px #2B1F16;
+  }
+
+  .hard-shadow-sm {
+    box-shadow: 2px 2px 0px 0px #2B1F16;
+  }
+
+  .btn-hard {
+    @apply inline-flex items-center justify-center gap-2 border border-chocolate px-6 py-3 font-mono text-xs uppercase tracking-widest transition-all duration-150 ease-out;
+    box-shadow: 3px 3px 0px 0px #2B1F16;
+  }
+
+  .btn-hard:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px #2B1F16;
+  }
+
+  .btn-hard:active {
+    transform: translate(3px, 3px);
+    box-shadow: 0px 0px 0px 0px #2B1F16;
+  }
+
+  .card-hard {
+    @apply border border-chocolate bg-card transition-all duration-150 ease-out;
+    box-shadow: 4px 4px 0px 0px #2B1F16;
+  }
+
+  .card-hard:hover {
+    transform: translate(2px, 2px);
+    box-shadow: 2px 2px 0px 0px #2B1F16;
+  }
+
+  .tag-outline {
+    @apply border-[1.5px] border-chocolate px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-chocolate;
+  }
+}
+
+/* marquee track duplicated content scrolls seamlessly */
+.marquee-track {
+  display: flex;
+  width: max-content;
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
