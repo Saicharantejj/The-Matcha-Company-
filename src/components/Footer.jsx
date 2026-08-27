@@ -32,26 +32,16 @@ export default function Footer() {
           />
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-10 border-t border-cream/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-12 grid grid-cols-1 gap-10 border-t border-cream/20 pt-10 sm:grid-cols-2 lg:grid-cols-3">
           <Reveal delay={0.05}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">Store Hours</h3>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">How It Works</h3>
             <p className="mt-3 font-body text-sm leading-relaxed text-cream/85">
-              Open daily<br />
-              7:00 AM – 6:00 PM<br />
-              Kitchen closes 5:30 PM
+              We're online only — order any flavor and it ships to your door.
+              One sachet, stirred into milk or water. No whisk, no ceremony.
             </p>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">Visit</h3>
-            <p className="mt-3 font-body text-sm leading-relaxed text-cream/85">
-              14th Cross, Indiranagar<br />
-              Bengaluru, KA 560038<br />
-              +91 98765 43210
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.15}>
             <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">Explore</h3>
             <ul className="mt-3 space-y-2 font-body text-sm text-cream/85">
               <li><Link to="/matchas" className="hover:text-matcha">Our Matchas</Link></li>
@@ -61,7 +51,7 @@ export default function Footer() {
             </ul>
           </Reveal>
 
-          <Reveal delay={0.2}>
+          <Reveal delay={0.15}>
             <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">Stay In The Loop</h3>
             <p className="mt-3 font-body text-sm text-cream/85">
               One email a month. No spam, just new drops.

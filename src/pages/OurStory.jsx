@@ -44,7 +44,7 @@ export default function OurStory() {
           <Reveal>
             <p className="font-mono text-xs uppercase tracking-widest text-moss">Our Story</p>
             <h1 className="mt-2 max-w-3xl font-display text-4xl tracking-display sm:text-5xl lg:text-6xl">
-              A farm in Uji. A shop in Bengaluru. No ceremony in between.
+              A farm in Uji. A sachet at your door. No ceremony in between.
             </h1>
             <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-chocolate/75 sm:text-lg">
               We didn't set out to reinvent matcha — just to strip out everything standing between

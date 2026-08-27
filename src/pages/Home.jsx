@@ -172,7 +172,7 @@ export default function Home() {
               Ready when you are
             </h2>
             <p className="mx-auto mt-4 max-w-lg font-body text-cream/75">
-              Order online, walk into the store, or set your café up with a standing order.
+              Order online and we'll ship it out, or set your café up with a standing order.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
               <Link to="/matchas" className="btn-hard border-cream bg-matcha text-chocolate">
