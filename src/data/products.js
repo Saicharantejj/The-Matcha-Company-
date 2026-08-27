@@ -60,6 +60,7 @@ export const diyKits = [
   {
     id: 'strawberry-latte-kit',
     name: 'Strawberry Matcha Latte Kit',
+    flavor: 'Strawberry',
     prepTime: '3 MIN',
     difficulty: 'EASY',
     servings: '3 CUPS',
@@ -71,6 +72,7 @@ export const diyKits = [
   {
     id: 'blueberry-smoothie-kit',
     name: 'Blueberry Matcha Smoothie Bowl Kit',
+    flavor: 'Blueberry',
     prepTime: '5 MIN',
     difficulty: 'EASY',
     servings: '3 BOWLS',
@@ -82,6 +84,7 @@ export const diyKits = [
   {
     id: 'mango-chia-kit',
     name: 'Mango Matcha Chia Pudding Kit',
+    flavor: 'Mango',
     prepTime: '10 MIN + OVERNIGHT',
     difficulty: 'EASY',
     servings: '3 JARS',
@@ -93,6 +96,7 @@ export const diyKits = [
   {
     id: 'ube-pancake-kit',
     name: 'Ube Matcha Pancake Kit',
+    flavor: 'Ube',
     prepTime: '20 MIN',
     difficulty: 'MEDIUM',
     servings: '8 PANCAKES',
@@ -104,6 +108,7 @@ export const diyKits = [
   {
     id: 'vanilla-coldfoam-kit',
     name: 'Vanilla Matcha Cold Foam Kit',
+    flavor: 'Vanilla',
     prepTime: '5 MIN',
     difficulty: 'EASY',
     servings: '3 CUPS',
@@ -115,6 +120,7 @@ export const diyKits = [
   {
     id: 'discovery-flight-kit',
     name: 'Five-Flavor Discovery Kit',
+    flavor: 'All 5',
     prepTime: 'VARIES',
     difficulty: 'EASY',
     servings: '5 CUPS',
@@ -129,6 +135,7 @@ export const matchaKits = [
   {
     id: 'discovery-pack',
     name: 'The Discovery Pack',
+    flavor: '5 Flavors',
     badge: 'BEST SELLER',
     swatch: 'matcha',
     blurb: 'One sachet of every flavor — the easiest way to find your favorite.',
@@ -137,6 +144,7 @@ export const matchaKits = [
   {
     id: 'gift-edition',
     name: 'Gift Edition Box',
+    flavor: 'Gift Set',
     badge: 'GIFT EDITION',
     swatch: 'moss',
     blurb: 'Boxed, ribboned, and ready to hand over — our most-gifted set.',
@@ -145,6 +153,7 @@ export const matchaKits = [
   {
     id: 'cafe-bulk-case',
     name: 'Café & Office Bulk Case',
+    flavor: '100 CT',
     badge: 'BULK',
     swatch: 'olive',
     blurb: 'For cafés, offices, and anywhere matcha gets served to a crowd.',
@@ -153,6 +162,7 @@ export const matchaKits = [
   {
     id: 'single-flavor-10pack',
     name: 'Single-Flavor 10-Pack',
+    flavor: 'Your Pick',
     badge: null,
     swatch: 'matcha',
     blurb: 'Pick one flavor, ten sachets — for when you already know what you like.',
@@ -161,6 +171,7 @@ export const matchaKits = [
   {
     id: 'travel-pack',
     name: 'Travel Pack',
+    flavor: 'Travel',
     badge: 'COMPACT',
     swatch: 'moss',
     blurb: 'Five sachets, zipped into a pouch that fits any bag.',
@@ -169,6 +180,7 @@ export const matchaKits = [
   {
     id: 'monthly-flavor-box',
     name: 'Monthly Flavor Box',
+    flavor: 'Monthly',
     badge: 'NEW',
     swatch: 'olive',
     blurb: 'A rotating flavor lineup, delivered to your door every month.',

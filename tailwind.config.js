@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       colors: {
-        camel: '#DFC9A9',
+        camel: '#E2CEB2',
         card: '#F0E5D2',
         chocolate: '#2B1F16',
         olive: '#43481D',

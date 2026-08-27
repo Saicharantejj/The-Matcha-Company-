@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Marquee from './Marquee'
+import logoWordmark from '../assets/logo-wordmark-chocolate.png'
 
 const NAV_LINKS = [
   { to: '/', label: 'Home' },
@@ -27,8 +28,8 @@ export default function Header({ cartCount = 0 }) {
       <Marquee items={TICKER_ITEMS} />
       <div className="border-b border-chocolate bg-camel/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
-          <NavLink to="/" className="font-display text-lg tracking-display sm:text-xl">
-            The Matcha Company
+          <NavLink to="/" aria-label="The Matcha Company — home" className="flex items-center">
+            <img src={logoWordmark} alt="The Matcha Company" className="h-6 w-auto sm:h-7" />
           </NavLink>
 
           <nav className="hidden items-center gap-8 lg:flex">

@@ -7,10 +7,10 @@ import { matchaKits } from '../data/products'
 function KitBundleCard({ kit, index, onAdd }) {
   return (
     <StaggerItem>
-      <motion.div className="card-hard grid grid-cols-1 overflow-hidden sm:grid-cols-5">
+      <motion.div className="card-hard group grid grid-cols-1 overflow-hidden sm:grid-cols-5">
         <div className="border-b border-chocolate sm:col-span-2 sm:border-b-0 sm:border-r">
           <div className="aspect-[4/3] h-full w-full sm:aspect-auto">
-            <SachetGraphic swatch={kit.swatch} badge={kit.badge} />
+            <SachetGraphic swatch={kit.swatch} badge={kit.badge} flavor={kit.flavor} />
           </div>
         </div>
 

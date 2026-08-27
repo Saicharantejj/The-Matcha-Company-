@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from './Reveal'
+import logoWordmark from '../assets/logo-wordmark-cream.png'
 
 const SOCIALS = ['Instagram', 'TikTok', 'X / Twitter', 'Pinterest']
 
@@ -19,11 +20,11 @@ export default function Footer() {
     <footer className="border-t border-chocolate bg-chocolate text-cream">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <Reveal>
-          <h2 className="font-display text-[13vw] leading-[0.9] tracking-display text-cream sm:text-6xl lg:text-8xl">
-            The Matcha
-            <br />
-            Company
-          </h2>
+          <img
+            src={logoWordmark}
+            alt="The Matcha Company"
+            className="h-20 w-auto sm:h-28 lg:h-36"
+          />
         </Reveal>
 
         <div className="mt-12 grid grid-cols-1 gap-10 border-t border-cream/20 pt-10 sm:grid-cols-2 lg:grid-cols-4">

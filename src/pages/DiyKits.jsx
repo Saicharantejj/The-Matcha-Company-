@@ -27,10 +27,10 @@ function KitCard({ kit, index, onAdd }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount: 0.15 }}
       transition={{ duration: 0.5, delay: (index % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
-      className="card-hard flex flex-col overflow-hidden"
+      className="card-hard group flex flex-col overflow-hidden"
     >
       <div className="aspect-[16/10] w-full border-b border-chocolate">
-        <SachetGraphic swatch={kit.swatch} badge={kit.badge} />
+        <SachetGraphic swatch={kit.swatch} badge={kit.badge} flavor={kit.flavor} />
       </div>
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
