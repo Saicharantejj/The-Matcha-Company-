@@ -13,7 +13,7 @@ export default {
         cream: '#F6EFC6',
       },
       fontFamily: {
-        display: ['"Josefin Sans"', 'sans-serif'],
+        display: ['"Archivo Black"', 'Impact', 'sans-serif'],
         body: ['"Instrument Sans"', 'sans-serif'],
         mono: ['"Courier Prime"', 'monospace'],
       },
@@ -34,7 +34,9 @@ export default {
         'hard-olive': '4px 4px 0px 0px #43481D',
       },
       letterSpacing: {
-        display: '0.15em',
+        // Archivo Black is a heavy grotesque like the wordmark — it wants to be
+        // set tight, not letterspaced the way the old light display face was.
+        display: '-0.02em',
       },
       keyframes: {
         marquee: {

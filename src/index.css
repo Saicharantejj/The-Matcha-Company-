@@ -24,10 +24,15 @@
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: "Josefin Sans", sans-serif;
+    font-family: "Archivo Black", Impact, sans-serif;
     text-transform: uppercase;
-    letter-spacing: 0.15em;
-    font-weight: 400;
+    letter-spacing: -0.02em;
+    font-weight: 400; /* Archivo Black ships a single weight, already black */
+  }
+
+  /* Big display lines look better optically balanced rather than ragged. */
+  h1, h2 {
+    text-wrap: balance;
   }
 }
 
