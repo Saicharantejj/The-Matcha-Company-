@@ -109,7 +109,7 @@ export default function Home() {
                 initial={{ opacity: 0, y: 14 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.85, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                className="mt-6 max-w-md font-body text-base leading-relaxed text-ink/80 sm:text-lg"
+                className="mt-6 max-w-md font-body text-base leading-relaxed text-bark sm:text-lg"
               >
                 Good matcha shouldn't need a café visit or a bamboo whisk. Just tear a sachet, stir, and go.
               </motion.p>
@@ -131,7 +131,7 @@ export default function Home() {
               <div className="mt-10 flex items-center gap-6 border-t border-ink/15 pt-6">
                 <div>
                   <p className="font-display text-2xl tracking-display text-olive">4.8/5</p>
-                  <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-ink/60">
+                  <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bark">
                     <Package size={12} strokeWidth={2.5} aria-hidden="true" />
                     2,300+ orders
                   </p>
@@ -139,7 +139,7 @@ export default function Home() {
                 <div className="h-8 w-px bg-ink/20" />
                 <div>
                   <p className="font-display text-2xl tracking-display text-olive">5</p>
-                  <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-ink/60">
+                  <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bark">
                     <Timer size={12} strokeWidth={2.5} aria-hidden="true" />
                     Sachet flavors
                   </p>
@@ -147,7 +147,7 @@ export default function Home() {
               </div>
 
               <div className="mt-10 border-t border-ink/15 pt-6">
-                <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-ink/55">
+                <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-bark">
                   One sachet, stirred with milk or water
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -216,7 +216,7 @@ export default function Home() {
             <h2 className="font-display text-3xl tracking-display text-cream sm:text-5xl">
               Ready when you are
             </h2>
-            <p className="mx-auto mt-4 max-w-lg font-body text-cream/75">
+            <p className="mx-auto mt-4 max-w-lg font-body text-linen">
               Order online and we'll ship it out, or set your café up with a standing order.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">

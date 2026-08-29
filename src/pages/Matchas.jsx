@@ -24,7 +24,7 @@ export default function Matchas() {
           <Reveal>
             <p className="font-mono text-xs uppercase tracking-widest text-olive">Five Flavors</p>
             <h1 className="mt-2 font-display text-4xl tracking-display sm:text-5xl">Our Matchas</h1>
-            <p className="mt-4 max-w-xl font-body text-base text-ink/75">
+            <p className="mt-4 max-w-xl font-body text-base text-bark">
               Stone-ground matcha, sourced from Uji, Kyoto — blended into single-serve sachets.
               Tear, stir into milk or water, and skip the ceremony entirely.
             </p>
@@ -36,7 +36,7 @@ export default function Matchas() {
         <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
           <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
             <div className="flex flex-wrap items-center gap-2">
-              <span className="mr-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-ink/50">
+              <span className="mr-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bark">
                 <SlidersHorizontal size={12} strokeWidth={2.5} aria-hidden="true" />
                 Filter
               </span>
@@ -52,7 +52,7 @@ export default function Matchas() {
             </div>
             <p
               aria-live="polite"
-              className="font-mono text-xs uppercase tracking-widest text-ink/50"
+              className="font-mono text-xs uppercase tracking-widest text-bark"
             >
               {visible.length} {visible.length === 1 ? 'flavor' : 'flavors'}
             </p>
@@ -78,7 +78,7 @@ export default function Matchas() {
           </motion.div>
 
           {visible.length === 0 && (
-            <p className="pb-20 font-body text-sm text-ink/60">
+            <p className="pb-20 font-body text-sm text-bark">
               No sachets carry that tag yet.
             </p>
           )}
@@ -95,7 +95,7 @@ function FilterChip({ label, isActive, onClick }) {
       onClick={onClick}
       aria-pressed={isActive}
       className={`relative border-2 border-ink px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
-        isActive ? 'text-cream' : 'text-ink/70 hover:text-ink'
+        isActive ? 'text-cream' : 'text-bark hover:text-ink'
       }`}
     >
       {isActive && (

@@ -46,7 +46,7 @@ export default function OurStory() {
             <h1 className="mt-2 max-w-3xl font-display text-4xl tracking-display sm:text-5xl lg:text-6xl">
               A farm in Uji. A sachet at your door. No ceremony in between.
             </h1>
-            <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-ink/75 sm:text-lg">
+            <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-bark sm:text-lg">
               We didn't set out to reinvent matcha — just to strip out everything standing between
               a good cup and the people who'd actually drink it daily.
             </p>
@@ -62,7 +62,7 @@ export default function OurStory() {
             <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">
               One farm, not a blend
             </h2>
-            <p className="mt-4 max-w-md font-body text-base leading-relaxed text-ink/75">
+            <p className="mt-4 max-w-md font-body text-base leading-relaxed text-bark">
               Most "matcha" on shelves is blended from multiple harvests and regions to hit a price
               point. Ours comes from a single shaded terrace in Uji, Kyoto — the same family, the
               same rows, every single order.
@@ -85,7 +85,7 @@ export default function OurStory() {
             <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">
               Ground slow, on stone
             </h2>
-            <p className="mt-4 max-w-md font-body text-base leading-relaxed text-ink/75">
+            <p className="mt-4 max-w-md font-body text-base leading-relaxed text-bark">
               Granite stone mills grind about 30 grams an hour — slow enough that friction never
               heats the leaf. Heat is what turns good matcha bitter and dull. We'd rather wait.
             </p>
@@ -99,7 +99,7 @@ export default function OurStory() {
           <Reveal className="mb-10 max-w-xl">
             <p className="font-mono text-xs uppercase tracking-widest text-olive">Since 1958</p>
             <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">The Uji Timeline</h2>
-            <p className="mt-3 font-body text-sm text-ink/70">
+            <p className="mt-3 font-body text-sm text-bark">
               Tap a year to read what happened.
             </p>
           </Reveal>
@@ -146,7 +146,7 @@ export default function OurStory() {
                 <h3 className="mt-2 font-display text-2xl tracking-display sm:text-3xl">
                   {activeEntry.title}
                 </h3>
-                <p className="mt-3 font-body text-base leading-relaxed text-ink/75">
+                <p className="mt-3 font-body text-base leading-relaxed text-bark">
                   {activeEntry.text}
                 </p>
               </motion.div>
@@ -187,7 +187,7 @@ export default function OurStory() {
                 <div className="card-hard h-full p-6">
                   <p className="font-mono text-xs text-olive">{item.n}</p>
                   <h3 className="mt-3 font-display text-lg tracking-display">{item.title}</h3>
-                  <p className="mt-3 font-body text-sm leading-relaxed text-ink/70">{item.text}</p>
+                  <p className="mt-3 font-body text-sm leading-relaxed text-bark">{item.text}</p>
                 </div>
               </StaggerItem>
             ))}

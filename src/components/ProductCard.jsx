@@ -36,7 +36,7 @@ export default function ProductCard({ product, index = 0 }) {
           <h3 className="font-display text-base tracking-display">{product.name}</h3>
 
           {product.blurb && (
-            <p className="mt-2 font-body text-sm leading-relaxed text-ink/70">{product.blurb}</p>
+            <p className="mt-2 font-body text-sm leading-relaxed text-bark">{product.blurb}</p>
           )}
 
           <div className="mt-4 flex flex-wrap gap-2">

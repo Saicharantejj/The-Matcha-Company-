@@ -35,7 +35,7 @@ export default function Footer() {
         <div className="mt-12 grid grid-cols-1 gap-10 border-t border-cream/20 pt-10 sm:grid-cols-2 lg:grid-cols-3">
           <Reveal delay={0.05}>
             <h3 className="font-mono text-xs uppercase tracking-widest text-cream">How It Works</h3>
-            <p className="mt-3 font-body text-sm leading-relaxed text-cream/70">
+            <p className="mt-3 font-body text-sm leading-relaxed text-linen">
               We're online only — order any flavor and it ships to your door.
               One sachet, stirred into milk or water. No whisk, no ceremony.
             </p>
@@ -43,7 +43,7 @@ export default function Footer() {
 
           <Reveal delay={0.1}>
             <h3 className="font-mono text-xs uppercase tracking-widest text-cream">Explore</h3>
-            <ul className="mt-3 space-y-2 font-body text-sm text-cream/70">
+            <ul className="mt-3 space-y-2 font-body text-sm text-linen">
               <li><Link to="/matchas" className="hover:text-cream">Our Matchas</Link></li>
               <li><Link to="/diy-kits" className="hover:text-cream">DIY Kits</Link></li>
               <li><Link to="/matcha-kits" className="hover:text-cream">Matcha Kits</Link></li>
@@ -53,7 +53,7 @@ export default function Footer() {
 
           <Reveal delay={0.15}>
             <h3 className="font-mono text-xs uppercase tracking-widest text-cream">Stay In The Loop</h3>
-            <p className="mt-3 font-body text-sm text-cream/70">
+            <p className="mt-3 font-body text-sm text-linen">
               One email a month. No spam, just new drops.
             </p>
             <form onSubmit={handleSubmit} className="mt-4 flex border border-cream/40">
@@ -63,7 +63,7 @@ export default function Footer() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 placeholder="you@email.com"
-                className="w-full bg-transparent px-3 py-2.5 font-mono text-xs text-cream placeholder:text-cream/40 focus:outline-none"
+                className="w-full bg-transparent px-3 py-2.5 font-mono text-xs text-cream placeholder:text-linen focus:outline-none"
               />
               <button
                 type="submit"
@@ -81,7 +81,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-cream/20 pt-6 sm:flex-row sm:items-center">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-cream/50">
+          <p className="font-mono text-[10px] uppercase tracking-widest text-linen">
             © {new Date().getFullYear()} The Matcha Company. All rights reserved.
           </p>
           <div className="flex flex-wrap gap-x-5 gap-y-2">
@@ -91,7 +91,7 @@ export default function Footer() {
                 href={s.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="font-mono text-[10px] uppercase tracking-widest text-cream/60 transition-colors hover:text-cream"
+                className="font-mono text-[10px] uppercase tracking-widest text-linen transition-colors hover:text-cream"
               >
                 {s.label}
               </a>

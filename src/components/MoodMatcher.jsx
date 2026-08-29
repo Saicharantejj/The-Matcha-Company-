@@ -27,7 +27,7 @@ export default function MoodMatcher() {
           <h3 className="mt-2 font-display text-2xl tracking-display sm:text-3xl">
             Tell us how you feel
           </h3>
-          <p className="mt-2 font-body text-sm text-ink/70">
+          <p className="mt-2 font-body text-sm text-bark">
             Five moods, five flavors. Tap one to see which sachet we'd hand you.
           </p>
 
@@ -42,7 +42,7 @@ export default function MoodMatcher() {
                   className={`relative border-2 px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest transition-colors ${
                     isActive
                       ? 'border-ink text-cream'
-                      : 'border-ink/40 text-ink/70 hover:border-ink hover:text-ink'
+                      : 'border-ink/40 text-bark hover:border-ink hover:text-ink'
                   }`}
                 >
                   {isActive && (
@@ -71,7 +71,7 @@ export default function MoodMatcher() {
                 We'd hand you
               </p>
               <h4 className="mt-1 font-display text-xl tracking-display">{active.drink}</h4>
-              <p className="mt-2 font-body text-sm leading-relaxed text-ink/75">{active.note}</p>
+              <p className="mt-2 font-body text-sm leading-relaxed text-bark">{active.note}</p>
 
               <div className="mt-5">
                 <button

@@ -137,7 +137,7 @@ export default function CartDrawer() {
                   ✓
                 </div>
                 <h3 className="mt-5 font-display text-2xl tracking-display">Order requested</h3>
-                <p className="mt-3 font-body text-sm leading-relaxed text-ink/75">
+                <p className="mt-3 font-body text-sm leading-relaxed text-bark">
                   We've logged {placed.items} {placed.items === 1 ? 'item' : 'items'} against reference{' '}
                   <span className="font-mono text-ink">{placed.ref}</span>. Our team confirms
                   every order by email before it ships.
@@ -152,11 +152,11 @@ export default function CartDrawer() {
               </div>
             ) : lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-ink/50">
+                <p className="font-mono text-[10px] uppercase tracking-widest text-bark">
                   Nothing here yet
                 </p>
                 <h3 className="mt-3 font-display text-2xl tracking-display">Your cart is empty</h3>
-                <p className="mt-3 font-body text-sm leading-relaxed text-ink/70">
+                <p className="mt-3 font-body text-sm leading-relaxed text-bark">
                   Pick a flavor sachet, a recipe kit, or a bundle and it'll show up here.
                 </p>
                 <Link
@@ -203,7 +203,7 @@ export default function CartDrawer() {
                               <button
                                 type="button"
                                 onClick={() => removeItem(line.id)}
-                                className="font-mono text-[10px] uppercase tracking-widest text-ink/55 underline underline-offset-4 transition-colors hover:text-ink"
+                                className="font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-ink"
                               >
                                 Remove
                               </button>
@@ -217,10 +217,10 @@ export default function CartDrawer() {
 
                 <footer className="border-t border-ink px-5 py-5">
                   <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest">
-                    <span className="text-ink/60">Total items</span>
+                    <span className="text-bark">Total items</span>
                     <span className="tabular-nums text-ink">{count}</span>
                   </div>
-                  <p className="mt-3 font-body text-xs leading-relaxed text-ink/60">
+                  <p className="mt-3 font-body text-xs leading-relaxed text-bark">
                     We confirm pricing and delivery by email — nothing is charged here.
                   </p>
 
@@ -234,7 +234,7 @@ export default function CartDrawer() {
                   <button
                     type="button"
                     onClick={clearCart}
-                    className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-ink/55 underline underline-offset-4 transition-colors hover:text-ink"
+                    className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-ink"
                   >
                     Clear cart
                   </button>

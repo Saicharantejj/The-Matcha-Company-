@@ -40,7 +40,7 @@ function KitCard({ kit }) {
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="font-display text-lg tracking-display">{kit.name}</h3>
-        <p className="mt-2 font-body text-sm leading-relaxed text-ink/70">{kit.blurb}</p>
+        <p className="mt-2 font-body text-sm leading-relaxed text-bark">{kit.blurb}</p>
 
         <div className="mt-4 flex flex-wrap gap-2">
           <span className="tag-outline flex items-center gap-1.5">
@@ -90,7 +90,7 @@ function KitCard({ kit }) {
                         type="button"
                         onClick={() => toggle(item)}
                         aria-pressed={isChecked}
-                        className="flex w-full items-start gap-2.5 text-left font-body text-sm text-ink/80"
+                        className="flex w-full items-start gap-2.5 text-left font-body text-sm text-bark"
                       >
                         <span
                           className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center border-2 border-ink transition-colors ${
@@ -228,7 +228,7 @@ export default function DiyKits() {
           <Reveal>
             <p className="font-mono text-xs uppercase tracking-widest text-olive">Make It Yourself</p>
             <h1 className="mt-2 font-display text-4xl tracking-display sm:text-5xl">DIY Kits</h1>
-            <p className="mt-4 max-w-xl font-body text-base text-ink/75">
+            <p className="mt-4 max-w-xl font-body text-base text-bark">
               Each kit builds one recipe around a flavor sachet — pre-portioned, no whisk or
               ceremony required. Just what you need, plus a recipe card.
             </p>

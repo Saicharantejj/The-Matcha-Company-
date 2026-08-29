@@ -38,14 +38,14 @@ function KitBundleCard({ kit, qty, onQty }) {
 
         <div className="flex flex-col p-6 sm:col-span-3">
           <h3 className="font-display text-xl tracking-display">{kit.name}</h3>
-          <p className="mt-2 font-body text-sm leading-relaxed text-ink/70">{kit.blurb}</p>
+          <p className="mt-2 font-body text-sm leading-relaxed text-bark">{kit.blurb}</p>
 
           <p className="mt-4 font-mono text-[10px] uppercase tracking-widest text-olive">
             Bundle Breakdown
           </p>
           <ul className="mt-2 grid grid-cols-1 gap-1.5 sm:grid-cols-2">
             {kit.items.map((item) => (
-              <li key={item} className="flex items-start gap-2 font-body text-sm text-ink/80">
+              <li key={item} className="flex items-start gap-2 font-body text-sm text-bark">
                 <span className="mt-1.5 h-1.5 w-1.5 flex-shrink-0 bg-olive" />
                 {item}
               </li>
@@ -116,7 +116,7 @@ export default function MatchaKits() {
               Sachet Packs &amp; Bundles
             </p>
             <h1 className="mt-2 font-display text-4xl tracking-display sm:text-5xl">Matcha Kits</h1>
-            <p className="mt-4 max-w-xl font-body text-base text-ink/75">
+            <p className="mt-4 max-w-xl font-body text-base text-bark">
               Discovery packs, gift boxes, and bulk cases — sachets bundled by the occasion, for
               first-timers, gifting, and café-scale setups alike.
             </p>
@@ -134,7 +134,7 @@ export default function MatchaKits() {
               className="flex flex-wrap items-center justify-between gap-4 border-2 border-ink bg-card px-5 py-4"
               style={{ boxShadow: '4px 4px 0px 0px #4C382C' }}
             >
-              <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-ink/55">
+              <p className="flex items-center gap-2 font-mono text-[10px] uppercase tracking-widest text-bark">
                 <Package size={13} strokeWidth={2.5} aria-hidden="true" />
                 Bundle calculator
               </p>
@@ -174,7 +174,7 @@ function Stat({ value, label }) {
       >
         {value}
       </motion.p>
-      <p className="font-mono text-[10px] uppercase tracking-widest text-ink/55">{label}</p>
+      <p className="font-mono text-[10px] uppercase tracking-widest text-bark">{label}</p>
     </div>
   )
 }
