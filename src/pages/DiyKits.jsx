@@ -124,6 +124,48 @@ function KitCard({ kit }) {
   )
 }
 
+// Card geometry. The roll maths needs these as plain numbers, so they drive the
+// layout as well rather than being restated as Tailwind classes that could
+// silently drift out of step with the transforms below.
+const CARD_W = 380
+const CARD_GAP = 24
+const TRACK_PAD = 32
+
+/**
+ * One card on the moving track.
+ *
+ * Reacts to how far its own centre sits from the centre of the viewport, so the
+ * row reads as a physical reel rather than a flat strip sliding past: the card
+ * under the eye is upright and full size, and the ones heading off to either
+ * side tilt away and recede.
+ *
+ * Rotation and scale are deliberately coupled. A card at full tilt is also at
+ * its smallest, which keeps its rotated bounding box no taller than an upright
+ * card at rest — otherwise the corners would clip against the overflow-hidden
+ * on the pinned container.
+ *
+ * Everything derives from the shared x motion value, so this runs on the
+ * compositor without a React render per frame.
+ */
+function RollingCard({ kit, index, x, viewportW }) {
+  // Signed distance in px from the viewport centre; negative is to the left.
+  const offset = useTransform(x, (tx) =>
+    viewportW ? TRACK_PAD + index * (CARD_W + CARD_GAP) + CARD_W / 2 + tx - viewportW / 2 : 0,
+  )
+
+  // Reach slightly beyond one card, so an immediate neighbour lands mid-tilt and
+  // cards further out ease into the limit instead of snapping straight to it.
+  const reach = (CARD_W + CARD_GAP) * 1.4
+  const rotate = useTransform(offset, [-reach, 0, reach], [-6, 0, 6])
+  const scale = useTransform(offset, [-reach, 0, reach], [0.92, 1, 0.92])
+
+  return (
+    <motion.div style={{ width: CARD_W, rotate, scale }} className="flex-shrink-0">
+      <KitCard kit={kit} />
+    </motion.div>
+  )
+}
+
 /**
  * Pins the viewport and converts vertical scroll into horizontal travel across
  * the kit cards, then releases back to normal scrolling.
@@ -140,12 +182,16 @@ function PinnedKits({ kits }) {
   const sectionRef = useRef(null)
   const trackRef = useRef(null)
   const [distance, setDistance] = useState(0)
+  // The reel maths is measured against the centre of the viewport, so the cards
+  // need its width as well as the distance the track has to travel.
+  const [viewportW, setViewportW] = useState(0)
 
   // Measure before paint so the first frame is already correct.
   useLayoutEffect(() => {
     const measure = () => {
       const el = trackRef.current
       if (!el) return
+      setViewportW(window.innerWidth)
       setDistance(Math.max(el.scrollWidth - window.innerWidth + 96, 0))
     }
     measure()
@@ -171,13 +217,11 @@ function PinnedKits({ kits }) {
         <motion.div
           ref={trackRef}
           data-testid="kit-track"
-          style={{ x }}
-          className="flex w-max gap-6 px-5 sm:px-8"
+          style={{ x, gap: CARD_GAP, paddingLeft: TRACK_PAD, paddingRight: TRACK_PAD }}
+          className="flex w-max"
         >
-          {kits.map((kit) => (
-            <div key={kit.id} className="w-[380px] flex-shrink-0">
-              <KitCard kit={kit} />
-            </div>
+          {kits.map((kit, i) => (
+            <RollingCard key={kit.id} kit={kit} index={i} x={x} viewportW={viewportW} />
           ))}
         </motion.div>
       </div>
