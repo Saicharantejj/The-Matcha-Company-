@@ -18,6 +18,13 @@
     background-size: 22px 22px;
   }
 
+  /* Branded keyboard focus. Uses :focus-visible so it appears for keyboard
+     users without ringing every mouse click. */
+  :focus-visible {
+    outline: 3px solid #6F9E28;
+    outline-offset: 2px;
+  }
+
   ::selection {
     background: #43481D;
     color: #F6EFC6;
@@ -49,29 +56,50 @@
     box-shadow: 2px 2px 0px 0px #4C382C;
   }
 
+  /* Neo-brutalist shadow physics: at rest the offset shadow is tight; on hover
+     the element lifts up-and-left and the shadow grows to match, as though it
+     rose off the page. The spring-ish cubic-bezier gives it a little overshoot. */
   .btn-hard {
-    @apply inline-flex items-center justify-center gap-2 border border-ink px-6 py-3 font-mono text-xs uppercase tracking-widest transition-all duration-150 ease-out;
-    box-shadow: 3px 3px 0px 0px #4C382C;
+    @apply inline-flex items-center justify-center gap-2 border-2 border-ink px-6 py-3 font-mono text-xs uppercase tracking-widest;
+    box-shadow: 4px 4px 0px 0px #4C382C;
+    transition:
+      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .btn-hard:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px 0px #4C382C;
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0px 0px #4C382C;
   }
 
   .btn-hard:active {
-    transform: translate(3px, 3px);
-    box-shadow: 0px 0px 0px 0px #4C382C;
+    transform: translate(2px, 2px);
+    box-shadow: 1px 1px 0px 0px #4C382C;
+    transition-duration: 0.08s;
   }
 
   .card-hard {
-    @apply border border-ink bg-card transition-all duration-150 ease-out;
+    @apply border-2 border-ink bg-card;
     box-shadow: 4px 4px 0px 0px #4C382C;
+    transition:
+      transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
+      box-shadow 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
 
   .card-hard:hover {
-    transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px 0px #4C382C;
+    transform: translate(-4px, -4px);
+    box-shadow: 8px 8px 0px 0px #4C382C;
+  }
+
+  /* A tilted card owns its transform via Framer, so it must not also animate
+     transform here — only the shadow grows. */
+  .card-hard.is-tilting,
+  .card-hard.is-tilting:hover {
+    transform: none;
+    transition: box-shadow 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .card-hard.is-tilting:hover {
+    box-shadow: 8px 8px 0px 0px #4C382C;
   }
 
   .tag-outline {
@@ -93,3 +121,27 @@
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* The custom cursor component adds this class once it has actually mounted, so
+   a JS failure can never leave the visitor with no pointer at all. Text fields
+   keep a real caret — losing that is genuinely disorienting. */
+.has-custom-cursor,
+.has-custom-cursor * {
+  cursor: none !important;
+}
+.has-custom-cursor input,
+.has-custom-cursor textarea,
+.has-custom-cursor select {
+  cursor: text !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

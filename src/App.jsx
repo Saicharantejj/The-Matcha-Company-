@@ -4,7 +4,10 @@ import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
+import GrainOverlay from './components/GrainOverlay'
+import MagneticCursor from './components/MagneticCursor'
 import { CartProvider } from './context/CartContext'
+import { ToastProvider } from './components/Toast'
 import Home from './pages/Home'
 import Matchas from './pages/Matchas'
 import DiyKits from './pages/DiyKits'
@@ -16,7 +19,7 @@ import OurStory from './pages/OurStory'
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'instant' in window ? 'instant' : 'auto' })
+    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
   }, [pathname])
   return null
 }
@@ -26,23 +29,27 @@ export default function App() {
 
   return (
     <CartProvider>
-      <div className="flex min-h-screen flex-col">
-        <ScrollToTop />
-        <Header />
+      <ToastProvider>
+        <div className="flex min-h-screen flex-col">
+          <ScrollToTop />
+          <Header />
 
-        <AnimatePresence mode="wait" initial={false}>
-          <Routes location={location} key={location.pathname}>
-            <Route path="/" element={<Home />} />
-            <Route path="/matchas" element={<Matchas />} />
-            <Route path="/diy-kits" element={<DiyKits />} />
-            <Route path="/matcha-kits" element={<MatchaKits />} />
-            <Route path="/our-story" element={<OurStory />} />
-          </Routes>
-        </AnimatePresence>
+          <AnimatePresence mode="wait" initial={false}>
+            <Routes location={location} key={location.pathname}>
+              <Route path="/" element={<Home />} />
+              <Route path="/matchas" element={<Matchas />} />
+              <Route path="/diy-kits" element={<DiyKits />} />
+              <Route path="/matcha-kits" element={<MatchaKits />} />
+              <Route path="/our-story" element={<OurStory />} />
+            </Routes>
+          </AnimatePresence>
 
-        <Footer />
-        <CartDrawer />
-      </div>
+          <Footer />
+          <CartDrawer />
+          <GrainOverlay />
+          <MagneticCursor />
+        </div>
+      </ToastProvider>
     </CartProvider>
   )
 }
