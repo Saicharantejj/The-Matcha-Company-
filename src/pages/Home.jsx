@@ -7,7 +7,7 @@ import {
   useSpring,
   useReducedMotion,
 } from 'framer-motion'
-import { ArrowRight, Leaf, Package, Timer } from 'lucide-react'
+import { ArrowRight } from 'lucide-react'
 import PageShell from '../components/PageShell'
 import Reveal, { StaggerGroup, StaggerItem } from '../components/Reveal'
 import MoodMatcher from '../components/MoodMatcher'
@@ -67,14 +67,13 @@ export default function Home() {
               initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-              className="mb-4 flex items-center justify-center gap-2 font-mono text-xs uppercase tracking-widest text-olive"
+              className="mb-5 font-mono text-xs uppercase tracking-widest text-olive"
             >
-              <Leaf size={14} strokeWidth={2.5} aria-hidden="true" />
               Made for everyday
             </motion.p>
 
             {/* Kinetic split reveal — each glyph springs in on a stagger */}
-            <h1 className="font-display text-[13vw] leading-[0.95] tracking-display sm:text-6xl lg:text-7xl">
+            <h1 className="font-display text-[14vw] leading-[0.86] tracking-display sm:text-7xl lg:text-8xl">
               <SplitText text="Matcha, minus" as="span" className="block" delay={0.15} />
               <SplitText text="the ceremony" as="span" className="block" delay={0.42} />
             </h1>
@@ -166,42 +165,20 @@ export default function Home() {
             </Reveal>
           </div>
 
-          <div className="mt-14 flex items-center justify-center gap-6 border-t border-ink/15 pt-6">
-            <div className="text-center">
-              <p className="font-display text-2xl tracking-display text-olive">4.8/5</p>
-              <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bark">
-                <Package size={12} strokeWidth={2.5} aria-hidden="true" />
-                2,300+ orders
-              </p>
-            </div>
-            <div className="h-8 w-px bg-ink/20" />
-            <div className="text-center">
-              <p className="font-display text-2xl tracking-display text-olive">5</p>
-              <p className="flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bark">
-                <Timer size={12} strokeWidth={2.5} aria-hidden="true" />
-                Sachet flavors
-              </p>
-            </div>
-          </div>
+          <p className="mx-auto mt-16 max-w-md text-center font-body text-sm leading-relaxed text-bark">
+            Five flavors, rated 4.8 out of 5 across more than 2,300 orders.
+          </p>
 
-          <div className="mt-8 border-t border-ink/15 pt-6 text-center">
-            <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-bark">
-              One sachet, stirred with milk or water
-            </p>
-            <div className="flex flex-wrap justify-center gap-2">
-              {FLAVORS.map((flavor) => (
-                <span key={flavor} className="tag-outline">
-                  {flavor}
-                </span>
-              ))}
-            </div>
-          </div>
+          <p className="mt-3 text-center font-body text-sm text-bark">
+            {FLAVORS.join(' \u00b7 ')}
+          </p>
+
         </div>
       </section>
 
       {/* MOOD MATCHER */}
       <section className="border-b border-ink bg-camel">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16">
           <Reveal className="mb-8 max-w-xl">
             <p className="font-mono text-xs uppercase tracking-widest text-olive">Not sure where to start?</p>
             <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">Find your flavor</h2>
@@ -217,7 +194,7 @@ export default function Home() {
 
       {/* FEATURED SPECIALS */}
       <section className="bg-camel">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
+        <div className="mx-auto max-w-7xl px-5 py-20 sm:px-8 sm:py-28">
           <Reveal className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
               <p className="font-mono text-xs uppercase tracking-widest text-olive">Fan favorites</p>
@@ -243,7 +220,7 @@ export default function Home() {
 
       {/* CTA STRIP */}
       <section className="border-t border-ink bg-ink">
-        <div className="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8">
+        <div className="mx-auto max-w-7xl px-5 py-20 text-center sm:px-8 sm:py-24">
           <Reveal>
             <h2 className="font-display text-3xl tracking-display text-cream sm:text-5xl">
               Ready when you are
