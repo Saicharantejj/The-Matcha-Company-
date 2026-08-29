@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import Marquee from './Marquee'
-import logoWordmark from '../assets/logo-wordmark-chocolate.png'
+import logoWordmark from '../assets/logo-wordmark-ink.png'
 import { useCart } from '../context/CartContext'
 
 const NAV_LINKS = [
@@ -28,7 +28,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50">
       <Marquee items={TICKER_ITEMS} />
-      <div className="border-b border-chocolate bg-camel/95 backdrop-blur-sm">
+      <div className="border-b border-ink bg-camel/95 backdrop-blur-sm">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <NavLink to="/" aria-label="The Matcha Company — home" className="flex items-center">
             <img src={logoWordmark} alt="The Matcha Company" className="h-11 w-auto sm:h-14" />
@@ -42,7 +42,7 @@ export default function Header() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   `relative font-mono text-xs uppercase tracking-widest transition-colors ${
-                    isActive ? 'text-olive' : 'text-chocolate/70 hover:text-chocolate'
+                    isActive ? 'text-olive' : 'text-ink/70 hover:text-ink'
                   }`
                 }
               >
@@ -69,8 +69,8 @@ export default function Header() {
               aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
               animate={lastAddedId ? { scale: [1, 1.09, 1] } : { scale: 1 }}
               transition={{ duration: 0.32, ease: 'easeOut' }}
-              className="border border-chocolate bg-olive px-4 py-2 font-mono text-xs uppercase tracking-widest text-cream transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#2B1F16]"
-              style={{ boxShadow: '3px 3px 0px 0px #2B1F16' }}
+              className="border border-ink bg-olive px-4 py-2 font-mono text-xs uppercase tracking-widest text-cream transition-[transform,box-shadow] hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[1px_1px_0px_0px_#4C382C]"
+              style={{ boxShadow: '3px 3px 0px 0px #4C382C' }}
             >
               Cart (<span className="tabular-nums">{cartCount}</span>)
             </motion.button>
@@ -78,10 +78,10 @@ export default function Header() {
               type="button"
               aria-label="Toggle menu"
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 border border-chocolate bg-card lg:hidden"
+              className="flex h-10 w-10 flex-col items-center justify-center gap-1.5 border border-ink bg-card lg:hidden"
             >
-              <span className={`h-[1.5px] w-5 bg-chocolate transition-transform ${menuOpen ? 'translate-y-[3px] rotate-45' : ''}`} />
-              <span className={`h-[1.5px] w-5 bg-chocolate transition-transform ${menuOpen ? '-translate-y-[3px] -rotate-45' : ''}`} />
+              <span className={`h-[1.5px] w-5 bg-ink transition-transform ${menuOpen ? 'translate-y-[3px] rotate-45' : ''}`} />
+              <span className={`h-[1.5px] w-5 bg-ink transition-transform ${menuOpen ? '-translate-y-[3px] -rotate-45' : ''}`} />
             </button>
           </div>
         </div>
@@ -93,7 +93,7 @@ export default function Header() {
               animate={{ height: 'auto', opacity: 1 }}
               exit={{ height: 0, opacity: 0 }}
               transition={{ duration: 0.25, ease: 'easeInOut' }}
-              className="overflow-hidden border-t border-chocolate bg-card lg:hidden"
+              className="overflow-hidden border-t border-ink bg-card lg:hidden"
             >
               <div className="flex flex-col gap-1 px-5 py-4">
                 {NAV_LINKS.map((link) => (
@@ -103,8 +103,8 @@ export default function Header() {
                     end={link.to === '/'}
                     onClick={() => setMenuOpen(false)}
                     className={({ isActive }) =>
-                      `border-b border-chocolate/10 py-2.5 font-mono text-xs uppercase tracking-widest ${
-                        isActive ? 'text-olive' : 'text-chocolate/70'
+                      `border-b border-ink/10 py-2.5 font-mono text-xs uppercase tracking-widest ${
+                        isActive ? 'text-olive' : 'text-ink/70'
                       }`
                     }
                   >

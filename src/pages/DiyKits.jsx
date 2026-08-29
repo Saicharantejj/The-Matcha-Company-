@@ -7,9 +7,9 @@ import { useCart } from '../context/CartContext'
 import { diyKits } from '../data/products'
 
 const DIFFICULTY_COLOR = {
-  EASY: 'bg-matcha text-chocolate',
-  MEDIUM: 'bg-moss text-cream',
-  HARD: 'bg-chocolate text-cream',
+  EASY: 'bg-moss text-cream',
+  MEDIUM: 'bg-olive text-cream',
+  HARD: 'bg-ink text-cream',
 }
 
 function KitCard({ kit, index }) {
@@ -31,17 +31,17 @@ function KitCard({ kit, index }) {
       transition={{ duration: 0.5, delay: (index % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
       className="card-hard group flex flex-col overflow-hidden"
     >
-      <div className="aspect-[16/10] w-full border-b border-chocolate">
+      <div className="aspect-[16/10] w-full border-b border-ink">
         <SachetGraphic swatch={kit.swatch} badge={kit.badge} flavor={kit.flavor} />
       </div>
 
       <div className="flex flex-1 flex-col p-5 sm:p-6">
         <h3 className="font-display text-lg tracking-display">{kit.name}</h3>
-        <p className="mt-2 font-body text-sm leading-relaxed text-chocolate/70">{kit.blurb}</p>
+        <p className="mt-2 font-body text-sm leading-relaxed text-ink/70">{kit.blurb}</p>
 
         <div className="mt-4 flex flex-wrap gap-2">
           <span className="tag-outline">⏱ {kit.prepTime}</span>
-          <span className={`border border-chocolate px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest ${DIFFICULTY_COLOR[kit.difficulty] || ''}`}>
+          <span className={`border border-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest ${DIFFICULTY_COLOR[kit.difficulty] || ''}`}>
             {kit.difficulty}
           </span>
           <span className="tag-outline">{kit.servings}</span>
@@ -50,7 +50,7 @@ function KitCard({ kit, index }) {
         <button
           type="button"
           onClick={() => setOpen((v) => !v)}
-          className="mt-5 flex items-center justify-between border-t border-chocolate/15 pt-4 font-mono text-[11px] uppercase tracking-widest text-olive"
+          className="mt-5 flex items-center justify-between border-t border-ink/15 pt-4 font-mono text-[11px] uppercase tracking-widest text-olive"
         >
           What's Included
           <motion.span animate={{ rotate: open ? 45 : 0 }} transition={{ duration: 0.2 }} className="text-base leading-none">
@@ -69,8 +69,8 @@ function KitCard({ kit, index }) {
             >
               <ul className="mt-3 space-y-2">
                 {kit.includes.map((item) => (
-                  <li key={item} className="flex items-start gap-2 font-body text-sm text-chocolate/80">
-                    <span className="mt-1 h-3 w-3 flex-shrink-0 border border-chocolate bg-matcha" />
+                  <li key={item} className="flex items-start gap-2 font-body text-sm text-ink/80">
+                    <span className="mt-1 h-3 w-3 flex-shrink-0 border border-ink bg-moss" />
                     {item}
                   </li>
                 ))}
@@ -83,7 +83,7 @@ function KitCard({ kit, index }) {
           <button
             type="button"
             onClick={handleAdd}
-            className="btn-hard w-full border-chocolate bg-olive text-cream"
+            className="btn-hard w-full border-ink bg-olive text-cream"
           >
             {added ? 'Added ✓' : 'Add Kit to Cart'}
           </button>
@@ -91,7 +91,7 @@ function KitCard({ kit, index }) {
             <button
               type="button"
               onClick={openCart}
-              className="mt-2 w-full font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+              className="mt-2 w-full font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-ink"
             >
               View cart
             </button>
@@ -105,12 +105,12 @@ function KitCard({ kit, index }) {
 export default function DiyKits() {
   return (
     <PageShell>
-      <section className="border-b border-chocolate bg-card">
+      <section className="border-b border-ink bg-card">
         <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
           <Reveal>
-            <p className="font-mono text-xs uppercase tracking-widest text-moss">Make It Yourself</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-olive">Make It Yourself</p>
             <h1 className="mt-2 font-display text-4xl tracking-display sm:text-5xl">DIY Kits</h1>
-            <p className="mt-4 max-w-xl font-body text-base text-chocolate/75">
+            <p className="mt-4 max-w-xl font-body text-base text-ink/75">
               Each kit builds one recipe around a flavor sachet — pre-portioned, no whisk or
               ceremony required. Just what you need, plus a recipe card.
             </p>

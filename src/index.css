@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    border-color: #2B1F16;
+    border-color: #4C382C;
   }
 
   html {
@@ -12,14 +12,14 @@
   }
 
   body {
-    @apply bg-camel text-chocolate font-body antialiased;
+    @apply bg-camel text-ink font-body antialiased;
     background-image:
-      radial-gradient(circle at 1px 1px, rgba(43,31,22,0.06) 1px, transparent 0);
+      radial-gradient(circle at 1px 1px, rgba(76,56,44,0.06) 1px, transparent 0);
     background-size: 22px 22px;
   }
 
   ::selection {
-    background: #6F9E28;
+    background: #43481D;
     color: #F6EFC6;
   }
 
@@ -38,44 +38,44 @@
 
 @layer components {
   .hard-border {
-    border: 1.5px solid #2B1F16;
+    border: 1.5px solid #4C382C;
   }
 
   .hard-shadow {
-    box-shadow: 4px 4px 0px 0px #2B1F16;
+    box-shadow: 4px 4px 0px 0px #4C382C;
   }
 
   .hard-shadow-sm {
-    box-shadow: 2px 2px 0px 0px #2B1F16;
+    box-shadow: 2px 2px 0px 0px #4C382C;
   }
 
   .btn-hard {
-    @apply inline-flex items-center justify-center gap-2 border border-chocolate px-6 py-3 font-mono text-xs uppercase tracking-widest transition-all duration-150 ease-out;
-    box-shadow: 3px 3px 0px 0px #2B1F16;
+    @apply inline-flex items-center justify-center gap-2 border border-ink px-6 py-3 font-mono text-xs uppercase tracking-widest transition-all duration-150 ease-out;
+    box-shadow: 3px 3px 0px 0px #4C382C;
   }
 
   .btn-hard:hover {
     transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px 0px #2B1F16;
+    box-shadow: 1px 1px 0px 0px #4C382C;
   }
 
   .btn-hard:active {
     transform: translate(3px, 3px);
-    box-shadow: 0px 0px 0px 0px #2B1F16;
+    box-shadow: 0px 0px 0px 0px #4C382C;
   }
 
   .card-hard {
-    @apply border border-chocolate bg-card transition-all duration-150 ease-out;
-    box-shadow: 4px 4px 0px 0px #2B1F16;
+    @apply border border-ink bg-card transition-all duration-150 ease-out;
+    box-shadow: 4px 4px 0px 0px #4C382C;
   }
 
   .card-hard:hover {
     transform: translate(2px, 2px);
-    box-shadow: 2px 2px 0px 0px #2B1F16;
+    box-shadow: 2px 2px 0px 0px #4C382C;
   }
 
   .tag-outline {
-    @apply border-[1.5px] border-chocolate px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-chocolate;
+    @apply border-[1.5px] border-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink;
   }
 }
 

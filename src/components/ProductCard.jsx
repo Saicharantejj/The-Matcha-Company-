@@ -21,7 +21,7 @@ export default function ProductCard({ product, index = 0 }) {
       transition={{ duration: 0.5, delay: (index % 6) * 0.06, ease: [0.22, 1, 0.36, 1] }}
       className="card-hard group flex flex-col overflow-hidden"
     >
-      <div className="aspect-[4/3] w-full border-b border-chocolate">
+      <div className="aspect-[4/3] w-full border-b border-ink">
         <SachetGraphic swatch={product.swatch} badge={product.badge} size={product.size} flavor={product.flavor} />
       </div>
 
@@ -29,7 +29,7 @@ export default function ProductCard({ product, index = 0 }) {
         <h3 className="font-display text-base tracking-display">{product.name}</h3>
 
         {product.blurb && (
-          <p className="mt-2 font-body text-sm leading-relaxed text-chocolate/70">{product.blurb}</p>
+          <p className="mt-2 font-body text-sm leading-relaxed text-ink/70">{product.blurb}</p>
         )}
 
         <div className="mt-4 flex flex-wrap gap-2">
@@ -44,7 +44,7 @@ export default function ProductCard({ product, index = 0 }) {
           <button
             type="button"
             onClick={handleAdd}
-            className="btn-hard w-full border-chocolate bg-olive text-cream"
+            className="btn-hard w-full border-ink bg-olive text-cream"
           >
             {added ? 'Added ✓' : 'Add to Cart'}
           </button>
@@ -52,7 +52,7 @@ export default function ProductCard({ product, index = 0 }) {
             <button
               type="button"
               onClick={openCart}
-              className="mt-2 w-full font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+              className="mt-2 w-full font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-ink"
             >
               View cart
             </button>

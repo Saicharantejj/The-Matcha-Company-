@@ -4,9 +4,9 @@ export default {
   theme: {
     extend: {
       colors: {
-        camel: '#E2CEB2',
+        camel: '#DFC9A9',
         card: '#F0E5D2',
-        chocolate: '#2B1F16',
+        ink: '#4C382C',
         olive: '#43481D',
         moss: '#7C8438',
         matcha: '#6F9E28',
@@ -29,8 +29,8 @@ export default {
         full: '4px',
       },
       boxShadow: {
-        hard: '4px 4px 0px 0px #2B1F16',
-        'hard-sm': '2px 2px 0px 0px #2B1F16',
+        hard: '4px 4px 0px 0px #4C382C',
+        'hard-sm': '2px 2px 0px 0px #4C382C',
         'hard-olive': '4px 4px 0px 0px #43481D',
       },
       letterSpacing: {

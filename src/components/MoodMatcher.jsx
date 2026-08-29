@@ -21,12 +21,12 @@ export default function MoodMatcher() {
   return (
     <div className="card-hard overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="border-b border-chocolate p-6 sm:p-8 lg:border-b-0 lg:border-r">
-          <p className="font-mono text-xs uppercase tracking-widest text-moss">Mood Matcher</p>
+        <div className="border-b border-ink p-6 sm:p-8 lg:border-b-0 lg:border-r">
+          <p className="font-mono text-xs uppercase tracking-widest text-olive">Mood Matcher</p>
           <h3 className="mt-2 font-display text-2xl tracking-display sm:text-3xl">
             Tell us how you feel
           </h3>
-          <p className="mt-2 font-body text-sm text-chocolate/70">
+          <p className="mt-2 font-body text-sm text-ink/70">
             Five moods, five flavors. Tap one to see which sachet we'd hand you.
           </p>
 
@@ -39,8 +39,8 @@ export default function MoodMatcher() {
                   onClick={() => setActiveId(mood.id)}
                   className={`relative border px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest transition-colors ${
                     isActive
-                      ? 'border-chocolate bg-olive text-cream'
-                      : 'border-chocolate/40 bg-transparent text-chocolate/70 hover:border-chocolate hover:text-chocolate'
+                      ? 'border-ink bg-olive text-cream'
+                      : 'border-ink/40 bg-transparent text-ink/70 hover:border-ink hover:text-ink'
                   }`}
                 >
                   {isActive && (
@@ -63,17 +63,17 @@ export default function MoodMatcher() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="mt-7 border-t border-chocolate/15 pt-6"
+              className="mt-7 border-t border-ink/15 pt-6"
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest text-moss">We'd hand you</p>
+              <p className="font-mono text-[10px] uppercase tracking-widest text-olive">We'd hand you</p>
               <h4 className="mt-1 font-display text-xl tracking-display">{active.drink}</h4>
-              <p className="mt-2 font-body text-sm leading-relaxed text-chocolate/75">{active.note}</p>
+              <p className="mt-2 font-body text-sm leading-relaxed text-ink/75">{active.note}</p>
 
               <div className="mt-5 flex flex-wrap items-center gap-4">
                 <button
                   type="button"
                   onClick={handleAdd}
-                  className="btn-hard border-chocolate bg-olive text-cream"
+                  className="btn-hard border-ink bg-olive text-cream"
                 >
                   {added ? 'Added ✓' : 'Add This Sachet'}
                 </button>
@@ -81,7 +81,7 @@ export default function MoodMatcher() {
                   <button
                     type="button"
                     onClick={openCart}
-                    className="font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+                    className="font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-ink"
                   >
                     View cart
                   </button>
@@ -91,7 +91,7 @@ export default function MoodMatcher() {
           </AnimatePresence>
         </div>
 
-        <div className="relative min-h-[260px] bg-chocolate">
+        <div className="relative min-h-[260px] bg-ink">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeId}

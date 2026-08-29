@@ -11,7 +11,7 @@ const SWATCH = {
 export default function SachetGraphic({ swatch = 'matcha', badge, size, flavor, className = '' }) {
   const fill = SWATCH[swatch] || SWATCH.matcha
   return (
-    <div className={`relative flex h-full w-full items-center justify-center overflow-hidden bg-chocolate ${className}`}>
+    <div className={`relative flex h-full w-full items-center justify-center overflow-hidden bg-ink ${className}`}>
       {/* flavor-tinted ambient glow */}
       <div
         aria-hidden="true"
@@ -28,12 +28,12 @@ export default function SachetGraphic({ swatch = 'matcha', badge, size, flavor, 
         }}
       />
       {badge && (
-        <span className="absolute left-3 top-3 z-10 border border-cream/70 bg-chocolate/60 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream backdrop-blur-sm">
+        <span className="absolute left-3 top-3 z-10 border border-cream/70 bg-ink/60 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream backdrop-blur-sm">
           {badge}
         </span>
       )}
       {size && (
-        <span className="absolute bottom-3 right-3 z-10 border border-cream/70 bg-chocolate/60 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream backdrop-blur-sm">
+        <span className="absolute bottom-3 right-3 z-10 border border-cream/70 bg-ink/60 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream backdrop-blur-sm">
           {size}
         </span>
       )}
@@ -47,17 +47,17 @@ export default function SachetGraphic({ swatch = 'matcha', badge, size, flavor, 
             strokeWidth="2"
           />
           {/* heat-seal band */}
-          <rect x="14" y="18" width="92" height="9" fill="#2B1F16" opacity="0.28" />
+          <rect x="14" y="18" width="92" height="9" fill="#4C382C" opacity="0.28" />
           {/* tear notch */}
           <path d="M52 18 L60 27 L68 18 Z" fill="#F0E5D2" />
           {/* side seams */}
-          <line x1="14" y1="18" x2="14" y2="140" stroke="#2B1F16" strokeWidth="1" opacity="0.25" />
-          <line x1="106" y1="18" x2="106" y2="140" stroke="#2B1F16" strokeWidth="1" opacity="0.25" />
+          <line x1="14" y1="18" x2="14" y2="140" stroke="#4C382C" strokeWidth="1" opacity="0.25" />
+          <line x1="106" y1="18" x2="106" y2="140" stroke="#4C382C" strokeWidth="1" opacity="0.25" />
           {/* label patch */}
-          <rect x="18" y="58" width="84" height="42" fill="#F0E5D2" stroke="#2B1F16" strokeWidth="1.5" />
+          <rect x="18" y="58" width="84" height="42" fill="#F0E5D2" stroke="#4C382C" strokeWidth="1.5" />
         </svg>
         {flavor && (
-          <span className="pointer-events-none absolute left-1/2 top-[52%] w-[62%] -translate-x-1/2 -translate-y-1/2 text-center font-mono text-[9px] font-bold uppercase leading-tight tracking-tight text-chocolate">
+          <span className="pointer-events-none absolute left-1/2 top-[52%] w-[62%] -translate-x-1/2 -translate-y-1/2 text-center font-mono text-[9px] font-bold uppercase leading-tight tracking-tight text-ink">
             {flavor}
           </span>
         )}

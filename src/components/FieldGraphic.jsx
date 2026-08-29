@@ -23,7 +23,7 @@ export default function FieldGraphic({ variant = 'rows', className = '' }) {
   if (variant === 'leaf') {
     return (
       <svg viewBox="0 0 400 300" className={className} preserveAspectRatio="xMidYMid slice">
-        <rect width="400" height="300" fill="#2B1F16" />
+        <rect width="400" height="300" fill="#4C382C" />
         <g transform="translate(200,150)">
           {Array.from({ length: 6 }).map((_, i) => (
             <ellipse
@@ -33,13 +33,13 @@ export default function FieldGraphic({ variant = 'rows', className = '' }) {
               rx="150"
               ry="46"
               fill="none"
-              stroke="#6F9E28"
+              stroke="#7C8438"
               strokeWidth="2"
               opacity={0.25 + i * 0.1}
               transform={`rotate(${i * 30})`}
             />
           ))}
-          <circle r="18" fill="#6F9E28" />
+          <circle r="18" fill="#7C8438" />
         </g>
       </svg>
     )
@@ -49,7 +49,7 @@ export default function FieldGraphic({ variant = 'rows', className = '' }) {
     <svg viewBox="0 0 400 300" className={className} preserveAspectRatio="xMidYMid slice">
       <rect width="400" height="300" fill="#7C8438" />
       <rect x="0" y="180" width="400" height="120" fill="#43481D" />
-      <rect x="0" y="220" width="400" height="80" fill="#2B1F16" />
+      <rect x="0" y="220" width="400" height="80" fill="#4C382C" />
     </svg>
   )
 }

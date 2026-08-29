@@ -22,7 +22,7 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-chocolate bg-chocolate text-cream">
+    <footer className="border-t border-ink bg-ink text-cream">
       <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
         <Reveal>
           <img
@@ -34,26 +34,26 @@ export default function Footer() {
 
         <div className="mt-12 grid grid-cols-1 gap-10 border-t border-cream/20 pt-10 sm:grid-cols-2 lg:grid-cols-3">
           <Reveal delay={0.05}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">How It Works</h3>
-            <p className="mt-3 font-body text-sm leading-relaxed text-cream/85">
+            <h3 className="font-mono text-xs uppercase tracking-widest text-cream">How It Works</h3>
+            <p className="mt-3 font-body text-sm leading-relaxed text-cream/70">
               We're online only — order any flavor and it ships to your door.
               One sachet, stirred into milk or water. No whisk, no ceremony.
             </p>
           </Reveal>
 
           <Reveal delay={0.1}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">Explore</h3>
-            <ul className="mt-3 space-y-2 font-body text-sm text-cream/85">
-              <li><Link to="/matchas" className="hover:text-matcha">Our Matchas</Link></li>
-              <li><Link to="/diy-kits" className="hover:text-matcha">DIY Kits</Link></li>
-              <li><Link to="/matcha-kits" className="hover:text-matcha">Matcha Kits</Link></li>
-              <li><Link to="/our-story" className="hover:text-matcha">Our Story</Link></li>
+            <h3 className="font-mono text-xs uppercase tracking-widest text-cream">Explore</h3>
+            <ul className="mt-3 space-y-2 font-body text-sm text-cream/70">
+              <li><Link to="/matchas" className="hover:text-cream">Our Matchas</Link></li>
+              <li><Link to="/diy-kits" className="hover:text-cream">DIY Kits</Link></li>
+              <li><Link to="/matcha-kits" className="hover:text-cream">Matcha Kits</Link></li>
+              <li><Link to="/our-story" className="hover:text-cream">Our Story</Link></li>
             </ul>
           </Reveal>
 
           <Reveal delay={0.15}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-matcha">Stay In The Loop</h3>
-            <p className="mt-3 font-body text-sm text-cream/85">
+            <h3 className="font-mono text-xs uppercase tracking-widest text-cream">Stay In The Loop</h3>
+            <p className="mt-3 font-body text-sm text-cream/70">
               One email a month. No spam, just new drops.
             </p>
             <form onSubmit={handleSubmit} className="mt-4 flex border border-cream/40">
@@ -67,13 +67,13 @@ export default function Footer() {
               />
               <button
                 type="submit"
-                className="whitespace-nowrap border-l border-cream/40 bg-matcha px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-chocolate transition-colors hover:bg-cream"
+                className="whitespace-nowrap border-l border-cream/40 bg-cream px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-ink transition-colors hover:bg-camel"
               >
                 Join
               </button>
             </form>
             {submitted && (
-              <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-matcha">
+              <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-cream">
                 You're on the list.
               </p>
             )}
@@ -91,7 +91,7 @@ export default function Footer() {
                 href={s.href}
                 target="_blank"
                 rel="noreferrer noopener"
-                className="font-mono text-[10px] uppercase tracking-widest text-cream/70 transition-colors hover:text-matcha"
+                className="font-mono text-[10px] uppercase tracking-widest text-cream/60 transition-colors hover:text-cream"
               >
                 {s.label}
               </a>

@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 import { useRef } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useSpring, useReducedMotion } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { StaggerGroup, StaggerItem } from '../components/Reveal'
 import MoodMatcher from '../components/MoodMatcher'
@@ -17,41 +17,63 @@ export default function Home() {
     target: heroRef,
     offset: ['start start', 'end start'],
   })
-  // The cup sits big on the right at rest, fully clear of the text column.
-  // As the hero scrolls past, it slides hard to the left — sliding under the
-  // (opaque) text column, which progressively masks it out of view, wiping
-  // it away well before it scrolls out of the viewport — while it also
-  // shrinks a touch and only fades at the very end, once it's already
-  // hidden behind the text, so nothing is left peeking out.
-  const heroImgX = useTransform(scrollYProgress, [0, 1], [0, -560])
-  const heroImgY = useTransform(scrollYProgress, [0, 1], [0, -40])
-  const heroImgScale = useTransform(scrollYProgress, [0, 1], [1, 0.82])
-  const heroImgOpacity = useTransform(scrollYProgress, [0, 0.8, 1], [1, 1, 0])
+  const reduceMotion = useReducedMotion()
+
+  // The cup drifts rather than slides. Scrolling lets it lag behind the page
+  // (positive y against the page's upward travel reads as parallax depth),
+  // tilting and shrinking as it goes, then fading out over the last stretch.
+  // The spring keeps the drift from feeling mechanically pinned to the wheel.
+  const drift = useSpring(scrollYProgress, { stiffness: 120, damping: 30, mass: 0.4 })
+  const heroImgY = useTransform(drift, [0, 1], [0, 150])
+  const heroImgRotate = useTransform(drift, [0, 1], [0, 7])
+  const heroImgScale = useTransform(drift, [0, 1], [1, 0.88])
+  const heroImgOpacity = useTransform(drift, [0, 0.55, 1], [1, 0.9, 0])
+  // The cast shadow stays put while the cup floats above it, and tightens as
+  // the cup lifts — that contrast is what sells the float as depth.
+  const shadowScale = useTransform(drift, [0, 1], [1, 0.7])
+  const shadowOpacity = useTransform(drift, [0, 1], [1, 0])
 
   const featured = FEATURED_IDS.map((id) => products.find((p) => p.id === id)).filter(Boolean)
 
   return (
     <PageShell>
       {/* HERO */}
-      <section ref={heroRef} className="relative overflow-hidden border-b border-chocolate bg-camel">
+      <section ref={heroRef} className="relative overflow-hidden border-b border-ink bg-camel">
         <div className="relative mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20 lg:py-24">
-          {/* Big cup, sitting behind the text column. On lg it's pinned to the
-              right side and vertically centered; on scroll it slides left and
-              up, sliding under the (opaque) text column until it's masked out
-              of view, shrinking and fading the rest of the way to nothing. */}
+          {/* The cup is pinned to the right half on desktop. Each element below
+              owns exactly one transform source — Framer's inline transform
+              silently overrides Tailwind's, so layout uses flex, never
+              translate utilities, on anything Framer also animates. */}
           <div className="pointer-events-none mb-8 flex justify-center lg:absolute lg:inset-0 lg:z-0 lg:mb-0 lg:items-center lg:justify-end">
             <motion.div
-              style={{ x: heroImgX, y: heroImgY, scale: heroImgScale, opacity: heroImgOpacity }}
-              className="relative flex justify-center lg:mr-[-1%]"
+              style={{
+                y: heroImgY,
+                rotate: heroImgRotate,
+                scale: heroImgScale,
+                opacity: heroImgOpacity,
+              }}
+              className="relative flex flex-col items-center lg:mr-[-1%]"
             >
-              <div
+              {/* idle float — its own element so its y never fights the
+                  scroll-driven y on the parent */}
+              <motion.div
+                animate={reduceMotion ? undefined : { y: [0, -16, 0] }}
+                transition={{ duration: 7, ease: 'easeInOut', repeat: Infinity }}
+                className="flex justify-center"
+              >
+                <img
+                  src={heroImg}
+                  alt="Iced matcha made from one of our flavor sachets"
+                  className="h-[300px] w-auto object-contain drop-shadow-[0_24px_20px_rgba(76,56,44,0.3)] sm:h-[420px] lg:h-[640px] xl:h-[720px]"
+                />
+              </motion.div>
+
+              {/* cast shadow sits below and stays behind, so the cup reads as
+                  lifting off it rather than dragging it along */}
+              <motion.div
                 aria-hidden="true"
-                className="absolute bottom-6 left-1/2 h-9 w-56 -translate-x-1/2 bg-chocolate/20 blur-lg sm:w-72 lg:w-80"
-              />
-              <img
-                src={heroImg}
-                alt="Iced matcha made from one of our flavor sachets"
-                className="relative h-[300px] w-auto object-contain drop-shadow-[0_24px_20px_rgba(43,31,22,0.35)] sm:h-[420px] lg:h-[640px] xl:h-[720px]"
+                style={{ scaleX: shadowScale, opacity: shadowOpacity }}
+                className="-mt-4 h-8 w-48 bg-ink/25 blur-xl sm:w-64 lg:-mt-6 lg:h-10 lg:w-80"
               />
             </motion.div>
           </div>
@@ -61,9 +83,9 @@ export default function Home() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-              className="relative z-10 bg-camel lg:pr-6"
+              className="relative z-10 lg:pr-6"
             >
-              <p className="mb-4 font-mono text-xs uppercase tracking-widest text-moss">
+              <p className="mb-4 font-mono text-xs uppercase tracking-widest text-olive">
                 Made for everyday
               </p>
               <h1 className="font-display text-[13vw] leading-[0.95] tracking-display sm:text-6xl lg:text-7xl">
@@ -71,38 +93,38 @@ export default function Home() {
                 <br />
                 the ceremony
               </h1>
-              <p className="mt-6 max-w-md font-body text-base leading-relaxed text-chocolate/80 sm:text-lg">
+              <p className="mt-6 max-w-md font-body text-base leading-relaxed text-ink/80 sm:text-lg">
                 Good matcha shouldn't need a café visit or a bamboo whisk. Just tear a sachet, stir, and go.
               </p>
               <div className="mt-8 flex flex-wrap gap-3">
                 <Link
                   to="/matchas"
-                  className="btn-hard border-chocolate bg-olive text-cream"
+                  className="btn-hard border-ink bg-olive text-cream"
                 >
                   Shop the Sachets
                 </Link>
                 <Link
                   to="/matcha-kits"
-                  className="btn-hard border-chocolate bg-transparent text-chocolate"
+                  className="btn-hard border-ink bg-transparent text-ink"
                 >
                   Bulk &amp; Cafés
                 </Link>
               </div>
 
-              <div className="mt-10 flex items-center gap-6 border-t border-chocolate/15 pt-6">
+              <div className="mt-10 flex items-center gap-6 border-t border-ink/15 pt-6">
                 <div>
                   <p className="font-display text-2xl tracking-display text-olive">4.8/5</p>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-chocolate/60">2,300+ orders</p>
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-ink/60">2,300+ orders</p>
                 </div>
-                <div className="h-8 w-px bg-chocolate/20" />
+                <div className="h-8 w-px bg-ink/20" />
                 <div>
                   <p className="font-display text-2xl tracking-display text-olive">5</p>
-                  <p className="font-mono text-[10px] uppercase tracking-widest text-chocolate/60">Sachet flavors</p>
+                  <p className="font-mono text-[10px] uppercase tracking-widest text-ink/60">Sachet flavors</p>
                 </div>
               </div>
 
-              <div className="mt-10 border-t border-chocolate/15 pt-6">
-                <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-chocolate/55">
+              <div className="mt-10 border-t border-ink/15 pt-6">
+                <p className="mb-3 font-mono text-[10px] uppercase tracking-widest text-ink/55">
                   One sachet, stirred with milk or water
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -123,10 +145,10 @@ export default function Home() {
       </section>
 
       {/* MOOD MATCHER */}
-      <section className="border-b border-chocolate bg-camel">
+      <section className="border-b border-ink bg-camel">
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
           <Reveal className="mb-8 max-w-xl">
-            <p className="font-mono text-xs uppercase tracking-widest text-moss">Not sure where to start?</p>
+            <p className="font-mono text-xs uppercase tracking-widest text-olive">Not sure where to start?</p>
             <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">Find your flavor</h2>
           </Reveal>
           <Reveal delay={0.1}>
@@ -143,12 +165,12 @@ export default function Home() {
         <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
           <Reveal className="mb-10 flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-end">
             <div>
-              <p className="font-mono text-xs uppercase tracking-widest text-moss">Fan favorites</p>
+              <p className="font-mono text-xs uppercase tracking-widest text-olive">Fan favorites</p>
               <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">Featured Flavors</h2>
             </div>
             <Link
               to="/matchas"
-              className="font-mono text-xs uppercase tracking-widest text-olive underline underline-offset-4 hover:text-chocolate"
+              className="font-mono text-xs uppercase tracking-widest text-olive underline underline-offset-4 hover:text-ink"
             >
               View full catalog →
             </Link>
@@ -165,7 +187,7 @@ export default function Home() {
       </section>
 
       {/* CTA STRIP */}
-      <section className="border-t border-chocolate bg-chocolate">
+      <section className="border-t border-ink bg-ink">
         <div className="mx-auto max-w-7xl px-5 py-16 text-center sm:px-8">
           <Reveal>
             <h2 className="font-display text-3xl tracking-display text-cream sm:text-5xl">
@@ -175,7 +197,7 @@ export default function Home() {
               Order online and we'll ship it out, or set your café up with a standing order.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link to="/matchas" className="btn-hard border-cream bg-matcha text-chocolate">
+              <Link to="/matchas" className="btn-hard border-cream bg-cream text-ink">
                 Shop Now
               </Link>
               <Link to="/our-story" className="btn-hard border-cream bg-transparent text-cream">
