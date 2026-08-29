@@ -12,7 +12,7 @@ export default {
         // glyphs, which dropped their saturation to ~17% and their contrast
         // below the 4.5:1 AA floor. Same hues as ink/cream, a little more
         // chroma to hold up at the lighter value.
-        bark: '#6D4B37',   // 4.81:1 on camel, 6.21:1 on card
+        bark: '#634431',   // 5.43:1 on camel, 7.01:1 on card
         linen: '#E3DCB5',  // 7.68:1 on ink, 6.95:1 on olive
         olive: '#43481D',
         moss: '#7C8438',
