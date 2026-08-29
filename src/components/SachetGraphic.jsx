@@ -4,64 +4,111 @@ const SWATCH = {
   olive: '#43481D',
 }
 
-// Stylized inline SVG sachet/pouch used across catalog, kit and bundle cards
-// in place of a photo — this is the product now, not a made drink. Sits on a
-// flavor-tinted glow + fine dot texture so the dark field reads as a
-// considered backdrop rather than empty negative space.
-export default function SachetGraphic({ swatch = 'matcha', badge, size, flavor, className = '' }) {
+/**
+ * The sachet, drawn as packaging rather than as an icon.
+ *
+ * PLACEHOLDER: this stands in for product photography the brand does not have
+ * yet. There is exactly one real photograph in the repository — the iced glass
+ * on the landing page — so every one of the five flavours is represented by
+ * this drawing. It is built to survive being shown large, but it should be
+ * replaced by real shots of the sachets when they exist.
+ *
+ * What changed from the previous version: the blurred colour glow behind it and
+ * the dot grid over it are gone, along with the two floating badge pills. A
+ * product shot with UI chrome stuck to its corners reads as a component, not as
+ * a product, so the metadata now lives in the layout around the image and the
+ * frame holds nothing but the object and its shadow.
+ */
+export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper', className = '' }) {
   const fill = SWATCH[swatch] || SWATCH.matcha
+  const dark = tone === 'dark'
+
   return (
-    <div className={`relative flex h-full w-full items-center justify-center overflow-hidden bg-ink ${className}`}>
-      {/* flavor-tinted ambient glow */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute left-1/2 top-1/2 h-[85%] w-[70%] -translate-x-1/2 -translate-y-1/2 rounded-full opacity-40 blur-3xl"
-        style={{ backgroundColor: fill }}
-      />
-      {/* fine dot texture, matching the page's own grain */}
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute inset-0 opacity-[0.15]"
-        style={{
-          backgroundImage: 'radial-gradient(circle at 1px 1px, #F6EFC6 1px, transparent 0)',
-          backgroundSize: '16px 16px',
-        }}
-      />
-      {badge && (
-        <span className="absolute left-3 top-3 z-10 border border-cream/70 bg-ink/80 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream">
-          {badge}
-        </span>
-      )}
-      {size && (
-        <span className="absolute bottom-3 right-3 z-10 border border-cream/70 bg-ink/80 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream">
-          {size}
-        </span>
-      )}
-      <div className="relative flex items-center justify-center transition-transform duration-300 ease-out group-hover:-translate-y-1 group-hover:scale-[1.04]">
-        <svg viewBox="0 0 120 150" className="h-32 w-auto drop-shadow-[0_10px_14px_rgba(0,0,0,0.4)] sm:h-36 lg:h-40">
-          {/* pouch body */}
-          <path
-            d="M14 28 Q14 18 24 18 L96 18 Q106 18 106 28 L106 128 Q106 140 94 140 L26 140 Q14 140 14 128 Z"
-            fill={fill}
-            stroke="#F0E5D2"
-            strokeWidth="2"
+    <div
+      className={`relative flex h-full w-full items-end justify-center overflow-hidden ${
+        dark ? 'bg-ink' : 'bg-card'
+      } ${className}`}
+    >
+      <svg
+        viewBox="0 0 200 300"
+        role="img"
+        aria-label={flavor ? `${flavor} matcha sachet` : 'Matcha sachet'}
+        className="h-[74%] w-auto"
+      >
+        {/* Contact shadow. One soft ellipse under the object, the way a real
+            product shot grounds a standing pouch — not a drop shadow on a box. */}
+        <ellipse cx="100" cy="272" rx="62" ry="9" fill="#4C382C" opacity={dark ? 0.5 : 0.18} />
+
+        {/* Body. Slightly wider at the base than the seal, so it reads as a
+            filled pouch standing up rather than as a flat rectangle. */}
+        <path
+          d="M46 40 L154 40 L160 258 Q160 268 149 268 L51 268 Q40 268 40 258 Z"
+          fill={fill}
+          stroke="#4C382C"
+          strokeWidth="1.5"
+        />
+
+        {/* The gusset fold catching light down the left third. */}
+        <path d="M46 40 L74 40 L70 268 L51 268 Q40 268 40 258 Z" fill="#F0E5D2" opacity="0.13" />
+
+        {/* Heat-sealed crimp along the top, drawn as real serration. */}
+        <path
+          d="M46 40 L154 40 L154 22 L46 22 Z"
+          fill={fill}
+          opacity="0.75"
+        />
+        {Array.from({ length: 14 }).map((_, i) => (
+          <line
+            key={i}
+            x1={48 + i * 8}
+            y1="22"
+            x2={48 + i * 8}
+            y2="40"
+            stroke="#4C382C"
+            strokeWidth="1"
+            opacity="0.28"
           />
-          {/* heat-seal band */}
-          <rect x="14" y="18" width="92" height="9" fill="#4C382C" opacity="0.28" />
-          {/* tear notch */}
-          <path d="M52 18 L60 27 L68 18 Z" fill="#F0E5D2" />
-          {/* side seams */}
-          <line x1="14" y1="18" x2="14" y2="140" stroke="#4C382C" strokeWidth="1" opacity="0.25" />
-          <line x1="106" y1="18" x2="106" y2="140" stroke="#4C382C" strokeWidth="1" opacity="0.25" />
-          {/* label patch */}
-          <rect x="18" y="58" width="84" height="42" fill="#F0E5D2" stroke="#4C382C" strokeWidth="1.5" />
-        </svg>
-        {flavor && (
-          <span className="pointer-events-none absolute left-1/2 top-[52%] w-[62%] -translate-x-1/2 -translate-y-1/2 text-center font-mono text-[9px] font-bold uppercase leading-tight tracking-tight text-cocoa">
-            {flavor}
-          </span>
-        )}
-      </div>
+        ))}
+
+        {/* Tear notch, cut into the crimp on the right. */}
+        <path d="M154 28 L144 33 L154 38 Z" fill={dark ? '#4C382C' : '#F0E5D2'} />
+
+        {/* Paper label. Deliberately off-centre and low on the body — a band
+            sitting where a hand would hold it, not a panel centred in a box. */}
+        <rect
+          x="40"
+          y="150"
+          width="120"
+          height="76"
+          fill="#F6EFC6"
+          stroke="#4C382C"
+          strokeWidth="1.5"
+        />
+
+        <text
+          x="100"
+          y="184"
+          textAnchor="middle"
+          className="font-display"
+          fontSize="15"
+          textLength={Math.min(100, (flavor || 'Matcha').length * 10)}
+          lengthAdjust="spacingAndGlyphs"
+          fill="#412816"
+        >
+          {(flavor || 'Matcha').toUpperCase()}
+        </text>
+        <text
+          x="100"
+          y="207"
+          textAnchor="middle"
+          className="font-mono"
+          fontSize="8"
+          letterSpacing="2"
+          fill="#563620"
+        >
+          UJI &middot; 10G
+        </text>
+      </svg>
     </div>
   )
 }

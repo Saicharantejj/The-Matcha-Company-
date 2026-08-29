@@ -24,7 +24,7 @@ export default {
         display: ['"Archivo Black"', 'Impact', 'sans-serif'],
         body: ['"Instrument Sans"', 'sans-serif'],
         mono: ['"Courier Prime"', 'monospace'],
-        hand: ['Caveat', 'cursive'],
+        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
       },
       borderRadius: {
         none: '0px',
@@ -41,6 +41,13 @@ export default {
         hard: '4px 4px 0px 0px #4C382C',
         'hard-sm': '2px 2px 0px 0px #4C382C',
         'hard-olive': '4px 4px 0px 0px #43481D',
+      },
+      fontSize: {
+        mega: ['clamp(2.75rem, 8.5vw, 8rem)', { lineHeight: '0.82', letterSpacing: '-0.035em' }],
+        major: ['clamp(2.25rem, 5.6vw, 4.5rem)', { lineHeight: '0.88', letterSpacing: '-0.028em' }],
+        minor: ['clamp(1.75rem, 3.4vw, 2.75rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
+        lede: ['clamp(1.0625rem, 1.5vw, 1.375rem)', { lineHeight: '1.5', letterSpacing: '-0.01em' }],
+        spec: ['0.6875rem', { lineHeight: '1.2', letterSpacing: '0.16em' }],
       },
       letterSpacing: {
         // Archivo Black is a heavy grotesque like the wordmark — it wants to be

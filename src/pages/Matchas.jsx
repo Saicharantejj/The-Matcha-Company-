@@ -1,14 +1,24 @@
 import { useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { SlidersHorizontal } from 'lucide-react'
 import PageShell from '../components/PageShell'
-import Reveal from '../components/Reveal'
+import Reveal, { Rise } from '../components/Motion'
 import ProductCard from '../components/ProductCard'
 import { products } from '../data/products'
 
-// Every distinct tag across the catalog, in first-seen order.
 const ALL_TAGS = [...new Set(products.flatMap((p) => p.tags ?? []))]
 
+/**
+ * The catalogue.
+ *
+ * Laid out as a lookbook rather than a uniform three-column grid: two columns
+ * on desktop with the right-hand one dropped by a third of a plate, so the eye
+ * moves diagonally down the page instead of scanning flat rows.
+ *
+ * The filter lost its pills. It was a row of bordered chips with a green
+ * lozenge springing between them — a lot of apparatus for what is a set of
+ * radio buttons. It is now a line of words, and the active one is simply the
+ * one in olive with a rule under it.
+ */
 export default function Matchas() {
   const [active, setActive] = useState(null)
 
@@ -19,30 +29,29 @@ export default function Matchas() {
 
   return (
     <PageShell>
-      <section className="border-b-2 border-ink bg-card">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
-          <Reveal>
-            <p className="font-mono text-xs uppercase tracking-widest text-olive">Five Flavors</p>
-            <h1 className="mt-2 font-display text-4xl tracking-display sm:text-5xl">Our Matchas</h1>
-            <p className="mt-4 max-w-xl font-body text-base text-bark">
-              Stone-ground matcha, sourced from Uji, Kyoto — blended into single-serve sachets.
-              Tear, stir into milk or water, and skip the ceremony entirely.
+      <section className="bg-camel px-5 pb-16 pt-16 sm:px-10 sm:pb-20 sm:pt-24">
+        <div className="mx-auto max-w-[100rem]">
+          <p className="spec text-olive">Five flavours &middot; 10g each</p>
+          <h1 className="mt-6 max-w-4xl font-display text-major tracking-display">
+            <Rise delay={0.05}>Every sachet</Rise>
+            <Rise delay={0.15}>we make.</Rise>
+          </h1>
+          <Reveal delay={0.3}>
+            <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
+              Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one into
+              cold milk or water and skip the ceremony entirely.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="bg-camel">
-        <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
-          <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <div className="flex flex-wrap items-center gap-2">
-              <span className="mr-1 flex items-center gap-1.5 font-mono text-[10px] uppercase tracking-widest text-bark">
-                <SlidersHorizontal size={12} strokeWidth={2.5} aria-hidden="true" />
-                Filter
-              </span>
-              <FilterChip label="All" isActive={active === null} onClick={() => setActive(null)} />
+      <section className="bg-camel px-5 pb-28 sm:px-10">
+        <div className="mx-auto max-w-[100rem]">
+          <div className="rule-heavy flex flex-col gap-4 pt-6 sm:flex-row sm:items-baseline sm:justify-between">
+            <div className="flex flex-wrap items-baseline gap-x-6 gap-y-3">
+              <FilterWord label="All" isActive={active === null} onClick={() => setActive(null)} />
               {ALL_TAGS.map((tag) => (
-                <FilterChip
+                <FilterWord
                   key={tag}
                   label={tag}
                   isActive={active === tag}
@@ -50,26 +59,23 @@ export default function Matchas() {
                 />
               ))}
             </div>
-            <p
-              aria-live="polite"
-              className="font-mono text-xs uppercase tracking-widest text-bark"
-            >
-              {visible.length} {visible.length === 1 ? 'flavor' : 'flavors'}
+            <p aria-live="polite" className="spec shrink-0">
+              {String(visible.length).padStart(2, '0')} shown
             </p>
-          </Reveal>
+          </div>
 
-          {/* `layout` on each item makes the grid reflow fluidly when the
-              filter changes, rather than snapping to the new arrangement. */}
-          <motion.div layout className="mt-6 grid grid-cols-1 gap-6 pb-20 sm:grid-cols-2 lg:grid-cols-3">
+          <motion.div layout className="mt-14 grid grid-cols-1 gap-x-10 gap-y-20 sm:grid-cols-2">
             <AnimatePresence mode="popLayout">
               {visible.map((product, i) => (
                 <motion.div
                   key={product.id}
                   layout
-                  initial={{ opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.94 }}
-                  transition={{ type: 'spring', stiffness: 320, damping: 30 }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  /* The offset is what turns two columns into a composition. */
+                  className={i % 2 === 1 ? 'sm:mt-24' : ''}
                 >
                   <ProductCard product={product} index={i} />
                 </motion.div>
@@ -78,8 +84,8 @@ export default function Matchas() {
           </motion.div>
 
           {visible.length === 0 && (
-            <p className="pb-20 font-body text-sm text-bark">
-              No sachets carry that tag yet.
+            <p className="mt-16 font-serif text-lede italic text-bark">
+              Nothing carries that tag yet.
             </p>
           )}
         </div>
@@ -88,23 +94,18 @@ export default function Matchas() {
   )
 }
 
-function FilterChip({ label, isActive, onClick }) {
+function FilterWord({ label, isActive, onClick }) {
   return (
     <button
       type="button"
       onClick={onClick}
       aria-pressed={isActive}
-      className={`relative border-2 border-ink px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
-        isActive ? 'text-cream' : 'text-bark hover:text-cocoa'
+      className={`font-mono text-spec uppercase transition-colors duration-300 ${
+        isActive
+          ? 'border-b border-olive pb-1 text-olive'
+          : 'border-b border-transparent pb-1 text-bark hover:text-cocoa'
       }`}
     >
-      {isActive && (
-        <motion.span
-          layoutId="filter-pill"
-          className="absolute inset-0 -z-10 bg-olive"
-          transition={{ type: 'spring', stiffness: 420, damping: 34 }}
-        />
-      )}
       {label}
     </button>
   )

@@ -145,7 +145,7 @@ export default function CartDrawer() {
                 <button
                   type="button"
                   onClick={closeCart}
-                  className="btn-hard mt-7 border-ink bg-olive text-cream"
+                  className="btn mt-7"
                 >
                   Keep Browsing
                 </button>
@@ -162,7 +162,7 @@ export default function CartDrawer() {
                 <Link
                   to="/matchas"
                   onClick={closeCart}
-                  className="btn-hard mt-7 border-ink bg-olive text-cream"
+                  className="btn mt-7"
                 >
                   Shop the Sachets
                 </Link>
@@ -227,7 +227,7 @@ export default function CartDrawer() {
                   <button
                     type="button"
                     onClick={handlePlaceOrder}
-                    className="btn-hard mt-4 w-full border-ink bg-olive text-cream"
+                    className="btn mt-4 w-full"
                   >
                     Request This Order
                   </button>

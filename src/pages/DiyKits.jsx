@@ -1,20 +1,25 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, ChevronDown, Clock, Plus, Utensils } from 'lucide-react'
 import PageShell from '../components/PageShell'
-import Reveal from '../components/Reveal'
+import Reveal, { Rise } from '../components/Motion'
 import SachetGraphic from '../components/SachetGraphic'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { diyKits } from '../data/products'
 
-const DIFFICULTY_COLOR = {
-  EASY: 'bg-moss text-cream',
-  MEDIUM: 'bg-olive text-cream',
-  HARD: 'bg-ink text-cream',
-}
-
-function KitCard({ kit, index = 0 }) {
+/**
+ * Recipes.
+ *
+ * Set as an index — a numbered list you read down, where opening a row reveals
+ * what is in the box. The catalogue is a lookbook and the bundles are
+ * full-width features, so this page earns its own shape rather than being the
+ * same grid of boxes a third time.
+ *
+ * The checklist survived from the old version because it is genuinely useful
+ * when you are standing in a kitchen, but it no longer lives inside a card
+ * inside a card.
+ */
+function KitRow({ kit, index }) {
   const [open, setOpen] = useState(false)
   const [checked, setChecked] = useState(() => new Set())
   const { addItem, openCart } = useCart()
@@ -28,86 +33,87 @@ function KitCard({ kit, index = 0 }) {
   const toggle = (item) =>
     setChecked((prev) => {
       const next = new Set(prev)
-      next.has(item) ? next.delete(item) : next.add(item)
+      if (next.has(item)) next.delete(item)
+      else next.add(item)
       return next
     })
 
+  const panelId = `kit-panel-${kit.id}`
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45, delay: (index % 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className="h-full"
-    >
-      {/* Hover lift is pure CSS — no per-pointer-move JS, no 3D layer. */}
-      <div className="card-hard group flex h-full flex-col overflow-hidden">
-        <div className="aspect-[16/10] w-full border-b-2 border-ink">
-          <SachetGraphic swatch={kit.swatch} badge={kit.badge} flavor={kit.flavor} />
+    <article className="rule first:border-t-0">
+      <div className="grid grid-cols-1 gap-6 py-10 lg:grid-cols-12 lg:gap-x-10">
+        <div className="flex items-baseline gap-5 lg:col-span-1">
+          <span className="index-num">{String(index + 1).padStart(2, '0')}</span>
         </div>
 
-        <div className="flex flex-1 flex-col p-5 sm:p-6">
-          <h3 className="font-display text-lg tracking-display">{kit.name}</h3>
-          <p className="mt-2 font-body text-sm leading-relaxed text-bark">{kit.blurb}</p>
+        <div className="lg:col-span-6">
+          <h2 className="font-display text-minor tracking-display">{kit.name}</h2>
+          <p className="mt-3 max-w-md font-body text-sm leading-relaxed text-bark">{kit.blurb}</p>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            <span className="tag-outline flex items-center gap-1.5">
-              <Clock size={11} strokeWidth={2.5} aria-hidden="true" />
-              {kit.prepTime}
-            </span>
-            <span
-              className={`border-2 border-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest ${
-                DIFFICULTY_COLOR[kit.difficulty] || ''
-              }`}
+          <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2">
+            <div>
+              <dt className="spec">Time</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">{kit.prepTime}</dd>
+            </div>
+            <div>
+              <dt className="spec">Effort</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">{kit.difficulty}</dd>
+            </div>
+            <div>
+              <dt className="spec">Makes</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">{kit.servings}</dd>
+            </div>
+          </dl>
+
+          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+            <button type="button" onClick={handleAdd} className="btn">
+              Add kit to cart
+            </button>
+            <button
+              type="button"
+              onClick={() => setOpen((v) => !v)}
+              aria-expanded={open}
+              aria-controls={panelId}
+              className="link-draw font-mono text-spec uppercase"
             >
-              {kit.difficulty}
-            </span>
-            <span className="tag-outline flex items-center gap-1.5">
-              <Utensils size={11} strokeWidth={2.5} aria-hidden="true" />
-              {kit.servings}
-            </span>
+              {open ? 'Hide contents' : "What's in the box"}
+            </button>
           </div>
-
-          <button
-            type="button"
-            onClick={() => setOpen((v) => !v)}
-            aria-expanded={open}
-            className="mt-5 flex items-center justify-between border-t-2 border-ink/15 pt-4 font-mono text-[11px] uppercase tracking-widest text-olive"
-          >
-            What's Included
-            <motion.span animate={{ rotate: open ? 180 : 0 }} transition={{ duration: 0.22 }}>
-              <ChevronDown size={15} strokeWidth={2.5} aria-hidden="true" />
-            </motion.span>
-          </button>
 
           <AnimatePresence initial={false}>
             {open && (
               <motion.div
+                id={panelId}
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.25, ease: 'easeInOut' }}
+                transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden"
               >
-                <ul className="mt-3 space-y-2">
+                <ul className="mt-7 max-w-md">
                   {kit.includes.map((item) => {
                     const isChecked = checked.has(item)
                     return (
-                      <li key={item}>
+                      <li key={item} className="rule">
                         <button
                           type="button"
                           onClick={() => toggle(item)}
                           aria-pressed={isChecked}
-                          className="flex w-full items-start gap-2.5 text-left font-body text-sm text-bark"
+                          className="flex w-full items-baseline gap-4 py-3 text-left"
                         >
                           <span
-                            className={`mt-0.5 flex h-4 w-4 flex-shrink-0 items-center justify-center border-2 border-ink transition-colors ${
-                              isChecked ? 'bg-moss text-cream' : 'bg-transparent'
+                            className={`mt-1 h-2.5 w-2.5 shrink-0 border border-ink transition-colors duration-300 ${
+                              isChecked ? 'bg-olive' : 'bg-transparent'
+                            }`}
+                          />
+                          <span
+                            className={`font-body text-sm transition-colors duration-300 ${
+                              isChecked ? 'text-bark line-through' : 'text-cocoa'
                             }`}
                           >
-                            {isChecked && <Check size={10} strokeWidth={3.5} aria-hidden="true" />}
+                            {item}
                           </span>
-                          <span className={isChecked ? 'line-through opacity-55' : ''}>{item}</span>
                         </button>
                       </li>
                     )
@@ -116,65 +122,40 @@ function KitCard({ kit, index = 0 }) {
               </motion.div>
             )}
           </AnimatePresence>
+        </div>
 
-          <div className="mt-auto pt-5">
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="btn-hard w-full border-ink bg-olive text-cream"
-            >
-              <Plus size={14} strokeWidth={3} aria-hidden="true" />
-              Add Kit to Cart
-            </button>
-          </div>
+        <div className="aspect-[4/3] lg:col-span-5 lg:aspect-[4/5]">
+          <SachetGraphic swatch={kit.swatch} flavor={kit.flavor} />
         </div>
       </div>
-    </motion.div>
+    </article>
   )
 }
 
 export default function DiyKits() {
   return (
     <PageShell>
-      <section className="border-b-2 border-ink bg-card">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
-          <Reveal>
-            <p className="font-mono text-xs uppercase tracking-widest text-olive">Make It Yourself</p>
-            <h1 className="mt-2 font-display text-4xl tracking-display sm:text-5xl">DIY Kits</h1>
-            <p className="mt-4 max-w-xl font-body text-base text-bark">
-              Each kit builds one recipe around a flavor sachet — pre-portioned, no whisk or
-              ceremony required. Just what you need, plus a recipe card.
+      <section className="bg-camel px-5 pb-14 pt-16 sm:px-10 sm:pb-16 sm:pt-24">
+        <div className="mx-auto max-w-[100rem]">
+          <p className="spec text-olive">Six recipes &middot; sachet included</p>
+          <h1 className="mt-6 max-w-4xl font-display text-major tracking-display">
+            <Rise delay={0.05}>Things to make</Rise>
+            <Rise delay={0.15}>with one sachet.</Rise>
+          </h1>
+          <Reveal delay={0.3}>
+            <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
+              Each kit is one recipe, pre-portioned, with the sachets and the card in the box.
+              Nothing here needs a whisk and nothing takes longer than the washing up.
             </p>
           </Reveal>
         </div>
       </section>
 
-      <section className="bg-camel">
-        <div className="mx-auto max-w-7xl px-5 py-10 sm:px-8">
-          <Reveal className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            <p aria-live="polite" className="font-mono text-xs uppercase tracking-widest text-bark">
-              {diyKits.length} {diyKits.length === 1 ? 'kit' : 'kits'}
-            </p>
-          </Reveal>
-
-          {/* `layout` on each item makes the grid reflow fluidly if the set ever
-              changes, rather than snapping to the new arrangement. */}
-          <motion.div layout className="mt-6 grid grid-cols-1 gap-6 pb-20 sm:grid-cols-2 lg:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {diyKits.map((kit, i) => (
-                <motion.div
-                  key={kit.id}
-                  layout
-                  initial={{ opacity: 0, scale: 0.94 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  exit={{ opacity: 0, scale: 0.94 }}
-                  transition={{ type: 'spring', stiffness: 320, damping: 30 }}
-                >
-                  <KitCard kit={kit} index={i} />
-                </motion.div>
-              ))}
-            </AnimatePresence>
-          </motion.div>
+      <section className="bg-camel px-5 pb-24 sm:px-10">
+        <div className="mx-auto max-w-[100rem]">
+          {diyKits.map((kit, i) => (
+            <KitRow key={kit.id} kit={kit} index={i} />
+          ))}
         </div>
       </section>
     </PageShell>

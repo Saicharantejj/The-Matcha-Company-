@@ -1,15 +1,29 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import Reveal from './Reveal'
+import Reveal from './Motion'
 import logoWordmark from '../assets/logo-wordmark-cream.png'
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com' },
   { label: 'TikTok', href: 'https://tiktok.com' },
-  { label: 'X / Twitter', href: 'https://x.com' },
+  { label: 'X', href: 'https://x.com' },
   { label: 'Pinterest', href: 'https://pinterest.com' },
 ]
 
+const EXPLORE = [
+  { to: '/matchas', label: 'Sachets' },
+  { to: '/matcha-kits', label: 'Bundles' },
+  { to: '/diy-kits', label: 'Recipes' },
+  { to: '/our-story', label: 'Uji' },
+]
+
+/**
+ * The footer is the last impression, so it gets the wordmark at full size and
+ * very little else — three short columns on hairlines and a sign-up that is a
+ * ruled line rather than a boxed input. The wordmark now sits at the bottom
+ * where it closes the page, instead of at the top where it competed with the
+ * closing section above it.
+ */
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
@@ -22,81 +36,92 @@ export default function Footer() {
   }
 
   return (
-    <footer className="border-t border-ink bg-ink text-cream">
-      <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8">
-        <Reveal>
+    <footer className="bg-ink text-cream">
+      <div className="mx-auto max-w-[100rem] px-5 pb-10 pt-20 sm:px-10 sm:pt-28">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+          <div className="lg:col-span-4">
+            <h2 className="spec text-linen">How it works</h2>
+            <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-linen">
+              Online only. Order any flavour and it ships to your door &mdash; one sachet, stirred
+              into milk or water, no whisk anywhere in the process.
+            </p>
+          </div>
+
+          <nav aria-label="Footer" className="lg:col-span-3">
+            <h2 className="spec text-linen">Explore</h2>
+            <ul className="mt-5">
+              {EXPLORE.map((link) => (
+                <li key={link.to} className="rule border-linen/30 first:border-t-0">
+                  <Link
+                    to={link.to}
+                    className="block py-2.5 font-body text-sm text-cream transition-colors duration-300 hover:text-linen"
+                  >
+                    {link.label}
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <div className="lg:col-span-4 lg:col-start-9">
+            <h2 className="spec text-linen">One email a month</h2>
+            <form onSubmit={handleSubmit} className="mt-5">
+              <label htmlFor="footer-email" className="sr-only">
+                Email address
+              </label>
+              <div className="flex items-center gap-4 border-b border-linen pb-3">
+                <input
+                  id="footer-email"
+                  type="email"
+                  required
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="you@email.com"
+                  className="w-full bg-transparent font-body text-sm text-cream placeholder:text-linen focus:outline-none"
+                />
+                <button
+                  type="submit"
+                  className="shrink-0 font-mono text-spec uppercase text-cream transition-colors duration-300 hover:text-linen"
+                >
+                  Join
+                </button>
+              </div>
+            </form>
+            <p aria-live="polite" className="mt-3 font-body text-sm text-linen">
+              {submitted ? "You're on the list." : 'New flavours and nothing else.'}
+            </p>
+          </div>
+        </div>
+
+        <Reveal className="mt-24">
           <img
             src={logoWordmark}
             alt="The Matcha Company"
-            className="h-28 w-auto sm:h-40 lg:h-52"
+            width="1200"
+            height="300"
+            loading="lazy"
+            className="h-auto w-full"
           />
         </Reveal>
 
-        <div className="mt-12 grid grid-cols-1 gap-10 border-t border-cream/20 pt-10 sm:grid-cols-2 lg:grid-cols-3">
-          <Reveal delay={0.05}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-cream">How It Works</h3>
-            <p className="mt-3 font-body text-sm leading-relaxed text-linen">
-              We're online only — order any flavor and it ships to your door.
-              One sachet, stirred into milk or water. No whisk, no ceremony.
-            </p>
-          </Reveal>
-
-          <Reveal delay={0.1}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-cream">Explore</h3>
-            <ul className="mt-3 space-y-2 font-body text-sm text-linen">
-              <li><Link to="/matchas" className="hover:text-cream">Our Matchas</Link></li>
-              <li><Link to="/diy-kits" className="hover:text-cream">DIY Kits</Link></li>
-              <li><Link to="/matcha-kits" className="hover:text-cream">Matcha Kits</Link></li>
-              <li><Link to="/our-story" className="hover:text-cream">Our Story</Link></li>
-            </ul>
-          </Reveal>
-
-          <Reveal delay={0.15}>
-            <h3 className="font-mono text-xs uppercase tracking-widest text-cream">Stay In The Loop</h3>
-            <p className="mt-3 font-body text-sm text-linen">
-              One email a month. No spam, just new drops.
-            </p>
-            <form onSubmit={handleSubmit} className="mt-4 flex border border-cream/40">
-              <input
-                type="email"
-                required
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                placeholder="you@email.com"
-                className="w-full bg-transparent px-3 py-2.5 font-mono text-xs text-cream placeholder:text-linen focus:outline-none"
-              />
-              <button
-                type="submit"
-                className="whitespace-nowrap border-l border-cream/40 bg-cream px-4 py-2.5 font-mono text-xs uppercase tracking-widest text-cocoa transition-colors hover:bg-camel"
-              >
-                Join
-              </button>
-            </form>
-            {submitted && (
-              <p className="mt-2 font-mono text-[10px] uppercase tracking-widest text-cream">
-                You're on the list.
-              </p>
-            )}
-          </Reveal>
-        </div>
-
-        <div className="mt-14 flex flex-col items-start justify-between gap-4 border-t border-cream/20 pt-6 sm:flex-row sm:items-center">
-          <p className="font-mono text-[10px] uppercase tracking-widest text-linen">
-            © {new Date().getFullYear()} The Matcha Company. All rights reserved.
+        <div className="rule mt-10 flex flex-col gap-4 border-linen/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
+          <p className="spec text-linen">
+            &copy; {new Date().getFullYear()} The Matcha Company
           </p>
-          <div className="flex flex-wrap gap-x-5 gap-y-2">
+          <ul className="flex flex-wrap gap-x-7 gap-y-2">
             {SOCIALS.map((s) => (
-              <a
-                key={s.label}
-                href={s.href}
-                target="_blank"
-                rel="noreferrer noopener"
-                className="font-mono text-[10px] uppercase tracking-widest text-linen transition-colors hover:text-cream"
-              >
-                {s.label}
-              </a>
+              <li key={s.label}>
+                <a
+                  href={s.href}
+                  target="_blank"
+                  rel="noreferrer noopener"
+                  className="font-mono text-spec uppercase text-linen transition-colors duration-300 hover:text-cream"
+                >
+                  {s.label}
+                </a>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </div>
     </footer>

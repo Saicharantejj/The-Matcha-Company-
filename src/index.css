@@ -7,6 +7,11 @@
     border-color: #4C382C;
   }
 
+  /* Let the browser pick optically better breaks in running text. */
+  p {
+    text-wrap: pretty;
+  }
+
   html {
     scroll-behavior: smooth;
   }
@@ -44,55 +49,86 @@
 }
 
 @layer components {
-  .hard-border {
-    border: 1.5px solid #4C382C;
+  /* ---------------------------------------------------------------------
+     The structural idea: ink hairlines on warm paper.
+
+     The site used to build everything out of the same bordered box with a
+     4px offset shadow — products, kits, bundles, callouts, all of them. Seven
+     card-hards and fourteen buttons wearing the same costume is what made
+     four different pages look like one component with the content swapped.
+
+     The offset shadow is gone. What survives from the old language, and what
+     the brand is actually recognisable by, is the sharp corner and the ink
+     rule: nothing here is rounded, and structure comes from lines rather than
+     from containers. That reads as editorial rather than as a sticker sheet,
+     and it leaves the product as the only object on the page.
+     --------------------------------------------------------------------- */
+
+  .rule {
+    border-top: 1px solid #4C382C;
   }
 
-  .hard-shadow {
-    box-shadow: 4px 4px 0px 0px #4C382C;
+  .rule-heavy {
+    border-top: 2px solid #4C382C;
   }
 
-  .hard-shadow-sm {
-    box-shadow: 2px 2px 0px 0px #4C382C;
+  /* Buttons. Square, generous, and only two of them — a filled one and an
+     outlined one. The fill inverts on hover rather than lifting off the page. */
+  .btn {
+    @apply inline-flex items-center justify-center gap-2.5 border border-ink bg-ink px-8 py-4
+           font-mono text-spec uppercase text-cream;
+    transition: background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  /* Neo-brutalist shadow physics: at rest the offset shadow is tight; on hover
-     the element lifts up-and-left and the shadow grows to match, as though it
-     rose off the page. The spring-ish cubic-bezier gives it a little overshoot. */
-  .btn-hard {
-    @apply inline-flex items-center justify-center gap-2 border-2 border-ink px-6 py-3 font-mono text-xs uppercase tracking-widest;
-    box-shadow: 4px 4px 0px 0px #4C382C;
-    transition:
-      transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  .btn:hover {
+    @apply bg-olive text-cream;
   }
 
-  .btn-hard:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0px 0px #4C382C;
+  .btn-outline {
+    @apply inline-flex items-center justify-center gap-2.5 border border-ink bg-transparent px-8 py-4
+           font-mono text-spec uppercase text-cocoa;
+    transition: background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .btn-hard:active {
-    transform: translate(2px, 2px);
-    box-shadow: 1px 1px 0px 0px #4C382C;
-    transition-duration: 0.08s;
+  .btn-outline:hover {
+    @apply bg-ink text-cream;
   }
 
-  .card-hard {
-    @apply border-2 border-ink bg-card;
-    box-shadow: 4px 4px 0px 0px #4C382C;
-    transition:
-      transform 0.32s cubic-bezier(0.34, 1.56, 0.64, 1),
-      box-shadow 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+  /* A text link that draws its own underline in from the left on hover.
+     Used instead of arrows-and-boxes for secondary navigation. */
+  .link-draw {
+    @apply relative inline-block text-cocoa;
   }
 
-  .card-hard:hover {
-    transform: translate(-4px, -4px);
-    box-shadow: 8px 8px 0px 0px #4C382C;
+  .link-draw::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    height: 1px;
+    width: 100%;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
-  .tag-outline {
-    @apply border-[1.5px] border-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-cocoa;
+  .link-draw:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* Spec type: the mono voice, demoted. It used to label everything on the
+     site — fifty-three times — which flattened it into decoration. It now
+     carries measured facts only: weight, origin, count, index. */
+  .spec {
+    @apply font-mono text-spec uppercase text-bark;
+  }
+
+  /* Editorial index numerals. Structure without badges. */
+  .index-num {
+    @apply font-mono text-spec text-bark tabular-nums;
   }
 }
 

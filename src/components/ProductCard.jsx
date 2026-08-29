@@ -1,9 +1,20 @@
-import { motion } from 'framer-motion'
-import { Plus } from 'lucide-react'
 import SachetGraphic from './SachetGraphic'
+import { ImageReveal } from './Motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 
+/**
+ * A product in the catalogue — a plate and a caption, not a card.
+ *
+ * The old version wrapped every product in a bordered box with an offset
+ * shadow, a hover lift, an aspect-4/3 crop and a full-width button, which is
+ * the same object the kits and the bundles were also using. Four pages of
+ * identical boxes is why the site read as one component repeated.
+ *
+ * Here the image is tall, uncropped by any container, and the type sits
+ * underneath it on a hairline, the way a catalogue plate is captioned. Adding
+ * to the cart is a text action, not a filled bar competing with the product.
+ */
 export default function ProductCard({ product, index = 0 }) {
   const { addItem, openCart } = useCart()
   const { notify } = useToast()
@@ -14,51 +25,37 @@ export default function ProductCard({ product, index = 0 }) {
   }
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 24 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.2 }}
-      transition={{ duration: 0.45, delay: (index % 6) * 0.05, ease: [0.22, 1, 0.36, 1] }}
-      className="h-full"
-    >
-      {/* Hover lift is pure CSS — no per-pointer-move JS, no 3D layer. */}
-      <div className="card-hard group flex h-full flex-col overflow-hidden">
-        <div className="aspect-[4/3] w-full border-b-2 border-ink">
-          <SachetGraphic
-            swatch={product.swatch}
-            badge={product.badge}
-            size={product.size}
-            flavor={product.flavor}
-          />
+    <article className="group flex h-full flex-col">
+      <div className="relative">
+        <ImageReveal delay={(index % 3) * 0.08} className="aspect-[4/5] w-full">
+          <SachetGraphic swatch={product.swatch} flavor={product.flavor} />
+        </ImageReveal>
+        {product.badge && (
+          <span className="spec absolute left-0 top-0 bg-ink px-3 py-1.5 text-cream">
+            {product.badge}
+          </span>
+        )}
+      </div>
+
+      <div className="rule mt-5 flex flex-1 flex-col pt-4">
+        <div className="flex items-baseline justify-between gap-4">
+          <h3 className="font-display text-lg tracking-display">{product.flavor}</h3>
+          <span className="index-num">{String(index + 1).padStart(2, '0')}</span>
         </div>
 
-        <div className="flex flex-1 flex-col p-5">
-          <h3 className="font-display text-base tracking-display">{product.name}</h3>
+        <p className="mt-2 font-body text-sm leading-relaxed text-bark">{product.blurb}</p>
 
-          {product.blurb && (
-            <p className="mt-2 font-body text-sm leading-relaxed text-bark">{product.blurb}</p>
-          )}
-
-          <div className="mt-4 flex flex-wrap gap-2">
-            {product.tags?.map((tag) => (
-              <span key={tag} className="tag-outline">
-                {tag}
-              </span>
-            ))}
-          </div>
-
-          <div className="mt-auto pt-5">
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="btn-hard w-full border-ink bg-olive text-cream"
-            >
-              <Plus size={14} strokeWidth={3} aria-hidden="true" />
-              Add to Cart
-            </button>
-          </div>
+        <div className="mt-auto flex items-center justify-between gap-4 pt-5">
+          <span className="spec">{product.size}</span>
+          <button
+            type="button"
+            onClick={handleAdd}
+            className="link-draw font-mono text-spec uppercase"
+          >
+            Add to cart
+          </button>
         </div>
       </div>
-    </motion.div>
+    </article>
   )
 }

@@ -1,11 +1,19 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Plus } from 'lucide-react'
 import { moods, products } from '../data/products'
 import SachetGraphic from './SachetGraphic'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 
+/**
+ * Picking a flavour by mood.
+ *
+ * Was a bordered box containing a second bordered box, with the moods as a row
+ * of pills that slid a green lozenge around on a spring. The lozenge is gone —
+ * it was the bounciest thing on the site and it existed to decorate a radio
+ * group — and so is the outer box. The moods are now a list you read down, the
+ * active one held in olive, with the recommendation opposite.
+ */
 export default function MoodMatcher() {
   const [activeId, setActiveId] = useState(moods[0].id)
   const { addItem, openCart } = useCart()
@@ -20,92 +28,69 @@ export default function MoodMatcher() {
   }
 
   return (
-    <div className="card-hard overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2">
-        <div className="border-b-2 border-ink p-6 sm:p-8 lg:border-b-0 lg:border-r-2">
-          <p className="font-mono text-xs uppercase tracking-widest text-olive">Mood Matcher</p>
-          <h3 className="mt-2 font-display text-2xl tracking-display sm:text-3xl">
-            Tell us how you feel
-          </h3>
-          <p className="mt-2 font-body text-sm text-bark">
-            Five moods, five flavors. Tap one to see which sachet we'd hand you.
-          </p>
-
-          <div className="mt-6 flex flex-wrap gap-2">
-            {moods.map((mood) => {
-              const isActive = mood.id === activeId
-              return (
-                <button
-                  key={mood.id}
-                  onClick={() => setActiveId(mood.id)}
-                  aria-pressed={isActive}
-                  className={`relative border-2 px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest transition-colors ${
-                    isActive
-                      ? 'border-ink text-cream'
-                      : 'border-ink/40 text-bark hover:border-ink hover:text-cocoa'
+    <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-10">
+      <ul className="lg:col-span-5">
+        {moods.map((mood, i) => {
+          const isActive = mood.id === activeId
+          return (
+            <li key={mood.id} className="rule first:border-t-0">
+              <button
+                type="button"
+                onClick={() => setActiveId(mood.id)}
+                aria-pressed={isActive}
+                className="flex w-full items-baseline gap-5 py-4 text-left"
+              >
+                <span className="index-num">{String(i + 1).padStart(2, '0')}</span>
+                <span
+                  className={`font-display text-xl tracking-display transition-colors duration-300 ${
+                    isActive ? 'text-olive' : 'text-cocoa hover:text-olive'
                   }`}
                 >
-                  {isActive && (
-                    <motion.span
-                      layoutId="activeTab"
-                      className="absolute inset-0 -z-10 bg-olive"
-                      transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                    />
-                  )}
                   {mood.label}
-                </button>
-              )
-            })}
-          </div>
+                </span>
+              </button>
+            </li>
+          )
+        })}
+      </ul>
 
+      <div className="lg:col-span-7 lg:grid lg:grid-cols-2 lg:gap-x-8">
+        <div className="aspect-[4/5]">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeId}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="mt-7 border-t-2 border-ink/15 pt-6"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+              className="h-full w-full"
             >
-              <p className="font-mono text-[10px] uppercase tracking-widest text-olive">
-                We'd hand you
-              </p>
-              <h4 className="mt-1 font-display text-xl tracking-display">{active.drink}</h4>
-              <p className="mt-2 font-body text-sm leading-relaxed text-bark">{active.note}</p>
-
-              <div className="mt-5">
-                <button
-                  type="button"
-                  onClick={handleAdd}
-                  className="btn-hard border-ink bg-olive text-cream"
-                >
-                  <Plus size={14} strokeWidth={3} aria-hidden="true" />
-                  Add This Sachet
-                </button>
-              </div>
+              <SachetGraphic swatch={activeProduct?.swatch} flavor={activeProduct?.flavor} />
             </motion.div>
           </AnimatePresence>
         </div>
 
-        <div className="relative min-h-[280px] bg-ink">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeId}
-              initial={{ opacity: 0, scale: 0.9, rotate: -4 }}
-              animate={{ opacity: 1, scale: 1, rotate: 0 }}
-              exit={{ opacity: 0, scale: 0.9, rotate: 4 }}
-              transition={{ type: 'spring', stiffness: 260, damping: 26 }}
-              className="absolute inset-0"
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={activeId}
+            initial={{ opacity: 0, y: 10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="mt-6 flex flex-col lg:mt-0"
+          >
+            <p className="spec text-olive">We&rsquo;d hand you</p>
+            <h4 className="mt-3 font-display text-xl tracking-display">{active.drink}</h4>
+            <p className="mt-3 font-body text-sm leading-relaxed text-bark">{active.note}</p>
+            <button
+              type="button"
+              onClick={handleAdd}
+              className="link-draw mt-6 self-start font-mono text-spec uppercase"
             >
-              <SachetGraphic
-                swatch={activeProduct?.swatch}
-                badge="SACHET"
-                size={activeProduct?.size}
-                flavor={activeProduct?.flavor}
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+              Add this sachet
+            </button>
+          </motion.div>
+        </AnimatePresence>
       </div>
     </div>
   )

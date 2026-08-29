@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
-import Reveal, { StaggerGroup, StaggerItem } from '../components/Reveal'
+import Reveal, { Rise, RiseInView, ImageReveal, StaggerGroup, StaggerItem } from '../components/Motion'
 import FieldGraphic from '../components/FieldGraphic'
 
 const TIMELINE = [
@@ -38,157 +38,158 @@ export default function OurStory() {
 
   return (
     <PageShell>
-      {/* INTRO */}
-      <section className="border-b border-ink bg-card">
-        <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8 sm:py-20">
-          <Reveal>
-            <p className="font-mono text-xs uppercase tracking-widest text-olive">Our Story</p>
-            <h1 className="mt-2 max-w-3xl font-display text-4xl tracking-display sm:text-5xl lg:text-6xl">
-              A farm in Uji. A sachet at your door. No ceremony in between.
-            </h1>
-            <p className="mt-6 max-w-2xl font-body text-base leading-relaxed text-bark sm:text-lg">
-              We didn't set out to reinvent matcha — just to strip out everything standing between
-              a good cup and the people who'd actually drink it daily.
+      {/* ── OPENING ──────────────────────────────────────────────────────────
+          The story page is the one place the site is allowed to be quiet and
+          slow. No grid, no columns, just a statement and a lot of paper. */}
+      <section className="bg-camel px-5 pb-20 pt-16 sm:px-10 sm:pb-28 sm:pt-24">
+        <div className="mx-auto max-w-[100rem]">
+          <p className="spec text-olive">Since 1958 &middot; Uji, Kyoto</p>
+          <h1 className="mt-6 max-w-5xl font-display text-major tracking-display">
+            <Rise delay={0.05}>A farm in Uji.</Rise>
+            <Rise delay={0.15}>A sachet at</Rise>
+            <Rise delay={0.25}>your door.</Rise>
+          </h1>
+          <Reveal delay={0.4}>
+            <p className="mt-10 max-w-xl font-serif text-lede italic text-bark">
+              We did not set out to reinvent matcha. We set out to remove everything standing
+              between a good cup and the people who would actually drink it daily.
             </p>
           </Reveal>
         </div>
       </section>
 
-      {/* SPLIT SCREEN BLOCK 1 */}
-      <section className="border-b border-ink bg-camel">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-          <Reveal className="order-2 flex flex-col justify-center px-5 py-14 sm:px-8 sm:py-20 lg:order-1">
-            <p className="font-mono text-xs uppercase tracking-widest text-olive">01 — Sourcing</p>
-            <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">
-              One farm, not a blend
-            </h2>
-            <p className="mt-4 max-w-md font-body text-base leading-relaxed text-bark">
-              Most "matcha" on shelves is blended from multiple harvests and regions to hit a price
-              point. Ours comes from a single shaded terrace in Uji, Kyoto — the same family, the
-              same rows, every single order.
-            </p>
-          </Reveal>
-          <div className="order-1 aspect-[4/3] border-b border-ink lg:order-2 lg:aspect-auto lg:border-b-0 lg:border-l">
-            <FieldGraphic variant="rows" className="h-full w-full" />
-          </div>
-        </div>
-      </section>
-
-      {/* SPLIT SCREEN BLOCK 2 (reversed) */}
-      <section className="border-b border-ink bg-camel">
-        <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
-          <div className="aspect-[4/3] border-b border-ink lg:aspect-auto lg:border-b-0 lg:border-r">
-            <FieldGraphic variant="leaf" className="h-full w-full" />
-          </div>
-          <Reveal className="flex flex-col justify-center px-5 py-14 sm:px-8 sm:py-20">
-            <p className="font-mono text-xs uppercase tracking-widest text-olive">02 — Milling</p>
-            <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">
-              Ground slow, on stone
-            </h2>
-            <p className="mt-4 max-w-md font-body text-base leading-relaxed text-bark">
-              Granite stone mills grind about 30 grams an hour — slow enough that friction never
-              heats the leaf. Heat is what turns good matcha bitter and dull. We'd rather wait.
-            </p>
-          </Reveal>
-        </div>
-      </section>
-
-      {/* TIMELINE */}
-      <section className="border-b border-ink bg-card">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
-          <Reveal className="mb-10 max-w-xl">
-            <p className="font-mono text-xs uppercase tracking-widest text-olive">Since 1958</p>
-            <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">The Uji Timeline</h2>
-            <p className="mt-3 font-body text-sm text-bark">
-              Tap a year to read what happened.
-            </p>
-          </Reveal>
-
-          <div className="relative">
-            <div className="no-scrollbar flex gap-2 overflow-x-auto pb-6">
-              {TIMELINE.map((entry) => {
-                const isActive = entry.year === activeYear
-                return (
-                  <button
-                    key={entry.year}
-                    onClick={() => setActiveYear(entry.year)}
-                    className="relative flex-shrink-0 border border-ink px-5 py-3 font-mono text-sm tracking-widest transition-colors"
-                    style={{
-                      backgroundColor: isActive ? '#43481D' : 'transparent',
-                      color: isActive ? '#F6EFC6' : '#4C382C',
-                    }}
-                  >
-                    {isActive && (
-                      <motion.span
-                        layoutId="timeline-active"
-                        className="absolute inset-0 -z-10 bg-olive"
-                        transition={{ type: 'spring', stiffness: 400, damping: 32 }}
-                      />
-                    )}
-                    {entry.year}
-                  </button>
-                )
-              })}
+      {/* ── SOURCING ─────────────────────────────────────────────────────────
+          Full-bleed image with the copy set into the band beneath it, rather
+          than the old fifty-fifty split. The picture gets to be a picture. */}
+      <section>
+        <ImageReveal className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]">
+          <FieldGraphic variant="rows" className="h-full w-full" />
+        </ImageReveal>
+        <div className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+          <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <span className="index-num">01</span>
+              <h2 className="mt-4 font-display text-minor tracking-display">One farm, not a blend</h2>
             </div>
-
-            <div className="h-px w-full bg-ink/20" />
-
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeYear}
-                initial={{ opacity: 0, y: 16 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -16 }}
-                transition={{ duration: 0.3, ease: 'easeOut' }}
-                className="mt-8 max-w-2xl"
-              >
-                <p className="font-mono text-xs uppercase tracking-widest text-olive">{activeEntry.year}</p>
-                <h3 className="mt-2 font-display text-2xl tracking-display sm:text-3xl">
-                  {activeEntry.title}
-                </h3>
-                <p className="mt-3 font-body text-base leading-relaxed text-bark">
-                  {activeEntry.text}
-                </p>
-              </motion.div>
-            </AnimatePresence>
+            <div className="lg:col-span-6 lg:col-start-7">
+              <p className="max-w-lg font-body text-lede text-bark">
+                Most matcha on a shelf is blended across harvests and regions to hit a price. Ours
+                comes off a single shaded terrace in Uji &mdash; the same family, the same rows,
+                every order.
+              </p>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* SOURCING PHILOSOPHY */}
-      <section className="bg-camel">
-        <div className="mx-auto max-w-7xl px-5 py-16 sm:px-8 sm:py-20">
-          <Reveal className="mb-10 max-w-xl">
-            <p className="font-mono text-xs uppercase tracking-widest text-olive">Philosophy</p>
-            <h2 className="mt-2 font-display text-3xl tracking-display sm:text-4xl">
-              Three rules we don't break
-            </h2>
-          </Reveal>
+      {/* ── MILLING ─────────────────────────────────────────────────────── */}
+      <section>
+        <ImageReveal className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]">
+          <FieldGraphic variant="leaf" className="h-full w-full" />
+        </ImageReveal>
+        <div className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+          <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <span className="index-num">02</span>
+              <h2 className="mt-4 font-display text-minor tracking-display">Ground slow, on stone</h2>
+            </div>
+            <div className="lg:col-span-6 lg:col-start-7">
+              <p className="max-w-lg font-body text-lede text-bark">
+                Granite mills turn out about thirty grams an hour &mdash; slow enough that friction
+                never heats the leaf. Heat is what makes matcha bitter and dull. We would rather
+                wait.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
 
-          <StaggerGroup className="grid grid-cols-1 gap-6 sm:grid-cols-3">
+      {/* ── TIMELINE ─────────────────────────────────────────────────────────
+          The years lost their boxes and the green lozenge that sprang between
+          them. They are numerals on a rule now; the active one is simply the
+          one in olive. */}
+      <section className="bg-ink px-5 py-24 sm:px-10 sm:py-32">
+        <div className="mx-auto max-w-[100rem]">
+          <h2 className="font-display text-minor tracking-display text-cream">Sixty-eight years</h2>
+
+          <div
+            aria-label="Choose a year"
+            role="group"
+            className="no-scrollbar mt-10 flex gap-10 overflow-x-auto border-b border-linen pb-5"
+          >
+            {TIMELINE.map((entry) => {
+              const isActive = entry.year === activeYear
+              return (
+                <button
+                  key={entry.year}
+                  aria-pressed={isActive}
+                  onClick={() => setActiveYear(entry.year)}
+                  className={`shrink-0 font-mono text-spec tabular-nums transition-colors duration-300 ${
+                    isActive ? 'text-cream' : 'text-linen hover:text-cream'
+                  }`}
+                >
+                  {entry.year}
+                  <span
+                    className={`mt-2 block h-px w-full origin-left bg-cream transition-transform duration-500 ${
+                      isActive ? 'scale-x-100' : 'scale-x-0'
+                    }`}
+                  />
+                </button>
+              )
+            })}
+          </div>
+
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={activeYear}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
+              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              aria-live="polite"
+              className="mt-12 grid gap-6 lg:grid-cols-12"
+            >
+              <h3 className="font-display text-minor tracking-display text-cream lg:col-span-4">
+                {activeEntry.title}
+              </h3>
+              <p className="max-w-2xl font-body text-lede text-linen lg:col-span-7 lg:col-start-6">
+                {activeEntry.text}
+              </p>
+            </motion.div>
+          </AnimatePresence>
+        </div>
+      </section>
+
+      {/* ── RULES ────────────────────────────────────────────────────────── */}
+      <section className="bg-camel px-5 py-24 sm:px-10 sm:py-32">
+        <div className="mx-auto max-w-[100rem]">
+          <h2 className="max-w-3xl font-display text-major tracking-display">
+            <RiseInView>Three rules we</RiseInView>
+            <RiseInView delay={0.08}>do not break.</RiseInView>
+          </h2>
+
+          <StaggerGroup className="mt-16 grid gap-y-10 sm:grid-cols-3 sm:gap-x-10">
             {[
               {
                 n: '01',
-                title: 'Single Origin, Always',
-                text: 'No blending harvests to hit a margin. If the Uji harvest is short, we sell less matcha — not worse matcha.',
+                title: 'Single origin, always',
+                text: 'No blending harvests to protect a margin. If the Uji harvest is short we sell less matcha, not worse matcha.',
               },
               {
                 n: '02',
-                title: 'Built For Every Day',
-                text: 'Matcha treated like an occasion gets used like one. Ours is a sachet in a drawer — meant for your Tuesday, not a special trip.',
+                title: 'Built for a Tuesday',
+                text: 'Matcha treated as an occasion gets drunk like one. Ours lives in a drawer, not on a shelf you admire.',
               },
               {
                 n: '03',
-                title: 'Skip What Doesn\'t Serve You',
-                text: 'The tea ceremony is beautiful — and optional. We keep the parts that make the drink better, drop the parts that just make it slower.',
+                title: 'Keep only what helps',
+                text: 'The ceremony is beautiful and it is optional. We kept the parts that make the drink better and dropped the parts that only make it slower.',
               },
             ].map((item) => (
-              <StaggerItem key={item.n}>
-                <div className="card-hard h-full p-6">
-                  <p className="font-mono text-xs text-olive">{item.n}</p>
-                  <h3 className="mt-3 font-display text-lg tracking-display">{item.title}</h3>
-                  <p className="mt-3 font-body text-sm leading-relaxed text-bark">{item.text}</p>
-                </div>
+              <StaggerItem key={item.n} className="rule pt-5">
+                <span className="index-num">{item.n}</span>
+                <h3 className="mt-4 font-display text-xl tracking-display">{item.title}</h3>
+                <p className="mt-3 font-body text-sm leading-relaxed text-bark">{item.text}</p>
               </StaggerItem>
             ))}
           </StaggerGroup>
