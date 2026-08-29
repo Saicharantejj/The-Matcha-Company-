@@ -31,10 +31,7 @@ export default function App() {
       <ToastProvider>
         <div className="flex min-h-screen flex-col">
           <ScrollToTop />
-          {/* The landing page stacks its own wordmark and nav down the centre,
-              so the sticky bar would be a second, competing header. Every other
-              route keeps it. */}
-          {location.pathname !== '/' && <Header />}
+          <Header />
 
           <AnimatePresence mode="wait" initial={false}>
             <Routes location={location} key={location.pathname}>
