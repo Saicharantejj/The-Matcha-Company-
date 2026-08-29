@@ -28,12 +28,12 @@ export default function SachetGraphic({ swatch = 'matcha', badge, size, flavor, 
         }}
       />
       {badge && (
-        <span className="absolute left-3 top-3 z-10 border border-cream/70 bg-ink/60 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream backdrop-blur-sm">
+        <span className="absolute left-3 top-3 z-10 border border-cream/70 bg-ink/80 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream">
           {badge}
         </span>
       )}
       {size && (
-        <span className="absolute bottom-3 right-3 z-10 border border-cream/70 bg-ink/60 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream backdrop-blur-sm">
+        <span className="absolute bottom-3 right-3 z-10 border border-cream/70 bg-ink/80 px-2 py-1 font-mono text-[9px] uppercase tracking-widest text-cream">
           {size}
         </span>
       )}

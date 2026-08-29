@@ -3,7 +3,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { Plus } from 'lucide-react'
 import { moods, products } from '../data/products'
 import SachetGraphic from './SachetGraphic'
-import Magnetic from './Magnetic'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 
@@ -62,9 +61,9 @@ export default function MoodMatcher() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeId}
-              initial={{ opacity: 0, y: 12, filter: 'blur(4px)' }}
-              animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-              exit={{ opacity: 0, y: -12, filter: 'blur(4px)' }}
+              initial={{ opacity: 0, y: 12 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -12 }}
               transition={{ duration: 0.3, ease: 'easeOut' }}
               className="mt-7 border-t-2 border-ink/15 pt-6"
             >
@@ -75,16 +74,14 @@ export default function MoodMatcher() {
               <p className="mt-2 font-body text-sm leading-relaxed text-ink/75">{active.note}</p>
 
               <div className="mt-5">
-                <Magnetic className="inline-block">
-                  <button
-                    type="button"
-                    onClick={handleAdd}
-                    className="btn-hard border-ink bg-olive text-cream"
-                  >
-                    <Plus size={14} strokeWidth={3} aria-hidden="true" />
-                    Add This Sachet
-                  </button>
-                </Magnetic>
+                <button
+                  type="button"
+                  onClick={handleAdd}
+                  className="btn-hard border-ink bg-olive text-cream"
+                >
+                  <Plus size={14} strokeWidth={3} aria-hidden="true" />
+                  Add This Sachet
+                </button>
               </div>
             </motion.div>
           </AnimatePresence>

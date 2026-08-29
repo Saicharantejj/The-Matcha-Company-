@@ -4,7 +4,6 @@ import { Minus, Plus, Package } from 'lucide-react'
 import PageShell from '../components/PageShell'
 import Reveal, { StaggerGroup, StaggerItem } from '../components/Reveal'
 import SachetGraphic from '../components/SachetGraphic'
-import Magnetic from '../components/Magnetic'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { matchaKits } from '../data/products'
@@ -76,15 +75,13 @@ function KitBundleCard({ kit, qty, onQty }) {
               </button>
             </div>
 
-            <Magnetic>
-              <button
-                type="button"
-                onClick={handleAdd}
-                className="btn-hard border-ink bg-olive text-cream"
-              >
-                Add Bundle to Cart
-              </button>
-            </Magnetic>
+            <button
+              type="button"
+              onClick={handleAdd}
+              className="btn-hard border-ink bg-olive text-cream"
+            >
+              Add Bundle to Cart
+            </button>
           </div>
         </div>
       </div>

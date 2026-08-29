@@ -4,7 +4,6 @@ import { Check, ChevronDown, Clock, Plus, Utensils } from 'lucide-react'
 import PageShell from '../components/PageShell'
 import Reveal from '../components/Reveal'
 import SachetGraphic from '../components/SachetGraphic'
-import Magnetic from '../components/Magnetic'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { diyKits } from '../data/products'
@@ -111,16 +110,14 @@ function KitCard({ kit }) {
         </AnimatePresence>
 
         <div className="mt-auto pt-5">
-          <Magnetic>
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="btn-hard w-full border-ink bg-olive text-cream"
-            >
-              <Plus size={14} strokeWidth={3} aria-hidden="true" />
-              Add Kit to Cart
-            </button>
-          </Magnetic>
+          <button
+            type="button"
+            onClick={handleAdd}
+            className="btn-hard w-full border-ink bg-olive text-cream"
+          >
+            <Plus size={14} strokeWidth={3} aria-hidden="true" />
+            Add Kit to Cart
+          </button>
         </div>
       </div>
     </div>

@@ -5,7 +5,6 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
 import GrainOverlay from './components/GrainOverlay'
-import MagneticCursor from './components/MagneticCursor'
 import { CartProvider } from './context/CartContext'
 import { ToastProvider } from './components/Toast'
 import Home from './pages/Home'
@@ -47,7 +46,6 @@ export default function App() {
           <Footer />
           <CartDrawer />
           <GrainOverlay />
-          <MagneticCursor />
         </div>
       </ToastProvider>
     </CartProvider>

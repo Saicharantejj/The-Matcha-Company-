@@ -28,7 +28,7 @@ export default function Header() {
   return (
     <header className="sticky top-0 z-50">
       <Marquee items={TICKER_ITEMS} />
-      <div className="border-b border-ink bg-camel/95 backdrop-blur-sm">
+      <div className="border-b-2 border-ink bg-camel">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-5 py-4 sm:px-8">
           <NavLink to="/" aria-label="The Matcha Company — home" className="flex items-center">
             <img src={logoWordmark} alt="The Matcha Company" className="h-11 w-auto sm:h-14" />

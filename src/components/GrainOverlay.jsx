@@ -15,7 +15,7 @@ export default function GrainOverlay() {
   return (
     <div
       aria-hidden="true"
-      className="pointer-events-none fixed inset-0 z-[100] opacity-[0.04] mix-blend-multiply"
+      className="pointer-events-none fixed inset-0 z-[100] opacity-[0.045]"
       style={{
         backgroundImage: `url("data:image/svg+xml,${NOISE}")`,
         backgroundRepeat: 'repeat',

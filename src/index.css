@@ -91,17 +91,6 @@
     box-shadow: 8px 8px 0px 0px #4C382C;
   }
 
-  /* A tilted card owns its transform via Framer, so it must not also animate
-     transform here — only the shadow grows. */
-  .card-hard.is-tilting,
-  .card-hard.is-tilting:hover {
-    transform: none;
-    transition: box-shadow 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
-  }
-  .card-hard.is-tilting:hover {
-    box-shadow: 8px 8px 0px 0px #4C382C;
-  }
-
   .tag-outline {
     @apply border-[1.5px] border-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink;
   }
@@ -121,19 +110,6 @@
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
-
-/* The custom cursor component adds this class once it has actually mounted, so
-   a JS failure can never leave the visitor with no pointer at all. Text fields
-   keep a real caret — losing that is genuinely disorienting. */
-.has-custom-cursor,
-.has-custom-cursor * {
-  cursor: none !important;
-}
-.has-custom-cursor input,
-.has-custom-cursor textarea,
-.has-custom-cursor select {
-  cursor: text !important;
-}
 
 @media (prefers-reduced-motion: reduce) {
   *,
