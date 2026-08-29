@@ -16,6 +16,13 @@ export default {
         bark: '#563620',   // secondary type — 6.72:1 on camel, 8.67:1 on card
         linen: '#E3DCB5',  // on dark — 7.68:1 on ink, 6.95:1 on olive
         olive: '#43481D',
+        // Landing-page ground and accent. The rest of the site is warm camel;
+        // the landing page runs cool and green, so these two live alongside the
+        // brand palette rather than replacing it. lime is light enough to carry
+        // olive type at 5.47:1, which #6F9E28 matcha could not.
+        sage: '#E9EDE1',   // ground — olive on it is 8.09:1
+        lime: '#A4D256',   // filled pills and the ticker strip
+        fern: '#627029',   // secondary type on sage — 4.59:1, solid not alpha
         moss: '#7C8438',
         matcha: '#6F9E28',
         cream: '#F6EFC6',
@@ -24,6 +31,7 @@ export default {
         display: ['"Archivo Black"', 'Impact', 'sans-serif'],
         body: ['"Instrument Sans"', 'sans-serif'],
         mono: ['"Courier Prime"', 'monospace'],
+        hand: ['Caveat', 'cursive'],
       },
       borderRadius: {
         none: '0px',
