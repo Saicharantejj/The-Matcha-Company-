@@ -57,7 +57,7 @@ export default function SachetGraphic({ swatch = 'matcha', badge, size, flavor, 
           <rect x="18" y="58" width="84" height="42" fill="#F0E5D2" stroke="#4C382C" strokeWidth="1.5" />
         </svg>
         {flavor && (
-          <span className="pointer-events-none absolute left-1/2 top-[52%] w-[62%] -translate-x-1/2 -translate-y-1/2 text-center font-mono text-[9px] font-bold uppercase leading-tight tracking-tight text-ink">
+          <span className="pointer-events-none absolute left-1/2 top-[52%] w-[62%] -translate-x-1/2 -translate-y-1/2 text-center font-mono text-[9px] font-bold uppercase leading-tight tracking-tight text-cocoa">
             {flavor}
           </span>
         )}

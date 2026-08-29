@@ -58,7 +58,7 @@ function KitBundleCard({ kit, qty, onQty }) {
                 type="button"
                 onClick={() => onQty(Math.max(1, qty - 1))}
                 aria-label={`Fewer ${kit.name}`}
-                className="flex h-9 w-9 items-center justify-center text-ink transition-colors hover:bg-ink hover:text-cream"
+                className="flex h-9 w-9 items-center justify-center text-cocoa transition-colors hover:bg-ink hover:text-cream"
               >
                 <Minus size={13} strokeWidth={3} aria-hidden="true" />
               </button>
@@ -69,7 +69,7 @@ function KitBundleCard({ kit, qty, onQty }) {
                 type="button"
                 onClick={() => onQty(qty + 1)}
                 aria-label={`More ${kit.name}`}
-                className="flex h-9 w-9 items-center justify-center text-ink transition-colors hover:bg-ink hover:text-cream"
+                className="flex h-9 w-9 items-center justify-center text-cocoa transition-colors hover:bg-ink hover:text-cream"
               >
                 <Plus size={13} strokeWidth={3} aria-hidden="true" />
               </button>

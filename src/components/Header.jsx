@@ -42,7 +42,7 @@ export default function Header() {
                 end={link.to === '/'}
                 className={({ isActive }) =>
                   `relative font-mono text-xs uppercase tracking-widest transition-colors ${
-                    isActive ? 'text-olive' : 'text-bark hover:text-ink'
+                    isActive ? 'text-olive' : 'text-bark hover:text-cocoa'
                   }`
                 }
               >

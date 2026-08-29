@@ -123,7 +123,7 @@ export default function Home() {
                   Shop the Sachets
                   <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
                 </Link>
-                <Link to="/matcha-kits" className="btn-hard border-ink bg-transparent text-ink">
+                <Link to="/matcha-kits" className="btn-hard border-ink bg-transparent text-cocoa">
                   Bulk &amp; Cafés
                 </Link>
               </motion.div>
@@ -193,7 +193,7 @@ export default function Home() {
             </div>
             <Link
               to="/matchas"
-              className="font-mono text-xs uppercase tracking-widest text-olive underline underline-offset-4 hover:text-ink"
+              className="font-mono text-xs uppercase tracking-widest text-olive underline underline-offset-4 hover:text-cocoa"
             >
               View full catalog →
             </Link>
@@ -220,7 +220,7 @@ export default function Home() {
               Order online and we'll ship it out, or set your café up with a standing order.
             </p>
             <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-              <Link to="/matchas" className="btn-hard border-cream bg-cream text-ink">
+              <Link to="/matchas" className="btn-hard border-cream bg-cream text-cocoa">
                 Shop Now
                 <ArrowRight size={14} strokeWidth={2.5} aria-hidden="true" />
               </Link>

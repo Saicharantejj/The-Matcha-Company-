@@ -17,7 +17,7 @@ export default function TaglineTicker() {
         {items.map((t, i) => (
           <span
             key={`${t}-${i}`}
-            className="mx-2 whitespace-nowrap border-[3px] border-ink px-4 py-2 font-mono text-xs uppercase tracking-widest text-ink"
+            className="mx-2 whitespace-nowrap border-[3px] border-ink px-4 py-2 font-mono text-xs uppercase tracking-widest text-cocoa"
           >
             {t}
           </span>

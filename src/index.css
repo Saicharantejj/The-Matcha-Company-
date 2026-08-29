@@ -12,7 +12,7 @@
   }
 
   body {
-    @apply bg-camel text-ink font-body antialiased;
+    @apply bg-camel text-cocoa font-body antialiased;
     background-image:
       radial-gradient(circle at 1px 1px, rgba(76,56,44,0.06) 1px, transparent 0);
     background-size: 22px 22px;
@@ -92,7 +92,7 @@
   }
 
   .tag-outline {
-    @apply border-[1.5px] border-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-ink;
+    @apply border-[1.5px] border-ink px-2.5 py-1 font-mono text-[10px] uppercase tracking-widest text-cocoa;
   }
 }
 

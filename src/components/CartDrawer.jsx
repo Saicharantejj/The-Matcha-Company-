@@ -42,7 +42,7 @@ function QtyStepper({ qty, onDecrement, onIncrement, name }) {
         type="button"
         onClick={onDecrement}
         aria-label={`Decrease quantity of ${name}`}
-        className="flex h-8 w-8 items-center justify-center font-mono text-sm leading-none text-ink transition-colors hover:bg-ink hover:text-cream"
+        className="flex h-8 w-8 items-center justify-center font-mono text-sm leading-none text-cocoa transition-colors hover:bg-ink hover:text-cream"
       >
         –
       </button>
@@ -56,7 +56,7 @@ function QtyStepper({ qty, onDecrement, onIncrement, name }) {
         type="button"
         onClick={onIncrement}
         aria-label={`Increase quantity of ${name}`}
-        className="flex h-8 w-8 items-center justify-center font-mono text-sm leading-none text-ink transition-colors hover:bg-ink hover:text-cream"
+        className="flex h-8 w-8 items-center justify-center font-mono text-sm leading-none text-cocoa transition-colors hover:bg-ink hover:text-cream"
       >
         +
       </button>
@@ -125,7 +125,7 @@ export default function CartDrawer() {
                 type="button"
                 onClick={closeCart}
                 aria-label="Close cart"
-                className="flex h-9 w-9 items-center justify-center border border-ink bg-transparent font-mono text-sm text-ink transition-colors hover:bg-ink hover:text-cream"
+                className="flex h-9 w-9 items-center justify-center border border-ink bg-transparent font-mono text-sm text-cocoa transition-colors hover:bg-ink hover:text-cream"
               >
                 ✕
               </button>
@@ -139,7 +139,7 @@ export default function CartDrawer() {
                 <h3 className="mt-5 font-display text-2xl tracking-display">Order requested</h3>
                 <p className="mt-3 font-body text-sm leading-relaxed text-bark">
                   We've logged {placed.items} {placed.items === 1 ? 'item' : 'items'} against reference{' '}
-                  <span className="font-mono text-ink">{placed.ref}</span>. Our team confirms
+                  <span className="font-mono text-cocoa">{placed.ref}</span>. Our team confirms
                   every order by email before it ships.
                 </p>
                 <button
@@ -203,7 +203,7 @@ export default function CartDrawer() {
                               <button
                                 type="button"
                                 onClick={() => removeItem(line.id)}
-                                className="font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-ink"
+                                className="font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
                               >
                                 Remove
                               </button>
@@ -218,7 +218,7 @@ export default function CartDrawer() {
                 <footer className="border-t border-ink px-5 py-5">
                   <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest">
                     <span className="text-bark">Total items</span>
-                    <span className="tabular-nums text-ink">{count}</span>
+                    <span className="tabular-nums text-cocoa">{count}</span>
                   </div>
                   <p className="mt-3 font-body text-xs leading-relaxed text-bark">
                     We confirm pricing and delivery by email — nothing is charged here.
@@ -234,7 +234,7 @@ export default function CartDrawer() {
                   <button
                     type="button"
                     onClick={clearCart}
-                    className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-ink"
+                    className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
                   >
                     Clear cart
                   </button>

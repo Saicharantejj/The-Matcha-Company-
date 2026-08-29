@@ -7,13 +7,14 @@ export default {
         camel: '#DFC9A9',
         card: '#F0E5D2',
         ink: '#4C382C',
-        // Secondary text tones. These are solid colours on purpose: setting
-        // body copy as ink at 55-80% alpha let the camel page bleed through the
-        // glyphs, which dropped their saturation to ~17% and their contrast
-        // below the 4.5:1 AA floor. Same hues as ink/cream, a little more
-        // chroma to hold up at the lighter value.
-        bark: '#5A3D2B',   // 6.13:1 on camel, 7.91:1 on card
-        linen: '#E3DCB5',  // 7.68:1 on ink, 6.95:1 on olive
+        // Text tones, kept separate from ink so type can be a deeper, browner
+        // colour than the structural ink used for borders, hard shadows and the
+        // dark section backgrounds. Solid values on purpose: setting copy as ink
+        // at 55-80% alpha let the camel page bleed through the glyphs, dropping
+        // their saturation to ~17% and their contrast below the 4.5:1 AA floor.
+        cocoa: '#412816',  // primary type — 8.50:1 on camel, 10.96:1 on card
+        bark: '#563620',   // secondary type — 6.72:1 on camel, 8.67:1 on card
+        linen: '#E3DCB5',  // on dark — 7.68:1 on ink, 6.95:1 on olive
         olive: '#43481D',
         moss: '#7C8438',
         matcha: '#6F9E28',

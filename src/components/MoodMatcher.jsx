@@ -42,7 +42,7 @@ export default function MoodMatcher() {
                   className={`relative border-2 px-4 py-2.5 font-mono text-[11px] uppercase tracking-widest transition-colors ${
                     isActive
                       ? 'border-ink text-cream'
-                      : 'border-ink/40 text-bark hover:border-ink hover:text-ink'
+                      : 'border-ink/40 text-bark hover:border-ink hover:text-cocoa'
                   }`}
                 >
                   {isActive && (

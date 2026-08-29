@@ -95,7 +95,7 @@ function FilterChip({ label, isActive, onClick }) {
       onClick={onClick}
       aria-pressed={isActive}
       className={`relative border-2 border-ink px-3.5 py-1.5 font-mono text-[10px] uppercase tracking-widest transition-colors ${
-        isActive ? 'text-cream' : 'text-bark hover:text-ink'
+        isActive ? 'text-cream' : 'text-bark hover:text-cocoa'
       }`}
     >
       {isActive && (

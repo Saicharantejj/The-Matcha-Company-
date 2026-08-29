@@ -47,7 +47,7 @@ export function ToastProvider({ children }) {
               <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center border-2 border-ink bg-moss text-cream">
                 <Check size={12} strokeWidth={3} aria-hidden="true" />
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-ink">
+              <span className="font-mono text-[11px] uppercase tracking-widest text-cocoa">
                 {t.message}
               </span>
               {t.action && (
@@ -57,7 +57,7 @@ export function ToastProvider({ children }) {
                     t.onAction?.()
                     dismiss(t.id)
                   }}
-                  className="flex items-center gap-1 border-l-2 border-ink/20 pl-3 font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-ink"
+                  className="flex items-center gap-1 border-l-2 border-ink/20 pl-3 font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-cocoa"
                 >
                   <ShoppingBag size={11} strokeWidth={2.5} aria-hidden="true" />
                   {t.action}
