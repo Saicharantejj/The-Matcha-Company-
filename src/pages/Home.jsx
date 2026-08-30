@@ -1,14 +1,12 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
-import { useRef } from 'react'
+import { motion } from 'framer-motion'
 import PageShell from '../components/PageShell'
-import Reveal, { Rise, RiseInView, ImageReveal } from '../components/Motion'
+import Reveal, { Rise, RiseInView } from '../components/Motion'
 import MoodMatcher from '../components/MoodMatcher'
 import TaglineTicker from '../components/TaglineTicker'
 import FlavorPlate from '../components/FlavorPlate'
 import Photo from '../components/Photo'
-import heroImg from '../assets/hero-iced-matcha-cutout.png'
 import { products } from '../data/products'
 import { photos } from '../data/photos'
 
@@ -19,30 +17,25 @@ const STEPS = [
 ]
 
 export default function Home() {
-  const heroRef = useRef(null)
-  const reduceMotion = useReducedMotion()
   const [active, setActive] = useState(0)
-
-  const { scrollYProgress } = useScroll({ target: heroRef, offset: ['start start', 'end start'] })
-  // The only parallax on the site. The glass holds its ground a little as the
-  // page leaves, which reads as depth; everything else scrolls honestly.
-  const glassY = useTransform(scrollYProgress, [0, 1], [0, 120])
 
   return (
     <PageShell>
       {/* ── HERO ─────────────────────────────────────────────────────────────
-          Asymmetric on purpose. The type takes seven of twelve columns and the
-          glass takes six, so they overlap by one and the composition has a seam
-          in it rather than a gutter.
+          One photograph, one sentence. The cut-out glass that used to hold the
+          right-hand columns is gone: against the powder it read as a second
+          picture pasted over the first, and the fold says more with the leaf
+          alone than it did with a product shot floating on top of it.
 
-          The whole fold now stands on a photograph of the powder itself, run
+          The whole fold stands on a photograph of the powder itself, run
           full bleed behind the type. Ink brown on mid-green is nowhere near
           readable, so the type inverts to cream and the picture carries a
           scrim: 70% ink under the words, which puts cream at about 6:1, easing
-          to 25% at the right where the glass stands and the grain is worth
-          seeing. Any lighter under the type and the headline stops clearing
-          AA; any heavier and there is no point having a photograph there. */}
-      <section ref={heroRef} className="relative isolate overflow-hidden bg-ink">
+          to 25% across the right, where nothing is set and the grain is worth
+          seeing at full strength. Any lighter under the type and the headline
+          stops clearing AA; any heavier and there is no point having a
+          photograph there at all. */}
+      <section className="relative isolate flex min-h-[78vh] flex-col justify-end overflow-hidden bg-ink">
         {photos.powderTexture && (
           <div aria-hidden className="absolute inset-0 -z-10">
             <img
@@ -57,52 +50,20 @@ export default function Home() {
           </div>
         )}
 
-        <div className="mx-auto max-w-[100rem] px-5 pb-16 pt-16 sm:px-10 sm:pb-24 sm:pt-24">
-          <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-6">
-            <div className="lg:col-span-7 lg:pb-16">
-              <Reveal>
-                <p className="spec text-linen">Uji, Kyoto &rarr; your kitchen counter</p>
-              </Reveal>
+        <div className="mx-auto w-full max-w-[100rem] px-5 pb-14 pt-32 sm:px-10 sm:pb-16 sm:pt-40">
+          <Reveal>
+            <p className="spec text-linen">Uji, Kyoto &rarr; your kitchen counter</p>
+          </Reveal>
 
-              <h1 className="mt-6 font-display text-mega tracking-display text-cream">
-                <Rise delay={0.1}>Matcha,</Rise>
-                <Rise delay={0.2}>minus the</Rise>
-                <Rise delay={0.3} className="text-linen">ceremony</Rise>
-              </h1>
-            </div>
+          <h1 className="mt-6 max-w-5xl font-display text-mega tracking-display text-cream">
+            <Rise delay={0.1}>Matcha,</Rise>
+            <Rise delay={0.2}>minus the</Rise>
+            <Rise delay={0.3} className="text-linen">ceremony</Rise>
+          </h1>
 
-            {/* The glass used to hang off the right edge on a negative margin
-                and get sliced in half by the section's overflow. Bleeding a
-                photograph off the page is fine; bleeding the product you are
-                selling through the middle of the cup is not.
-
-                It now sits whole, bottom-aligned with the type so it lands on
-                the same line as the rule below. The 421px cap is the file's own
-                width — past that it is being invented, and this asset is small
-                enough that every pixel of upscale shows. */}
-            <motion.div
-              style={reduceMotion ? undefined : { y: glassY }}
-              className="mt-12 flex justify-center lg:col-span-5 lg:mt-0 lg:justify-end"
-            >
-              <ImageReveal
-                delay={0.35}
-                className="w-[72%] max-w-[280px] sm:max-w-[340px] lg:w-full lg:max-w-[421px]"
-              >
-                <img
-                  src={heroImg}
-                  alt="A glass of iced matcha made from a single sachet"
-                  width="421"
-                  height="620"
-                  fetchPriority="high"
-                  className="h-auto w-full object-contain"
-                />
-              </ImageReveal>
-            </motion.div>
-          </div>
-
-          {/* The fold's footer: the lede and the two actions, held to the left
-              column so the page has a clear reading order. */}
-          <div className="rule-heavy mt-12 border-linen pt-8 lg:mt-4 lg:grid lg:grid-cols-12 lg:gap-x-6">
+          {/* The fold's footer: the lede on the left, the two actions on the
+              right, divided from the headline by the heavy rule. */}
+          <div className="rule-heavy mt-14 border-linen pt-8 lg:grid lg:grid-cols-12 lg:gap-x-6">
             <Reveal className="lg:col-span-5">
               <p className="max-w-md font-body text-lede text-linen">
                 Stone-ground leaf from a single region, blended with real fruit and sealed one
