@@ -1,9 +1,11 @@
 import PageShell from '../components/PageShell'
 import Reveal, { Rise, ImageReveal } from '../components/Motion'
 import SachetGraphic from '../components/SachetGraphic'
+import Photo from '../components/Photo'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { matchaKits } from '../data/products'
+import { photos } from '../data/photos'
 
 /**
  * Bundles.
@@ -77,6 +79,17 @@ export default function MatchaKits() {
               hundred-count case for a café counter.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
+        <div className="mx-auto max-w-[100rem]">
+          <Photo
+            photo={photos.cupBlossoms}
+            className="aspect-[16/9] w-full sm:aspect-[21/9]"
+            priority
+          />
+          <p className="spec mt-4">One of each, or ten of the one you keep coming back to</p>
         </div>
       </section>
 

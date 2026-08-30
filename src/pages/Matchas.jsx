@@ -3,7 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { Rise } from '../components/Motion'
 import ProductCard from '../components/ProductCard'
+import Photo from '../components/Photo'
 import { products } from '../data/products'
+import { photos } from '../data/photos'
 
 const ALL_TAGS = [...new Set(products.flatMap((p) => p.tags ?? []))]
 
@@ -42,6 +44,19 @@ export default function Matchas() {
               cold milk or water and skip the ceremony entirely.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      {/* A single wide plate between the title and the catalogue, so the page
+          opens on the thing itself before it opens on a filter row. */}
+      <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
+        <div className="mx-auto max-w-[100rem]">
+          <Photo
+            photo={photos.trayTatami}
+            className="aspect-[16/9] w-full sm:aspect-[21/9]"
+            priority
+          />
+          <p className="spec mt-4">Uji, Kyoto &middot; first-harvest leaf, stone-ground</p>
         </div>
       </section>
 

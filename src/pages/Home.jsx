@@ -7,8 +7,10 @@ import Reveal, { Rise, RiseInView, ImageReveal } from '../components/Motion'
 import MoodMatcher from '../components/MoodMatcher'
 import TaglineTicker from '../components/TaglineTicker'
 import SachetGraphic from '../components/SachetGraphic'
+import Photo from '../components/Photo'
 import heroImg from '../assets/hero-iced-matcha-cutout.png'
 import { products } from '../data/products'
+import { photos } from '../data/photos'
 
 const STEPS = [
   { n: '01', title: 'Tear', body: 'One sachet, one cup. The ratio is already decided, so there is nothing to measure and nothing to get wrong.' },
@@ -94,22 +96,34 @@ export default function Home() {
       </section>
 
       {/* ── THE CLAIM ────────────────────────────────────────────────────────
-          One dark room in the middle of a paper site. No image, no card, no
-          columns — a single sentence at size, which is the whole point of it. */}
+          One dark room in the middle of a paper site. The sentence still runs
+          the section — it holds seven of twelve columns and nothing is allowed
+          to interrupt it — and the photograph beside it is the evidence for
+          the claim rather than decoration on top of it. */}
       <section className="bg-ink py-24 sm:py-36">
         <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
-          <p className="spec text-linen">What is actually in it</p>
-          <h2 className="mt-8 max-w-5xl font-display text-major tracking-display text-cream">
-            <RiseInView>Most flavoured</RiseInView>
-            <RiseInView delay={0.08}>matcha is sugar</RiseInView>
-            <RiseInView delay={0.16}>with a green tint.</RiseInView>
-          </h2>
-          <Reveal delay={0.3} className="mt-10 max-w-xl">
-            <p className="font-serif text-lede italic text-linen">
-              Ours is single-region leaf, stone-ground slowly enough not to scorch, then blended
-              with real fruit rather than flavouring. You can taste which one you picked.
-            </p>
-          </Reveal>
+          <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-12">
+            <div className="lg:col-span-7">
+              <p className="spec text-linen">What is actually in it</p>
+              <h2 className="mt-8 max-w-5xl font-display text-major tracking-display text-cream">
+                <RiseInView>Most flavoured</RiseInView>
+                <RiseInView delay={0.08}>matcha is sugar</RiseInView>
+                <RiseInView delay={0.16}>with a green tint.</RiseInView>
+              </h2>
+              <Reveal delay={0.3} className="mt-10 max-w-xl">
+                <p className="font-serif text-lede italic text-linen">
+                  Ours is single-region leaf, stone-ground slowly enough not to scorch, then
+                  blended with real fruit rather than flavouring. You can taste which one you
+                  picked.
+                </p>
+              </Reveal>
+            </div>
+
+            <div className="mt-12 lg:col-span-5 lg:mt-0">
+              <Photo photo={photos.trayTatami} delay={0.15} className="aspect-[5/4] w-full" />
+              <p className="spec mt-4 text-linen">The same leaf, whisked the long way</p>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -210,6 +224,33 @@ export default function Home() {
       </section>
 
       <TaglineTicker />
+
+      {/* ── THE FIELD ────────────────────────────────────────────────────────
+          A full-bleed breath before the close, set to the same pattern the
+          story page uses: the picture runs edge to edge and the caption sits
+          in the band underneath it rather than on top of the photograph. */}
+      <section>
+        <Photo photo={photos.bowlsFlatlay} className="h-[46vh] min-h-[280px] w-full sm:h-[60vh]" />
+        <div className="bg-camel px-5 py-14 sm:px-10 sm:py-16">
+          <div className="mx-auto grid max-w-[100rem] gap-6 lg:grid-cols-12">
+            <div className="lg:col-span-4">
+              <span className="index-num">Uji, Kyoto</span>
+              <h2 className="mt-4 font-display text-minor tracking-display">
+                Where the green comes from
+              </h2>
+            </div>
+            <div className="lg:col-span-6 lg:col-start-7">
+              <p className="max-w-lg font-body text-lede text-bark">
+                One shaded terrace, one family, and granite mills that turn out thirty grams an
+                hour. Everything we do after that is packaging.
+              </p>
+              <Link to="/our-story" className="link-draw mt-6 inline-block font-mono text-spec uppercase">
+                Read the whole story
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* ── CLOSE ────────────────────────────────────────────────────────── */}
       <section className="bg-ink py-28 sm:py-40">

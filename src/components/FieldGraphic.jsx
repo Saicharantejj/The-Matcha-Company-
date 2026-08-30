@@ -1,5 +1,7 @@
 /**
- * PLACEHOLDER imagery for the story pages.
+ * PLACEHOLDER imagery for the story pages. NO LONGER IN USE: the two bands on
+ * Our Story that this was drawn for now carry real photographs. Kept only as a
+ * fallback if a page ever needs an illustrated field again.
  *
  * The brand has no photography of the farm, so rather than dressing the page
  * with stock images of somebody else's tea field, these are drawn marks in the

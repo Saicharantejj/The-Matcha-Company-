@@ -1,8 +1,9 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
-import Reveal, { Rise, RiseInView, ImageReveal, StaggerGroup, StaggerItem } from '../components/Motion'
-import FieldGraphic from '../components/FieldGraphic'
+import Reveal, { Rise, RiseInView, StaggerGroup, StaggerItem } from '../components/Motion'
+import Photo from '../components/Photo'
+import { photos } from '../data/photos'
 
 const TIMELINE = [
   {
@@ -60,11 +61,15 @@ export default function OurStory() {
 
       {/* ── SOURCING ─────────────────────────────────────────────────────────
           Full-bleed image with the copy set into the band beneath it, rather
-          than the old fifty-fifty split. The picture gets to be a picture. */}
+          than the old fifty-fifty split. The picture gets to be a picture —
+          and it is now a photograph rather than the drawn placeholder that
+          stood in while the brand had no pictures of its own. */}
       <section>
-        <ImageReveal className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]">
-          <FieldGraphic variant="rows" className="h-full w-full" />
-        </ImageReveal>
+        <Photo
+          photo={photos.cupBlossoms}
+          className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]"
+          priority
+        />
         <div className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
           <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
             <div className="lg:col-span-4">
@@ -84,9 +89,10 @@ export default function OurStory() {
 
       {/* ── MILLING ─────────────────────────────────────────────────────── */}
       <section>
-        <ImageReveal className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]">
-          <FieldGraphic variant="leaf" className="h-full w-full" />
-        </ImageReveal>
+        <Photo
+          photo={photos.bowlsFlatlay}
+          className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]"
+        />
         <div className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
           <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
             <div className="lg:col-span-4">

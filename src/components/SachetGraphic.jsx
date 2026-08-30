@@ -8,10 +8,11 @@ const SWATCH = {
  * The sachet, drawn as packaging rather than as an icon.
  *
  * PLACEHOLDER: this stands in for product photography the brand does not have
- * yet. There is exactly one real photograph in the repository — the iced glass
- * on the landing page — so every one of the five flavours is represented by
- * this drawing. It is built to survive being shown large, but it should be
- * replaced by real shots of the sachets when they exist.
+ * yet. The photographs in src/data/photos.js are of matcha being made, not of
+ * the sachets themselves, so they carry the story and catalogue bands while
+ * every one of the five flavours is still represented here by a drawing. It is
+ * built to survive being shown large, but it should be replaced by real shots
+ * of the sachets when they exist.
  *
  * What changed from the previous version: the blurred colour glow behind it and
  * the dot grid over it are gone, along with the two floating badge pills. A
