@@ -168,7 +168,8 @@ export default function DiyKits() {
         <div className="mx-auto max-w-[100rem]">
           <Photo
             photo={photos.bowlsFlatlay}
-            className="aspect-[16/9] w-full sm:aspect-[21/9]"
+            className="w-full max-w-[60rem]"
+            natural
             priority
           />
           <p className="spec mt-4">Everything below starts with one 10g sachet</p>

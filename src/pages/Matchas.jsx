@@ -53,7 +53,8 @@ export default function Matchas() {
         <div className="mx-auto max-w-[100rem]">
           <Photo
             photo={photos.trayTatami}
-            className="aspect-[16/9] w-full sm:aspect-[21/9]"
+            className="w-full max-w-[60rem]"
+            natural
             priority
           />
           <p className="spec mt-4">Uji, Kyoto &middot; first-harvest leaf, stone-ground</p>

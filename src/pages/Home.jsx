@@ -143,7 +143,7 @@ export default function Home() {
             {/* The plate. Sticky on desktop so it stays with the reader as the
                 list moves; hidden on mobile, where each row carries its own. */}
             <div className="hidden lg:col-span-5 lg:block">
-              <div className="sticky top-28 aspect-[4/5]">
+              <div className="sticky top-28 aspect-[4/5] w-full max-w-[26rem]">
                 {products.map((p, i) => (
                   <motion.div
                     key={p.id}
@@ -228,12 +228,16 @@ export default function Home() {
       <TaglineTicker />
 
       {/* ── THE FIELD ────────────────────────────────────────────────────────
-          A full-bleed breath before the close, set to the same pattern the
-          story page uses: the picture runs edge to edge and the caption sits
-          in the band underneath it rather than on top of the photograph. */}
-      <section>
-        <Photo photo={photos.bowlsFlatlay} className="h-[46vh] min-h-[280px] w-full sm:h-[60vh]" />
-        <div className="bg-camel px-5 py-14 sm:px-10 sm:py-16">
+          A breath before the close, set to the same pattern the story page
+          uses: the picture over its caption rather than under type on top of
+          it. It is held to sixty rem because that is the width the file
+          actually has — stretched across the viewport it went soft, and a
+          smaller sharp photograph beats a big blurry one. */}
+      <section className="bg-camel">
+        <div className="mx-auto max-w-[100rem] px-5 pt-16 sm:px-10 sm:pt-20">
+          <Photo photo={photos.bowlsFlatlay} className="w-full max-w-[60rem]" natural />
+        </div>
+        <div className="px-5 py-14 sm:px-10 sm:py-16">
           <div className="mx-auto grid max-w-[100rem] gap-6 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <span className="index-num">Uji, Kyoto</span>

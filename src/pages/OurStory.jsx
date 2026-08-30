@@ -60,17 +60,17 @@ export default function OurStory() {
       </section>
 
       {/* ── SOURCING ─────────────────────────────────────────────────────────
-          Full-bleed image with the copy set into the band beneath it, rather
-          than the old fifty-fifty split. The picture gets to be a picture —
-          and it is now a photograph rather than the drawn placeholder that
-          stood in while the brand had no pictures of its own. */}
-      <section>
-        <Photo
-          photo={photos.cupBlossoms}
-          className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]"
-          priority
-        />
-        <div className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+          A wide plate with the copy set into the band beneath it, rather than
+          the old fifty-fifty split. The picture gets to be a picture —
+          a photograph now, rather than the drawn placeholder that stood in
+          while the brand had no pictures of its own. It is held to the width
+          the file actually has instead of being bled across the viewport,
+          because a photograph enlarged past its own pixels is a blurry one. */}
+      <section className="bg-camel">
+        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
+          <Photo photo={photos.cupBlossoms} className="w-full max-w-[60rem]" natural priority />
+        </div>
+        <div className="px-5 py-16 sm:px-10 sm:py-20">
           <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <span className="index-num">01</span>
@@ -88,12 +88,11 @@ export default function OurStory() {
       </section>
 
       {/* ── MILLING ─────────────────────────────────────────────────────── */}
-      <section>
-        <Photo
-          photo={photos.bowlsFlatlay}
-          className="h-[52vh] min-h-[320px] w-full sm:h-[68vh]"
-        />
-        <div className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+      <section className="bg-camel">
+        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
+          <Photo photo={photos.bowlsFlatlay} className="w-full max-w-[60rem]" natural />
+        </div>
+        <div className="px-5 py-16 sm:px-10 sm:py-20">
           <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
             <div className="lg:col-span-4">
               <span className="index-num">02</span>

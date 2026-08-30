@@ -25,9 +25,9 @@ import trayTatami from '../assets/matcha-tray-tatami.jpg'
 export const photos = {
   latteStrawberry: {
     src: latteStrawberry,
-    width: 296,
-    height: 567,
-    alt: 'Matcha poured into a tall glass of milk over crushed strawberry, in green, white and red layers',
+    width: 752,
+    height: 768,
+    alt: 'A tall glass of iced strawberry matcha in green, white and red layers, whole strawberries beside it',
   },
   latteBlueberry: {
     src: latteBlueberry,

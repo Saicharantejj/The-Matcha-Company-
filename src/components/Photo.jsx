@@ -8,8 +8,19 @@ import { ImageReveal } from './Motion'
  * band on one page and a column on another without a second component. The
  * intrinsic width and height come from the photo record, which keeps the
  * layout from shifting while the file loads.
+ *
+ * `natural` drops the crop and lets the picture keep its own proportions,
+ * which is what the wide plates use: paired with a max-width at or under the
+ * file's own pixel width, nothing is ever enlarged and nothing goes soft.
  */
-export default function Photo({ photo, className = '', delay = 0, priority = false, position = 'object-center' }) {
+export default function Photo({
+  photo,
+  className = '',
+  delay = 0,
+  priority = false,
+  natural = false,
+  position = 'object-center',
+}) {
   return (
     <ImageReveal delay={delay} className={className}>
       <img
@@ -20,7 +31,7 @@ export default function Photo({ photo, className = '', delay = 0, priority = fal
         loading={priority ? 'eager' : 'lazy'}
         decoding="async"
         fetchPriority={priority ? 'high' : 'auto'}
-        className={`h-full w-full object-cover ${position}`}
+        className={natural ? 'h-auto w-full' : `h-full w-full object-cover ${position}`}
       />
     </ImageReveal>
   )

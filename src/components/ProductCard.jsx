@@ -25,7 +25,7 @@ export default function ProductCard({ product, index = 0 }) {
   }
 
   return (
-    <article className="group flex h-full flex-col">
+    <article className="group flex h-full w-full max-w-[26rem] flex-col">
       <div className="relative">
         <ImageReveal delay={(index % 3) * 0.08} className="aspect-[4/5] w-full">
           <FlavorPlate item={product} />
