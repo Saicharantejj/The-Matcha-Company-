@@ -33,19 +33,41 @@ export default function Home() {
       {/* ── HERO ─────────────────────────────────────────────────────────────
           Asymmetric on purpose. The type takes seven of twelve columns and the
           glass takes six, so they overlap by one and the composition has a seam
-          in it rather than a gutter. */}
-      <section ref={heroRef} className="relative overflow-hidden bg-camel">
-        <div className="mx-auto max-w-[100rem] px-5 pb-16 pt-10 sm:px-10 sm:pb-24 sm:pt-16">
+          in it rather than a gutter.
+
+          The whole fold now stands on a photograph of the powder itself, run
+          full bleed behind the type. Ink brown on mid-green is nowhere near
+          readable, so the type inverts to cream and the picture carries a scrim
+          — dark enough at the left, where the words are, to clear AA, and
+          thinner at the right, where the grain can still be seen. If the
+          texture file is missing the fold falls back to flat ink and the
+          contrast holds either way. */}
+      <section ref={heroRef} className="relative isolate overflow-hidden bg-ink">
+        {photos.powderTexture && (
+          <div aria-hidden className="absolute inset-0 -z-10">
+            <img
+              src={photos.powderTexture.src}
+              alt=""
+              width={photos.powderTexture.width}
+              height={photos.powderTexture.height}
+              fetchPriority="high"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/70 to-ink/45" />
+          </div>
+        )}
+
+        <div className="mx-auto max-w-[100rem] px-5 pb-16 pt-16 sm:px-10 sm:pb-24 sm:pt-24">
           <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-6">
             <div className="lg:col-span-7 lg:pb-16">
               <Reveal>
-                <p className="spec text-olive">Uji, Kyoto &rarr; your kitchen counter</p>
+                <p className="spec text-linen">Uji, Kyoto &rarr; your kitchen counter</p>
               </Reveal>
 
-              <h1 className="mt-6 font-display text-mega tracking-display">
+              <h1 className="mt-6 font-display text-mega tracking-display text-cream">
                 <Rise delay={0.1}>Matcha,</Rise>
                 <Rise delay={0.2}>minus the</Rise>
-                <Rise delay={0.3} className="text-olive">ceremony</Rise>
+                <Rise delay={0.3} className="text-linen">ceremony</Rise>
               </h1>
             </div>
 
@@ -80,16 +102,20 @@ export default function Home() {
 
           {/* The fold's footer: the lede and the two actions, held to the left
               column so the page has a clear reading order. */}
-          <div className="rule-heavy mt-12 pt-8 lg:mt-4 lg:grid lg:grid-cols-12 lg:gap-x-6">
+          <div className="rule-heavy mt-12 border-linen pt-8 lg:mt-4 lg:grid lg:grid-cols-12 lg:gap-x-6">
             <Reveal className="lg:col-span-5">
-              <p className="max-w-md font-body text-lede text-bark">
+              <p className="max-w-md font-body text-lede text-linen">
                 Stone-ground leaf from a single region, blended with real fruit and sealed one
                 cup at a time. Tear it, stir it, drink it.
               </p>
             </Reveal>
             <Reveal delay={0.1} className="mt-8 flex flex-wrap gap-3 lg:col-span-5 lg:col-start-8 lg:mt-0 lg:justify-end">
-              <Link to="/matchas" className="btn">Shop the sachets</Link>
-              <Link to="/matcha-kits" className="btn-outline">Try all five</Link>
+              <Link to="/matchas" className="btn border-cream bg-cream text-cocoa hover:bg-olive hover:text-cream">
+                Shop the sachets
+              </Link>
+              <Link to="/matcha-kits" className="btn-outline border-cream text-cream hover:bg-cream hover:text-cocoa">
+                Try all five
+              </Link>
             </Reveal>
           </div>
         </div>
