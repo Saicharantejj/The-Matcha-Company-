@@ -31,7 +31,7 @@ export default function ProductCard({ product, index = 0 }) {
           <FlavorPlate item={product} />
         </ImageReveal>
         {product.badge && (
-          <span className="spec absolute left-0 top-0 bg-ink px-3 py-1.5 text-cream">
+          <span className="spec absolute left-0 top-0 bg-olive px-3 py-1.5 text-cream">
             {product.badge}
           </span>
         )}

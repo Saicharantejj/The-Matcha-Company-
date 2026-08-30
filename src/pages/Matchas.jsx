@@ -36,11 +36,14 @@ export default function Matchas() {
           Set the way the landing page's fold is: the photograph is the ground
           rather than an object on it, and the type inverts over it.
 
-          The scrim runs heavier here than on the powder — 85% down to 55%
-          against the powder's 70 to 25 — because this frame has a milky band
-          straight through the middle of it. Cream on that band unscrimmed is
-          about 3:1; at 75% ink under the type it clears 4.9:1, which the lede
-          needs and the headline would not have carried on its own. */}
+          The scrim is olive rather than ink. A neutral brown veil at the
+          weight this frame needs — it has a milky band straight through the
+          middle, so cream on it unscrimmed is only about 3:1 — drained the
+          picture to mud. Tinting the veil with the brand's own green keeps the
+          fold green while it does the same work: cream over olive at 90% is
+          6:1 under the headline and 5:1 at the lede, and the strawberry
+          still comes through on the right where the veil thins to 30%. The
+          picture is pushed a third of a stop in saturation to carry it. */}
       <section className="relative isolate flex min-h-[62vh] flex-col justify-end overflow-hidden bg-ink">
         {photos.layersMacro && (
           <div aria-hidden className="absolute inset-0 -z-10">
@@ -50,9 +53,12 @@ export default function Matchas() {
               width={photos.layersMacro.width}
               height={photos.layersMacro.height}
               fetchPriority="high"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover [filter:saturate(1.35)_contrast(1.06)]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/75 to-ink/55" />
+            <div className="absolute inset-0 bg-gradient-to-r from-olive/90 via-olive/80 to-olive/30" />
+            {/* A second pass down the frame, so the type sits on the deepest
+                part of the green and the top edge keeps its own colour. */}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent" />
           </div>
         )}
 
