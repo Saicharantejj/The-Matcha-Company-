@@ -1,7 +1,32 @@
+/**
+ * Pouch colours.
+ *
+ * The greens are the brand palette and cover anything that is not a single
+ * flavour — bundles, mixed packs, the discovery kit.
+ *
+ * The five flavour colours deliberately step outside that palette. Drawn in the
+ * house greens, five different products were five near-identical pouches and
+ * ube — a famously purple ingredient — was green. Each is a dusty,
+ * low-saturation version of its fruit so it still sits on the camel paper
+ * rather than shouting off it.
+ *
+ * Every flavour clears 3:1 against both the card plate it stands on (#F0E5D2)
+ * and the cream label it carries (#F6EFC6), which is the large-shape contrast
+ * floor. Vanilla is the awkward one: a pale custard yellow scores about 1.5
+ * against cream paper and simply vanishes, so it is set at the darker caramel
+ * end of vanilla instead. Mango is warmed past plain ochre so it does not read
+ * as the same colour as vanilla at a glance.
+ */
 const SWATCH = {
   matcha: '#6F9E28',
   moss: '#7C8438',
   olive: '#43481D',
+
+  strawberry: '#A6483C', // 4.66:1 on the plate
+  blueberry: '#4A5570',  // 5.96:1
+  mango: '#AD6413',      // 3.65:1
+  ube: '#6E5A8C',        // 4.81:1
+  vanilla: '#9E7A3A',    // 3.18:1
 }
 
 /**

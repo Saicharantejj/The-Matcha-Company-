@@ -4,10 +4,17 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { placeOrder, messageFor } from '../lib/api'
 
+// Mirrors the pouch colours in SachetGraphic, so a cart line looks like the
+// product it came from.
 const SWATCH = {
   matcha: '#6F9E28',
   moss: '#7C8438',
   olive: '#43481D',
+  strawberry: '#A6483C',
+  blueberry: '#4A5570',
+  mango: '#AD6413',
+  ube: '#6E5A8C',
+  vanilla: '#9E7A3A',
 }
 
 const KIND_LABEL = {
