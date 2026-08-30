@@ -34,31 +34,40 @@ export default function Matchas() {
     <PageShell>
       {/* ── HERO ─────────────────────────────────────────────────────────────
           Set the way the landing page's fold is: the photograph is the ground
-          rather than an object on it, and the type inverts over it.
+          rather than an object on it, and the type inverts over it. Sized to
+          match that fold at 78vh, because at 62vh this band read as a strip
+          above the page rather than as the opening of it.
 
-          The scrim is olive rather than ink. A neutral brown veil at the
-          weight this frame needs — it has a milky band straight through the
-          middle, so cream on it unscrimmed is only about 3:1 — drained the
-          picture to mud. Tinting the veil with the brand's own green keeps the
-          fold green while it does the same work: cream over olive at 90% is
-          6:1 under the headline and 5:1 at the lede, and the strawberry
-          still comes through on the right where the veil thins to 30%. The
-          picture is pushed a third of a stop in saturation to carry it. */}
-      <section className="relative isolate flex min-h-[62vh] flex-col justify-end overflow-hidden bg-ink">
-        {photos.layersMacro && (
+          The picture changed. This frame used to carry the layers macro, which
+          is an out-of-focus abstract — green over white over dark red, with
+          nothing in it in focus. It could not be made clear by lifting the
+          scrim: lightening the veil only resolved the blur into a smear, and
+          because the picture has a bright band running straight through the
+          middle it also dropped the headline to 3.4:1 and the lede to 4.6:1,
+          both a hair off their floors. A veil heavy enough to fix that is a
+          veil heavy enough to hide the photograph, which is the position the
+          frame was already stuck in.
+
+          A picture with a dark ground solves both at once. Cream over this at
+          78% ink measures 6.5:1 under the headline and 9.8:1 at the lede,
+          while the veil is light enough that the bowls, the whisk and the
+          powder all read at a glance. Measured on the composited pixels behind
+          the type, not on the overlay colour. */}
+      <section className="relative isolate flex min-h-[78vh] flex-col justify-end overflow-hidden bg-ink">
+        {photos.bowlsFlatlay && (
           <div aria-hidden className="absolute inset-0 -z-10">
             <img
-              src={photos.layersMacro.src}
+              src={photos.bowlsFlatlay.src}
               alt=""
-              width={photos.layersMacro.width}
-              height={photos.layersMacro.height}
+              width={photos.bowlsFlatlay.width}
+              height={photos.bowlsFlatlay.height}
               fetchPriority="high"
-              className="h-full w-full object-cover [filter:saturate(1.35)_contrast(1.06)]"
+              className="h-full w-full object-cover [filter:saturate(1.1)]"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-olive/90 via-olive/80 to-olive/30" />
-            {/* A second pass down the frame, so the type sits on the deepest
-                part of the green and the top edge keeps its own colour. */}
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/45 via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/78 via-ink/58 to-ink/20" />
+            {/* A second pass up the frame, so the type sits on the deepest
+                part of the picture and the top edge keeps its own light. */}
+            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
           </div>
         )}
 
