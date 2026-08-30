@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { Rise } from '../components/Motion'
-import SachetGraphic from '../components/SachetGraphic'
+import FlavorPlate from '../components/FlavorPlate'
 import Photo from '../components/Photo'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
@@ -133,7 +133,7 @@ function KitRow({ kit, index }) {
         </div>
 
         <div className="aspect-[5/4] lg:col-span-5 lg:col-start-8">
-          <SachetGraphic swatch={kit.swatch} flavor={kit.flavor} />
+          <FlavorPlate item={kit} />
         </div>
       </div>
     </article>

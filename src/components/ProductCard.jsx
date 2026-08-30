@@ -1,4 +1,4 @@
-import SachetGraphic from './SachetGraphic'
+import FlavorPlate from './FlavorPlate'
 import { ImageReveal } from './Motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
@@ -28,7 +28,7 @@ export default function ProductCard({ product, index = 0 }) {
     <article className="group flex h-full flex-col">
       <div className="relative">
         <ImageReveal delay={(index % 3) * 0.08} className="aspect-[4/5] w-full">
-          <SachetGraphic swatch={product.swatch} flavor={product.flavor} />
+          <FlavorPlate item={product} />
         </ImageReveal>
         {product.badge && (
           <span className="spec absolute left-0 top-0 bg-ink px-3 py-1.5 text-cream">

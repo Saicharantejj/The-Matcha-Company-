@@ -10,6 +10,13 @@ import trayTatami from '../assets/matcha-tray-tatami.jpg'
  * cannot drift between the places an image is used. Intrinsic dimensions are
  * carried alongside so every <img> can reserve its own space and the page does
  * not jump as the photographs load.
+ *
+ * Products and kits name their picture with a `photo` key that is looked up in
+ * here (see FlavorPlate). Five keys are spoken for but not yet shot —
+ * latteStrawberry, latteBlueberry, latteMango, latteUbe and bowlsBlue, plus
+ * whiskSlate for the discovery kit. Until a key exists here the drawn sachet
+ * stands in, so adding one is a two-line change and nothing breaks in the
+ * meantime.
  */
 export const photos = {
   bowlsFlatlay: {

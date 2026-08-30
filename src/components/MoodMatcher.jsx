@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { moods, products } from '../data/products'
-import SachetGraphic from './SachetGraphic'
+import FlavorPlate from './FlavorPlate'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 
@@ -65,7 +65,7 @@ export default function MoodMatcher() {
               transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
               className="h-full w-full"
             >
-              <SachetGraphic swatch={activeProduct?.swatch} flavor={activeProduct?.flavor} />
+              <FlavorPlate item={activeProduct ?? {}} />
             </motion.div>
           </AnimatePresence>
         </div>

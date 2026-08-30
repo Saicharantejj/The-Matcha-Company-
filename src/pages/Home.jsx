@@ -6,7 +6,7 @@ import PageShell from '../components/PageShell'
 import Reveal, { Rise, RiseInView, ImageReveal } from '../components/Motion'
 import MoodMatcher from '../components/MoodMatcher'
 import TaglineTicker from '../components/TaglineTicker'
-import SachetGraphic from '../components/SachetGraphic'
+import FlavorPlate from '../components/FlavorPlate'
 import Photo from '../components/Photo'
 import heroImg from '../assets/hero-iced-matcha-cutout.png'
 import { products } from '../data/products'
@@ -153,7 +153,7 @@ export default function Home() {
                     transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
                     className="absolute inset-0"
                   >
-                    <SachetGraphic swatch={p.swatch} flavor={p.flavor} />
+                    <FlavorPlate item={p} />
                   </motion.div>
                 ))}
               </div>
@@ -180,7 +180,7 @@ export default function Home() {
                     {/* Mobile carries the plate inline, since there is no room
                         for a sticky companion and no hover to drive it. */}
                     <div className="mt-5 aspect-[3/2] w-full pl-11 lg:hidden">
-                      <SachetGraphic swatch={p.swatch} flavor={p.flavor} />
+                      <FlavorPlate item={p} />
                     </div>
                   </Link>
                 </li>
