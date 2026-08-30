@@ -52,8 +52,8 @@ export default function Matchas() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto max-w-[100rem]">
           <Photo
-            photo={photos.trayTatami}
-            className="w-full max-w-[60rem]"
+            photo={photos.glassesOverhead}
+            className="w-full max-w-[48rem]"
             natural
             priority
           />

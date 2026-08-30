@@ -151,7 +151,7 @@ export const diyKits = [
     servings: '5 CUPS',
     badge: 'STARTER',
     swatch: 'olive',
-    photo: 'cupBlossoms',
+    photo: 'glassesOverhead',
     blurb: 'One sachet of every flavor, plus five recipes to try them all.',
     method:
       "One sachet of each flavor, each with the recipe card that suits it best: a latte, a smoothie bowl, a chia pudding, a stack of pancakes and a cold foam. Work through them in any order — the tasting booklet has a page per flavor to write down which one you would buy again.",

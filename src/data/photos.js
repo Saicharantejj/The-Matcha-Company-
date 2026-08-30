@@ -3,6 +3,9 @@ import latteBlueberry from '../assets/latte-blueberry.jpg'
 import latteMango from '../assets/latte-mango.jpg'
 import latteUbe from '../assets/latte-ube.jpg'
 import latteVanilla from '../assets/latte-vanilla.jpg'
+import glassesOverhead from '../assets/glasses-overhead.jpg'
+import counterKit from '../assets/counter-kit.jpg'
+import toolsGreenWood from '../assets/tools-green-wood.jpg'
 import bowlsFlatlay from '../assets/matcha-bowls-flatlay.jpg'
 import cupBlossoms from '../assets/matcha-cup-blossoms.jpg'
 import trayTatami from '../assets/matcha-tray-tatami.jpg'
@@ -52,6 +55,24 @@ export const photos = {
     width: 470,
     height: 636,
     alt: 'An iced vanilla matcha in a tall glass with a vanilla pod resting across the rim',
+  },
+  glassesOverhead: {
+    src: glassesOverhead,
+    width: 784,
+    height: 778,
+    alt: 'Half a dozen glasses of freshly whisked matcha seen from directly above on a pink counter',
+  },
+  counterKit: {
+    src: counterKit,
+    width: 446,
+    height: 788,
+    alt: 'A kitchen counter mid-make: a tin of matcha, a sifter, a whisk resting in a bowl and a finished iced glass',
+  },
+  toolsGreenWood: {
+    src: toolsGreenWood,
+    width: 784,
+    height: 776,
+    alt: 'Bowls of whisked matcha, a bamboo whisk, a scoop and loose powder arranged on weathered green wood',
   },
   bowlsFlatlay: {
     src: bowlsFlatlay,

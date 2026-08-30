@@ -120,7 +120,7 @@ export default function Home() {
             </div>
 
             <div className="mt-12 lg:col-span-5 lg:mt-0">
-              <Photo photo={photos.trayTatami} delay={0.15} className="aspect-[5/4] w-full" />
+              <Photo photo={photos.toolsGreenWood} delay={0.15} className="aspect-[5/4] w-full" />
               <p className="spec mt-4 text-linen">The same leaf, whisked the long way</p>
             </div>
           </div>
@@ -201,14 +201,24 @@ export default function Home() {
             <RiseInView delay={0.08}>start to finish.</RiseInView>
           </h2>
 
-          <div className="mt-16 grid gap-y-10 sm:grid-cols-3 sm:gap-x-10">
-            {STEPS.map((step, i) => (
-              <Reveal key={step.n} delay={i * 0.08} className="rule pt-5">
-                <span className="index-num">{step.n}</span>
-                <h3 className="mt-4 font-display text-xl tracking-display">{step.title}</h3>
-                <p className="mt-3 font-body text-sm leading-relaxed text-bark">{step.body}</p>
-              </Reveal>
-            ))}
+          <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-x-12">
+            {/* The whole method, photographed: tin, sifter, whisk, glass. It
+                sits beside the steps rather than above them so the numerals
+                still carry the reading. */}
+            <div className="lg:col-span-4">
+              <Photo photo={photos.counterKit} className="w-full max-w-[22rem]" natural />
+              <p className="spec mt-4">Everything the method needs</p>
+            </div>
+
+            <div className="grid gap-y-10 sm:grid-cols-3 sm:gap-x-10 lg:col-span-8">
+              {STEPS.map((step, i) => (
+                <Reveal key={step.n} delay={i * 0.08} className="rule pt-5">
+                  <span className="index-num">{step.n}</span>
+                  <h3 className="mt-4 font-display text-xl tracking-display">{step.title}</h3>
+                  <p className="mt-3 font-body text-sm leading-relaxed text-bark">{step.body}</p>
+                </Reveal>
+              ))}
+            </div>
           </div>
         </div>
       </section>

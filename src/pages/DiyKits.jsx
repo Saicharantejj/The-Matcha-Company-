@@ -167,7 +167,7 @@ export default function DiyKits() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto max-w-[100rem]">
           <Photo
-            photo={photos.bowlsFlatlay}
+            photo={photos.trayTatami}
             className="w-full max-w-[60rem]"
             natural
             priority
