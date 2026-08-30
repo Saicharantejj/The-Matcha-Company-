@@ -42,14 +42,17 @@ export default function Matchas() {
           the nature of the thing: a scrim dark enough to carry cream type is
           dark enough to grey out a photograph. Keeping the words off the
           picture is what lets the picture stay at full strength, and the type
-          goes back to cocoa on camel, which is 8.5:1 without any help. */}
+          goes back to cocoa on camel, which is 8.5:1 without any help.
+
+          The frame is the one that was sent, byte for byte apart from the JPEG
+          encode: no crop, no saturation, no contrast. */}
       <section className="relative isolate overflow-hidden bg-camel">
         <div aria-hidden className="absolute inset-y-0 right-0 -z-10 hidden lg:block">
           <img
-            src={photos.latteStrawberry.src}
+            src={photos.layersMacro.src}
             alt=""
-            width={photos.latteStrawberry.width}
-            height={photos.latteStrawberry.height}
+            width={photos.layersMacro.width}
+            height={photos.layersMacro.height}
             fetchPriority="high"
             className="h-full w-auto max-w-none"
           />
@@ -74,10 +77,10 @@ export default function Matchas() {
           {/* Narrow screens have no room beside the type, so the same
               photograph runs under it, still whole. */}
           <img
-            src={photos.latteStrawberry.src}
-            alt={photos.latteStrawberry.alt}
-            width={photos.latteStrawberry.width}
-            height={photos.latteStrawberry.height}
+            src={photos.layersMacro.src}
+            alt={photos.layersMacro.alt}
+            width={photos.layersMacro.width}
+            height={photos.layersMacro.height}
             className="mt-12 h-auto w-full lg:hidden"
           />
         </div>
@@ -172,23 +175,20 @@ export default function Matchas() {
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   className={visible.length % 3 === 1 ? 'lg:mt-24' : ''}
                 >
-                  <div className="flex h-full flex-col">
-                    <Photo photo={photos.layersMacro} className="aspect-[4/5] w-full" />
-                    <div className="rule mt-5 flex flex-1 flex-col justify-between gap-8 pt-4">
-                      <div>
-                        <span className="index-num">Not sure yet</span>
-                        <h3 className="mt-3 font-display text-lg tracking-display">
-                          Start with one of each
-                        </h3>
-                        <p className="mt-2 font-body text-sm leading-relaxed text-bark">
-                          The Discovery Pack is five sachets, one of every flavour — the shortest
-                          way to find which one you actually reach for.
-                        </p>
-                      </div>
-                      <Link to="/matcha-kits" className="link-draw font-mono text-spec uppercase">
-                        See the bundles
-                      </Link>
+                  <div className="rule-heavy flex h-full flex-col justify-between gap-8 pt-6">
+                    <div>
+                      <span className="index-num">Not sure yet</span>
+                      <h3 className="mt-4 max-w-xs font-display text-minor tracking-display">
+                        Start with one of each
+                      </h3>
+                      <p className="mt-4 max-w-sm font-body text-sm leading-relaxed text-bark">
+                        The Discovery Pack is five sachets, one of every flavour, for the price of
+                        finding out which one you actually reach for.
+                      </p>
                     </div>
+                    <Link to="/matcha-kits" className="btn self-start">
+                      See the bundles
+                    </Link>
                   </div>
                 </motion.div>
               )}

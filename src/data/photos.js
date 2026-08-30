@@ -67,8 +67,8 @@ export const photos = {
   },
   layersMacro: {
     src: layersMacro,
-    width: 824,
-    height: 1000,
+    width: 760,
+    height: 1008,
     alt: 'A close view through the side of a glass: matcha settling down through milk into crushed strawberry',
   },
   glassesOverhead: {
