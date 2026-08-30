@@ -32,29 +32,42 @@ export default function Matchas() {
 
   return (
     <PageShell>
-      {/* The title held the left two-thirds and nothing held the rest. The
-          macro goes there: it is the inside of the glass a sachet ends up in,
-          which is a better argument for the page than more paper. */}
-      <section className="bg-camel px-5 pb-16 pt-16 sm:px-10 sm:pb-20 sm:pt-24">
-        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-end lg:gap-x-12">
-          <div className="lg:col-span-7">
-            <p className="spec text-olive">Five flavours &middot; 10g each</p>
-            <h1 className="mt-6 max-w-4xl font-display text-major tracking-display">
-              <Rise delay={0.05}>Every sachet</Rise>
-              <Rise delay={0.15}>we make.</Rise>
-            </h1>
-            <Reveal delay={0.3}>
-              <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
-                Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one
-                into cold milk or water and skip the ceremony entirely.
-              </p>
-            </Reveal>
-          </div>
+      {/* ── HERO ─────────────────────────────────────────────────────────────
+          Set the way the landing page's fold is: the photograph is the ground
+          rather than an object on it, and the type inverts over it.
 
-          <div className="lg:col-span-4 lg:col-start-9">
-            <Photo photo={photos.layersMacro} className="aspect-[4/5] w-full" delay={0.2} priority />
-            <p className="spec mt-4">Ten seconds after the sachet goes in</p>
+          The scrim runs heavier here than on the powder — 85% down to 55%
+          against the powder's 70 to 25 — because this frame has a milky band
+          straight through the middle of it. Cream on that band unscrimmed is
+          about 3:1; at 75% ink under the type it clears 4.9:1, which the lede
+          needs and the headline would not have carried on its own. */}
+      <section className="relative isolate flex min-h-[62vh] flex-col justify-end overflow-hidden bg-ink">
+        {photos.layersMacro && (
+          <div aria-hidden className="absolute inset-0 -z-10">
+            <img
+              src={photos.layersMacro.src}
+              alt=""
+              width={photos.layersMacro.width}
+              height={photos.layersMacro.height}
+              fetchPriority="high"
+              className="h-full w-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/75 to-ink/55" />
           </div>
+        )}
+
+        <div className="mx-auto w-full max-w-[100rem] px-5 pb-14 pt-28 sm:px-10 sm:pb-16 sm:pt-36">
+          <p className="spec text-linen">Five flavours &middot; 10g each</p>
+          <h1 className="mt-6 max-w-4xl font-display text-major tracking-display text-cream">
+            <Rise delay={0.05}>Every sachet</Rise>
+            <Rise delay={0.15}>we make.</Rise>
+          </h1>
+          <Reveal delay={0.3}>
+            <p className="mt-8 max-w-xl font-serif text-lede italic text-linen">
+              Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one
+              into cold milk or water and skip the ceremony entirely.
+            </p>
+          </Reveal>
         </div>
       </section>
 
