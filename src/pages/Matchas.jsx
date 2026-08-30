@@ -33,56 +33,42 @@ export default function Matchas() {
   return (
     <PageShell>
       {/* ── HERO ─────────────────────────────────────────────────────────────
-          The photograph is the canvas. It bleeds off the right edge at the
-          full height of the fold, whole — not cropped, not filtered, nothing
-          laid over it — and the page's own camel carries the type on the left
-          of the same surface.
+          The photograph is the ground, full bleed behind the type, the way the
+          powder carries the landing page.
 
-          Every veil tried on this page took the colour out with it, which is
-          the nature of the thing: a scrim dark enough to carry cream type is
-          dark enough to grey out a photograph. Keeping the words off the
-          picture is what lets the picture stay at full strength, and the type
-          goes back to cocoa on camel, which is 8.5:1 without any help.
-
-          The frame is the one that was sent, byte for byte apart from the JPEG
-          encode: no crop, no saturation, no contrast. */}
-      <section className="relative isolate overflow-hidden bg-camel">
-        <div aria-hidden className="absolute inset-y-0 right-0 -z-10 hidden lg:block">
+          The veil runs up the frame rather than across it: heavy at the foot,
+          where the words are, and down to a tenth at the head, so the green at
+          the top of the glass keeps its own colour and the milk band and the
+          strawberry read through the middle. Cream clears the small type at
+          the bottom, and the headline is large enough to clear it where the
+          veil is thinner. Nothing is cropped by hand and nothing is filtered —
+          the frame is the one that was sent, and the fold simply shows the
+          width of it. */}
+      <section className="relative isolate flex min-h-[72vh] flex-col justify-end overflow-hidden bg-ink">
+        <div aria-hidden className="absolute inset-0 -z-10">
           <img
             src={photos.layersMacro.src}
             alt=""
             width={photos.layersMacro.width}
             height={photos.layersMacro.height}
             fetchPriority="high"
-            className="h-full w-auto max-w-none"
+            className="h-full w-full object-cover"
           />
-          {/* Its left edge dissolves into the page colour over six rem, so the
-              picture bleeds onto the canvas instead of butting against it. */}
-          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-camel to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/50 to-ink/10" />
         </div>
 
-        <div className="mx-auto flex w-full max-w-[100rem] flex-col justify-center px-5 pb-16 pt-16 sm:px-10 sm:pb-20 sm:pt-24 lg:min-h-[72vh]">
-          <p className="spec text-olive">Five flavours &middot; 10g each</p>
-          <h1 className="mt-6 max-w-2xl font-display text-major tracking-display">
+        <div className="mx-auto w-full max-w-[100rem] px-5 pb-14 pt-32 sm:px-10 sm:pb-16 sm:pt-40">
+          <p className="spec text-linen">Five flavours &middot; 10g each</p>
+          <h1 className="mt-6 max-w-4xl font-display text-major tracking-display text-cream">
             <Rise delay={0.05}>Every sachet</Rise>
             <Rise delay={0.15}>we make.</Rise>
           </h1>
           <Reveal delay={0.3}>
-            <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
+            <p className="mt-8 max-w-xl font-serif text-lede italic text-linen">
               Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one
               into cold milk or water and skip the ceremony entirely.
             </p>
           </Reveal>
-
-          {/* Narrow screens have no room beside the type, so the same
-              photograph runs under it, still whole. */}
-          <img
-            src={photos.layersMacro.src}
-            alt={photos.layersMacro.alt}
-            width={photos.layersMacro.width}
-            height={photos.layersMacro.height}
-            className="mt-12 h-auto w-full lg:hidden"
-          />
         </div>
       </section>
 
