@@ -33,56 +33,53 @@ export default function Matchas() {
   return (
     <PageShell>
       {/* ── HERO ─────────────────────────────────────────────────────────────
-          Set the way the landing page's fold is: the photograph is the ground
-          rather than an object on it, and the type inverts over it. Sized to
-          match that fold at 78vh, because at 62vh this band read as a strip
-          above the page rather than as the opening of it.
+          The photograph is the canvas. It bleeds off the right edge at the
+          full height of the fold, whole — not cropped, not filtered, nothing
+          laid over it — and the page's own camel carries the type on the left
+          of the same surface.
 
-          The picture changed. This frame used to carry the layers macro, which
-          is an out-of-focus abstract — green over white over dark red, with
-          nothing in it in focus. It could not be made clear by lifting the
-          scrim: lightening the veil only resolved the blur into a smear, and
-          because the picture has a bright band running straight through the
-          middle it also dropped the headline to 3.4:1 and the lede to 4.6:1,
-          both a hair off their floors. A veil heavy enough to fix that is a
-          veil heavy enough to hide the photograph, which is the position the
-          frame was already stuck in.
+          Every veil tried on this page took the colour out with it, which is
+          the nature of the thing: a scrim dark enough to carry cream type is
+          dark enough to grey out a photograph. Keeping the words off the
+          picture is what lets the picture stay at full strength, and the type
+          goes back to cocoa on camel, which is 8.5:1 without any help. */}
+      <section className="relative isolate overflow-hidden bg-camel">
+        <div aria-hidden className="absolute inset-y-0 right-0 -z-10 hidden lg:block">
+          <img
+            src={photos.latteStrawberry.src}
+            alt=""
+            width={photos.latteStrawberry.width}
+            height={photos.latteStrawberry.height}
+            fetchPriority="high"
+            className="h-full w-auto max-w-none"
+          />
+          {/* Its left edge dissolves into the page colour over six rem, so the
+              picture bleeds onto the canvas instead of butting against it. */}
+          <div className="absolute inset-y-0 left-0 w-24 bg-gradient-to-r from-camel to-transparent" />
+        </div>
 
-          A picture with a dark ground solves both at once. Cream over this at
-          78% ink measures 6.5:1 under the headline and 9.8:1 at the lede,
-          while the veil is light enough that the bowls, the whisk and the
-          powder all read at a glance. Measured on the composited pixels behind
-          the type, not on the overlay colour. */}
-      <section className="relative isolate flex min-h-[78vh] flex-col justify-end overflow-hidden bg-ink">
-        {photos.bowlsFlatlay && (
-          <div aria-hidden className="absolute inset-0 -z-10">
-            <img
-              src={photos.bowlsFlatlay.src}
-              alt=""
-              width={photos.bowlsFlatlay.width}
-              height={photos.bowlsFlatlay.height}
-              fetchPriority="high"
-              className="h-full w-full object-cover [filter:saturate(1.1)]"
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/78 via-ink/58 to-ink/20" />
-            {/* A second pass up the frame, so the type sits on the deepest
-                part of the picture and the top edge keeps its own light. */}
-            <div className="absolute inset-0 bg-gradient-to-t from-ink/40 via-transparent to-transparent" />
-          </div>
-        )}
-
-        <div className="mx-auto w-full max-w-[100rem] px-5 pb-14 pt-28 sm:px-10 sm:pb-16 sm:pt-36">
-          <p className="spec text-linen">Five flavours &middot; 10g each</p>
-          <h1 className="mt-6 max-w-4xl font-display text-major tracking-display text-cream">
+        <div className="mx-auto flex w-full max-w-[100rem] flex-col justify-center px-5 pb-16 pt-16 sm:px-10 sm:pb-20 sm:pt-24 lg:min-h-[72vh]">
+          <p className="spec text-olive">Five flavours &middot; 10g each</p>
+          <h1 className="mt-6 max-w-2xl font-display text-major tracking-display">
             <Rise delay={0.05}>Every sachet</Rise>
             <Rise delay={0.15}>we make.</Rise>
           </h1>
           <Reveal delay={0.3}>
-            <p className="mt-8 max-w-xl font-serif text-lede italic text-linen">
+            <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
               Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one
               into cold milk or water and skip the ceremony entirely.
             </p>
           </Reveal>
+
+          {/* Narrow screens have no room beside the type, so the same
+              photograph runs under it, still whole. */}
+          <img
+            src={photos.latteStrawberry.src}
+            alt={photos.latteStrawberry.alt}
+            width={photos.latteStrawberry.width}
+            height={photos.latteStrawberry.height}
+            className="mt-12 h-auto w-full lg:hidden"
+          />
         </div>
       </section>
 
@@ -175,20 +172,23 @@ export default function Matchas() {
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
                   className={visible.length % 3 === 1 ? 'lg:mt-24' : ''}
                 >
-                  <div className="rule-heavy flex h-full flex-col justify-between gap-8 pt-6">
-                    <div>
-                      <span className="index-num">Not sure yet</span>
-                      <h3 className="mt-4 max-w-xs font-display text-minor tracking-display">
-                        Start with one of each
-                      </h3>
-                      <p className="mt-4 max-w-sm font-body text-sm leading-relaxed text-bark">
-                        The Discovery Pack is five sachets, one of every flavour, for the price of
-                        finding out which one you actually reach for.
-                      </p>
+                  <div className="flex h-full flex-col">
+                    <Photo photo={photos.layersMacro} className="aspect-[4/5] w-full" />
+                    <div className="rule mt-5 flex flex-1 flex-col justify-between gap-8 pt-4">
+                      <div>
+                        <span className="index-num">Not sure yet</span>
+                        <h3 className="mt-3 font-display text-lg tracking-display">
+                          Start with one of each
+                        </h3>
+                        <p className="mt-2 font-body text-sm leading-relaxed text-bark">
+                          The Discovery Pack is five sachets, one of every flavour — the shortest
+                          way to find which one you actually reach for.
+                        </p>
+                      </div>
+                      <Link to="/matcha-kits" className="link-draw font-mono text-spec uppercase">
+                        See the bundles
+                      </Link>
                     </div>
-                    <Link to="/matcha-kits" className="btn self-start">
-                      See the bundles
-                    </Link>
                   </div>
                 </motion.div>
               )}
