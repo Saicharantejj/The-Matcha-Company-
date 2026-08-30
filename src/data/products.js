@@ -56,7 +56,7 @@ export const products = [
     tags: ['Vegan', 'Single Serve', 'Classic'],
     badge: 'BESTSELLER',
     swatch: 'vanilla',
-    photo: 'bowlsBlue',
+    photo: 'latteVanilla',
     blurb: 'Warm vanilla and stone-ground matcha — the one we recommend first.',
   },
 ]
@@ -135,7 +135,7 @@ export const diyKits = [
     servings: '3 CUPS',
     badge: 'BESTSELLER',
     swatch: 'vanilla',
-    photo: 'bowlsBlue',
+    photo: 'latteVanilla',
     blurb: 'Whip vanilla matcha into a cloud of cold foam for any coffee or tea.',
     method:
       "Froth a sachet with cold milk for thirty seconds, until it holds a peak, then spoon it over whatever you are already drinking. The frother in the box is the only equipment involved.",
@@ -151,7 +151,7 @@ export const diyKits = [
     servings: '5 CUPS',
     badge: 'STARTER',
     swatch: 'olive',
-    photo: 'whiskSlate',
+    photo: 'cupBlossoms',
     blurb: 'One sachet of every flavor, plus five recipes to try them all.',
     method:
       "One sachet of each flavor, each with the recipe card that suits it best: a latte, a smoothie bowl, a chia pudding, a stack of pancakes and a cold foam. Work through them in any order — the tasting booklet has a page per flavor to write down which one you would buy again.",

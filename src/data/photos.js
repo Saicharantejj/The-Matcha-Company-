@@ -1,3 +1,8 @@
+import latteStrawberry from '../assets/latte-strawberry.jpg'
+import latteBlueberry from '../assets/latte-blueberry.jpg'
+import latteMango from '../assets/latte-mango.jpg'
+import latteUbe from '../assets/latte-ube.jpg'
+import latteVanilla from '../assets/latte-vanilla.jpg'
 import bowlsFlatlay from '../assets/matcha-bowls-flatlay.jpg'
 import cupBlossoms from '../assets/matcha-cup-blossoms.jpg'
 import trayTatami from '../assets/matcha-tray-tatami.jpg'
@@ -12,13 +17,42 @@ import trayTatami from '../assets/matcha-tray-tatami.jpg'
  * not jump as the photographs load.
  *
  * Products and kits name their picture with a `photo` key that is looked up in
- * here (see FlavorPlate). Five keys are spoken for but not yet shot —
- * latteStrawberry, latteBlueberry, latteMango, latteUbe and bowlsBlue, plus
- * whiskSlate for the discovery kit. Until a key exists here the drawn sachet
- * stands in, so adding one is a two-line change and nothing breaks in the
- * meantime.
+ * here (see FlavorPlate), which is how all five flavours are photographed as
+ * the drink you would actually make rather than as the packet. A key with no
+ * entry falls back to the drawn sachet, so a sixth flavour would not open a
+ * hole in the page while it waited for a photographer.
  */
 export const photos = {
+  latteStrawberry: {
+    src: latteStrawberry,
+    width: 296,
+    height: 567,
+    alt: 'Matcha poured into a tall glass of milk over crushed strawberry, in green, white and red layers',
+  },
+  latteBlueberry: {
+    src: latteBlueberry,
+    width: 576,
+    height: 762,
+    alt: 'An iced blueberry matcha latte layered over blueberry compote, a bottle of milk beside it',
+  },
+  latteMango: {
+    src: latteMango,
+    width: 444,
+    height: 620,
+    alt: 'An iced mango matcha latte over mango puree on a wooden board, with matcha cake behind it',
+  },
+  latteUbe: {
+    src: latteUbe,
+    width: 522,
+    height: 652,
+    alt: 'An iced ube matcha latte, purple over green, dusted with matcha powder',
+  },
+  latteVanilla: {
+    src: latteVanilla,
+    width: 470,
+    height: 636,
+    alt: 'An iced vanilla matcha in a tall glass with a vanilla pod resting across the rim',
+  },
   bowlsFlatlay: {
     src: bowlsFlatlay,
     width: 1030,

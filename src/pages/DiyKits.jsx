@@ -132,8 +132,13 @@ function KitRow({ kit, index }) {
           </AnimatePresence>
         </div>
 
-        <div className="aspect-[5/4] lg:col-span-5 lg:col-start-8">
-          <FlavorPlate item={kit} />
+        {/* Portrait, because the photographs are of tall glasses — but capped
+            in width so the row is still as tall as its copy rather than as
+            tall as a full-column picture. */}
+        <div className="lg:col-span-5 lg:col-start-8">
+          <div className="ml-auto aspect-[4/5] w-full max-w-[24rem]">
+            <FlavorPlate item={kit} />
+          </div>
         </div>
       </div>
     </article>

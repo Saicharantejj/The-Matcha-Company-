@@ -179,8 +179,10 @@ export default function Home() {
                     </p>
                     {/* Mobile carries the plate inline, since there is no room
                         for a sticky companion and no hover to drive it. */}
-                    <div className="mt-5 aspect-[3/2] w-full pl-11 lg:hidden">
-                      <FlavorPlate item={p} />
+                    <div className="mt-5 pl-11 lg:hidden">
+                      <div className="aspect-[4/5] w-full max-w-[15rem]">
+                        <FlavorPlate item={p} />
+                      </div>
                     </div>
                   </Link>
                 </li>
