@@ -64,8 +64,8 @@ export default function Header() {
           <img
             src={logoWordmark}
             alt="The Matcha Company"
-            width="220"
-            height="56"
+            width="736"
+            height="332"
             className="h-8 w-auto sm:h-9"
           />
         </NavLink>

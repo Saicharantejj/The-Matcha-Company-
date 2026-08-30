@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
 import Reveal from './Motion'
-import logoWordmark from '../assets/logo-wordmark-cream.png'
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com' },
@@ -94,14 +93,17 @@ export default function Footer() {
         </div>
 
         <Reveal className="mt-24">
-          <img
-            src={logoWordmark}
-            alt="The Matcha Company"
-            width="1200"
-            height="300"
-            loading="lazy"
-            className="h-auto w-full"
-          />
+          {/* Decorative: the company name is already announced in the
+              copyright line below, so this closing mark is not read twice. */}
+          <p
+            aria-hidden="true"
+            className="font-display leading-[0.82] tracking-display text-cream"
+            style={{ fontSize: 'clamp(2.5rem, 16vw, 18rem)' }}
+          >
+            <span className="block">The</span>
+            <span className="block">Matcha</span>
+            <span className="block">Company</span>
+          </p>
         </Reveal>
 
         <div className="rule mt-10 flex flex-col gap-4 border-linen/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
