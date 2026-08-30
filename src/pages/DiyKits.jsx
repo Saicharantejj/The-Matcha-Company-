@@ -3,9 +3,11 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { Rise } from '../components/Motion'
 import SachetGraphic from '../components/SachetGraphic'
+import Photo from '../components/Photo'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { diyKits } from '../data/products'
+import { photos } from '../data/photos'
 
 /**
  * Recipes.
@@ -42,16 +44,18 @@ function KitRow({ kit, index }) {
 
   return (
     <article className="rule first:border-t-0">
-      <div className="grid grid-cols-1 gap-6 py-10 lg:grid-cols-12 lg:gap-x-10">
-        <div className="flex items-baseline gap-5 lg:col-span-1">
-          <span className="index-num">{String(index + 1).padStart(2, '0')}</span>
-        </div>
+      <div className="grid grid-cols-1 gap-8 py-12 sm:py-16 lg:grid-cols-12 lg:items-center lg:gap-x-12">
+        <div className="flex flex-col justify-center lg:col-span-6">
+          <div className="flex items-baseline gap-5">
+            <span className="index-num">{String(index + 1).padStart(2, '0')}</span>
+            {kit.badge && <span className="spec text-olive">{kit.badge}</span>}
+          </div>
 
-        <div className="lg:col-span-6">
-          <h2 className="font-display text-minor tracking-display">{kit.name}</h2>
-          <p className="mt-3 max-w-md font-body text-sm leading-relaxed text-bark">{kit.blurb}</p>
+          <h2 className="mt-4 max-w-lg font-display text-minor tracking-display">{kit.name}</h2>
+          <p className="mt-4 max-w-md font-serif text-lede italic text-bark">{kit.blurb}</p>
+          <p className="mt-5 max-w-lg font-body text-sm leading-relaxed text-cocoa">{kit.method}</p>
 
-          <dl className="mt-6 flex flex-wrap gap-x-8 gap-y-2">
+          <dl className="mt-8 flex flex-wrap gap-x-10 gap-y-4">
             <div>
               <dt className="spec">Time</dt>
               <dd className="mt-1 font-body text-sm text-cocoa">{kit.prepTime}</dd>
@@ -64,9 +68,13 @@ function KitRow({ kit, index }) {
               <dt className="spec">Makes</dt>
               <dd className="mt-1 font-body text-sm text-cocoa">{kit.servings}</dd>
             </div>
+            <div>
+              <dt className="spec">You add</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">{kit.youAdd.join(' \u00b7 ')}</dd>
+            </div>
           </dl>
 
-          <div className="mt-8 flex flex-wrap items-center gap-x-8 gap-y-3">
+          <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-3">
             <button type="button" onClick={handleAdd} className="btn">
               Add kit to cart
             </button>
@@ -91,7 +99,7 @@ function KitRow({ kit, index }) {
                 transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
                 className="overflow-hidden"
               >
-                <ul className="mt-7 max-w-md">
+                <ul className="mt-8 max-w-md">
                   {kit.includes.map((item) => {
                     const isChecked = checked.has(item)
                     return (
@@ -124,7 +132,7 @@ function KitRow({ kit, index }) {
           </AnimatePresence>
         </div>
 
-        <div className="aspect-[4/3] lg:col-span-5 lg:aspect-[4/5]">
+        <div className="aspect-[5/4] lg:col-span-5 lg:col-start-8">
           <SachetGraphic swatch={kit.swatch} flavor={kit.flavor} />
         </div>
       </div>
@@ -148,6 +156,17 @@ export default function DiyKits() {
               Nothing here needs a whisk and nothing takes longer than the washing up.
             </p>
           </Reveal>
+        </div>
+      </section>
+
+      <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
+        <div className="mx-auto max-w-[100rem]">
+          <Photo
+            photo={photos.bowlsFlatlay}
+            className="aspect-[16/9] w-full sm:aspect-[21/9]"
+            priority
+          />
+          <p className="spec mt-4">Everything below starts with one 10g sachet</p>
         </div>
       </section>
 

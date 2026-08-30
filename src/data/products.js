@@ -67,6 +67,9 @@ export const diyKits = [
     badge: 'BESTSELLER',
     swatch: 'matcha',
     blurb: 'Our most-loved combination — stirred, shaken, or blended over ice.',
+    method:
+      "Stir a sachet into two tablespoons of hot water until it is smooth, top it with cold milk, and pour the lot over ice. Strawberry comes up sweet enough on its own that most people skip the syrup.",
+    youAdd: ['Milk of your choice', 'Ice'],
     includes: ['3x Strawberry Matcha Sachets', 'Recipe card', 'Steeping ratio guide'],
   },
   {
@@ -79,6 +82,9 @@ export const diyKits = [
     badge: null,
     swatch: 'moss',
     blurb: 'Blend with frozen banana and oat milk for a breakfast bowl.',
+    method:
+      "Blend a sachet with a frozen banana and a splash of oat milk until it is thick enough to hold a spoon upright. The insert lists the toppings we put on ours, in the order they stop sinking.",
+    youAdd: ['Frozen banana', 'Oat milk', 'Toppings'],
     includes: ['3x Blueberry Matcha Sachets', 'Smoothie bowl recipe card', 'Topping suggestions insert'],
   },
   {
@@ -91,6 +97,9 @@ export const diyKits = [
     badge: 'NEW',
     swatch: 'olive',
     blurb: 'Sachet, chia seeds, and coconut milk — set it and forget it.',
+    method:
+      "Whisk a sachet through the coconut milk, stir in the chia, and leave it in the fridge overnight. It sets into three jars while you sleep and keeps for three days after that.",
+    youAdd: ['Three jars or glasses', 'Overnight in the fridge'],
     includes: ['3x Mango Matcha Sachets', 'Chia seed packet', 'Recipe card'],
   },
   {
@@ -103,6 +112,9 @@ export const diyKits = [
     badge: null,
     swatch: 'matcha',
     blurb: 'Fold ube matcha straight into pancake batter for a purple-green stack.',
+    method:
+      "Fold a sachet into the dry mix, add the egg and milk, and cook them lower and slower than you think — the color stays purple-green instead of browning off. Eight pancakes, about the size of a saucer.",
+    youAdd: ['1 egg', 'Milk', 'Butter for the pan'],
     includes: ['3x Ube Matcha Sachets', 'Pancake dry mix', 'Recipe card'],
   },
   {
@@ -115,6 +127,9 @@ export const diyKits = [
     badge: 'BESTSELLER',
     swatch: 'moss',
     blurb: 'Whip vanilla matcha into a cloud of cold foam for any coffee or tea.',
+    method:
+      "Froth a sachet with cold milk for thirty seconds, until it holds a peak, then spoon it over whatever you are already drinking. The frother in the box is the only equipment involved.",
+    youAdd: ['Cold milk', 'Something to pour it over'],
     includes: ['3x Vanilla Matcha Sachets', 'Mini milk frother', 'Recipe card'],
   },
   {
@@ -127,6 +142,9 @@ export const diyKits = [
     badge: 'STARTER',
     swatch: 'olive',
     blurb: 'One sachet of every flavor, plus five recipes to try them all.',
+    method:
+      "One sachet of each flavor, each with the recipe card that suits it best: a latte, a smoothie bowl, a chia pudding, a stack of pancakes and a cold foam. Work through them in any order — the tasting booklet has a page per flavor to write down which one you would buy again.",
+    youAdd: ['Milk of your choice', 'Ice', 'A blender for one of the five'],
     includes: ['1x each flavor sachet', '5 recipe cards', 'Tasting notes booklet'],
   },
 ]
