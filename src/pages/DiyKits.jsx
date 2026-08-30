@@ -45,7 +45,7 @@ function KitRow({ kit, index }) {
   return (
     <article className="rule first:border-t-0">
       <div className="grid grid-cols-1 gap-8 py-12 sm:py-16 lg:grid-cols-12 lg:items-center lg:gap-x-12">
-        <div className="flex flex-col justify-center lg:col-span-6">
+        <div className="flex flex-col justify-center lg:col-span-7">
           <div className="flex items-baseline gap-5">
             <span className="index-num">{String(index + 1).padStart(2, '0')}</span>
             {kit.badge && <span className="spec text-olive">{kit.badge}</span>}
@@ -132,11 +132,11 @@ function KitRow({ kit, index }) {
           </AnimatePresence>
         </div>
 
-        {/* Portrait, because the photographs are of tall glasses — but capped
-            in width so the row is still as tall as its copy rather than as
-            tall as a full-column picture. */}
-        <div className="lg:col-span-5 lg:col-start-8">
-          <div className="ml-auto aspect-[4/5] w-full max-w-[24rem]">
+        {/* Portrait, because the photographs are of tall glasses, and four
+            columns wide rather than five so the picture fills what it is
+            given instead of leaving a strip of paper beside it. */}
+        <div className="lg:col-span-4 lg:col-start-9">
+          <div className="aspect-[4/5] w-full">
             <FlavorPlate item={kit} />
           </div>
         </div>
@@ -164,15 +164,38 @@ export default function DiyKits() {
         </div>
       </section>
 
+      {/* The plate is held to the width the file actually has, so the column
+          beside it carries the page's terms rather than sitting empty. */}
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
-        <div className="mx-auto max-w-[100rem]">
-          <Photo
-            photo={photos.trayTatami}
-            className="w-full max-w-[60rem]"
-            natural
-            priority
-          />
-          <p className="spec mt-4">Everything below starts with one 10g sachet</p>
+        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
+          <div className="lg:col-span-6">
+            <Photo photo={photos.trayTatami} className="w-full" natural priority />
+            <p className="spec mt-4">Everything below starts with one 10g sachet</p>
+          </div>
+
+          <div className="flex flex-col justify-center lg:col-span-5 lg:col-start-8">
+            <p className="max-w-lg font-serif text-lede italic text-bark">
+              Six recipes, each built around a single sachet and whatever is already in the kitchen. The box carries the sachets and the card; the rest is milk, ice, and about as long as it takes to find a spoon.
+            </p>
+            <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-ink pt-8">
+            <div>
+              <dt className="spec">Recipes</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">SIX</dd>
+            </div>
+            <div>
+              <dt className="spec">Fastest</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">3 MIN</dd>
+            </div>
+            <div>
+              <dt className="spec">Slowest</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">OVERNIGHT</dd>
+            </div>
+            <div>
+              <dt className="spec">Sachets</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">IN THE BOX</dd>
+            </div>
+            </dl>
+          </div>
         </div>
       </section>
 

@@ -66,45 +66,39 @@ export default function OurStory() {
           while the brand had no pictures of its own. It is held to the width
           the file actually has instead of being bled across the viewport,
           because a photograph enlarged past its own pixels is a blurry one. */}
-      <section className="bg-camel">
-        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
-          <Photo photo={photos.cupBlossoms} className="w-full max-w-[60rem]" natural priority />
-        </div>
-        <div className="px-5 py-16 sm:px-10 sm:py-20">
-          <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <span className="index-num">01</span>
-              <h2 className="mt-4 font-display text-minor tracking-display">One farm, not a blend</h2>
-            </div>
-            <div className="lg:col-span-6 lg:col-start-7">
-              <p className="max-w-lg font-body text-lede text-bark">
+      <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
+          <div className="lg:col-span-6">
+            <Photo photo={photos.cupBlossoms} className="w-full" natural priority />
+          </div>
+
+          <div className="lg:col-span-5 lg:col-start-8">
+            <span className="index-num">01</span>
+            <h2 className="mt-4 font-display text-minor tracking-display">One farm, not a blend</h2>
+            <p className="mt-5 max-w-lg font-body text-lede text-bark">
                 Most matcha on a shelf is blended across harvests and regions to hit a price. Ours
                 comes off a single shaded terrace in Uji &mdash; the same family, the same rows,
                 every order.
-              </p>
-            </div>
+            </p>
           </div>
         </div>
       </section>
 
       {/* ── MILLING ─────────────────────────────────────────────────────── */}
-      <section className="bg-camel">
-        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
-          <Photo photo={photos.bowlsFlatlay} className="w-full max-w-[60rem]" natural />
-        </div>
-        <div className="px-5 py-16 sm:px-10 sm:py-20">
-          <div className="mx-auto grid max-w-[100rem] gap-8 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <span className="index-num">02</span>
-              <h2 className="mt-4 font-display text-minor tracking-display">Ground slow, on stone</h2>
-            </div>
-            <div className="lg:col-span-6 lg:col-start-7">
-              <p className="max-w-lg font-body text-lede text-bark">
+      <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
+          <div className="lg:col-span-6">
+            <Photo photo={photos.bowlsFlatlay} className="w-full" natural />
+          </div>
+
+          <div className="lg:col-span-5 lg:col-start-8">
+            <span className="index-num">02</span>
+            <h2 className="mt-4 font-display text-minor tracking-display">Ground slow, on stone</h2>
+            <p className="mt-5 max-w-lg font-body text-lede text-bark">
                 Granite mills turn out about thirty grams an hour &mdash; slow enough that friction
                 never heats the leaf. Heat is what makes matcha bitter and dull. We would rather
                 wait.
-              </p>
-            </div>
+            </p>
           </div>
         </div>
       </section>

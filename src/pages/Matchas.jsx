@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react'
+import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { Rise } from '../components/Motion'
@@ -47,17 +48,38 @@ export default function Matchas() {
         </div>
       </section>
 
-      {/* A single wide plate between the title and the catalogue, so the page
-          opens on the thing itself before it opens on a filter row. */}
+      {/* The plate is held to the width the file actually has, so the column
+          beside it carries the page's terms rather than sitting empty. */}
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
-        <div className="mx-auto max-w-[100rem]">
-          <Photo
-            photo={photos.glassesOverhead}
-            className="w-full max-w-[48rem]"
-            natural
-            priority
-          />
-          <p className="spec mt-4">Uji, Kyoto &middot; first-harvest leaf, stone-ground</p>
+        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
+          <div className="lg:col-span-6">
+            <Photo photo={photos.glassesOverhead} className="w-full" natural priority />
+            <p className="spec mt-4">Uji, Kyoto &middot; first-harvest leaf, stone-ground</p>
+          </div>
+
+          <div className="flex flex-col justify-center lg:col-span-5 lg:col-start-8">
+            <p className="max-w-lg font-serif text-lede italic text-bark">
+              Every sachet on this page is the same leaf: shade-grown on one terrace, milled on granite at thirty grams an hour, then blended with real fruit. What changes down the list is only what we put with it.
+            </p>
+            <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-ink pt-8">
+            <div>
+              <dt className="spec">Flavours</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">FIVE</dd>
+            </div>
+            <div>
+              <dt className="spec">Weight</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">10 G EACH</dd>
+            </div>
+            <div>
+              <dt className="spec">Milled</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">IN UJI</dd>
+            </div>
+            <div>
+              <dt className="spec">Whisk</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">NOT NEEDED</dd>
+            </div>
+            </dl>
+          </div>
         </div>
       </section>
 
@@ -80,7 +102,10 @@ export default function Matchas() {
             </p>
           </div>
 
-          <motion.div layout className="mt-14 grid grid-cols-1 gap-x-10 gap-y-20 sm:grid-cols-2">
+          <motion.div
+            layout
+            className="mt-14 grid grid-cols-1 gap-x-10 gap-y-20 sm:grid-cols-2 lg:grid-cols-3"
+          >
             <AnimatePresence mode="popLayout">
               {visible.map((product, i) => (
                 <motion.div
@@ -90,12 +115,45 @@ export default function Matchas() {
                   animate={{ opacity: 1 }}
                   exit={{ opacity: 0 }}
                   transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                  /* The offset is what turns two columns into a composition. */
-                  className={i % 2 === 1 ? 'sm:mt-24' : ''}
+                  /* The offset is what turns a grid into a composition: the
+                     middle column drops, whichever column that is. */
+                  className={`${i % 2 === 1 ? 'sm:mt-24 lg:mt-0' : ''} ${
+                    i % 3 === 1 ? 'lg:mt-24' : ''
+                  }`}
                 >
                   <ProductCard product={product} index={i} />
                 </motion.div>
               ))}
+
+              {/* Five flavours into three columns leaves a hole in the last
+                  row. It holds the next thing to do rather than nothing. */}
+              {visible.length > 0 && (
+                <motion.div
+                  key="catalogue-end"
+                  layout
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                  className={visible.length % 3 === 1 ? 'lg:mt-24' : ''}
+                >
+                  <div className="rule-heavy flex h-full flex-col justify-between gap-8 pt-6">
+                    <div>
+                      <span className="index-num">Not sure yet</span>
+                      <h3 className="mt-4 max-w-xs font-display text-minor tracking-display">
+                        Start with one of each
+                      </h3>
+                      <p className="mt-4 max-w-sm font-body text-sm leading-relaxed text-bark">
+                        The Discovery Pack is five sachets, one of every flavour, for the price of
+                        finding out which one you actually reach for.
+                      </p>
+                    </div>
+                    <Link to="/matcha-kits" className="btn self-start">
+                      See the bundles
+                    </Link>
+                  </div>
+                </motion.div>
+              )}
             </AnimatePresence>
           </motion.div>
 

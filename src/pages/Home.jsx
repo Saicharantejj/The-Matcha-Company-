@@ -142,8 +142,8 @@ export default function Home() {
           <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-10">
             {/* The plate. Sticky on desktop so it stays with the reader as the
                 list moves; hidden on mobile, where each row carries its own. */}
-            <div className="hidden lg:col-span-5 lg:block">
-              <div className="sticky top-28 aspect-[4/5] w-full max-w-[26rem]">
+            <div className="hidden lg:col-span-4 lg:block">
+              <div className="sticky top-28 aspect-[4/5] w-full">
                 {products.map((p, i) => (
                   <motion.div
                     key={p.id}
@@ -159,7 +159,7 @@ export default function Home() {
               </div>
             </div>
 
-            <ul className="lg:col-span-7">
+            <ul className="lg:col-span-7 lg:col-start-6">
               {products.map((p, i) => (
                 <li
                   key={p.id}
@@ -205,12 +205,12 @@ export default function Home() {
             {/* The whole method, photographed: tin, sifter, whisk, glass. It
                 sits beside the steps rather than above them so the numerals
                 still carry the reading. */}
-            <div className="lg:col-span-4">
-              <Photo photo={photos.counterKit} className="w-full max-w-[22rem]" natural />
+            <div className="lg:col-span-3">
+              <Photo photo={photos.counterKit} className="w-full" natural />
               <p className="spec mt-4">Everything the method needs</p>
             </div>
 
-            <div className="grid gap-y-10 sm:grid-cols-3 sm:gap-x-10 lg:col-span-8">
+            <div className="grid gap-y-10 sm:grid-cols-3 sm:gap-x-10 lg:col-span-8 lg:col-start-5">
               {STEPS.map((step, i) => (
                 <Reveal key={step.n} delay={i * 0.08} className="rule pt-5">
                   <span className="index-num">{step.n}</span>
@@ -239,31 +239,28 @@ export default function Home() {
 
       {/* ── THE FIELD ────────────────────────────────────────────────────────
           A breath before the close, set to the same pattern the story page
-          uses: the picture over its caption rather than under type on top of
-          it. It is held to sixty rem because that is the width the file
-          actually has — stretched across the viewport it went soft, and a
-          smaller sharp photograph beats a big blurry one. */}
-      <section className="bg-camel">
-        <div className="mx-auto max-w-[100rem] px-5 pt-16 sm:px-10 sm:pt-20">
-          <Photo photo={photos.bowlsFlatlay} className="w-full max-w-[60rem]" natural />
-        </div>
-        <div className="px-5 py-14 sm:px-10 sm:py-16">
-          <div className="mx-auto grid max-w-[100rem] gap-6 lg:grid-cols-12">
-            <div className="lg:col-span-4">
-              <span className="index-num">Uji, Kyoto</span>
-              <h2 className="mt-4 font-display text-minor tracking-display">
-                Where the green comes from
-              </h2>
-            </div>
-            <div className="lg:col-span-6 lg:col-start-7">
-              <p className="max-w-lg font-body text-lede text-bark">
-                One shaded terrace, one family, and granite mills that turn out thirty grams an
-                hour. Everything we do after that is packaging.
-              </p>
-              <Link to="/our-story" className="link-draw mt-6 inline-block font-mono text-spec uppercase">
-                Read the whole story
-              </Link>
-            </div>
+          uses: half the width for the picture, the other half for what it is
+          a picture of. The photograph is never drawn wider than the file
+          actually is — stretched across the viewport it went soft — so the
+          column it does not need belongs to the copy. */}
+      <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
+          <div className="lg:col-span-6">
+            <Photo photo={photos.bowlsFlatlay} className="w-full" natural />
+          </div>
+
+          <div className="lg:col-span-5 lg:col-start-8">
+            <span className="index-num">Uji, Kyoto</span>
+            <h2 className="mt-4 font-display text-minor tracking-display">
+              Where the green comes from
+            </h2>
+            <p className="mt-5 max-w-lg font-body text-lede text-bark">
+              One shaded terrace, one family, and granite mills that turn out thirty grams an
+              hour. Everything we do after that is packaging.
+            </p>
+            <Link to="/our-story" className="link-draw mt-7 inline-block font-mono text-spec uppercase">
+              Read the whole story
+            </Link>
           </div>
         </div>
       </section>

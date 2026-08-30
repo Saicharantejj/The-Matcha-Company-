@@ -55,7 +55,7 @@ export default function MoodMatcher() {
       </ul>
 
       <div className="lg:col-span-7 lg:grid lg:grid-cols-2 lg:gap-x-8">
-        <div className="aspect-[4/5] w-full max-w-[26rem]">
+        <div className="aspect-[4/5] w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeId}

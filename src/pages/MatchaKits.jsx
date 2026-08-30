@@ -82,15 +82,38 @@ export default function MatchaKits() {
         </div>
       </section>
 
+      {/* The plate is held to the width the file actually has, so the column
+          beside it carries the page's terms rather than sitting empty. */}
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
-        <div className="mx-auto max-w-[100rem]">
-          <Photo
-            photo={photos.cupBlossoms}
-            className="w-full max-w-[60rem]"
-            natural
-            priority
-          />
-          <p className="spec mt-4">One of each, or ten of the one you keep coming back to</p>
+        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
+          <div className="lg:col-span-6">
+            <Photo photo={photos.cupBlossoms} className="w-full" natural priority />
+            <p className="spec mt-4">One of each, or ten of the one you keep coming back to</p>
+          </div>
+
+          <div className="flex flex-col justify-center lg:col-span-5 lg:col-start-8">
+            <p className="max-w-lg font-serif text-lede italic text-bark">
+              Six ways to buy more than one at a time — a five-sachet taster, a ribboned box for somebody else, a hundred-count case for a café counter. Same farm behind all of them.
+            </p>
+            <dl className="mt-10 grid grid-cols-2 gap-x-8 gap-y-6 border-t border-ink pt-8">
+            <div>
+              <dt className="spec">Bundles</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">SIX</dd>
+            </div>
+            <div>
+              <dt className="spec">From</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">5 SACHETS</dd>
+            </div>
+            <div>
+              <dt className="spec">Up to</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">100 COUNT</dd>
+            </div>
+            <div>
+              <dt className="spec">Origin</dt>
+              <dd className="mt-1 font-body text-sm text-cocoa">ONE FARM</dd>
+            </div>
+            </dl>
+          </div>
         </div>
       </section>
 
