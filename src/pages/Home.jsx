@@ -37,11 +37,11 @@ export default function Home() {
 
           The whole fold now stands on a photograph of the powder itself, run
           full bleed behind the type. Ink brown on mid-green is nowhere near
-          readable, so the type inverts to cream and the picture carries a scrim
-          — dark enough at the left, where the words are, to clear AA, and
-          thinner at the right, where the grain can still be seen. If the
-          texture file is missing the fold falls back to flat ink and the
-          contrast holds either way. */}
+          readable, so the type inverts to cream and the picture carries a
+          scrim: 70% ink under the words, which puts cream at about 6:1, easing
+          to 25% at the right where the glass stands and the grain is worth
+          seeing. Any lighter under the type and the headline stops clearing
+          AA; any heavier and there is no point having a photograph there. */}
       <section ref={heroRef} className="relative isolate overflow-hidden bg-ink">
         {photos.powderTexture && (
           <div aria-hidden className="absolute inset-0 -z-10">
@@ -53,7 +53,7 @@ export default function Home() {
               fetchPriority="high"
               className="h-full w-full object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/85 via-ink/70 to-ink/45" />
+            <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/55 to-ink/25" />
           </div>
         )}
 

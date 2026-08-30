@@ -3,6 +3,7 @@ import latteBlueberry from '../assets/latte-blueberry.jpg'
 import latteMango from '../assets/latte-mango.jpg'
 import latteUbe from '../assets/latte-ube.jpg'
 import latteVanilla from '../assets/latte-vanilla.jpg'
+import powderTexture from '../assets/matcha-powder-texture.jpg'
 import glassesOverhead from '../assets/glasses-overhead.jpg'
 import counterKit from '../assets/counter-kit.jpg'
 import toolsGreenWood from '../assets/tools-green-wood.jpg'
@@ -26,6 +27,13 @@ import trayTatami from '../assets/matcha-tray-tatami.jpg'
  * hole in the page while it waited for a photographer.
  */
 export const photos = {
+  powderTexture: {
+    src: powderTexture,
+    width: 1154,
+    height: 614,
+    alt: '',
+    decorative: true,
+  },
   latteStrawberry: {
     src: latteStrawberry,
     width: 752,
