@@ -34,7 +34,7 @@ export default function Home() {
           in it rather than a gutter. */}
       <section ref={heroRef} className="relative overflow-hidden bg-camel">
         <div className="mx-auto max-w-[100rem] px-5 pb-16 pt-10 sm:px-10 sm:pb-24 sm:pt-16">
-          <div className="lg:grid lg:grid-cols-12 lg:items-end lg:gap-x-6">
+          <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-6">
             <div className="lg:col-span-7 lg:pb-16">
               <Reveal>
                 <p className="spec text-olive">Uji, Kyoto &rarr; your kitchen counter</p>
