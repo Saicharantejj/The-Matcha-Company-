@@ -47,20 +47,30 @@ export default function Home() {
               </h1>
             </div>
 
-            {/* On mobile the glass is a full-width plate directly under the
-                headline. On desktop it bleeds off the right edge. */}
+            {/* The glass used to hang off the right edge on a negative margin
+                and get sliced in half by the section's overflow. Bleeding a
+                photograph off the page is fine; bleeding the product you are
+                selling through the middle of the cup is not.
+
+                It now sits whole, bottom-aligned with the type so it lands on
+                the same line as the rule below. The 421px cap is the file's own
+                width — past that it is being invented, and this asset is small
+                enough that every pixel of upscale shows. */}
             <motion.div
               style={reduceMotion ? undefined : { y: glassY }}
-              className="relative -mr-5 mt-10 sm:-mr-10 lg:col-span-5 lg:mt-0 lg:-mr-16 xl:-mr-24"
+              className="mt-12 flex justify-center lg:col-span-5 lg:mt-0 lg:justify-end"
             >
-              <ImageReveal delay={0.35}>
+              <ImageReveal
+                delay={0.35}
+                className="w-[72%] max-w-[280px] sm:max-w-[340px] lg:w-full lg:max-w-[421px]"
+              >
                 <img
                   src={heroImg}
                   alt="A glass of iced matcha made from a single sachet"
-                  width="900"
-                  height="1200"
+                  width="421"
+                  height="620"
                   fetchPriority="high"
-                  className="ml-auto h-auto w-[86%] object-contain sm:w-[68%] lg:max-h-[64vh] lg:w-auto"
+                  className="h-auto w-full object-contain"
                 />
               </ImageReveal>
             </motion.div>
