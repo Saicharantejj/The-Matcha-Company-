@@ -49,3 +49,47 @@ src/
   "Add to Cart" counter in the header, ready to wire up to a real cart/store.
 - `rounded-full` is remapped to 4px in `tailwind.config.js` so no accidental pill shapes
   can slip in.
+
+## Backend — order capture
+
+Orders and newsletter signups are handled by two Vercel Functions in `api/`,
+backed by Postgres. There are no payments: an order is a request that you
+confirm by email.
+
+```
+api/orders.js        POST — validate, save, email customer + owner
+api/subscribe.js     POST — newsletter signup
+api/_lib/            db pool, validation, email, http helpers
+db/schema.sql        run once against your database
+```
+
+### Setup
+
+1. **Create a Postgres database** (Neon or Supabase both work).
+2. **Run the schema** — it is idempotent, so re-running is safe:
+   ```sh
+   psql "$DATABASE_URL" -f db/schema.sql
+   ```
+3. **Set the environment variables** in Vercel → Settings → Environment
+   Variables. See `.env.example` for the full list and what each one does.
+
+`DATABASE_URL` **must be a pooled connection string** — Neon's `-pooler` host,
+or Supabase's port 6543. Every warm serverless instance opens its own pool, so
+a direct connection will exhaust Postgres' connection limit under real traffic.
+
+Email is optional. With `RESEND_API_KEY` unset, orders are still saved
+normally; the emails are skipped and the skip is logged. That way the site
+works before the mail domain is verified.
+
+### Design notes
+
+- The client posts product **ids and quantities only**. Names and kinds are
+  re-derived server-side from `src/data/products.js`, so a tampered request
+  cannot invent a product, rename one, or inject markup into the email.
+- The cart is only cleared once the server has accepted the order, so a failed
+  request leaves the visitor their cart to retry with.
+- Email is best-effort and never fails the request: the order is already
+  committed, and telling somebody it failed invites a duplicate.
+- Both forms carry an off-screen honeypot field, and both endpoints are
+  throttled per IP in Postgres (in-memory counters are useless across
+  serverless instances).

@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { subscribe, messageFor } from '../lib/api'
 import { Link } from 'react-router-dom'
 import Reveal from './Motion'
 
@@ -26,10 +27,24 @@ const EXPLORE = [
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
+  const [sending, setSending] = useState(false)
+  const [error, setError] = useState(null)
+  // Honeypot, same trick as the checkout form.
+  const [company, setCompany] = useState('')
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!email) return
+    if (!email || sending) return
+    setSending(true)
+    setError(null)
+
+    const result = await subscribe(email, company)
+
+    setSending(false)
+    if (!result.ok) {
+      setError(messageFor(result))
+      return
+    }
     setSubmitted(true)
     setEmail('')
   }
@@ -80,14 +95,28 @@ export default function Footer() {
                 />
                 <button
                   type="submit"
-                  className="shrink-0 font-mono text-spec uppercase text-cream transition-colors duration-300 hover:text-linen"
+                  disabled={sending}
+                  className="shrink-0 font-mono text-spec uppercase text-cream transition-colors duration-300 hover:text-linen disabled:opacity-60"
                 >
-                  Join
+                  {sending ? 'Joining…' : 'Join'}
                 </button>
+              </div>
+
+              {/* Honeypot: off-screen, unfocusable, never announced. */}
+              <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+                <label htmlFor="footer-company">Company</label>
+                <input
+                  id="footer-company"
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={company}
+                  onChange={(e) => setCompany(e.target.value)}
+                />
               </div>
             </form>
             <p aria-live="polite" className="mt-3 font-body text-sm text-linen">
-              {submitted ? "You're on the list." : 'New flavours and nothing else.'}
+              {error || (submitted ? "You're on the list." : 'New flavours and nothing else.')}
             </p>
           </div>
         </div>

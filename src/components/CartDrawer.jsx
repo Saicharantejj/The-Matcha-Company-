@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
+import { placeOrder, messageFor } from '../lib/api'
 
 const SWATCH = {
   matcha: '#6F9E28',
@@ -64,9 +65,52 @@ function QtyStepper({ qty, onDecrement, onIncrement, name }) {
   )
 }
 
+/**
+ * One labelled input. Errors are announced per-field rather than only as a
+ * summary, so a screen reader lands on the problem instead of hearing that
+ * something, somewhere, is wrong.
+ */
+function Field({ id, label, value, onChange, type = 'text', required = true, autoComplete, ...rest }) {
+  return (
+    <label htmlFor={id} className="block">
+      <span className="spec block">
+        {label}
+        {!required && <span className="ml-1 normal-case tracking-normal text-bark">(optional)</span>}
+      </span>
+      <input
+        id={id}
+        name={id}
+        type={type}
+        required={required}
+        value={value}
+        autoComplete={autoComplete}
+        onChange={(e) => onChange(e.target.value)}
+        className="mt-2 w-full border-b border-ink bg-transparent pb-2 font-body text-sm text-cocoa placeholder:text-bark focus:outline-none focus:border-olive"
+        {...rest}
+      />
+    </label>
+  )
+}
+
+const EMPTY_DETAILS = {
+  name: '',
+  email: '',
+  phone: '',
+  address: '',
+  city: '',
+  postcode: '',
+  notes: '',
+}
+
 export default function CartDrawer() {
   const { lines, count, isOpen, closeCart, increment, decrement, removeItem, clearCart } = useCart()
   const [placed, setPlaced] = useState(null)
+  const [checkingOut, setCheckingOut] = useState(false)
+  const [details, setDetails] = useState(EMPTY_DETAILS)
+  const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState(null)
+  // Honeypot. Hidden from people, irresistible to naive bots.
+  const [company, setCompany] = useState('')
 
   // Close on Escape, and lock body scroll while the panel is open.
   useEffect(() => {
@@ -83,14 +127,47 @@ export default function CartDrawer() {
     }
   }, [isOpen, closeCart])
 
-  // Reset the confirmation screen whenever the drawer is reopened.
+  // Reset back to the item list whenever the drawer is reopened. The typed
+  // details are deliberately kept, so closing the panel by accident midway
+  // through checkout does not cost the visitor their address.
   useEffect(() => {
-    if (isOpen) setPlaced(null)
+    if (isOpen) {
+      setPlaced(null)
+      setCheckingOut(false)
+      setError(null)
+    }
   }, [isOpen])
 
-  const handlePlaceOrder = () => {
-    const ref = `TMC-${Math.floor(100000 + Math.random() * 900000)}`
-    setPlaced({ ref, items: count })
+  // Editing any field clears the previous error. Leaving a stale "your name is
+  // required" sitting under a filled-in name field reads as though the form is
+  // still broken after the visitor has already fixed it.
+  const update = (key) => (value) => {
+    setDetails((prev) => ({ ...prev, [key]: value }))
+    if (error) setError(null)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    if (submitting) return
+    setSubmitting(true)
+    setError(null)
+
+    const result = await placeOrder({
+      ...details,
+      company,
+      items: lines.map((line) => ({ id: line.id, qty: line.qty })),
+    })
+
+    setSubmitting(false)
+    if (!result.ok) {
+      setError(messageFor(result))
+      return
+    }
+
+    // Only clear once the server has actually accepted it — if the request
+    // failed, the visitor still has their cart to retry with.
+    setPlaced({ ref: result.data.reference, items: result.data.itemCount, emailed: result.data.emailed })
+    setDetails(EMPTY_DETAILS)
     clearCart()
   }
 
@@ -139,8 +216,10 @@ export default function CartDrawer() {
                 <h3 className="mt-5 font-display text-2xl tracking-display">Order requested</h3>
                 <p className="mt-3 font-body text-sm leading-relaxed text-bark">
                   We've logged {placed.items} {placed.items === 1 ? 'item' : 'items'} against reference{' '}
-                  <span className="font-mono text-cocoa">{placed.ref}</span>. Our team confirms
-                  every order by email before it ships.
+                  <span className="font-mono text-cocoa">{placed.ref}</span>.{' '}
+                  {placed.emailed
+                    ? 'A confirmation is on its way to your inbox.'
+                    : 'Keep this reference — we confirm every order by email before it ships.'}
                 </p>
                 <button
                   type="button"
@@ -216,28 +295,77 @@ export default function CartDrawer() {
                 </ul>
 
                 <footer className="border-t border-ink px-5 py-5">
-                  <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest">
-                    <span className="text-bark">Total items</span>
-                    <span className="tabular-nums text-cocoa">{count}</span>
-                  </div>
-                  <p className="mt-3 font-body text-xs leading-relaxed text-bark">
-                    We confirm pricing and delivery by email — nothing is charged here.
-                  </p>
+                  {checkingOut ? (
+                    <form onSubmit={handleSubmit} noValidate>
+                      <div className="grid gap-5">
+                        <Field id="name" label="Name" value={details.name} onChange={update('name')} autoComplete="name" />
+                        <Field id="email" label="Email" type="email" value={details.email} onChange={update('email')} autoComplete="email" />
+                        <Field id="phone" label="Phone" type="tel" required={false} value={details.phone} onChange={update('phone')} autoComplete="tel" />
+                        <Field id="address" label="Address" value={details.address} onChange={update('address')} autoComplete="street-address" />
+                        <div className="grid grid-cols-2 gap-5">
+                          <Field id="city" label="City" value={details.city} onChange={update('city')} autoComplete="address-level2" />
+                          <Field id="postcode" label="Postcode" value={details.postcode} onChange={update('postcode')} autoComplete="postal-code" />
+                        </div>
+                        <Field id="notes" label="Notes" required={false} value={details.notes} onChange={update('notes')} />
+                      </div>
 
-                  <button
-                    type="button"
-                    onClick={handlePlaceOrder}
-                    className="btn mt-4 w-full"
-                  >
-                    Request This Order
-                  </button>
-                  <button
-                    type="button"
-                    onClick={clearCart}
-                    className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
-                  >
-                    Clear cart
-                  </button>
+                      {/* Honeypot: off-screen, unfocusable, never announced. */}
+                      <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
+                        <label htmlFor="company">Company</label>
+                        <input
+                          id="company"
+                          name="company"
+                          type="text"
+                          tabIndex={-1}
+                          autoComplete="off"
+                          value={company}
+                          onChange={(e) => setCompany(e.target.value)}
+                        />
+                      </div>
+
+                      {error && (
+                        <p role="alert" className="mt-5 border-l-2 border-olive pl-3 font-body text-sm text-cocoa">
+                          {error}
+                        </p>
+                      )}
+
+                      <p className="mt-5 font-body text-xs leading-relaxed text-bark">
+                        Nothing is charged here. We confirm pricing and delivery by email first.
+                      </p>
+
+                      <button type="submit" disabled={submitting} className="btn mt-4 w-full disabled:opacity-60">
+                        {submitting ? 'Sending…' : `Place order (${count})`}
+                      </button>
+                      <button
+                        type="button"
+                        onClick={() => { setCheckingOut(false); setError(null) }}
+                        className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
+                      >
+                        Back to cart
+                      </button>
+                    </form>
+                  ) : (
+                    <>
+                      <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest">
+                        <span className="text-bark">Total items</span>
+                        <span className="tabular-nums text-cocoa">{count}</span>
+                      </div>
+                      <p className="mt-3 font-body text-xs leading-relaxed text-bark">
+                        We confirm pricing and delivery by email — nothing is charged here.
+                      </p>
+
+                      <button type="button" onClick={() => setCheckingOut(true)} className="btn mt-4 w-full">
+                        Checkout
+                      </button>
+                      <button
+                        type="button"
+                        onClick={clearCart}
+                        className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
+                      >
+                        Clear cart
+                      </button>
+                    </>
+                  )}
                 </footer>
               </>
             )}
