@@ -4,6 +4,7 @@ import latteMango from '../assets/latte-mango.jpg'
 import latteUbe from '../assets/latte-ube.jpg'
 import latteVanilla from '../assets/latte-vanilla.jpg'
 import powderTexture from '../assets/matcha-powder-texture.jpg'
+import layersMacro from '../assets/layers-macro.jpg'
 import glassesOverhead from '../assets/glasses-overhead.jpg'
 import counterKit from '../assets/counter-kit.jpg'
 import toolsGreenWood from '../assets/tools-green-wood.jpg'
@@ -63,6 +64,12 @@ export const photos = {
     width: 470,
     height: 636,
     alt: 'An iced vanilla matcha in a tall glass with a vanilla pod resting across the rim',
+  },
+  layersMacro: {
+    src: layersMacro,
+    width: 824,
+    height: 1000,
+    alt: 'A close view through the side of a glass: matcha settling down through milk into crushed strawberry',
   },
   glassesOverhead: {
     src: glassesOverhead,

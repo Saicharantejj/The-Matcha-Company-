@@ -32,19 +32,29 @@ export default function Matchas() {
 
   return (
     <PageShell>
+      {/* The title held the left two-thirds and nothing held the rest. The
+          macro goes there: it is the inside of the glass a sachet ends up in,
+          which is a better argument for the page than more paper. */}
       <section className="bg-camel px-5 pb-16 pt-16 sm:px-10 sm:pb-20 sm:pt-24">
-        <div className="mx-auto max-w-[100rem]">
-          <p className="spec text-olive">Five flavours &middot; 10g each</p>
-          <h1 className="mt-6 max-w-4xl font-display text-major tracking-display">
-            <Rise delay={0.05}>Every sachet</Rise>
-            <Rise delay={0.15}>we make.</Rise>
-          </h1>
-          <Reveal delay={0.3}>
-            <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
-              Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one into
-              cold milk or water and skip the ceremony entirely.
-            </p>
-          </Reveal>
+        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-end lg:gap-x-12">
+          <div className="lg:col-span-7">
+            <p className="spec text-olive">Five flavours &middot; 10g each</p>
+            <h1 className="mt-6 max-w-4xl font-display text-major tracking-display">
+              <Rise delay={0.05}>Every sachet</Rise>
+              <Rise delay={0.15}>we make.</Rise>
+            </h1>
+            <Reveal delay={0.3}>
+              <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
+                Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one
+                into cold milk or water and skip the ceremony entirely.
+              </p>
+            </Reveal>
+          </div>
+
+          <div className="lg:col-span-4 lg:col-start-9">
+            <Photo photo={photos.layersMacro} className="aspect-[4/5] w-full" delay={0.2} priority />
+            <p className="spec mt-4">Ten seconds after the sachet goes in</p>
+          </div>
         </div>
       </section>
 
