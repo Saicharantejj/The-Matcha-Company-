@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
+import { setSmoothScrollPaused } from '../lib/smoothScroll'
 import { placeOrder, messageFor } from '../lib/api'
 
 // Mirrors the pouch colours in SachetGraphic, so a cart line looks like the
@@ -127,9 +128,13 @@ export default function CartDrawer() {
     }
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
+    // overflow:hidden stops the browser scrolling the page; the smooth-scroll
+    // loop animates it independently and has to be told to hold as well.
+    setSmoothScrollPaused(true)
     window.addEventListener('keydown', onKeyDown)
     return () => {
       document.body.style.overflow = prevOverflow
+      setSmoothScrollPaused(false)
       window.removeEventListener('keydown', onKeyDown)
     }
   }, [isOpen, closeCart])
@@ -255,7 +260,7 @@ export default function CartDrawer() {
               </div>
             ) : (
               <>
-                <ul className="flex-1 divide-y divide-ink/15 overflow-y-auto px-5">
+                <ul data-lenis-prevent className="flex-1 divide-y divide-ink/15 overflow-y-auto px-5">
                   <AnimatePresence initial={false}>
                     {lines.map((line) => (
                       <motion.li

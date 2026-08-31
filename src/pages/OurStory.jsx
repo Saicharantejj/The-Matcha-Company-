@@ -69,7 +69,7 @@ export default function OurStory() {
       <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.cupBlossoms} className="w-full" natural priority />
+            <Photo photo={photos.cupBlossoms} className="w-full" natural priority parallax={34} />
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">
@@ -88,7 +88,7 @@ export default function OurStory() {
       <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.bowlsFlatlay} className="w-full" natural />
+            <Photo photo={photos.bowlsFlatlay} className="w-full" natural parallax={28} />
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">

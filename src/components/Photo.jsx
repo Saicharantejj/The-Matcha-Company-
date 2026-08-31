@@ -1,4 +1,4 @@
-import { ImageReveal } from './Motion'
+import { ImageReveal, Parallax } from './Motion'
 
 /**
  * A photograph, revealed on scroll like every other image on the site.
@@ -12,6 +12,12 @@ import { ImageReveal } from './Motion'
  * `natural` drops the crop and lets the picture keep its own proportions,
  * which is what the wide plates use: paired with a max-width at or under the
  * file's own pixel width, nothing is ever enlarged and nothing goes soft.
+ *
+ * `parallax` drifts the plate against the page as it passes. It is applied to
+ * the whole frame rather than to the picture inside it, which matters: the
+ * reveal clips its contents, so moving the picture within that clip would open
+ * a gap along one edge. Moving the frame keeps the photograph whole and still
+ * reads as depth.
  */
 export default function Photo({
   photo,
@@ -19,10 +25,11 @@ export default function Photo({
   delay = 0,
   priority = false,
   natural = false,
+  parallax = 0,
   position = 'object-center',
 }) {
-  return (
-    <ImageReveal delay={delay} className={className}>
+  const plate = (
+    <ImageReveal delay={delay} className={parallax ? 'h-full w-full' : className}>
       <img
         src={photo.src}
         alt={photo.alt}
@@ -34,5 +41,13 @@ export default function Photo({
         className={natural ? 'h-auto w-full' : `h-full w-full object-cover ${position}`}
       />
     </ImageReveal>
+  )
+
+  if (!parallax) return plate
+
+  return (
+    <Parallax distance={parallax} className={className}>
+      {plate}
+    </Parallax>
   )
 }

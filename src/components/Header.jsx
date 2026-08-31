@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
+import { setSmoothScrollPaused } from '../lib/smoothScroll'
+import { EASE } from './Motion'
 
 const NAV_LINKS = [
   { to: '/matchas', label: 'Sachets' },
@@ -47,8 +49,10 @@ export default function Header() {
   // The panel takes over the screen, so the page underneath must not scroll.
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
+    setSmoothScrollPaused(menuOpen)
     return () => {
       document.body.style.overflow = ''
+      setSmoothScrollPaused(false)
     }
   }, [menuOpen])
 
@@ -63,31 +67,47 @@ export default function Header() {
           {/* Set as type rather than the old bitmap wordmark: the picture
               said the old name and could not be repainted, and Archivo Black
               is the face that picture was drawn in anyway. */}
-          <span
+          {/* The wordmark settles in before the nav does, so the bar assembles
+              left to right rather than appearing all at once. */}
+          <motion.span
             aria-hidden="true"
             className="block font-display uppercase leading-[0.8] tracking-display text-cocoa"
             style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)' }}
+            initial={reduceMotion ? false : { opacity: 0, y: -6 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, ease: EASE }}
           >
             <span className="block">Drink</span>
             <span className="block">Yojo</span>
-          </span>
+          </motion.span>
         </NavLink>
 
         <nav aria-label="Primary" className="hidden items-center gap-10 lg:flex">
-          {NAV_LINKS.map((link) => (
-            <NavLink
+          {NAV_LINKS.map((link, i) => (
+            <motion.div
               key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                `link-draw font-mono text-spec uppercase ${isActive ? 'text-olive' : 'text-cocoa'}`
-              }
+              initial={reduceMotion ? false : { opacity: 0, y: -6 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1 + i * 0.055, ease: EASE }}
             >
-              {link.label}
-            </NavLink>
+              <NavLink
+                to={link.to}
+                className={({ isActive }) =>
+                  `link-draw font-mono text-spec uppercase ${isActive ? 'text-olive' : 'text-cocoa'}`
+                }
+              >
+                {link.label}
+              </NavLink>
+            </motion.div>
           ))}
         </nav>
 
-        <div className="relative z-10 flex items-center gap-6">
+        <motion.div
+          className="relative z-10 flex items-center gap-6"
+          initial={reduceMotion ? false : { opacity: 0, y: -6 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.32, ease: EASE }}
+        >
           <motion.button
             type="button"
             onClick={openCart}
@@ -117,7 +137,7 @@ export default function Header() {
               }`}
             />
           </button>
-        </div>
+        </motion.div>
       </div>
 
       <AnimatePresence>
@@ -126,7 +146,7 @@ export default function Header() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.35, ease: EASE }}
             className="fixed inset-0 top-[73px] z-40 bg-camel lg:hidden"
           >
             <nav aria-label="Primary" className="flex h-full flex-col justify-between px-5 pb-12 pt-8">
@@ -136,7 +156,7 @@ export default function Header() {
                     key={link.to}
                     initial={reduceMotion ? false : { opacity: 0, y: 14 }}
                     animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.06 + i * 0.06, duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                    transition={{ delay: 0.06 + i * 0.06, duration: 0.5, ease: EASE }}
                     className="rule py-5 first:border-t-0"
                   >
                     <NavLink

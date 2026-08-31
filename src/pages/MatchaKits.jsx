@@ -1,5 +1,5 @@
 import PageShell from '../components/PageShell'
-import Reveal, { Rise, ImageReveal } from '../components/Motion'
+import Reveal, { Words, RiseInView, ImageReveal, Parallax, StaggerGroup, StaggerItem } from '../components/Motion'
 import SachetGraphic from '../components/SachetGraphic'
 import Photo from '../components/Photo'
 import { useCart } from '../context/CartContext'
@@ -28,36 +28,59 @@ function KitFeature({ kit, index }) {
   const flipped = index % 2 === 1
 
   return (
-    <article className="rule-heavy grid grid-cols-1 gap-8 py-14 sm:py-20 lg:grid-cols-12 lg:gap-x-12">
-      <ImageReveal
-        className={`aspect-[5/4] lg:col-span-5 ${flipped ? 'lg:order-2 lg:col-start-8' : ''}`}
+    <article className="group/kit rule-heavy grid grid-cols-1 gap-8 py-14 sm:py-20 lg:grid-cols-12 lg:gap-x-12">
+      {/* The plates drift against the page, and the ones that sit on the right
+          drift the other way. Alternating the direction is what makes the band
+          read as two layers passing rather than as one block sliding. */}
+      <Parallax
+        distance={flipped ? -34 : 34}
+        className={`lg:col-span-5 ${flipped ? 'lg:order-2 lg:col-start-8' : ''}`}
       >
-        <SachetGraphic swatch={kit.swatch} flavor={kit.flavor} tone={flipped ? 'dark' : 'paper'} />
-      </ImageReveal>
+        <ImageReveal className="aspect-[5/4] w-full">
+          <SachetGraphic
+            swatch={kit.swatch}
+            flavor={kit.flavor}
+            tone={flipped ? 'dark' : 'paper'}
+            className="transition-transform duration-[1100ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none group-hover/kit:scale-[1.03]"
+          />
+        </ImageReveal>
+      </Parallax>
 
       <div className={`flex flex-col justify-center lg:col-span-6 ${flipped ? 'lg:order-1 lg:col-start-1' : 'lg:col-start-7'}`}>
-        <div className="flex items-baseline gap-5">
-          <span className="index-num">{String(index + 1).padStart(2, '0')}</span>
-          {kit.badge && <span className="spec text-olive">{kit.badge}</span>}
-        </div>
+        <Reveal>
+          <div className="flex items-baseline gap-5">
+            <span className="index-num">{String(index + 1).padStart(2, '0')}</span>
+            {kit.badge && <span className="spec text-olive">{kit.badge}</span>}
+          </div>
+        </Reveal>
 
-        <h2 className="mt-4 max-w-lg font-display text-minor tracking-display">{kit.name}</h2>
-        <p className="mt-4 max-w-md font-body text-base leading-relaxed text-bark">{kit.blurb}</p>
+        {/* The name climbs out from behind its own line; everything under it
+            follows a beat later, in the order it would be read. */}
+        <h2 className="mt-4 max-w-lg font-display text-minor tracking-display">
+          <RiseInView>{kit.name}</RiseInView>
+        </h2>
+        <Reveal delay={0.12}>
+          <p className="mt-4 max-w-md font-body text-base leading-relaxed text-bark">{kit.blurb}</p>
+        </Reveal>
 
-        <ul className="mt-8 max-w-md">
+        {/* Still a ul of lis — the stagger is on the same elements the list
+            already used, not on divs wrapped around them. */}
+        <StaggerGroup as="ul" className="mt-8 max-w-md" stagger={0.07}>
           {kit.items.map((item) => (
-            <li key={item} className="rule flex items-baseline gap-4 py-3">
+            <StaggerItem as="li" key={item} className="rule flex items-baseline gap-4 py-3">
               <span className="index-num text-olive">&mdash;</span>
               <span className="font-body text-sm text-bark">{item}</span>
-            </li>
+            </StaggerItem>
           ))}
-        </ul>
+        </StaggerGroup>
 
-        <div className="mt-9">
-          <button type="button" onClick={handleAdd} className="btn">
-            Add to cart
-          </button>
-        </div>
+        <Reveal delay={0.1}>
+          <div className="mt-9">
+            <button type="button" onClick={handleAdd} className="btn">
+              Add to cart
+            </button>
+          </div>
+        </Reveal>
       </div>
     </article>
   )
@@ -69,9 +92,12 @@ export default function MatchaKits() {
       <section className="bg-camel px-5 pb-14 pt-16 sm:px-10 sm:pb-16 sm:pt-24">
         <div className="mx-auto max-w-[100rem]">
           <p className="spec text-olive">Boxed, bundled, and subscribed</p>
+          {/* Word by word rather than line by line. Five words is short
+              enough that the extra beat between them reads as emphasis; on a
+              longer headline it would read as a stutter, which is why the rest
+              of the site still climbs a line at a time. */}
           <h1 className="mt-6 max-w-4xl font-display text-major tracking-display">
-            <Rise delay={0.05}>Buy them</Rise>
-            <Rise delay={0.15}>by the box.</Rise>
+            <Words delay={0.2}>Buy them by the box.</Words>
           </h1>
           <Reveal delay={0.3}>
             <p className="mt-8 max-w-xl font-serif text-lede italic text-bark">
@@ -87,7 +113,7 @@ export default function MatchaKits() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.cupBlossoms} className="w-full" natural priority />
+            <Photo photo={photos.cupBlossoms} className="w-full" natural priority parallax={24} />
             <p className="spec mt-4">One of each, or ten of the one you keep coming back to</p>
           </div>
 

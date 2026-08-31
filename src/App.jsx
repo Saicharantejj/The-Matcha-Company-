@@ -5,6 +5,8 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
 import GrainOverlay from './components/GrainOverlay'
+import Cursor from './components/Cursor'
+import { initSmoothScroll, scrollToTopImmediately } from './lib/smoothScroll'
 import { CartProvider } from './context/CartContext'
 import { ToastProvider } from './components/Toast'
 import Home from './pages/Home'
@@ -15,17 +17,28 @@ import OurStory from './pages/OurStory'
 import NotFound from './pages/NotFound'
 
 // Route changes should land at the top of the new page, not wherever the
-// previous page happened to be scrolled to.
+// previous page happened to be scrolled to. Routed through the smooth-scroll
+// instance when one exists: a plain window.scrollTo would be intercepted and
+// animated, so arriving on a new page would look like being thrown up the old
+// one.
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'auto' })
+    scrollToTopImmediately()
   }, [pathname])
   return null
 }
 
+// Smooth scrolling for pointer devices. Everything scroll-linked on the site
+// reads better against an eased scroll position than against a stepped one, so
+// this is set up once, above the router, and torn down with the app.
+function useSmoothScroll() {
+  useEffect(() => initSmoothScroll(), [])
+}
+
 export default function App() {
   const location = useLocation()
+  useSmoothScroll()
 
   return (
     <CartProvider>
@@ -50,6 +63,7 @@ export default function App() {
           <Footer />
           <CartDrawer />
           <GrainOverlay />
+          <Cursor />
         </div>
       </ToastProvider>
     </CartProvider>

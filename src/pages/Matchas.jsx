@@ -1,8 +1,8 @@
-import { useMemo, useState } from 'react'
+import { useMemo, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import PageShell from '../components/PageShell'
-import Reveal, { Rise } from '../components/Motion'
+import Reveal, { Rise, EASE } from '../components/Motion'
 import ProductCard from '../components/ProductCard'
 import Photo from '../components/Photo'
 import { products } from '../data/products'
@@ -24,6 +24,16 @@ const ALL_TAGS = [...new Set(products.flatMap((p) => p.tags ?? []))]
  */
 export default function Matchas() {
   const [active, setActive] = useState(null)
+  const heroRef = useRef(null)
+  const reduceMotion = useReducedMotion()
+
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ['start start', 'end start'],
+  })
+  const groundY = useTransform(heroProgress, [0, 1], ['0%', '12%'])
+  const groundScale = useTransform(heroProgress, [0, 1], [1, 1.06])
+  const foldFade = useTransform(heroProgress, [0, 0.75], [1, 0])
 
   const visible = useMemo(
     () => (active ? products.filter((p) => p.tags?.includes(active)) : products),
@@ -44,32 +54,49 @@ export default function Matchas() {
           veil is thinner. Nothing is cropped by hand and nothing is filtered —
           the frame is the one that was sent, and the fold simply shows the
           width of it. */}
-      <section className="relative isolate flex min-h-[72vh] flex-col justify-end overflow-hidden bg-ink">
-        <div aria-hidden className="absolute inset-0 -z-10">
-          <img
+      <section
+        ref={heroRef}
+        className="relative isolate flex min-h-[72vh] flex-col justify-end overflow-hidden bg-ink"
+      >
+        {/* The ground drifts a little slower than the type leaving above it,
+            and closes very slightly as it goes. */}
+        <motion.div
+          aria-hidden
+          className="absolute inset-0 -z-10"
+          style={reduceMotion ? undefined : { y: groundY, scale: groundScale }}
+        >
+          <motion.img
             src={photos.layersMacro.src}
             alt=""
             width={photos.layersMacro.width}
             height={photos.layersMacro.height}
             fetchPriority="high"
             className="h-full w-full object-cover"
+            initial={reduceMotion ? false : { scale: 1.08, opacity: 0.6 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1.8, ease: EASE }}
           />
           <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/50 to-ink/10" />
-        </div>
+        </motion.div>
 
-        <div className="mx-auto w-full max-w-[100rem] px-5 pb-14 pt-32 sm:px-10 sm:pb-16 sm:pt-40">
-          <p className="spec text-linen">Five flavours &middot; 10g each</p>
+        <motion.div
+          className="mx-auto w-full max-w-[100rem] px-5 pb-14 pt-32 sm:px-10 sm:pb-16 sm:pt-40"
+          style={reduceMotion ? undefined : { opacity: foldFade }}
+        >
+          <Reveal delay={0.15}>
+            <p className="spec text-linen">Five flavours &middot; 10g each</p>
+          </Reveal>
           <h1 className="mt-6 max-w-4xl font-display text-major tracking-display text-cream">
-            <Rise delay={0.05}>Every sachet</Rise>
-            <Rise delay={0.15}>we make.</Rise>
+            <Rise delay={0.3}>Every sachet</Rise>
+            <Rise delay={0.42}>we make.</Rise>
           </h1>
-          <Reveal delay={0.3}>
+          <Reveal delay={0.7}>
             <p className="mt-8 max-w-xl font-serif text-lede italic text-linen">
               Stone-ground in Uji, blended with real fruit, sealed one cup at a time. Tear one
               into cold milk or water and skip the ceremony entirely.
             </p>
           </Reveal>
-        </div>
+        </motion.div>
       </section>
 
       {/* The plate is held to the width the file actually has, so the column
@@ -77,7 +104,7 @@ export default function Matchas() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.glassesOverhead} className="w-full" natural priority />
+            <Photo photo={photos.glassesOverhead} className="w-full" natural priority parallax={26} />
             <p className="spec mt-4">Uji, Kyoto &middot; first-harvest leaf, stone-ground</p>
           </div>
 

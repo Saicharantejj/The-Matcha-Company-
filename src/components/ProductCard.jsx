@@ -27,17 +27,24 @@ export default function ProductCard({ product, index = 0 }) {
   return (
     <article className="group flex h-full w-full flex-col">
       <div className="relative">
+        {/* The plate is already clipped by the reveal, so the hover push has
+            somewhere to go: the picture grows inside a frame that does not.
+            Nine-tenths of a second and four percent — slow and small enough
+            that it reads as the object leaning towards you. */}
         <ImageReveal delay={(index % 3) * 0.08} className="aspect-[4/5] w-full">
-          <FlavorPlate item={product} />
+          <FlavorPlate
+            item={product}
+            className="transition-transform duration-[900ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none group-hover:scale-[1.04]"
+          />
         </ImageReveal>
         {product.badge && (
-          <span className="spec absolute left-0 top-0 bg-olive px-3 py-1.5 text-cream">
+          <span className="spec absolute left-0 top-0 z-10 bg-olive px-3 py-1.5 text-cream">
             {product.badge}
           </span>
         )}
       </div>
 
-      <div className="rule mt-5 flex flex-1 flex-col pt-4">
+      <div className="rule mt-5 flex flex-1 flex-col pt-4 transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none group-hover:-translate-y-1">
         <div className="flex items-baseline justify-between gap-4">
           <h3 className="font-display text-lg tracking-display">{product.flavor}</h3>
           <span className="index-num">{String(index + 1).padStart(2, '0')}</span>

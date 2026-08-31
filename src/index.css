@@ -73,33 +73,112 @@
   }
 
   /* Buttons. Square, generous, and only two of them — a filled one and an
-     outlined one. The fill inverts on hover rather than lifting off the page. */
+     outlined one.
+
+     The hover used to be a flat colour crossfade. It is now a fill that wipes
+     up from the bottom edge, which gives the press somewhere to come from and
+     reads as the button acknowledging you rather than merely changing state.
+     The pseudo-element sits at z-index -1 inside the button's own stacking
+     context, so it paints over the button's background and under its label
+     without the label needing a wrapper.
+
+     Everything animated here is transform or colour. The 1.5% swell and the
+     deeper press are small enough to be felt at the fingertip and missed by
+     the eye, which is the whole point. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2.5 border border-ink bg-ink px-8 py-4
-           font-mono text-spec uppercase text-cream;
-    transition: background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply relative isolate inline-flex items-center justify-center gap-2.5 overflow-hidden border
+           border-ink bg-ink px-8 py-4 font-mono text-spec uppercase text-cream;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+                color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: theme('colors.olive');
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn:hover::before {
+    transform: scaleY(1);
   }
 
   .btn:hover {
-    @apply bg-olive text-cream;
+    transform: scale(1.015);
+  }
+
+  .btn:active {
+    transform: scale(0.985);
+    transition-duration: 0.12s;
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2.5 border border-ink bg-transparent px-8 py-4
-           font-mono text-spec uppercase text-cocoa;
-    transition: background-color 0.35s cubic-bezier(0.22, 1, 0.36, 1),
+    @apply relative isolate inline-flex items-center justify-center gap-2.5 overflow-hidden border
+           border-ink bg-transparent px-8 py-4 font-mono text-spec uppercase text-cocoa;
+    transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1),
                 color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
+  .btn-outline::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: theme('colors.ink');
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .btn-outline:hover::before {
+    transform: scaleY(1);
+  }
+
   .btn-outline:hover {
-    @apply bg-ink text-cream;
+    @apply text-cream;
+    transform: scale(1.015);
+  }
+
+  .btn-outline:active {
+    transform: scale(0.985);
+    transition-duration: 0.12s;
+  }
+
+  /* The setting exists to stop exactly this kind of thing. Colour still
+     changes, so the button is still legibly a button being hovered. */
+  @media (prefers-reduced-motion: reduce) {
+    .btn,
+    .btn-outline {
+      transition: color 0.2s linear;
+    }
+
+    .btn::before,
+    .btn-outline::before {
+      transition: none;
+    }
+
+    .btn:hover,
+    .btn:active,
+    .btn-outline:hover,
+    .btn-outline:active {
+      transform: none;
+    }
   }
 
   /* A text link that draws its own underline in from the left on hover.
      Used instead of arrows-and-boxes for secondary navigation. */
   .link-draw {
     @apply relative inline-block text-cocoa;
+    transition: color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .link-draw:hover {
+    @apply text-olive;
   }
 
   .link-draw::after {
@@ -116,6 +195,13 @@
   }
 
   .link-draw:hover::after {
+    transform: scaleX(1);
+  }
+
+  /* A card is one object. Hovering it anywhere draws the underline under its
+     own action, so the whole plate reads as clickable rather than just the
+     four words at the bottom of it. */
+  .group:hover .link-draw::after {
     transform: scaleX(1);
   }
 

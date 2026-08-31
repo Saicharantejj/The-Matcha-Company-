@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
-import Reveal, { Rise } from '../components/Motion'
+import Reveal, { Rise, Parallax } from '../components/Motion'
 import FlavorPlate from '../components/FlavorPlate'
 import Photo from '../components/Photo'
 import { useCart } from '../context/CartContext'
@@ -43,7 +43,7 @@ function KitRow({ kit, index }) {
   const panelId = `kit-panel-${kit.id}`
 
   return (
-    <article className="rule first:border-t-0">
+    <article className="group/row rule first:border-t-0">
       <div className="grid grid-cols-1 gap-8 py-12 sm:py-16 lg:grid-cols-12 lg:items-center lg:gap-x-12">
         <div className="flex flex-col justify-center lg:col-span-7">
           <div className="flex items-baseline gap-5">
@@ -135,11 +135,14 @@ function KitRow({ kit, index }) {
         {/* Portrait, because the photographs are of tall glasses, and four
             columns wide rather than five so the picture fills what it is
             given instead of leaving a strip of paper beside it. */}
-        <div className="lg:col-span-4 lg:col-start-9">
-          <div className="aspect-[4/5] w-full">
-            <FlavorPlate item={kit} />
+        <Parallax distance={index % 2 === 0 ? 26 : -26} className="lg:col-span-4 lg:col-start-9">
+          <div className="aspect-[4/5] w-full overflow-hidden">
+            <FlavorPlate
+              item={kit}
+              className="transition-transform duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] motion-reduce:transition-none motion-reduce:transform-none group-hover/row:scale-[1.04]"
+            />
           </div>
-        </div>
+        </Parallax>
       </div>
     </article>
   )
@@ -169,7 +172,7 @@ export default function DiyKits() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.trayTatami} className="w-full" natural priority />
+            <Photo photo={photos.trayTatami} className="w-full" natural priority parallax={30} />
             <p className="spec mt-4">Everything below starts with one 10g sachet</p>
           </div>
 
