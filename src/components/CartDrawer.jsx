@@ -7,9 +7,9 @@ import { placeOrder, messageFor } from '../lib/api'
 // Mirrors the pouch colours in SachetGraphic, so a cart line looks like the
 // product it came from.
 const SWATCH = {
-  matcha: '#6F9E28',
-  moss: '#7C8438',
-  olive: '#43481D',
+  matcha: '#4A9C4F',
+  moss: '#35803D',
+  olive: '#1E6B27',
   strawberry: '#A6483C',
   blueberry: '#4A5570',
   mango: '#AD6413',
@@ -33,11 +33,11 @@ function LineMark({ swatch }) {
         <path
           d="M14 28 Q14 18 24 18 L96 18 Q106 18 106 28 L106 128 Q106 140 94 140 L26 140 Q14 140 14 128 Z"
           fill={fill}
-          stroke="#F0E5D2"
+          stroke="#FCFAE9"
           strokeWidth="3"
         />
-        <path d="M52 18 L60 27 L68 18 Z" fill="#F0E5D2" />
-        <rect x="18" y="62" width="84" height="34" fill="#F0E5D2" />
+        <path d="M52 18 L60 27 L68 18 Z" fill="#FCFAE9" />
+        <rect x="18" y="62" width="84" height="34" fill="#FCFAE9" />
       </svg>
     </div>
   )
@@ -196,7 +196,7 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink bg-card shadow-[-6px_0_0_0_rgba(76,56,44,0.18)]"
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink bg-card shadow-[-6px_0_0_0_rgba(17,72,23,0.18)]"
           >
             <header className="flex items-center justify-between border-b border-ink px-5 py-4">
               <div>

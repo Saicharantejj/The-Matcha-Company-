@@ -4,21 +4,34 @@ export default {
   theme: {
     extend: {
       colors: {
-        camel: '#DFC9A9',
-        card: '#F0E5D2',
-        ink: '#4C382C',
-        // Text tones, kept separate from ink so type can be a deeper, browner
-        // colour than the structural ink used for borders, hard shadows and the
-        // dark section backgrounds. Solid values on purpose: setting copy as ink
-        // at 55-80% alpha let the camel page bleed through the glyphs, dropping
-        // their saturation to ~17% and their contrast below the 4.5:1 AA floor.
-        cocoa: '#412816',  // primary type — 8.50:1 on camel, 10.96:1 on card
-        bark: '#563620',   // secondary type — 6.72:1 on camel, 8.67:1 on card
-        linen: '#E3DCB5',  // on dark — 7.68:1 on ink, 6.95:1 on olive
-        olive: '#43481D',
-        moss: '#7C8438',
-        matcha: '#6F9E28',
-        cream: '#F6EFC6',
+        // ── The brand is two colours ────────────────────────────────────────
+        // Beige #F5F5DC and deep green #114817. Everything below is one of
+        // those two, or a tint or shade of one, so the site never introduces a
+        // third hue. The pair is unusually strong together — green on beige is
+        // 9.7:1 either way round — which is what lets structure, type and the
+        // dark sections all come from the same two values.
+        camel: '#F5F5DC',  // the beige, and the ground the whole site stands on
+        card: '#FCFAE9',   // the beige lifted, for panels sitting on the ground
+        ink: '#114817',    // the green: every rule, border and dark section
+
+        // Type tones, kept separate from ink so copy can be a deeper green
+        // than the structural green used for borders and dark backgrounds.
+        // Solid values on purpose: setting copy as ink at 55-80% alpha lets
+        // the beige bleed through the glyphs and drops contrast below AA.
+        cocoa: '#0D3612',  // primary type — 12.2:1 on beige, 12.9:1 on card
+        bark: '#2C5E32',   // secondary type — 6.9:1 on beige, 7.3:1 on card
+        linen: '#DCDCB8',  // on dark — 7.6:1 on ink, 4.7:1 on olive
+
+        // The working greens, lightest last: olive carries actions and the
+        // spec voice, moss and matcha fill the drawn sachets.
+        olive: '#1E6B27',  // 6.0:1 on beige, and carries cream at 6.0:1
+        moss: '#35803D',
+        matcha: '#4A9C4F',
+
+        // The brand beige again, named for what it does on green rather than
+        // for what it is. Deliberately the same value as the ground: the light
+        // in this palette is one colour, whether it is paper or type.
+        cream: '#F5F5DC',
       },
       fontFamily: {
         display: ['"Archivo Black"', 'Impact', 'sans-serif'],
@@ -38,9 +51,9 @@ export default {
         full: '4px',
       },
       boxShadow: {
-        hard: '4px 4px 0px 0px #4C382C',
-        'hard-sm': '2px 2px 0px 0px #4C382C',
-        'hard-olive': '4px 4px 0px 0px #43481D',
+        hard: '4px 4px 0px 0px #114817',
+        'hard-sm': '2px 2px 0px 0px #114817',
+        'hard-olive': '4px 4px 0px 0px #1E6B27',
       },
       fontSize: {
         mega: ['clamp(2.75rem, 8.5vw, 8rem)', { lineHeight: '0.82', letterSpacing: '-0.035em' }],

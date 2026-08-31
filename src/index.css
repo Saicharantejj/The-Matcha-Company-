@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    border-color: #4C382C;
+    border-color: #114817;
   }
 
   /* Let the browser pick optically better breaks in running text. */
@@ -19,20 +19,20 @@
   body {
     @apply bg-camel text-cocoa font-body antialiased;
     background-image:
-      radial-gradient(circle at 1px 1px, rgba(76,56,44,0.06) 1px, transparent 0);
+      radial-gradient(circle at 1px 1px, rgba(17,72,23,0.06) 1px, transparent 0);
     background-size: 22px 22px;
   }
 
   /* Branded keyboard focus. Uses :focus-visible so it appears for keyboard
      users without ringing every mouse click. */
   :focus-visible {
-    outline: 3px solid #6F9E28;
+    outline: 3px solid #4A9C4F;
     outline-offset: 2px;
   }
 
   ::selection {
-    background: #43481D;
-    color: #F6EFC6;
+    background: #1E6B27;
+    color: #F5F5DC;
   }
 
   h1, h2, h3, h4, .font-display {
@@ -65,11 +65,11 @@
      --------------------------------------------------------------------- */
 
   .rule {
-    border-top: 1px solid #4C382C;
+    border-top: 1px solid #114817;
   }
 
   .rule-heavy {
-    border-top: 2px solid #4C382C;
+    border-top: 2px solid #114817;
   }
 
   /* Buttons. Square, generous, and only two of them — a filled one and an

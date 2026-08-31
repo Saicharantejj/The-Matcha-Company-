@@ -42,7 +42,7 @@ export function ToastProvider({ children }) {
               exit={{ opacity: 0, x: -20, scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 380, damping: 28 }}
               className="pointer-events-auto flex items-center gap-3 border-2 border-ink bg-card px-4 py-3"
-              style={{ boxShadow: '4px 4px 0px 0px #4C382C' }}
+              style={{ boxShadow: '4px 4px 0px 0px #114817' }}
             >
               <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center border-2 border-ink bg-moss text-cream">
                 <Check size={12} strokeWidth={3} aria-hidden="true" />

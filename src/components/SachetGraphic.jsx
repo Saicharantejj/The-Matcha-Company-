@@ -10,23 +10,23 @@
  * low-saturation version of its fruit so it still sits on the camel paper
  * rather than shouting off it.
  *
- * Every flavour clears 3:1 against both the card plate it stands on (#F0E5D2)
- * and the cream label it carries (#F6EFC6), which is the large-shape contrast
+ * Every flavour clears 3:1 against both the card plate it stands on (#FCFAE9)
+ * and the cream label it carries (#F5F5DC), which is the large-shape contrast
  * floor. Vanilla is the awkward one: a pale custard yellow scores about 1.5
  * against cream paper and simply vanishes, so it is set at the darker caramel
  * end of vanilla instead. Mango is warmed past plain ochre so it does not read
  * as the same colour as vanilla at a glance.
  */
 const SWATCH = {
-  matcha: '#6F9E28',
-  moss: '#7C8438',
-  olive: '#43481D',
+  matcha: '#4A9C4F',
+  moss: '#35803D',
+  olive: '#1E6B27',
 
-  strawberry: '#A6483C', // 4.66:1 on the plate
-  blueberry: '#4A5570',  // 5.96:1
-  mango: '#AD6413',      // 3.65:1
-  ube: '#6E5A8C',        // 4.81:1
-  vanilla: '#9E7A3A',    // 3.18:1
+  strawberry: '#A6483C', // 5.53:1 on the plate
+  blueberry: '#4A5570',  // 7.08:1
+  mango: '#AD6413',      // 4.34:1
+  ube: '#6E5A8C',        // 5.70:1
+  vanilla: '#9E7A3A',    // 3.77:1
 }
 
 /**
@@ -63,19 +63,19 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
       >
         {/* Contact shadow. One soft ellipse under the object, the way a real
             product shot grounds a standing pouch — not a drop shadow on a box. */}
-        <ellipse cx="100" cy="272" rx="62" ry="9" fill="#4C382C" opacity={dark ? 0.5 : 0.18} />
+        <ellipse cx="100" cy="272" rx="62" ry="9" fill="#114817" opacity={dark ? 0.5 : 0.18} />
 
         {/* Body. Slightly wider at the base than the seal, so it reads as a
             filled pouch standing up rather than as a flat rectangle. */}
         <path
           d="M46 40 L154 40 L160 258 Q160 268 149 268 L51 268 Q40 268 40 258 Z"
           fill={fill}
-          stroke="#4C382C"
+          stroke="#114817"
           strokeWidth="1.5"
         />
 
         {/* The gusset fold catching light down the left third. */}
-        <path d="M46 40 L74 40 L70 268 L51 268 Q40 268 40 258 Z" fill="#F0E5D2" opacity="0.13" />
+        <path d="M46 40 L74 40 L70 268 L51 268 Q40 268 40 258 Z" fill="#FCFAE9" opacity="0.13" />
 
         {/* Heat-sealed crimp along the top, drawn as real serration. */}
         <path
@@ -90,14 +90,14 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
             y1="22"
             x2={48 + i * 8}
             y2="40"
-            stroke="#4C382C"
+            stroke="#114817"
             strokeWidth="1"
             opacity="0.28"
           />
         ))}
 
         {/* Tear notch, cut into the crimp on the right. */}
-        <path d="M154 28 L144 33 L154 38 Z" fill={dark ? '#4C382C' : '#F0E5D2'} />
+        <path d="M154 28 L144 33 L154 38 Z" fill={dark ? '#114817' : '#FCFAE9'} />
 
         {/* Paper label. Deliberately off-centre and low on the body — a band
             sitting where a hand would hold it, not a panel centred in a box. */}
@@ -106,8 +106,8 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
           y="150"
           width="120"
           height="76"
-          fill="#F6EFC6"
-          stroke="#4C382C"
+          fill="#F5F5DC"
+          stroke="#114817"
           strokeWidth="1.5"
         />
 
@@ -119,7 +119,7 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
           fontSize="15"
           textLength={Math.min(100, (flavor || 'Matcha').length * 10)}
           lengthAdjust="spacingAndGlyphs"
-          fill="#412816"
+          fill="#0D3612"
         >
           {(flavor || 'Matcha').toUpperCase()}
         </text>
@@ -130,7 +130,7 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
           className="font-mono"
           fontSize="8"
           letterSpacing="2"
-          fill="#563620"
+          fill="#2C5E32"
         >
           UJI &middot; 10G
         </text>
