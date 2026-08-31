@@ -24,7 +24,7 @@ const TIMELINE = [
   {
     year: '2022',
     title: 'First Sachet, Bengaluru',
-    text: 'The Matcha Company launches with one flavor: Vanilla Matcha, packed into single-serve sachets from that same Uji farm\'s leaves.',
+    text: 'Drink Yojo launches with one flavor: Vanilla Matcha, packed into single-serve sachets from that same Uji farm\'s leaves.',
   },
   {
     year: '2026',

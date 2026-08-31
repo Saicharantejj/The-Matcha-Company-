@@ -1,4 +1,4 @@
-# The Matcha Company
+# Drink Yojo
 
 A multi-page marketing site for a fictional matcha-sachet brand, built with React, React Router, Tailwind CSS, and Framer Motion. The catalog is single-serve flavored matcha sachets (Strawberry, Blueberry, Mango, Ube, Vanilla) — no made-to-order drinks, no prices shown. Design is driven entirely by the token system in `src/index.css` / `tailwind.config.js` — camel ground, cream cards, chocolate ink, deep olive actions, moss/matcha fills, hard 3–4px corners, and a Josefin Sans / Instrument Sans / Courier Prime type system.
 

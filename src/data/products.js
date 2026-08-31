@@ -1,4 +1,4 @@
-// Central product data for The Matcha Company — flavored matcha sachets.
+// Central product data for Drink Yojo — flavored matcha sachets.
 // No prices here by design: pricing isn't shown on the site right now.
 
 export const FLAVORS = ['Strawberry', 'Blueberry', 'Mango', 'Ube', 'Vanilla']

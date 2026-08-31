@@ -129,15 +129,14 @@ export default function Footer() {
             className="font-display leading-[0.82] tracking-display text-cream"
             style={{ fontSize: 'clamp(2.5rem, 16vw, 18rem)' }}
           >
-            <span className="block">The</span>
-            <span className="block">Matcha</span>
-            <span className="block">Company</span>
+            <span className="block">Drink</span>
+            <span className="block">Yojo</span>
           </p>
         </Reveal>
 
         <div className="rule mt-10 flex flex-col gap-4 border-linen/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
           <p className="spec text-linen">
-            &copy; {new Date().getFullYear()} The Matcha Company
+            &copy; {new Date().getFullYear()} Drink Yojo
           </p>
           <ul className="flex flex-wrap gap-x-7 gap-y-2">
             {SOCIALS.map((s) => (

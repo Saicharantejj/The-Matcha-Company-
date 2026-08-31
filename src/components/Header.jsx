@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
-import logoWordmark from '../assets/logo-wordmark-ink.png'
 import { useCart } from '../context/CartContext'
 
 const NAV_LINKS = [
@@ -60,14 +59,18 @@ export default function Header() {
       }`}
     >
       <div className="mx-auto flex max-w-[100rem] items-center justify-between px-5 py-5 sm:px-10">
-        <NavLink to="/" aria-label="The Matcha Company — home" className="relative z-10">
-          <img
-            src={logoWordmark}
-            alt="The Matcha Company"
-            width="736"
-            height="332"
-            className="h-8 w-auto sm:h-9"
-          />
+        <NavLink to="/" aria-label="Drink Yojo — home" className="relative z-10">
+          {/* Set as type rather than the old bitmap wordmark: the picture
+              said the old name and could not be repainted, and Archivo Black
+              is the face that picture was drawn in anyway. */}
+          <span
+            aria-hidden="true"
+            className="block font-display uppercase leading-[0.8] tracking-display text-cocoa"
+            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)' }}
+          >
+            <span className="block">Drink</span>
+            <span className="block">Yojo</span>
+          </span>
         </NavLink>
 
         <nav aria-label="Primary" className="hidden items-center gap-10 lg:flex">

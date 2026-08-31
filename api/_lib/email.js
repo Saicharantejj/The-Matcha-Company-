@@ -64,7 +64,7 @@ const SHELL = (inner) =>
   `<div style="font-family:Helvetica,Arial,sans-serif;color:#412816;background:#DFC9A9;padding:32px;">
      <div style="max-width:520px;margin:0 auto;background:#F0E5D2;padding:32px;">
        ${inner}
-       <p style="margin-top:32px;font-size:12px;color:#563620;">The Matcha Company &middot; Matcha, minus the ceremony</p>
+       <p style="margin-top:32px;font-size:12px;color:#563620;">Drink Yojo &middot; Matcha, minus the ceremony</p>
      </div>
    </div>`
 
