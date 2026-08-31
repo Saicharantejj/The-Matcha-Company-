@@ -8,9 +8,9 @@ import { placeOrder, messageFor } from '../lib/api'
 // Mirrors the pouch colours in SachetGraphic, so a cart line looks like the
 // product it came from.
 const SWATCH = {
-  matcha: '#4A9C4F',
-  moss: '#35803D',
-  olive: '#1E6B27',
+  matcha: '#5C8A2E',
+  moss: '#C4D2B8',
+  olive: '#4E6B3E',
   strawberry: '#A6483C',
   blueberry: '#4A5570',
   mango: '#AD6413',
@@ -34,11 +34,11 @@ function LineMark({ swatch }) {
         <path
           d="M14 28 Q14 18 24 18 L96 18 Q106 18 106 28 L106 128 Q106 140 94 140 L26 140 Q14 140 14 128 Z"
           fill={fill}
-          stroke="#FCFAE9"
+          stroke="#F8F5EB"
           strokeWidth="3"
         />
-        <path d="M52 18 L60 27 L68 18 Z" fill="#FCFAE9" />
-        <rect x="18" y="62" width="84" height="34" fill="#FCFAE9" />
+        <path d="M52 18 L60 27 L68 18 Z" fill="#F8F5EB" />
+        <rect x="18" y="62" width="84" height="34" fill="#F8F5EB" />
       </svg>
     </div>
   )
@@ -206,7 +206,7 @@ export default function CartDrawer() {
                that into glass rather than a coloured rectangle. Every corner
                stays exactly as square as bg-card was — only the surface
                changed, not the shape. */
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink bg-card/75 shadow-[-6px_0_0_0_rgba(17,72,23,0.18)] backdrop-blur-xl backdrop-saturate-150"
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink bg-card/75 shadow-[-6px_0_0_0_rgba(35,46,30,0.18)] backdrop-blur-xl backdrop-saturate-150"
           >
             <header className="flex items-center justify-between border-b border-ink px-5 py-4">
               <div>

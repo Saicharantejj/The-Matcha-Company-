@@ -24,10 +24,10 @@ import { useScrollProgress, useCoarsePointer } from './Motion'
  * looking like a stain.
  */
 const TONES = {
-  dark: { fill: '#F5F5DC', opacity: 0.16, blur: 'blur-2xl' },
-  darkWarm: { fill: '#DCDCB8', opacity: 0.18, blur: 'blur-2xl' },
-  light: { fill: '#1E6B27', opacity: 0.09, blur: 'blur-2xl' },
-  lightBold: { fill: '#35803D', opacity: 0.13, blur: 'blur-xl' },
+  dark: { fill: '#E9E7D0', opacity: 0.16, blur: 'blur-2xl' },
+  darkWarm: { fill: '#C4D2B8', opacity: 0.18, blur: 'blur-2xl' },
+  light: { fill: '#4E6B3E', opacity: 0.09, blur: 'blur-2xl' },
+  lightBold: { fill: '#C4D2B8', opacity: 0.13, blur: 'blur-xl' },
 }
 
 const PATHS = [

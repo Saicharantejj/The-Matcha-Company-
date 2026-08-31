@@ -18,9 +18,9 @@
  * as the same colour as vanilla at a glance.
  */
 const SWATCH = {
-  matcha: '#4A9C4F',
-  moss: '#35803D',
-  olive: '#1E6B27',
+  matcha: '#5C8A2E',
+  moss: '#C4D2B8',
+  olive: '#4E6B3E',
 
   strawberry: '#A6483C', // 5.53:1 on the plate
   blueberry: '#4A5570',  // 7.08:1
@@ -31,19 +31,6 @@ const SWATCH = {
 
 /**
  * The sachet, drawn as packaging rather than as an icon.
- *
- * PLACEHOLDER: this stands in for product photography the brand does not have
- * yet. The photographs in src/data/photos.js are of matcha being made, not of
- * the sachets themselves, so they carry the story and catalogue bands while
- * every one of the five flavours is still represented here by a drawing. It is
- * built to survive being shown large, but it should be replaced by real shots
- * of the sachets when they exist.
- *
- * What changed from the previous version: the blurred colour glow behind it and
- * the dot grid over it are gone, along with the two floating badge pills. A
- * product shot with UI chrome stuck to its corners reads as a component, not as
- * a product, so the metadata now lives in the layout around the image and the
- * frame holds nothing but the object and its shadow.
  */
 export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper', className = '' }) {
   const fill = SWATCH[swatch] || SWATCH.matcha
@@ -61,21 +48,19 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
         aria-label={flavor ? `${flavor} matcha sachet` : 'Matcha sachet'}
         className="h-[74%] w-auto"
       >
-        {/* Contact shadow. One soft ellipse under the object, the way a real
-            product shot grounds a standing pouch — not a drop shadow on a box. */}
-        <ellipse cx="100" cy="272" rx="62" ry="9" fill="#114817" opacity={dark ? 0.5 : 0.18} />
+        {/* Contact shadow. One soft ellipse under the object. */}
+        <ellipse cx="100" cy="272" rx="62" ry="9" fill="#232E1E" opacity={dark ? 0.5 : 0.18} />
 
-        {/* Body. Slightly wider at the base than the seal, so it reads as a
-            filled pouch standing up rather than as a flat rectangle. */}
+        {/* Body. Slightly wider at the base than the seal. */}
         <path
           d="M46 40 L154 40 L160 258 Q160 268 149 268 L51 268 Q40 268 40 258 Z"
           fill={fill}
-          stroke="#114817"
+          stroke="#232E1E"
           strokeWidth="1.5"
         />
 
         {/* The gusset fold catching light down the left third. */}
-        <path d="M46 40 L74 40 L70 268 L51 268 Q40 268 40 258 Z" fill="#FCFAE9" opacity="0.13" />
+        <path d="M46 40 L74 40 L70 268 L51 268 Q40 268 40 258 Z" fill="#F8F5EB" opacity="0.13" />
 
         {/* Heat-sealed crimp along the top, drawn as real serration. */}
         <path
@@ -90,24 +75,23 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
             y1="22"
             x2={48 + i * 8}
             y2="40"
-            stroke="#114817"
+            stroke="#232E1E"
             strokeWidth="1"
             opacity="0.28"
           />
         ))}
 
         {/* Tear notch, cut into the crimp on the right. */}
-        <path d="M154 28 L144 33 L154 38 Z" fill={dark ? '#114817' : '#FCFAE9'} />
+        <path d="M154 28 L144 33 L154 38 Z" fill={dark ? '#232E1E' : '#F8F5EB'} />
 
-        {/* Paper label. Deliberately off-centre and low on the body — a band
-            sitting where a hand would hold it, not a panel centred in a box. */}
+        {/* Paper label. */}
         <rect
           x="40"
           y="150"
           width="120"
           height="76"
-          fill="#F5F5DC"
-          stroke="#114817"
+          fill="#E9E7D0"
+          stroke="#232E1E"
           strokeWidth="1.5"
         />
 
@@ -119,7 +103,7 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
           fontSize="15"
           textLength={Math.min(100, (flavor || 'Matcha').length * 10)}
           lengthAdjust="spacingAndGlyphs"
-          fill="#0D3612"
+          fill="#232E1E"
         >
           {(flavor || 'Matcha').toUpperCase()}
         </text>
@@ -130,7 +114,7 @@ export default function SachetGraphic({ swatch = 'matcha', flavor, tone = 'paper
           className="font-mono"
           fontSize="8"
           letterSpacing="2"
-          fill="#2C5E32"
+          fill="#4E6B3E"
         >
           UJI &middot; 10G
         </text>

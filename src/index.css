@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    border-color: #114817;
+    border-color: #232E1E;
   }
 
   /* Let the browser pick optically better breaks in running text. */
@@ -47,27 +47,26 @@
   body {
     @apply bg-camel text-cocoa font-body antialiased;
     background-image:
-      radial-gradient(circle at 1px 1px, rgba(17,72,23,0.06) 1px, transparent 0);
+      radial-gradient(circle at 1px 1px, rgba(35,46,30,0.06) 1px, transparent 0);
     background-size: 22px 22px;
   }
 
   /* Branded keyboard focus. Uses :focus-visible so it appears for keyboard
      users without ringing every mouse click. */
   :focus-visible {
-    outline: 3px solid #4A9C4F;
+    outline: 3px solid #4E6B3E;
     outline-offset: 2px;
   }
 
   ::selection {
-    background: #1E6B27;
-    color: #F5F5DC;
+    background: #4E6B3E;
+    color: #F8F5EB;
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: "Archivo Black", Impact, sans-serif;
-    text-transform: uppercase;
+    font-family: "Instrument Serif", Georgia, serif;
     letter-spacing: -0.02em;
-    font-weight: 400; /* Archivo Black ships a single weight, already black */
+    font-weight: 400;
   }
 
   /* Big display lines look better optically balanced rather than ragged. */
@@ -79,25 +78,14 @@
 @layer components {
   /* ---------------------------------------------------------------------
      The structural idea: ink hairlines on warm paper.
-
-     The site used to build everything out of the same bordered box with a
-     4px offset shadow — products, kits, bundles, callouts, all of them. Seven
-     card-hards and fourteen buttons wearing the same costume is what made
-     four different pages look like one component with the content swapped.
-
-     The offset shadow is gone. What survives from the old language, and what
-     the brand is actually recognisable by, is the sharp corner and the ink
-     rule: nothing here is rounded, and structure comes from lines rather than
-     from containers. That reads as editorial rather than as a sticker sheet,
-     and it leaves the product as the only object on the page.
      --------------------------------------------------------------------- */
 
   .rule {
-    border-top: 1px solid #114817;
+    border-top: 1px solid #232E1E;
   }
 
   .rule-heavy {
-    border-top: 2px solid #114817;
+    border-top: 2px solid #232E1E;
   }
 
   /* Buttons. Square, generous, and only two of them — a filled one and an

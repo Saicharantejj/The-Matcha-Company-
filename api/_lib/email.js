@@ -53,18 +53,18 @@ function itemRows(items) {
     .map(
       (i) =>
         `<tr>
-          <td style="padding:6px 12px 6px 0;border-bottom:1px solid #DCDCB8;">${escapeHtml(i.name)}</td>
-          <td style="padding:6px 0;border-bottom:1px solid #DCDCB8;text-align:right;">&times;${i.qty}</td>
+          <td style="padding:6px 12px 6px 0;border-bottom:1px solid #C4D2B8;">${escapeHtml(i.name)}</td>
+          <td style="padding:6px 0;border-bottom:1px solid #C4D2B8;text-align:right;">&times;${i.qty}</td>
         </tr>`,
     )
     .join('')
 }
 
 const SHELL = (inner) =>
-  `<div style="font-family:Helvetica,Arial,sans-serif;color:#0D3612;background:#F5F5DC;padding:32px;">
-     <div style="max-width:520px;margin:0 auto;background:#FCFAE9;padding:32px;">
+  `<div style="font-family:Helvetica,Arial,sans-serif;color:#232E1E;background:#E9E7D0;padding:32px;">
+     <div style="max-width:520px;margin:0 auto;background:#F8F5EB;padding:32px;">
        ${inner}
-       <p style="margin-top:32px;font-size:12px;color:#2C5E32;">Drink Yojo &middot; Matcha, minus the ceremony</p>
+       <p style="margin-top:32px;font-size:12px;color:#4E6B3E;">Drink Yojo &middot; Matcha, minus the ceremony</p>
      </div>
    </div>`
 
