@@ -135,7 +135,7 @@ function KitRow({ kit, index }) {
         {/* Portrait, because the photographs are of tall glasses, and four
             columns wide rather than five so the picture fills what it is
             given instead of leaving a strip of paper beside it. */}
-        <Parallax distance={index % 2 === 0 ? 26 : -26} className="lg:col-span-4 lg:col-start-9">
+        <Parallax distance={index % 2 === 0 ? 50 : -50} className="lg:col-span-4 lg:col-start-9">
           <div className="aspect-[4/5] w-full overflow-hidden">
             <FlavorPlate
               item={kit}
@@ -172,7 +172,7 @@ export default function DiyKits() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.trayTatami} className="w-full" natural priority parallax={30} />
+            <Photo photo={photos.trayTatami} className="w-full" natural priority parallax={58} />
             <p className="spec mt-4">Everything below starts with one 10g sachet</p>
           </div>
 

@@ -5,7 +5,6 @@ import Header from './components/Header'
 import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
 import GrainOverlay from './components/GrainOverlay'
-import Cursor from './components/Cursor'
 import { initSmoothScroll, scrollToTopImmediately } from './lib/smoothScroll'
 import { CartProvider } from './context/CartContext'
 import { ToastProvider } from './components/Toast'
@@ -63,7 +62,6 @@ export default function App() {
           <Footer />
           <CartDrawer />
           <GrainOverlay />
-          <Cursor />
         </div>
       </ToastProvider>
     </CartProvider>

@@ -147,13 +147,13 @@ export function ImageReveal({ children, delay = 0, className = '', once = true }
   return (
     <div ref={ref} className={`overflow-hidden ${className}`}>
       <motion.div
-        initial={{ clipPath: 'inset(0 0 100% 0)', scale: 1.06 }}
+        initial={{ clipPath: 'inset(0 0 100% 0)', scale: 1.12 }}
         animate={
           inView
             ? { clipPath: 'inset(0 0 0% 0)', scale: 1 }
-            : { clipPath: 'inset(0 0 100% 0)', scale: 1.06 }
+            : { clipPath: 'inset(0 0 100% 0)', scale: 1.12 }
         }
-        transition={{ duration: 0.95, delay, ease: EASE }}
+        transition={{ duration: 1.15, delay, ease: EASE }}
         className="h-full w-full"
       >
         {children}
@@ -174,7 +174,7 @@ export default function Reveal({ children, delay = 0, className = '', as = 'div'
   return (
     <MotionTag
       className={className}
-      initial={{ opacity: 0, y: 12 }}
+      initial={{ opacity: 0, y: 24 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, amount, margin: '0px 0px -40px 0px' }}
       transition={{ duration: 0.8, delay, ease: EASE }}
@@ -213,7 +213,7 @@ export function StaggerItem({ children, className = '', as = 'div' }) {
     <MotionTag
       className={className}
       variants={{
-        hidden: { opacity: 0, y: 16 },
+        hidden: { opacity: 0, y: 26 },
         show: { opacity: 1, y: 0, transition: { duration: 0.75, ease: EASE } },
       }}
     >

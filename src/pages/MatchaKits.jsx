@@ -33,7 +33,7 @@ function KitFeature({ kit, index }) {
           drift the other way. Alternating the direction is what makes the band
           read as two layers passing rather than as one block sliding. */}
       <Parallax
-        distance={flipped ? -34 : 34}
+        distance={flipped ? -62 : 62}
         className={`lg:col-span-5 ${flipped ? 'lg:order-2 lg:col-start-8' : ''}`}
       >
         <ImageReveal className="aspect-[5/4] w-full">
@@ -113,7 +113,7 @@ export default function MatchaKits() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.cupBlossoms} className="w-full" natural priority parallax={24} />
+            <Photo photo={photos.cupBlossoms} className="w-full" natural priority parallax={48} />
             <p className="spec mt-4">One of each, or ten of the one you keep coming back to</p>
           </div>
 

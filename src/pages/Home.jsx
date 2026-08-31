@@ -179,7 +179,7 @@ export default function Home() {
             </div>
 
             <div className="mt-12 lg:col-span-5 lg:mt-0">
-              <Photo photo={photos.toolsGreenWood} delay={0.15} className="aspect-[5/4] w-full" parallax={22} />
+              <Photo photo={photos.toolsGreenWood} delay={0.15} className="aspect-[5/4] w-full" parallax={44} />
               <p className="spec mt-4 text-linen">The same leaf, whisked the long way</p>
             </div>
           </div>
@@ -282,7 +282,7 @@ export default function Home() {
                 sits beside the steps rather than above them so the numerals
                 still carry the reading. */}
             <div className="lg:col-span-3">
-              <Photo photo={photos.counterKit} className="w-full" natural parallax={18} />
+              <Photo photo={photos.counterKit} className="w-full" natural parallax={38} />
               <p className="spec mt-4">Everything the method needs</p>
             </div>
 
@@ -322,7 +322,7 @@ export default function Home() {
       <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.bowlsFlatlay} className="w-full" natural parallax={32} />
+            <Photo photo={photos.bowlsFlatlay} className="w-full" natural parallax={62} />
           </div>
 
           <div className="lg:col-span-5 lg:col-start-8">

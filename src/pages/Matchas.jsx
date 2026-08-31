@@ -104,7 +104,7 @@ export default function Matchas() {
       <section className="bg-camel px-5 pb-16 sm:px-10 sm:pb-20">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-6">
-            <Photo photo={photos.glassesOverhead} className="w-full" natural priority parallax={26} />
+            <Photo photo={photos.glassesOverhead} className="w-full" natural priority parallax={52} />
             <p className="spec mt-4">Uji, Kyoto &middot; first-harvest leaf, stone-ground</p>
           </div>
 

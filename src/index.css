@@ -16,6 +16,34 @@
     scroll-behavior: smooth;
   }
 
+  /* ── Lenis ──────────────────────────────────────────────────────────────
+     Required by the library, and the reason it appeared to do nothing at
+     first: with scroll-behavior:smooth still set on <html>, the browser
+     animates toward every per-frame scrollTo Lenis makes, and the two
+     cancel each other out. These classes are only on <html> while Lenis is
+     actually driving, so touch devices and prefers-reduced-motion keep the
+     native smooth scroll they had before. */
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
+  }
+
+  .lenis.lenis-scrolling iframe {
+    pointer-events: none;
+  }
+
   body {
     @apply bg-camel text-cocoa font-body antialiased;
     background-image:
