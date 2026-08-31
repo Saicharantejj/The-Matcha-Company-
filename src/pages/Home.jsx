@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { Rise, RiseInView, EASE } from '../components/Motion'
+import Magnetic from '../components/Magnetic'
+import OrganicShape from '../components/OrganicShape'
 import MoodMatcher from '../components/MoodMatcher'
 import TaglineTicker from '../components/TaglineTicker'
 import FlavorPlate from '../components/FlavorPlate'
@@ -59,6 +61,7 @@ function FlavourRow({ index, isActive, onActivate, children }) {
 export default function Home() {
   const [active, setActive] = useState(0)
   const heroRef = useRef(null)
+  const flavoursRef = useRef(null)
   const reduceMotion = useReducedMotion()
 
   // The fold's own scroll, start to end. The powder drifts up a little slower
@@ -71,6 +74,16 @@ export default function Home() {
   const powderY = useTransform(heroProgress, [0, 1], ['0%', '14%'])
   const powderScale = useTransform(heroProgress, [0, 1], [1, 1.07])
   const foldFade = useTransform(heroProgress, [0, 0.75], [1, 0])
+
+  // The sticky plate's own frame, not its crossfade: a very slight rotation
+  // and lift across the whole section, so the object held in place still
+  // reads as being passed by rather than as a paused video.
+  const { scrollYProgress: flavoursProgress } = useScroll({
+    target: flavoursRef,
+    offset: ['start end', 'end start'],
+  })
+  const plateRotate = useTransform(flavoursProgress, [0, 0.5, 1], [-1.4, 0, 1.4])
+  const plateY = useTransform(flavoursProgress, [0, 0.5, 1], [16, 0, -16])
 
   return (
     <PageShell>
@@ -143,12 +156,16 @@ export default function Home() {
               </p>
             </Reveal>
             <Reveal delay={1.1} className="mt-8 flex flex-wrap gap-3 lg:col-span-5 lg:col-start-8 lg:mt-0 lg:justify-end">
-              <Link to="/matchas" className="btn border-cream bg-cream text-cocoa hover:bg-olive hover:text-cream">
-                Shop the sachets
-              </Link>
-              <Link to="/matcha-kits" className="btn-outline border-cream text-cream hover:bg-cream hover:text-cocoa">
-                Try all five
-              </Link>
+              <Magnetic>
+                <Link to="/matchas" className="btn border-cream bg-cream text-cocoa hover:bg-olive hover:text-cream">
+                  Shop the sachets
+                </Link>
+              </Magnetic>
+              <Magnetic>
+                <Link to="/matcha-kits" className="btn-outline border-cream text-cream hover:bg-cream hover:text-cocoa">
+                  Try all five
+                </Link>
+              </Magnetic>
             </Reveal>
           </div>
         </motion.div>
@@ -159,8 +176,9 @@ export default function Home() {
           the section — it holds seven of twelve columns and nothing is allowed
           to interrupt it — and the photograph beside it is the evidence for
           the claim rather than decoration on top of it. */}
-      <section className="bg-ink py-24 sm:py-36">
-        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
+      <section className="relative isolate overflow-hidden bg-ink py-24 sm:py-36">
+        <OrganicShape className="right-[-10%] top-1/2 h-[34rem] w-[34rem] -translate-y-1/2" tone="olive" distance={70} side="right" />
+        <div className="relative mx-auto max-w-[100rem] px-5 sm:px-10">
           <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-12">
             <div className="lg:col-span-7">
               <p className="spec text-linen">What is actually in it</p>
@@ -191,7 +209,7 @@ export default function Home() {
           row is at eye level, so reading down the list plays the five flavours
           in order without touching anything — and hovering still overrides it
           for anyone browsing with a mouse. */}
-      <section className="bg-camel py-24 sm:py-32">
+      <section ref={flavoursRef} className="bg-camel py-24 sm:py-32">
         <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
           <div className="rule-heavy flex items-baseline justify-between gap-6 pt-8">
             <h2 className="font-display text-minor tracking-display">Five flavours</h2>
@@ -204,7 +222,10 @@ export default function Home() {
             {/* The plate. Sticky on desktop so it stays with the reader as the
                 list moves; hidden on mobile, where each row carries its own. */}
             <div className="hidden lg:col-span-4 lg:block">
-              <div className="sticky top-28 aspect-[4/5] w-full">
+              <motion.div
+                className="sticky top-28 aspect-[4/5] w-full"
+                style={reduceMotion ? undefined : { rotate: plateRotate, y: plateY }}
+              >
                 {products.map((p, i) => (
                   <motion.div
                     key={p.id}
@@ -220,7 +241,7 @@ export default function Home() {
                     <FlavorPlate item={p} />
                   </motion.div>
                 ))}
-              </div>
+              </motion.div>
             </div>
 
             <ul className="lg:col-span-7 lg:col-start-6">

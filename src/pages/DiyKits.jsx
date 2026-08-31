@@ -135,7 +135,7 @@ function KitRow({ kit, index }) {
         {/* Portrait, because the photographs are of tall glasses, and four
             columns wide rather than five so the picture fills what it is
             given instead of leaving a strip of paper beside it. */}
-        <Parallax distance={index % 2 === 0 ? 50 : -50} className="lg:col-span-4 lg:col-start-9">
+        <Parallax distance={index % 2 === 0 ? 50 : -50} xDistance={index % 2 === 0 ? 14 : -14} className="lg:col-span-4 lg:col-start-9">
           <div className="aspect-[4/5] w-full overflow-hidden">
             <FlavorPlate
               item={kit}

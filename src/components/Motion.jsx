@@ -267,20 +267,38 @@ export function useScrollProgress(ref, { offset = ['start end', 'end start'], da
  * large, and it will also fight the reveal animation the same element is
  * probably already playing.
  */
-export function Parallax({ children, className = '', distance = 44, as: Tag = 'div' }) {
+export function Parallax({
+  children,
+  className = '',
+  distance = 44,
+  // A small sideways component alongside the vertical one. Left at 0 almost
+  // everywhere — the site scrolls vertically and a plate that also drifted
+  // sideways every time would read as loose rather than as layered. The
+  // handful of call sites that do set it are deliberately diagonal: a photo
+  // passing on a slight angle against a page that is only moving straight
+  // down is what makes two things read as different layers rather than one.
+  xDistance = 0,
+  as: Tag = 'div',
+}) {
   const ref = useRef(null)
   const reduceMotion = useReducedMotion()
   const coarse = useCoarsePointer()
   const progress = useScrollProgress(ref)
   // Halved on touch, where viewports are short and the movement reads as slop.
   const travel = coarse ? distance * 0.4 : distance
+  const xTravel = coarse ? xDistance * 0.4 : xDistance
   const y = useTransform(progress, [0, 1], [travel, -travel])
+  const x = useTransform(progress, [0, 1], [xTravel, -xTravel])
   const MotionTag = motion[Tag] || motion.div
 
   if (reduceMotion) return <Tag className={className}>{children}</Tag>
 
   return (
-    <MotionTag ref={ref} className={className} style={{ y, willChange: 'transform' }}>
+    <MotionTag
+      ref={ref}
+      className={className}
+      style={xDistance ? { x, y, willChange: 'transform' } : { y, willChange: 'transform' }}
+    >
       {children}
     </MotionTag>
   )

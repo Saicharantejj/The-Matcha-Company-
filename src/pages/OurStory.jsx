@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { Rise, RiseInView, StaggerGroup, StaggerItem } from '../components/Motion'
 import Photo from '../components/Photo'
+import OrganicShape from '../components/OrganicShape'
 import { photos } from '../data/photos'
 
 const TIMELINE = [
@@ -107,8 +108,9 @@ export default function OurStory() {
           The years lost their boxes and the green lozenge that sprang between
           them. They are numerals on a rule now; the active one is simply the
           one in olive. */}
-      <section className="bg-ink px-5 py-24 sm:px-10 sm:py-32">
-        <div className="mx-auto max-w-[100rem]">
+      <section className="relative isolate overflow-hidden bg-ink px-5 py-24 sm:px-10 sm:py-32">
+        <OrganicShape className="left-[-8%] top-0 h-[30rem] w-[30rem]" tone="moss" distance={54} side="left" />
+        <div className="relative mx-auto max-w-[100rem]">
           <h2 className="font-display text-minor tracking-display text-cream">Sixty-eight years</h2>
 
           <div
