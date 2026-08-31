@@ -58,8 +58,12 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 bg-camel transition-colors duration-500 ${
-        scrolled || menuOpen ? 'border-b border-ink' : 'border-b border-transparent'
+      className={`sticky top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ${
+        scrolled && !menuOpen
+          ? 'border-b border-ink/15 bg-camel/75 backdrop-blur-md backdrop-saturate-150'
+          : menuOpen
+            ? 'border-b border-ink bg-camel'
+            : 'border-b border-transparent bg-camel'
       }`}
     >
       <div className="mx-auto flex max-w-[100rem] items-center justify-between px-5 py-5 sm:px-10">

@@ -193,7 +193,7 @@ export default function CartDrawer() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
             onClick={closeCart}
-            className="absolute inset-0 bg-ink/60"
+            className="absolute inset-0 bg-ink/30"
           />
 
           <motion.aside
@@ -201,7 +201,12 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink bg-card shadow-[-6px_0_0_0_rgba(17,72,23,0.18)]"
+            /* A frosted panel rather than a flat one: the lightened scrim
+               behind it leaves real page underneath, and backdrop-blur turns
+               that into glass rather than a coloured rectangle. Every corner
+               stays exactly as square as bg-card was — only the surface
+               changed, not the shape. */
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink bg-card/75 shadow-[-6px_0_0_0_rgba(17,72,23,0.18)] backdrop-blur-xl backdrop-saturate-150"
           >
             <header className="flex items-center justify-between border-b border-ink px-5 py-4">
               <div>
