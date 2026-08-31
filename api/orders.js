@@ -12,7 +12,7 @@ function makeReference() {
   const bytes = randomBytes(6)
   let out = ''
   for (const b of bytes) out += ALPHABET[b % ALPHABET.length]
-  return `TMC-${out}`
+  return `YOJO-${out}`
 }
 
 export default async function handler(req, res) {

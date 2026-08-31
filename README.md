@@ -62,6 +62,7 @@ api/subscribe.js     POST — newsletter signup
 api/_lib/            db pool, validation, email, http helpers
 db/schema.sql        run once against your database
 scripts/             apply-schema.mjs — runs db/schema.sql without psql
+                     orders.mjs       — read captured orders and subscribers
 ```
 
 ### Setup
