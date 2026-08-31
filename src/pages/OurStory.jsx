@@ -109,7 +109,7 @@ export default function OurStory() {
           them. They are numerals on a rule now; the active one is simply the
           one in olive. */}
       <section className="relative isolate overflow-hidden bg-ink px-5 py-24 sm:px-10 sm:py-32">
-        <OrganicShape className="left-[-8%] top-0 h-[30rem] w-[30rem]" tone="moss" distance={54} side="left" />
+        <OrganicShape className="left-[-12%] top-0 h-[36rem] w-[36rem]" surface="darkWarm" path={1} distance={54} side="left" />
         <div className="relative mx-auto max-w-[100rem]">
           <h2 className="font-display text-minor tracking-display text-cream">Sixty-eight years</h2>
 

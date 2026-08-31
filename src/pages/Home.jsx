@@ -177,7 +177,7 @@ export default function Home() {
           to interrupt it — and the photograph beside it is the evidence for
           the claim rather than decoration on top of it. */}
       <section className="relative isolate overflow-hidden bg-ink py-24 sm:py-36">
-        <OrganicShape className="right-[-10%] top-1/2 h-[34rem] w-[34rem] -translate-y-1/2" tone="olive" distance={70} side="right" />
+        <OrganicShape className="right-[-14%] top-1/2 h-[42rem] w-[42rem] -translate-y-1/2" surface="dark" distance={70} side="right" />
         <div className="relative mx-auto max-w-[100rem] px-5 sm:px-10">
           <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-12">
             <div className="lg:col-span-7">
@@ -209,8 +209,22 @@ export default function Home() {
           row is at eye level, so reading down the list plays the five flavours
           in order without touching anything — and hovering still overrides it
           for anyone browsing with a mouse. */}
-      <section ref={flavoursRef} className="bg-camel py-24 sm:py-32">
-        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
+      <section ref={flavoursRef} className="relative isolate bg-camel py-24 sm:py-32">
+        {/* Straddles the seam with the dark section above it: a shape that
+            belongs to this section but pokes up past its own top edge,
+            visible over the last few pixels of the ink claim section behind
+            it. That is the actual technique — a shape crossing a boundary —
+            rather than a hard cut from one section's background to the
+            next. */}
+        <OrganicShape
+          className="left-1/2 top-[-6rem] h-[26rem] w-[min(38rem,88vw)] -translate-x-1/2"
+          surface="lightBold"
+          path={1}
+          distance={36}
+          side="left"
+          scaleRange={[0.92, 1.06]}
+        />
+        <div className="relative mx-auto max-w-[100rem] px-5 sm:px-10">
           <div className="rule-heavy flex items-baseline justify-between gap-6 pt-8">
             <h2 className="font-display text-minor tracking-display">Five flavours</h2>
             <Link to="/matchas" className="link-draw font-mono text-spec uppercase">
@@ -222,10 +236,23 @@ export default function Home() {
             {/* The plate. Sticky on desktop so it stays with the reader as the
                 list moves; hidden on mobile, where each row carries its own. */}
             <div className="hidden lg:col-span-4 lg:block">
-              <motion.div
-                className="sticky top-28 aspect-[4/5] w-full"
-                style={reduceMotion ? undefined : { rotate: plateRotate, y: plateY }}
-              >
+              <div className="relative">
+                {/* The one flagship Mello move on the site: a real organic
+                    shape, sized larger than the photo and offset behind it,
+                    peeking out at the corners rather than sitting hidden in
+                    a dark section. It never touches the photograph's own
+                    sharp frame — the plate stays exactly the rectangle it
+                    always was, drawn on top, in front of the shape. */}
+                <OrganicShape
+                  className="-left-12 -top-12 h-[124%] w-[124%]"
+                  surface="lightBold"
+                  distance={46}
+                  side="right"
+                />
+                <motion.div
+                  className="sticky top-28 aspect-[4/5] w-full"
+                  style={reduceMotion ? undefined : { rotate: plateRotate, y: plateY }}
+                >
                 {products.map((p, i) => (
                   <motion.div
                     key={p.id}
@@ -241,7 +268,8 @@ export default function Home() {
                     <FlavorPlate item={p} />
                   </motion.div>
                 ))}
-              </motion.div>
+                </motion.div>
+              </div>
             </div>
 
             <ul className="lg:col-span-7 lg:col-start-6">
