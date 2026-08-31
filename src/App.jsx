@@ -12,6 +12,7 @@ import Matchas from './pages/Matchas'
 import DiyKits from './pages/DiyKits'
 import MatchaKits from './pages/MatchaKits'
 import OurStory from './pages/OurStory'
+import NotFound from './pages/NotFound'
 
 // Route changes should land at the top of the new page, not wherever the
 // previous page happened to be scrolled to.
@@ -40,6 +41,9 @@ export default function App() {
               <Route path="/diy-kits" element={<DiyKits />} />
               <Route path="/matcha-kits" element={<MatchaKits />} />
               <Route path="/our-story" element={<OurStory />} />
+              {/* Anything else. Without this the router matched nothing and
+                  rendered a header and footer around an empty middle. */}
+              <Route path="*" element={<NotFound />} />
             </Routes>
           </AnimatePresence>
 
