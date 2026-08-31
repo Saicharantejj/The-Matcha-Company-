@@ -7,7 +7,7 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return methodNotAllowed(res, ['POST'])
 
   if (!getPool()) {
-    console.error('[subscribe] DATABASE_URL is not configured')
+    console.error('[subscribe] no database configured (DATABASE_URL or POSTGRES_URL)')
     return send(res, 503, { error: 'subscribe_unavailable' })
   }
 

@@ -8,16 +8,46 @@ import pg from 'pg'
  * Supabase's port 6543). Pointing at the direct endpoint will exhaust Postgres'
  * connection limit under any real traffic.
  *
+ * POSTGRES_URL is what the Supabase marketplace integration injects, and it is
+ * already the pooled 6543 endpoint. DATABASE_URL wins when both are set, so a
+ * connection string set by hand still overrides the provisioned one.
+ *
  * max is deliberately tiny for the same reason: the concurrency comes from
  * having many instances, not from many connections inside one.
  */
 let pool
 
+export function connectionString() {
+  return process.env.DATABASE_URL || process.env.POSTGRES_URL || null
+}
+
+/**
+ * Drop `sslmode` from the URL.
+ *
+ * Supabase hands out connection strings ending `?sslmode=require`, and pg 8.16+
+ * treats that as `verify-full` — it verifies the whole chain and throws
+ * SELF_SIGNED_CERT_IN_CHAIN against the pooler, because this container has no
+ * root for the certificate the pooler presents. The parameter also wins over
+ * the ssl option below, so setting rejectUnauthorized there is not enough on
+ * its own: the parameter has to go. The connection is still TLS either way;
+ * what changes is whether the chain is verified against roots we do not have.
+ */
+export function withoutSslMode(url) {
+  try {
+    const u = new URL(url)
+    u.searchParams.delete('sslmode')
+    return u.toString()
+  } catch {
+    return url
+  }
+}
+
 export function getPool() {
-  if (!process.env.DATABASE_URL) return null
+  const url = connectionString()
+  if (!url) return null
   if (!pool) {
     pool = new pg.Pool({
-      connectionString: process.env.DATABASE_URL,
+      connectionString: withoutSslMode(url),
       max: 2,
       idleTimeoutMillis: 10_000,
       connectionTimeoutMillis: 8_000,
@@ -34,14 +64,14 @@ export function getPool() {
 
 export async function query(text, params) {
   const p = getPool()
-  if (!p) throw new Error('DATABASE_URL is not configured')
+  if (!p) throw new Error('No database configured: set DATABASE_URL or POSTGRES_URL')
   return p.query(text, params)
 }
 
 /** Runs fn inside a transaction, rolling back on any throw. */
 export async function transaction(fn) {
   const p = getPool()
-  if (!p) throw new Error('DATABASE_URL is not configured')
+  if (!p) throw new Error('No database configured: set DATABASE_URL or POSTGRES_URL')
   const client = await p.connect()
   try {
     await client.query('begin')

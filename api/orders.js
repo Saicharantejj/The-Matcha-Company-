@@ -20,7 +20,7 @@ export default async function handler(req, res) {
 
   if (!getPool()) {
     // Never pretend an order was taken when there is nowhere to put it.
-    console.error('[orders] DATABASE_URL is not configured')
+    console.error('[orders] no database configured (DATABASE_URL or POSTGRES_URL)')
     return send(res, 503, { error: 'orders_unavailable' })
   }
 

@@ -61,20 +61,25 @@ api/orders.js        POST — validate, save, email customer + owner
 api/subscribe.js     POST — newsletter signup
 api/_lib/            db pool, validation, email, http helpers
 db/schema.sql        run once against your database
+scripts/             apply-schema.mjs — runs db/schema.sql without psql
 ```
 
 ### Setup
 
-1. **Create a Postgres database** (Neon or Supabase both work).
+1. **Create a Postgres database.** The site runs on Supabase, provisioned
+   through the Vercel Marketplace (`vercel integration add supabase --plan free
+   -m region=bom1`), which injects `POSTGRES_URL` and friends into the project.
+   Neon or any other Postgres works too — set `DATABASE_URL` by hand instead.
 2. **Run the schema** — it is idempotent, so re-running is safe:
    ```sh
-   psql "$DATABASE_URL" -f db/schema.sql
+   node scripts/apply-schema.mjs     # reads .env.local, no psql needed
+   psql "$DATABASE_URL" -f db/schema.sql   # or the same thing with psql
    ```
 3. **Set the environment variables** in Vercel → Settings → Environment
    Variables. See `.env.example` for the full list and what each one does.
 
-`DATABASE_URL` **must be a pooled connection string** — Neon's `-pooler` host,
-or Supabase's port 6543. Every warm serverless instance opens its own pool, so
+The connection string **must be pooled** — Neon's `-pooler` host, or Supabase's
+port 6543, which is what the integration's `POSTGRES_URL` already points at. Every warm serverless instance opens its own pool, so
 a direct connection will exhaust Postgres' connection limit under real traffic.
 
 Email is optional. With `RESEND_API_KEY` unset, orders are still saved
