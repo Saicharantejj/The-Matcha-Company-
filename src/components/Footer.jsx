@@ -2,7 +2,6 @@ import { useRef, useState } from 'react'
 import { subscribe, messageFor } from '../lib/api'
 import { Link } from 'react-router-dom'
 import Reveal from './Motion'
-import { trackMetaEvent } from '../lib/metaPixel'
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com' },
@@ -52,7 +51,6 @@ export default function Footer() {
     setSubmitted(true)
     setEmail('')
     // The API accepted the subscription. Deliberately no email is sent to Meta.
-    trackMetaEvent('Subscribe')
   }
 
   return (
