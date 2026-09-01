@@ -6,6 +6,7 @@ import Footer from './components/Footer'
 import CartDrawer from './components/CartDrawer'
 import GrainOverlay from './components/GrainOverlay'
 import { initSmoothScroll, scrollToTopImmediately } from './lib/smoothScroll'
+import { trackMetaEvent } from './lib/metaPixel'
 import { CartProvider } from './context/CartContext'
 import { ToastProvider } from './components/Toast'
 import Home from './pages/Home'
@@ -37,16 +38,14 @@ function useSmoothScroll() {
 
 function useMetaPixelPageViews() {
   const location = useLocation()
-  // index.html already tracks the first PageView. Keeping the last path in a
-  // ref also prevents React Strict Mode's effect replay from creating one.
+  // main.jsx already tracks the first PageView. Keeping the last path in a ref
+  // also prevents React Strict Mode's effect replay from creating one.
   const lastTrackedPath = useRef(location.pathname)
 
   useEffect(() => {
     if (lastTrackedPath.current === location.pathname) return
 
-    if (typeof window.fbq === 'function') {
-      window.fbq('track', 'PageView')
-    }
+    trackMetaEvent('PageView')
     lastTrackedPath.current = location.pathname
   }, [location.pathname])
 }
