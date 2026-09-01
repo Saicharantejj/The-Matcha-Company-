@@ -1,47 +1,11 @@
 import { useEffect, useRef } from 'react'
 
-export const META_PIXEL_ID = '1668996534945099'
-
-// This module owns the one browser-side Pixel bootstrap. It is called before
-// React mounts, so the initial PageView does not depend on a component effect.
-let basePixelInitialized = false
+// The Pixel itself is initialized once in index.html. This module only sends
+// standard events after the matching application action has happened.
 const sentEvents = new Set()
 
 function pixelIsAvailable() {
   return typeof window !== 'undefined' && typeof window.fbq === 'function'
-}
-
-export function initializeMetaPixel() {
-  if (typeof window === 'undefined' || typeof document === 'undefined') return false
-  if (basePixelInitialized || window.fbq?.__drinkYojoPixelInitialized) return true
-
-  const fbq = function metaPixelQueue() {
-    if (fbq.callMethod) fbq.callMethod.apply(fbq, arguments)
-    else fbq.queue.push(arguments)
-  }
-  fbq.push = fbq
-  fbq.loaded = true
-  fbq.version = '2.0'
-  fbq.queue = []
-  fbq.__drinkYojoPixelInitialized = true
-
-  window.fbq = fbq
-  if (!window._fbq) window._fbq = fbq
-
-  if (!document.querySelector(`script[data-meta-pixel-id="${META_PIXEL_ID}"]`)) {
-    const script = document.createElement('script')
-    script.async = true
-    script.src = 'https://connect.facebook.net/en_US/fbevents.js'
-    script.dataset.metaPixelId = META_PIXEL_ID
-    document.head.appendChild(script)
-  }
-
-  // The queue accepts these calls immediately, then fbevents.js drains it as
-  // soon as the network script is available.
-  window.fbq('init', META_PIXEL_ID)
-  window.fbq('track', 'PageView')
-  basePixelInitialized = true
-  return true
 }
 
 export function trackMetaEvent(eventName, parameters) {
