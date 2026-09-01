@@ -6,6 +6,7 @@ import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { matchaKits } from '../data/products'
 import { photos } from '../data/photos'
+import { useMetaPixelCategoryView, useMetaPixelProductView } from '../lib/metaPixel'
 
 /**
  * Bundles.
@@ -19,6 +20,7 @@ import { photos } from '../data/photos'
 function KitFeature({ kit, index }) {
   const { addItem, openCart } = useCart()
   const { notify } = useToast()
+  const kitRef = useMetaPixelProductView(kit)
 
   const handleAdd = () => {
     addItem(kit, 'bundle')
@@ -28,7 +30,7 @@ function KitFeature({ kit, index }) {
   const flipped = index % 2 === 1
 
   return (
-    <article className="group/kit rule-heavy grid grid-cols-1 gap-8 py-14 sm:py-20 lg:grid-cols-12 lg:gap-x-12">
+    <article ref={kitRef} className="group/kit rule-heavy grid grid-cols-1 gap-8 py-14 sm:py-20 lg:grid-cols-12 lg:gap-x-12">
       {/* The plates drift against the page, and the ones that sit on the right
           drift the other way. Alternating the direction is what makes the band
           read as two layers passing rather than as one block sliding. */}
@@ -87,6 +89,8 @@ function KitFeature({ kit, index }) {
 }
 
 export default function MatchaKits() {
+  useMetaPixelCategoryView('Matcha Bundles', matchaKits)
+
   return (
     <PageShell>
       <section className="bg-camel px-5 pb-14 pt-16 sm:px-10 sm:pb-16 sm:pt-24">

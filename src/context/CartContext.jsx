@@ -1,4 +1,5 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { trackAddToCart } from '../lib/metaPixel'
 
 const CartContext = createContext(null)
 
@@ -60,10 +61,15 @@ export function CartProvider({ children }) {
             flavor: item.flavor ?? null,
             size: item.size ?? null,
             swatch: item.swatch ?? 'matcha',
+            price: item.price ?? null,
+            currency: item.currency ?? null,
             qty: 1,
           },
         ]
       })
+      // A valid item is accepted into this in-memory cart synchronously, so
+      // this represents a successful add rather than merely a button click.
+      trackAddToCart(item)
       setLastAddedId(item.id)
       window.setTimeout(() => setLastAddedId(null), 1500)
     }

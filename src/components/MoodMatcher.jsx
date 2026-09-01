@@ -4,6 +4,7 @@ import { moods, products } from '../data/products'
 import FlavorPlate from './FlavorPlate'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
+import { useMetaPixelProductView } from '../lib/metaPixel'
 
 /**
  * Picking a flavour by mood.
@@ -20,6 +21,7 @@ export default function MoodMatcher() {
   const { notify } = useToast()
   const active = moods.find((m) => m.id === activeId)
   const activeProduct = products.find((p) => p.id === active.productId)
+  const productRef = useMetaPixelProductView(activeProduct)
 
   const handleAdd = () => {
     if (!activeProduct) return
@@ -55,7 +57,7 @@ export default function MoodMatcher() {
       </ul>
 
       <div className="lg:col-span-7 lg:grid lg:grid-cols-2 lg:gap-x-8">
-        <div className="aspect-[4/5] w-full">
+        <div ref={productRef} className="aspect-[4/5] w-full">
           <AnimatePresence mode="wait">
             <motion.div
               key={activeId}

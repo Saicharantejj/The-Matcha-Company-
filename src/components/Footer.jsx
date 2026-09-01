@@ -1,7 +1,8 @@
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { subscribe, messageFor } from '../lib/api'
 import { Link } from 'react-router-dom'
 import Reveal from './Motion'
+import { trackMetaEvent } from '../lib/metaPixel'
 
 const SOCIALS = [
   { label: 'Instagram', href: 'https://instagram.com' },
@@ -31,22 +32,27 @@ export default function Footer() {
   const [error, setError] = useState(null)
   // Honeypot, same trick as the checkout form.
   const [company, setCompany] = useState('')
+  const submittingRef = useRef(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!email || sending) return
+    if (!email || submittingRef.current) return
+    submittingRef.current = true
     setSending(true)
     setError(null)
 
     const result = await subscribe(email, company)
 
     setSending(false)
+    submittingRef.current = false
     if (!result.ok) {
       setError(messageFor(result))
       return
     }
     setSubmitted(true)
     setEmail('')
+    // The API accepted the subscription. Deliberately no email is sent to Meta.
+    trackMetaEvent('Subscribe')
   }
 
   return (

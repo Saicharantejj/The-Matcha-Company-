@@ -2,6 +2,7 @@ import FlavorPlate from './FlavorPlate'
 import { ImageReveal } from './Motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
+import { useMetaPixelProductView } from '../lib/metaPixel'
 
 /**
  * A product in the catalogue — a plate and a caption, not a card.
@@ -18,6 +19,7 @@ import { useToast } from './Toast'
 export default function ProductCard({ product, index = 0 }) {
   const { addItem, openCart } = useCart()
   const { notify } = useToast()
+  const productRef = useMetaPixelProductView(product)
 
   const handleAdd = () => {
     addItem(product, 'sachet')
@@ -25,7 +27,7 @@ export default function ProductCard({ product, index = 0 }) {
   }
 
   return (
-    <article className="group flex h-full w-full flex-col">
+    <article ref={productRef} className="group flex h-full w-full flex-col">
       <div className="relative">
         {/* The plate is already clipped by the reveal, so the hover push has
             somewhere to go: the picture grows inside a frame that does not.

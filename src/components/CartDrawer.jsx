@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
 import { placeOrder, messageFor } from '../lib/api'
+import { trackInitiateCheckout, trackOrderLead } from '../lib/metaPixel'
 
 // Mirrors the pouch colours in SachetGraphic, so a cart line looks like the
 // product it came from.
@@ -119,6 +120,8 @@ export default function CartDrawer() {
   const [error, setError] = useState(null)
   // Honeypot. Hidden from people, irresistible to naive bots.
   const [company, setCompany] = useState('')
+  const checkoutStartedRef = useRef(false)
+  const submittingRef = useRef(false)
 
   // Close on Escape, and lock body scroll while the panel is open.
   useEffect(() => {
@@ -147,6 +150,7 @@ export default function CartDrawer() {
       setPlaced(null)
       setCheckingOut(false)
       setError(null)
+      checkoutStartedRef.current = false
     }
   }, [isOpen])
 
@@ -160,7 +164,8 @@ export default function CartDrawer() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (submitting) return
+    if (submittingRef.current) return
+    submittingRef.current = true
     setSubmitting(true)
     setError(null)
 
@@ -171,16 +176,25 @@ export default function CartDrawer() {
     })
 
     setSubmitting(false)
+    submittingRef.current = false
     if (!result.ok) {
       setError(messageFor(result))
       return
     }
 
-    // Only clear once the server has actually accepted it — if the request
-    // failed, the visitor still has their cart to retry with.
+    // Only clear and track the lead once the server has accepted it — if the
+    // request failed, the visitor still has their cart to retry with.
+    trackOrderLead(lines, result.data.reference)
     setPlaced({ ref: result.data.reference, items: result.data.itemCount, emailed: result.data.emailed })
     setDetails(EMPTY_DETAILS)
     clearCart()
+  }
+
+  const beginCheckout = () => {
+    if (checkoutStartedRef.current || lines.length === 0) return
+    checkoutStartedRef.current = true
+    trackInitiateCheckout(lines)
+    setCheckingOut(true)
   }
 
   return (
@@ -355,7 +369,7 @@ export default function CartDrawer() {
                       </button>
                       <button
                         type="button"
-                        onClick={() => { setCheckingOut(false); setError(null) }}
+                        onClick={() => { checkoutStartedRef.current = false; setCheckingOut(false); setError(null) }}
                         className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
                       >
                         Back to cart
@@ -371,7 +385,7 @@ export default function CartDrawer() {
                         We confirm pricing and delivery by email — nothing is charged here.
                       </p>
 
-                      <button type="button" onClick={() => setCheckingOut(true)} className="btn mt-4 w-full">
+                      <button type="button" onClick={beginCheckout} className="btn mt-4 w-full">
                         Checkout
                       </button>
                       <button

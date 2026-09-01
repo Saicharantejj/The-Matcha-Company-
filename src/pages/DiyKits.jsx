@@ -8,6 +8,7 @@ import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { diyKits } from '../data/products'
 import { photos } from '../data/photos'
+import { useMetaPixelCategoryView, useMetaPixelProductView } from '../lib/metaPixel'
 
 /**
  * Recipes.
@@ -26,6 +27,7 @@ function KitRow({ kit, index }) {
   const [checked, setChecked] = useState(() => new Set())
   const { addItem, openCart } = useCart()
   const { notify } = useToast()
+  const kitRef = useMetaPixelProductView(kit)
 
   const handleAdd = () => {
     addItem(kit, 'diy-kit')
@@ -43,7 +45,7 @@ function KitRow({ kit, index }) {
   const panelId = `kit-panel-${kit.id}`
 
   return (
-    <article className="group/row rule first:border-t-0">
+    <article ref={kitRef} className="group/row rule first:border-t-0">
       <div className="grid grid-cols-1 gap-8 py-12 sm:py-16 lg:grid-cols-12 lg:items-center lg:gap-x-12">
         <div className="flex flex-col justify-center lg:col-span-7">
           <div className="flex items-baseline gap-5">
@@ -149,6 +151,8 @@ function KitRow({ kit, index }) {
 }
 
 export default function DiyKits() {
+  useMetaPixelCategoryView('DIY Matcha Kits', diyKits)
+
   return (
     <PageShell>
       <section className="bg-camel px-5 pb-14 pt-16 sm:px-10 sm:pb-16 sm:pt-24">

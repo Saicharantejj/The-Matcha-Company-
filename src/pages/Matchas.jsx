@@ -7,6 +7,7 @@ import ProductCard from '../components/ProductCard'
 import Photo from '../components/Photo'
 import { products } from '../data/products'
 import { photos } from '../data/photos'
+import { useMetaPixelCategoryView } from '../lib/metaPixel'
 
 const ALL_TAGS = [...new Set(products.flatMap((p) => p.tags ?? []))]
 
@@ -26,6 +27,7 @@ export default function Matchas() {
   const [active, setActive] = useState(null)
   const heroRef = useRef(null)
   const reduceMotion = useReducedMotion()
+  useMetaPixelCategoryView('Matcha Sachets', products)
 
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,

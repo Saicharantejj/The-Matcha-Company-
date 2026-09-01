@@ -37,17 +37,17 @@ function useSmoothScroll() {
 
 function useMetaPixelPageViews() {
   const location = useLocation()
-  const hasTrackedInitialRoute = useRef(false)
+  // index.html already tracks the first PageView. Keeping the last path in a
+  // ref also prevents React Strict Mode's effect replay from creating one.
+  const lastTrackedPath = useRef(location.pathname)
 
   useEffect(() => {
-    if (!hasTrackedInitialRoute.current) {
-      hasTrackedInitialRoute.current = true
-      return
-    }
+    if (lastTrackedPath.current === location.pathname) return
 
     if (typeof window.fbq === 'function') {
       window.fbq('track', 'PageView')
     }
+    lastTrackedPath.current = location.pathname
   }, [location.pathname])
 }
 
