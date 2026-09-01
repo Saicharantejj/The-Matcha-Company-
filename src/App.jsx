@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useRef } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
@@ -35,9 +35,26 @@ function useSmoothScroll() {
   useEffect(() => initSmoothScroll(), [])
 }
 
+function useMetaPixelPageViews() {
+  const location = useLocation()
+  const hasTrackedInitialRoute = useRef(false)
+
+  useEffect(() => {
+    if (!hasTrackedInitialRoute.current) {
+      hasTrackedInitialRoute.current = true
+      return
+    }
+
+    if (typeof window.fbq === 'function') {
+      window.fbq('track', 'PageView')
+    }
+  }, [location.pathname])
+}
+
 export default function App() {
   const location = useLocation()
   useSmoothScroll()
+  useMetaPixelPageViews()
 
   return (
     <CartProvider>
