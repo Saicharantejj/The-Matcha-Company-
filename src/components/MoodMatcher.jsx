@@ -7,15 +7,6 @@ import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { useMetaPixelProductView } from '../lib/metaPixel'
 
-/**
- * Picking a flavour by mood.
- *
- * Was a bordered box containing a second bordered box, with the moods as a row
- * of pills that slid a green lozenge around on a spring. The lozenge is gone —
- * it was the bounciest thing on the site and it existed to decorate a radio
- * group — and so is the outer box. The moods are now a list you read down, the
- * active one held in olive, with the recommendation opposite.
- */
 export default function MoodMatcher() {
   const { products } = useShopifyProducts()
   const [activeId, setActiveId] = useState(moods[0].id)
@@ -32,25 +23,33 @@ export default function MoodMatcher() {
   }
 
   return (
-    <div className="grid gap-10 lg:grid-cols-12 lg:gap-x-10">
-      <ul className="lg:col-span-5">
+    <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+      {/* Mood Selector Buttons List */}
+      <ul className="lg:col-span-5 space-y-3">
         {moods.map((mood, i) => {
           const isActive = mood.id === activeId
           return (
-            <li key={mood.id} className="rule first:border-t-0">
+            <li key={mood.id}>
               <button
                 type="button"
                 onClick={() => setActiveId(mood.id)}
                 aria-pressed={isActive}
-                className="flex w-full items-baseline gap-5 py-4 text-left"
+                className={`flex w-full items-center justify-between p-4 sm:p-5 rounded-xl text-left transition-all duration-300 ${
+                  isActive
+                    ? 'bg-[#4E6B3E] text-[#F8F5EB] shadow-lg translate-x-2'
+                    : 'bg-[#F8F5EB]/60 text-[#232E1E] hover:bg-[#F8F5EB] border border-[#232E1E]/10 hover:translate-x-1'
+                }`}
               >
-                <span className="index-num">{String(i + 1).padStart(2, '0')}</span>
-                <span
-                  className={`font-display text-xl tracking-display transition-colors duration-300 ${
-                    isActive ? 'text-olive' : 'text-cocoa hover:text-olive'
-                  }`}
-                >
-                  {mood.label}
+                <div className="flex items-center gap-4">
+                  <span className={`font-mono text-sm font-bold ${isActive ? 'text-[#C4D2B8]' : 'text-[#4E6B3E]'}`}>
+                    {String(i + 1).padStart(2, '0')}
+                  </span>
+                  <span className={`font-display text-2xl ${isActive ? 'text-[#F8F5EB]' : 'text-[#232E1E]'}`}>
+                    {mood.label}
+                  </span>
+                </div>
+                <span className={`text-lg transition-transform ${isActive ? 'translate-x-1 text-[#F8F5EB]' : 'text-[#4E6B3E]'}`}>
+                  &rarr;
                 </span>
               </button>
             </li>
@@ -58,43 +57,57 @@ export default function MoodMatcher() {
         })}
       </ul>
 
-      <div className="lg:col-span-7 lg:grid lg:grid-cols-2 lg:gap-x-8">
-        <div ref={productRef} className="aspect-[4/5] w-full">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={activeId}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-              className="h-full w-full"
-            >
-              <FlavorPlate item={activeProduct ?? {}} />
-            </motion.div>
-          </AnimatePresence>
-        </div>
+      {/* Recommended Sachet Showcase Box */}
+      <div className="lg:col-span-7">
+        <div className="glass-card p-6 sm:p-8 rounded-2xl border border-[#4E6B3E]/20 shadow-xl bg-[#F8F5EB]/95">
+          <div className="grid gap-8 sm:grid-cols-12 items-center">
+            {/* Product Image */}
+            <div ref={productRef} className="sm:col-span-6 aspect-[4/5] w-full overflow-hidden rounded-xl bg-[#E9E7D0]/60 p-3 border border-[#232E1E]/10">
+              <AnimatePresence mode="wait">
+                <motion.div
+                  key={activeId}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 0.4, ease: 'easeOut' }}
+                  className="h-full w-full"
+                >
+                  <FlavorPlate item={activeProduct ?? {}} />
+                </motion.div>
+              </AnimatePresence>
+            </div>
 
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={activeId}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-            className="mt-6 flex flex-col lg:mt-0"
-          >
-            <p className="spec text-olive">We&rsquo;d hand you</p>
-            <h4 className="mt-3 font-display text-xl tracking-display">{active.drink}</h4>
-            <p className="mt-3 font-body text-sm leading-relaxed text-bark">{active.note}</p>
-            <button
-              type="button"
-              onClick={handleAdd}
-              className="link-draw mt-6 self-start font-mono text-spec uppercase"
-            >
-              Add this sachet
-            </button>
-          </motion.div>
-        </AnimatePresence>
+            {/* Recommendation Details */}
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeId}
+                initial={{ opacity: 0, x: 14 }}
+                animate={{ opacity: 1, x: 0 }}
+                exit={{ opacity: 0, x: -14 }}
+                transition={{ duration: 0.35, ease: 'easeOut' }}
+                className="sm:col-span-6 flex flex-col justify-between"
+              >
+                <div>
+                  <span className="spec text-[#4E6B3E] px-3 py-1 bg-[#C4D2B0]/40 rounded-full border border-[#4E6B3E]/20 inline-block mb-3">
+                    Recommended Match
+                  </span>
+                  <h4 className="font-display text-3xl text-[#232E1E]">{active.drink}</h4>
+                  <p className="mt-4 font-body text-sm leading-relaxed text-[#232E1E]/80">{active.note}</p>
+                </div>
+
+                <div className="mt-8 pt-6 border-t border-[#232E1E]/10">
+                  <button
+                    type="button"
+                    onClick={handleAdd}
+                    className="btn w-full border-[#4E6B3E] bg-[#4E6B3E] text-[#F8F5EB] shadow-md hover:bg-[#232E1E]"
+                  >
+                    Add {activeProduct?.flavor} Sachet &rarr;
+                  </button>
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        </div>
       </div>
     </div>
   )

@@ -24,13 +24,13 @@ const TIMELINE = [
   },
   {
     year: '2022',
-    title: 'First Sachet, Bengaluru',
-    text: 'Drink Yojo launches with one flavor: Vanilla Matcha, packed into single-serve sachets from that same Uji farm\'s leaves.',
+    title: 'First Pack, Bengaluru',
+    text: 'Drink Yōjō launches with single-serve Japanese Uji matcha sachets from that same Uji farm\'s leaves.',
   },
   {
     year: '2026',
     title: 'Where We Are Now',
-    text: 'Five flavors — Strawberry, Blueberry, Mango, Ube, and Vanilla — plus recipe kits and sachet bundles. Same farm, same stone mills, still no ceremony required.',
+    text: 'Single-serve matcha powder packs, curated matcha kits, and gift hampers. Same farm, same stone mills, still no ceremony required.',
   },
 ]
 
@@ -40,19 +40,17 @@ export default function OurStory() {
 
   return (
     <PageShell>
-      {/* ── OPENING ──────────────────────────────────────────────────────────
-          The story page is the one place the site is allowed to be quiet and
-          slow. No grid, no columns, just a statement and a lot of paper. */}
-      <section className="bg-camel px-5 pb-20 pt-16 sm:px-10 sm:pb-28 sm:pt-24">
+      {/* ── OPENING ────────────────────────────────────────────────────────── */}
+      <section className="bg-camel px-5 pb-20 pt-20 sm:px-10 sm:pb-32 sm:pt-28">
         <div className="mx-auto max-w-[100rem]">
           <p className="spec text-olive">Since 1958 &middot; Uji, Kyoto</p>
-          <h1 className="mt-6 max-w-5xl font-display text-major tracking-display">
+          <h1 className="mt-8 max-w-5xl font-display text-mega tracking-display">
             <Rise delay={0.05}>A farm in Uji.</Rise>
             <Rise delay={0.15}>A sachet at</Rise>
             <Rise delay={0.25}>your door.</Rise>
           </h1>
           <Reveal delay={0.4}>
-            <p className="mt-10 max-w-xl font-serif text-lede italic text-bark">
+            <p className="mt-12 max-w-xl font-serif text-lede italic text-bark">
               We did not set out to reinvent matcha. We set out to remove everything standing
               between a good cup and the people who would actually drink it daily.
             </p>
@@ -60,14 +58,8 @@ export default function OurStory() {
         </div>
       </section>
 
-      {/* ── SOURCING ─────────────────────────────────────────────────────────
-          A wide plate with the copy set into the band beneath it, rather than
-          the old fifty-fifty split. The picture gets to be a picture —
-          a photograph now, rather than the drawn placeholder that stood in
-          while the brand had no pictures of its own. It is held to the width
-          the file actually has instead of being bled across the viewport,
-          because a photograph enlarged past its own pixels is a blurry one. */}
-      <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+      {/* ── SOURCING ───────────────────────────────────────────────────────── */}
+      <section className="bg-camel px-5 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
           <div className="lg:col-span-6">
             <Photo photo={photos.cupBlossoms} className="w-full" natural priority parallax={66} />
@@ -77,16 +69,16 @@ export default function OurStory() {
             <span className="index-num">01</span>
             <h2 className="mt-4 font-display text-minor tracking-display">One farm, not a blend</h2>
             <p className="mt-5 max-w-lg font-body text-lede text-bark">
-                Most matcha on a shelf is blended across harvests and regions to hit a price. Ours
-                comes off a single shaded terrace in Uji &mdash; the same family, the same rows,
-                every order.
+              Most matcha on a shelf is blended across harvests and regions to hit a price. Ours
+              comes off a single shaded terrace in Uji &mdash; the same family, the same rows,
+              every order.
             </p>
           </div>
         </div>
       </section>
 
       {/* ── MILLING ─────────────────────────────────────────────────────── */}
-      <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
+      <section className="bg-camel px-5 py-20 sm:px-10 sm:py-28">
         <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
           <div className="lg:col-span-6">
             <Photo photo={photos.bowlsFlatlay} className="w-full" natural parallax={56} />
@@ -96,19 +88,16 @@ export default function OurStory() {
             <span className="index-num">02</span>
             <h2 className="mt-4 font-display text-minor tracking-display">Ground slow, on stone</h2>
             <p className="mt-5 max-w-lg font-body text-lede text-bark">
-                Granite mills turn out about thirty grams an hour &mdash; slow enough that friction
-                never heats the leaf. Heat is what makes matcha bitter and dull. We would rather
-                wait.
+              Granite mills turn out about thirty grams an hour &mdash; slow enough that friction
+              never heats the leaf. Heat is what makes matcha bitter and dull. We would rather
+              wait.
             </p>
           </div>
         </div>
       </section>
 
-      {/* ── TIMELINE ─────────────────────────────────────────────────────────
-          The years lost their boxes and the green lozenge that sprang between
-          them. They are numerals on a rule now; the active one is simply the
-          one in olive. */}
-      <section className="relative isolate overflow-hidden bg-ink px-5 py-24 sm:px-10 sm:py-32">
+      {/* ── TIMELINE ───────────────────────────────────────────────────────── */}
+      <section className="section-editorial bg-ink px-5 py-28 sm:px-10 sm:py-40">
         <OrganicShape className="left-[-12%] top-0 h-[36rem] w-[36rem]" surface="darkWarm" path={1} distance={54} side="left" />
         <div className="relative mx-auto max-w-[100rem]">
           <h2 className="font-display text-minor tracking-display text-cream">Sixty-eight years</h2>
@@ -116,7 +105,7 @@ export default function OurStory() {
           <div
             aria-label="Choose a year"
             role="group"
-            className="no-scrollbar mt-10 flex gap-10 overflow-x-auto border-b border-linen pb-5"
+            className="no-scrollbar mt-12 flex gap-10 overflow-x-auto border-b border-linen/20 pb-6"
           >
             {TIMELINE.map((entry) => {
               const isActive = entry.year === activeYear
@@ -126,12 +115,12 @@ export default function OurStory() {
                   aria-pressed={isActive}
                   onClick={() => setActiveYear(entry.year)}
                   className={`shrink-0 font-mono text-spec tabular-nums transition-colors duration-300 ${
-                    isActive ? 'text-cream' : 'text-linen hover:text-cream'
+                    isActive ? 'text-cream font-bold' : 'text-linen/60 hover:text-cream'
                   }`}
                 >
                   {entry.year}
                   <span
-                    className={`mt-2 block h-px w-full origin-left bg-cream transition-transform duration-500 ${
+                    className={`mt-2 block h-0.5 w-full origin-left bg-cream transition-transform duration-500 ${
                       isActive ? 'scale-x-100' : 'scale-x-0'
                     }`}
                   />
@@ -143,12 +132,12 @@ export default function OurStory() {
           <AnimatePresence mode="wait">
             <motion.div
               key={activeYear}
-              initial={{ opacity: 0, y: 12 }}
+              initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -12 }}
-              transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+              exit={{ opacity: 0, y: -16 }}
+              transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
               aria-live="polite"
-              className="mt-12 grid gap-6 lg:grid-cols-12"
+              className="mt-14 grid gap-8 lg:grid-cols-12 glass-dark p-8 sm:p-12"
             >
               <h3 className="font-display text-minor tracking-display text-cream lg:col-span-4">
                 {activeEntry.title}
@@ -162,14 +151,14 @@ export default function OurStory() {
       </section>
 
       {/* ── RULES ────────────────────────────────────────────────────────── */}
-      <section className="bg-camel px-5 py-24 sm:px-10 sm:py-32">
+      <section className="bg-camel px-5 py-28 sm:px-10 sm:py-36">
         <div className="mx-auto max-w-[100rem]">
           <h2 className="max-w-3xl font-display text-major tracking-display">
             <RiseInView>Three rules we</RiseInView>
             <RiseInView delay={0.08}>do not break.</RiseInView>
           </h2>
 
-          <StaggerGroup className="mt-16 grid gap-y-10 sm:grid-cols-3 sm:gap-x-10">
+          <StaggerGroup className="mt-20 grid gap-y-12 sm:grid-cols-3 sm:gap-x-12">
             {[
               {
                 n: '01',
@@ -187,8 +176,8 @@ export default function OurStory() {
                 text: 'The ceremony is beautiful and it is optional. We kept the parts that make the drink better and dropped the parts that only make it slower.',
               },
             ].map((item) => (
-              <StaggerItem key={item.n} className="rule pt-5">
-                <span className="index-num">{item.n}</span>
+              <StaggerItem key={item.n} className="card-glass p-8">
+                <span className="index-num text-olive">{item.n}</span>
                 <h3 className="mt-4 font-display text-xl tracking-display">{item.title}</h3>
                 <p className="mt-3 font-body text-sm leading-relaxed text-bark">{item.text}</p>
               </StaggerItem>

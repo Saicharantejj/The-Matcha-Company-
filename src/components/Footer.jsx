@@ -11,25 +11,17 @@ const SOCIALS = [
 ]
 
 const EXPLORE = [
-  { to: '/matchas', label: 'Sachets' },
-  { to: '/matcha-kits', label: 'Bundles' },
-  { to: '/diy-kits', label: 'Recipes' },
-  { to: '/our-story', label: 'Uji' },
+  { to: '/matchas', label: 'Matcha Powder' },
+  { to: '/matcha-kits', label: 'Matcha Kits' },
+  { to: '/gift-hampers', label: 'Gift Hampers' },
+  { to: '/our-story', label: 'Our Story' },
 ]
 
-/**
- * The footer is the last impression, so it gets the wordmark at full size and
- * very little else — three short columns on hairlines and a sign-up that is a
- * ruled line rather than a boxed input. The wordmark now sits at the bottom
- * where it closes the page, instead of at the top where it competed with the
- * closing section above it.
- */
 export default function Footer() {
   const [email, setEmail] = useState('')
   const [submitted, setSubmitted] = useState(false)
   const [sending, setSending] = useState(false)
   const [error, setError] = useState(null)
-  // Honeypot, same trick as the checkout form.
   const [company, setCompany] = useState('')
   const submittingRef = useRef(false)
 
@@ -50,16 +42,15 @@ export default function Footer() {
     }
     setSubmitted(true)
     setEmail('')
-    // The API accepted the subscription. Deliberately no email is sent to Meta.
   }
 
   return (
-    <footer className="bg-ink text-cream">
-      <div className="mx-auto max-w-[100rem] px-5 pb-10 pt-20 sm:px-10 sm:pt-28">
-        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-10">
+    <footer className="bg-ink text-cream border-t border-linen/10">
+      <div className="mx-auto max-w-[100rem] px-5 pb-12 pt-24 sm:px-10 sm:pt-32">
+        <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-12">
           <div className="lg:col-span-4">
             <h2 className="spec text-linen">How it works</h2>
-            <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-linen">
+            <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-linen/80">
               Online only. Order any flavour and it ships to your door &mdash; one sachet, stirred
               into milk or water, no whisk anywhere in the process.
             </p>
@@ -69,10 +60,10 @@ export default function Footer() {
             <h2 className="spec text-linen">Explore</h2>
             <ul className="mt-5">
               {EXPLORE.map((link) => (
-                <li key={link.to} className="rule border-linen/30 first:border-t-0">
+                <li key={link.to} className="border-t border-linen/15 first:border-t-0">
                   <Link
                     to={link.to}
-                    className="block py-2.5 font-body text-sm text-cream transition-colors duration-300 hover:text-linen"
+                    className="block py-3 font-body text-sm text-cream transition-colors duration-300 hover:text-linen"
                   >
                     {link.label}
                   </Link>
@@ -87,7 +78,7 @@ export default function Footer() {
               <label htmlFor="footer-email" className="sr-only">
                 Email address
               </label>
-              <div className="flex items-center gap-4 border-b border-linen pb-3">
+              <div className="flex items-center gap-4 border-b border-linen/30 pb-3 transition-colors focus-within:border-linen">
                 <input
                   id="footer-email"
                   type="email"
@@ -95,18 +86,17 @@ export default function Footer() {
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="you@email.com"
-                  className="w-full bg-transparent font-body text-sm text-cream placeholder:text-linen focus:outline-none"
+                  className="w-full bg-transparent font-body text-sm text-cream placeholder:text-linen/40 focus:outline-none"
                 />
                 <button
                   type="submit"
                   disabled={sending}
-                  className="shrink-0 font-mono text-spec uppercase text-cream transition-colors duration-300 hover:text-linen disabled:opacity-60"
+                  className="shrink-0 font-mono text-spec uppercase text-cream transition-all duration-300 hover:text-linen disabled:opacity-60"
                 >
                   {sending ? 'Joining…' : 'Join'}
                 </button>
               </div>
 
-              {/* Honeypot: off-screen, unfocusable, never announced. */}
               <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
                 <label htmlFor="footer-company">Company</label>
                 <input
@@ -119,37 +109,35 @@ export default function Footer() {
                 />
               </div>
             </form>
-            <p aria-live="polite" className="mt-3 font-body text-sm text-linen">
+            <p aria-live="polite" className="mt-3 font-body text-sm text-linen/70">
               {error || (submitted ? "You're on the list." : 'New flavours and nothing else.')}
             </p>
           </div>
         </div>
 
-        <Reveal className="mt-24">
-          {/* Decorative: the company name is already announced in the
-              copyright line below, so this closing mark is not read twice. */}
+        <Reveal className="mt-28">
           <p
             aria-hidden="true"
-            className="font-display leading-[0.82] tracking-display text-cream"
-            style={{ fontSize: 'clamp(2.5rem, 16vw, 18rem)' }}
+            className="font-display leading-[0.8] tracking-display text-cream select-none opacity-95"
+            style={{ fontSize: 'clamp(3rem, 17vw, 19rem)' }}
           >
             <span className="block">Drink</span>
             <span className="block">Yojo</span>
           </p>
         </Reveal>
 
-        <div className="rule mt-10 flex flex-col gap-4 border-linen/30 pt-6 sm:flex-row sm:items-center sm:justify-between">
-          <p className="spec text-linen">
+        <div className="mt-12 flex flex-col gap-4 border-t border-linen/15 pt-8 sm:flex-row sm:items-center sm:justify-between">
+          <p className="spec text-linen/60">
             &copy; {new Date().getFullYear()} Drink Yojo
           </p>
-          <ul className="flex flex-wrap gap-x-7 gap-y-2">
+          <ul className="flex flex-wrap gap-x-8 gap-y-2">
             {SOCIALS.map((s) => (
               <li key={s.label}>
                 <a
                   href={s.href}
                   target="_blank"
                   rel="noreferrer noopener"
-                  className="font-mono text-spec uppercase text-linen transition-colors duration-300 hover:text-cream"
+                  className="font-mono text-spec uppercase text-linen/70 transition-colors duration-300 hover:text-cream"
                 >
                   {s.label}
                 </a>

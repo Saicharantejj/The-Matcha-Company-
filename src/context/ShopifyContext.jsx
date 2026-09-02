@@ -4,14 +4,56 @@ import { fetchShopifyProducts } from '../lib/shopify'
 
 const ShopifyContext = createContext({
   products: initialProducts.map((p) => ({ ...p, variantId: p.variantId || null })),
+  testProduct: null,
   loading: true,
   error: null,
 })
+
+function normalizeStr(str) {
+  return (str || '').toLowerCase().replace(/[^a-z0-9]/g, '')
+}
+
+function isMatch(localProduct, sp) {
+  const spNorm = normalizeStr(sp.name || sp.title)
+  const spHandleNorm = normalizeStr(sp.handle)
+  const localNorm = normalizeStr(localProduct.name)
+  const localHandleNorm = normalizeStr(localProduct.handle)
+  const localIdNorm = normalizeStr(localProduct.id)
+
+  if (spHandleNorm && (spHandleNorm === localHandleNorm || spHandleNorm === localIdNorm)) {
+    return true
+  }
+  if (spNorm === localNorm) {
+    return true
+  }
+  if (localNorm.includes('gift') && spNorm.includes('gift')) {
+    if (
+      (localNorm.includes('basic') || localNorm.includes('essential')) &&
+      (spNorm.includes('basic') || spNorm.includes('essential'))
+    ) {
+      return true
+    }
+    if (localNorm.includes('premium') && spNorm.includes('premium')) {
+      return true
+    }
+  }
+  if (localNorm.includes('kit') && spNorm.includes('kit')) {
+    if (localNorm.includes('basic') && spNorm.includes('basic')) return true
+    if (localNorm.includes('premium') && spNorm.includes('premium')) return true
+  }
+  if (localNorm.includes('pack') && spNorm.includes('pack')) {
+    if (localNorm.includes('5') && spNorm.includes('5')) return true
+    if (localNorm.includes('10') && spNorm.includes('10')) return true
+    if (localNorm.includes('20') && spNorm.includes('20')) return true
+  }
+  return false
+}
 
 export function ShopifyProvider({ children }) {
   const [products, setProducts] = useState(
     initialProducts.map((p) => ({ ...p, variantId: p.variantId || null }))
   )
+  const [testProduct, setTestProduct] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -21,22 +63,28 @@ export function ShopifyProvider({ children }) {
       .then((shopifyItems) => {
         if (!isMounted) return
 
-        // 1. Map existing local sachets to live Shopify variant IDs if an exact match exists
+        // 1. Identify Matcha Test Product for dev/testing
+        const testProd = shopifyItems.find(
+          (sp) =>
+            sp.handle === 'matcha-test-product' ||
+            sp.name?.toLowerCase().includes('matcha test product') ||
+            sp.name?.toLowerCase().includes('test product')
+        )
+        if (testProd) {
+          setTestProduct(testProd)
+        }
+
+        // 2. Map local products to live Shopify products dynamically
         const updatedLocalProducts = initialProducts.map((localProduct) => {
-          const matchedShopify = shopifyItems.find(
-            (sp) =>
-              sp.flavor?.toLowerCase() === localProduct.flavor?.toLowerCase() ||
-              sp.name?.toLowerCase() === localProduct.name?.toLowerCase() ||
-              sp.handle?.toLowerCase() === localProduct.id?.toLowerCase()
-          )
+          const matchedShopify = shopifyItems.find((sp) => isMatch(localProduct, sp))
 
           if (matchedShopify) {
             return {
               ...localProduct,
               variantId: matchedShopify.variantId,
               shopifyId: matchedShopify.shopifyId,
-              price: matchedShopify.price,
-              currency: matchedShopify.currency,
+              price: matchedShopify.price ? parseFloat(matchedShopify.price) : localProduct.price,
+              currency: matchedShopify.currency || 'INR',
               imageUrl: matchedShopify.imageUrl || localProduct.imageUrl,
             }
           }
@@ -47,18 +95,8 @@ export function ShopifyProvider({ children }) {
           }
         })
 
-        // 2. Append any Shopify products not already matching local products (e.g. Matcha Test Product)
-        const unmergedShopifyProducts = shopifyItems.filter(
-          (sp) =>
-            !initialProducts.some(
-              (lp) =>
-                lp.flavor?.toLowerCase() === sp.flavor?.toLowerCase() ||
-                lp.name?.toLowerCase() === sp.name?.toLowerCase() ||
-                lp.id?.toLowerCase() === sp.handle?.toLowerCase()
-            )
-        )
-
-        setProducts([...updatedLocalProducts, ...unmergedShopifyProducts])
+        // Ensure ONLY customer facing products are in the products catalogue state (hide test product)
+        setProducts(updatedLocalProducts)
         setLoading(false)
       })
       .catch((err) => {
@@ -74,7 +112,7 @@ export function ShopifyProvider({ children }) {
   }, [])
 
   return (
-    <ShopifyContext.Provider value={{ products, loading, error }}>
+    <ShopifyContext.Provider value={{ products, testProduct, loading, error }}>
       {children}
     </ShopifyContext.Provider>
   )

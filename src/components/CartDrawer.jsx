@@ -2,35 +2,20 @@ import { useEffect, useRef, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
+import { useShopifyProducts } from '../context/ShopifyContext'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
-import { placeOrder, messageFor } from '../lib/api'
-import { trackInitiateCheckout, trackOrderLead } from '../lib/metaPixel'
+import { trackInitiateCheckout } from '../lib/metaPixel'
 
-// Mirrors the pouch colours in SachetGraphic, so a cart line looks like the
-// product it came from.
 const SWATCH = {
   matcha: '#5C8A2E',
   moss: '#C4D2B8',
   olive: '#4E6B3E',
-  strawberry: '#A6483C',
-  blueberry: '#4A5570',
-  mango: '#AD6413',
-  ube: '#6E5A8C',
-  vanilla: '#9E7A3A',
 }
 
-const KIND_LABEL = {
-  sachet: 'Sachet',
-  'diy-kit': 'DIY Kit',
-  bundle: 'Bundle',
-}
-
-// Small square pouch mark used per cart line — reads as the product without
-// pulling the full SachetGraphic's glow/texture into a 56px box.
 function LineMark({ swatch }) {
   const fill = SWATCH[swatch] || SWATCH.matcha
   return (
-    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center border border-ink bg-ink">
+    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center border border-ink/20 bg-ink">
       <svg viewBox="0 0 120 150" className="h-9 w-auto" aria-hidden="true">
         <path
           d="M14 28 Q14 18 24 18 L96 18 Q106 18 106 28 L106 128 Q106 140 94 140 L26 140 Q14 140 14 128 Z"
@@ -47,7 +32,7 @@ function LineMark({ swatch }) {
 
 function QtyStepper({ qty, onDecrement, onIncrement, name }) {
   return (
-    <div className="inline-flex items-center border border-ink">
+    <div className="inline-flex items-center border border-ink/20 bg-card/60 backdrop-blur-sm">
       <button
         type="button"
         onClick={onDecrement}
@@ -58,7 +43,7 @@ function QtyStepper({ qty, onDecrement, onIncrement, name }) {
       </button>
       <span
         aria-live="polite"
-        className="min-w-[2.25rem] border-x border-ink px-2 text-center font-mono text-xs tabular-nums"
+        className="min-w-[2.25rem] border-x border-ink/20 px-2 text-center font-mono text-xs tabular-nums text-cocoa font-bold"
       >
         {qty}
       </span>
@@ -74,56 +59,25 @@ function QtyStepper({ qty, onDecrement, onIncrement, name }) {
   )
 }
 
-/**
- * One labelled input. Errors are announced per-field rather than only as a
- * summary, so a screen reader lands on the problem instead of hearing that
- * something, somewhere, is wrong.
- */
-function Field({ id, label, value, onChange, type = 'text', required = true, autoComplete, ...rest }) {
-  return (
-    <label htmlFor={id} className="block">
-      <span className="spec block">
-        {label}
-        {!required && <span className="ml-1 normal-case tracking-normal text-bark">(optional)</span>}
-      </span>
-      <input
-        id={id}
-        name={id}
-        type={type}
-        required={required}
-        value={value}
-        autoComplete={autoComplete}
-        onChange={(e) => onChange(e.target.value)}
-        className="mt-2 w-full border-b border-ink bg-transparent pb-2 font-body text-sm text-cocoa placeholder:text-bark focus:outline-none focus:border-olive"
-        {...rest}
-      />
-    </label>
-  )
-}
-
-const EMPTY_DETAILS = {
-  name: '',
-  email: '',
-  phone: '',
-  address: '',
-  city: '',
-  postcode: '',
-  notes: '',
-}
-
 export default function CartDrawer() {
-  const { lines, count, cartCost, checkoutUrl, error: cartError, isOpen, closeCart, increment, decrement, removeItem, clearCart } = useCart()
-  const [placed, setPlaced] = useState(null)
-  const [checkingOut, setCheckingOut] = useState(false)
-  const [details, setDetails] = useState(EMPTY_DETAILS)
-  const [submitting, setSubmitting] = useState(false)
+  const {
+    lines,
+    count,
+    cartCost,
+    checkoutUrl,
+    error: cartError,
+    isOpen,
+    closeCart,
+    increment,
+    decrement,
+    removeItem,
+    clearCart,
+    addItem,
+  } = useCart()
+  const { testProduct } = useShopifyProducts()
   const [error, setError] = useState(null)
-  // Honeypot. Hidden from people, irresistible to naive bots.
-  const [company, setCompany] = useState('')
   const checkoutStartedRef = useRef(false)
-  const submittingRef = useRef(false)
 
-  // Close on Escape, and lock body scroll while the panel is open.
   useEffect(() => {
     if (!isOpen) return undefined
     const onKeyDown = (e) => {
@@ -131,8 +85,6 @@ export default function CartDrawer() {
     }
     const prevOverflow = document.body.style.overflow
     document.body.style.overflow = 'hidden'
-    // overflow:hidden stops the browser scrolling the page; the smooth-scroll
-    // loop animates it independently and has to be told to hold as well.
     setSmoothScrollPaused(true)
     window.addEventListener('keydown', onKeyDown)
     return () => {
@@ -142,63 +94,27 @@ export default function CartDrawer() {
     }
   }, [isOpen, closeCart])
 
-  // Reset back to the item list whenever the drawer is reopened. The typed
-  // details are deliberately kept, so closing the panel by accident midway
-  // through checkout does not cost the visitor their address.
   useEffect(() => {
     if (isOpen) {
-      setPlaced(null)
-      setCheckingOut(false)
       setError(null)
       checkoutStartedRef.current = false
     }
   }, [isOpen])
 
-  // Editing any field clears the previous error. Leaving a stale "your name is
-  // required" sitting under a filled-in name field reads as though the form is
-  // still broken after the visitor has already fixed it.
-  const update = (key) => (value) => {
-    setDetails((prev) => ({ ...prev, [key]: value }))
-    if (error) setError(null)
-  }
-
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    if (submittingRef.current) return
-    submittingRef.current = true
-    setSubmitting(true)
-    setError(null)
-
-    const result = await placeOrder({
-      ...details,
-      company,
-      items: lines.map((line) => ({ id: line.id, qty: line.qty })),
-    })
-
-    setSubmitting(false)
-    submittingRef.current = false
-    if (!result.ok) {
-      setError(messageFor(result))
-      return
-    }
-
-    // Only clear and track the lead once the server has accepted it — if the
-    // request failed, the visitor still has their cart to retry with.
-    trackOrderLead(lines, result.data.reference)
-    setPlaced({ ref: result.data.reference, items: result.data.itemCount, emailed: result.data.emailed })
-    setDetails(EMPTY_DETAILS)
-    clearCart()
-  }
-
   const beginCheckout = () => {
     if (checkoutStartedRef.current || lines.length === 0) return
     if (!checkoutUrl || typeof checkoutUrl !== 'string') {
-      setError('Checkout is temporarily unavailable. Please try again.')
+      setError('Checkout URL is unavailable. Please check that products have active Shopify variants.')
       return
     }
     checkoutStartedRef.current = true
     trackInitiateCheckout(lines)
     window.location.href = checkoutUrl
+  }
+
+  const handleAddTestProduct = () => {
+    if (!testProduct) return
+    addItem(testProduct)
   }
 
   return (
@@ -209,27 +125,22 @@ export default function CartDrawer() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.2 }}
+            transition={{ duration: 0.25 }}
             onClick={closeCart}
-            className="absolute inset-0 bg-ink/30"
+            className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
           />
 
           <motion.aside
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ duration: 0.32, ease: [0.22, 1, 0.36, 1] }}
-            /* A frosted panel rather than a flat one: the lightened scrim
-               behind it leaves real page underneath, and backdrop-blur turns
-               that into glass rather than a coloured rectangle. Every corner
-               stays exactly as square as bg-card was — only the surface
-               changed, not the shape. */
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink bg-card/75 shadow-[-6px_0_0_0_rgba(35,46,30,0.18)] backdrop-blur-xl backdrop-saturate-150"
+            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink/10 bg-card/85 shadow-glass-xl backdrop-blur-2xl backdrop-saturate-150"
           >
-            <header className="flex items-center justify-between border-b border-ink px-5 py-4">
+            <header className="flex items-center justify-between border-b border-ink/15 px-6 py-5">
               <div>
-                <p className="font-mono text-[10px] uppercase tracking-widest text-olive">Your order</p>
-                <h2 className="mt-1 font-display text-xl tracking-display">
+                <p className="spec text-olive">Your order</p>
+                <h2 className="mt-1 font-display text-2xl tracking-display">
                   Cart{count > 0 ? ` (${count})` : ''}
                 </h2>
               </div>
@@ -237,53 +148,36 @@ export default function CartDrawer() {
                 type="button"
                 onClick={closeCart}
                 aria-label="Close cart"
-                className="flex h-9 w-9 items-center justify-center border border-ink bg-transparent font-mono text-sm text-cocoa transition-colors hover:bg-ink hover:text-cream"
+                className="flex h-9 w-9 items-center justify-center border border-ink/20 bg-transparent font-mono text-sm text-cocoa transition-colors hover:bg-ink hover:text-cream"
               >
                 ✕
               </button>
             </header>
 
-            {placed ? (
+            {lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
-                <div className="flex h-14 w-14 items-center justify-center border border-ink bg-moss font-mono text-xl text-cream">
-                  ✓
-                </div>
-                <h3 className="mt-5 font-display text-2xl tracking-display">Order requested</h3>
-                <p className="mt-3 font-body text-sm leading-relaxed text-bark">
-                  We've logged {placed.items} {placed.items === 1 ? 'item' : 'items'} against reference{' '}
-                  <span className="font-mono text-cocoa">{placed.ref}</span>.{' '}
-                  {placed.emailed
-                    ? 'A confirmation is on its way to your inbox.'
-                    : 'Keep this reference — we confirm every order by email before it ships.'}
-                </p>
-                <button
-                  type="button"
-                  onClick={closeCart}
-                  className="btn mt-7"
-                >
-                  Keep Browsing
-                </button>
-              </div>
-            ) : lines.length === 0 ? (
-              <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
-                <p className="font-mono text-[10px] uppercase tracking-widest text-bark">
-                  Nothing here yet
-                </p>
+                <p className="spec text-bark/60">Nothing here yet</p>
                 <h3 className="mt-3 font-display text-2xl tracking-display">Your cart is empty</h3>
                 <p className="mt-3 font-body text-sm leading-relaxed text-bark">
-                  Pick a flavor sachet, a recipe kit, or a bundle and it'll show up here.
+                  Pick a Matcha Powder pack, a Matcha Kit, or a Gift Hamper to add it here.
                 </p>
-                <Link
-                  to="/matchas"
-                  onClick={closeCart}
-                  className="btn mt-7"
-                >
-                  Shop the Sachets
+                <Link to="/matchas" onClick={closeCart} className="btn mt-8">
+                  Shop Matcha Powder
                 </Link>
+
+                {testProduct && (
+                  <button
+                    type="button"
+                    onClick={handleAddTestProduct}
+                    className="mt-6 font-mono text-[0.65rem] uppercase tracking-widest text-[#4E6B3E] hover:underline"
+                  >
+                    [Dev Test] Add Matcha Test Product to Cart
+                  </button>
+                )}
               </div>
             ) : (
               <>
-                <ul data-lenis-prevent className="flex-1 divide-y divide-ink/15 overflow-y-auto px-5">
+                <ul data-lenis-prevent className="flex-1 divide-y divide-ink/10 overflow-y-auto px-6 py-2">
                   <AnimatePresence initial={false}>
                     {lines.map((line) => (
                       <motion.li
@@ -292,29 +186,29 @@ export default function CartDrawer() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.22, ease: 'easeOut' }}
+                        transition={{ duration: 0.25, ease: 'easeOut' }}
                         className="overflow-hidden"
                       >
-                        <div className="flex gap-4 py-4">
+                        <div className="flex gap-4 py-5">
                           <LineMark swatch={line.swatch} />
 
                           <div className="min-w-0 flex-1">
-                            <p className="font-mono text-[9px] uppercase tracking-widest text-olive">
-                              {KIND_LABEL[line.kind] || 'Item'}
-                              {line.size ? ` · ${line.size}` : ''}
+                            <p className="spec text-olive">
+                              {line.size ? line.size : 'Matcha Product'}
                             </p>
                             <div className="flex items-start justify-between gap-2">
-                              <h3 className="mt-1 font-display text-sm leading-snug tracking-display">
+                              <h3 className="mt-1 font-display text-base leading-snug tracking-display">
                                 {line.name}
                               </h3>
                               {line.price && (
-                                <span className="mt-1 font-mono text-xs tabular-nums text-cocoa shrink-0">
-                                  {line.currency === 'INR' ? '₹' : ''}{line.price} {line.currency !== 'INR' ? line.currency : ''}
+                                <span className="mt-1 font-mono text-xs tabular-nums text-cocoa font-bold shrink-0">
+                                  {line.currency === 'INR' ? '₹' : ''}
+                                  {line.price} {line.currency !== 'INR' ? line.currency : ''}
                                 </span>
                               )}
                             </div>
 
-                            <div className="mt-3 flex items-center gap-3">
+                            <div className="mt-3 flex items-center gap-4">
                               <QtyStepper
                                 qty={line.qty}
                                 name={line.name}
@@ -324,7 +218,7 @@ export default function CartDrawer() {
                               <button
                                 type="button"
                                 onClick={() => removeItem(line.id)}
-                                className="font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
+                                className="spec text-bark/60 underline underline-offset-4 transition-colors hover:text-cocoa"
                               >
                                 Remove
                               </button>
@@ -336,90 +230,57 @@ export default function CartDrawer() {
                   </AnimatePresence>
                 </ul>
 
-                <footer className="border-t border-ink px-5 py-5">
-                  {checkingOut ? (
-                    <form onSubmit={handleSubmit} noValidate>
-                      <div className="grid gap-5">
-                        <Field id="name" label="Name" value={details.name} onChange={update('name')} autoComplete="name" />
-                        <Field id="email" label="Email" type="email" value={details.email} onChange={update('email')} autoComplete="email" />
-                        <Field id="phone" label="Phone" type="tel" required={false} value={details.phone} onChange={update('phone')} autoComplete="tel" />
-                        <Field id="address" label="Address" value={details.address} onChange={update('address')} autoComplete="street-address" />
-                        <div className="grid grid-cols-2 gap-5">
-                          <Field id="city" label="City" value={details.city} onChange={update('city')} autoComplete="address-level2" />
-                          <Field id="postcode" label="Postcode" value={details.postcode} onChange={update('postcode')} autoComplete="postal-code" />
-                        </div>
-                        <Field id="notes" label="Notes" required={false} value={details.notes} onChange={update('notes')} />
-                      </div>
+                <footer className="border-t border-ink/15 bg-card/40 px-6 py-6 backdrop-blur-md">
+                  <div className="flex items-center justify-between font-mono text-spec uppercase">
+                    <span className="text-bark">Total items</span>
+                    <span className="tabular-nums text-cocoa font-bold">{count}</span>
+                  </div>
+                  {cartCost?.subtotalAmount && parseFloat(cartCost.subtotalAmount) > 0 && (
+                    <div className="mt-3 flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
+                      <span className="text-bark">Subtotal</span>
+                      <span className="tabular-nums text-cocoa">
+                        {cartCost.currencyCode === 'INR' ? '₹' : ''}
+                        {cartCost.subtotalAmount} {cartCost.currencyCode !== 'INR' ? cartCost.currencyCode : ''}
+                      </span>
+                    </div>
+                  )}
 
-                      {/* Honeypot: off-screen, unfocusable, never announced. */}
-                      <div aria-hidden="true" className="absolute left-[-9999px] top-auto h-px w-px overflow-hidden">
-                        <label htmlFor="company">Company</label>
-                        <input
-                          id="company"
-                          name="company"
-                          type="text"
-                          tabIndex={-1}
-                          autoComplete="off"
-                          value={company}
-                          onChange={(e) => setCompany(e.target.value)}
-                        />
-                      </div>
+                  {(cartError || error) && (
+                    <p role="alert" className="mt-3 border-l-2 border-olive pl-3 font-body text-xs text-cocoa">
+                      {cartError || error}
+                    </p>
+                  )}
 
-                      {error && (
-                        <p role="alert" className="mt-5 border-l-2 border-olive pl-3 font-body text-sm text-cocoa">
-                          {error}
-                        </p>
-                      )}
+                  <p className="mt-3 font-body text-xs leading-relaxed text-bark">
+                    Redirects to secure Shopify hosted checkout to complete your order.
+                  </p>
 
-                      <p className="mt-5 font-body text-xs leading-relaxed text-bark">
-                        Nothing is charged here. We confirm pricing and delivery by email first.
-                      </p>
+                  <button
+                    type="button"
+                    onClick={beginCheckout}
+                    disabled={lines.length === 0}
+                    className="btn mt-5 w-full disabled:opacity-50"
+                  >
+                    Checkout
+                  </button>
+                  <button
+                    type="button"
+                    onClick={clearCart}
+                    className="mt-3 w-full font-mono text-spec uppercase tracking-widest text-bark/60 underline underline-offset-4 transition-colors hover:text-cocoa"
+                  >
+                    Clear cart
+                  </button>
 
-                      <button type="submit" disabled={submitting} className="btn mt-4 w-full disabled:opacity-60">
-                        {submitting ? 'Sending…' : `Place order (${count})`}
-                      </button>
+                  {testProduct && (
+                    <div className="mt-4 pt-3 border-t border-ink/10 text-center">
                       <button
                         type="button"
-                        onClick={() => { checkoutStartedRef.current = false; setCheckingOut(false); setError(null) }}
-                        className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
+                        onClick={handleAddTestProduct}
+                        className="font-mono text-[0.65rem] uppercase tracking-widest text-[#4E6B3E] hover:underline"
                       >
-                        Back to cart
+                        [Dev Test] Add Matcha Test Product to Cart
                       </button>
-                    </form>
-                  ) : (
-                    <>
-                      <div className="flex items-center justify-between font-mono text-[11px] uppercase tracking-widest">
-                        <span className="text-bark">Total items</span>
-                        <span className="tabular-nums text-cocoa">{count}</span>
-                      </div>
-                      {cartCost?.subtotalAmount && (
-                        <div className="mt-2 flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
-                          <span className="text-bark">Subtotal</span>
-                          <span className="tabular-nums text-cocoa">
-                            {cartCost.currencyCode === 'INR' ? '₹' : ''}{cartCost.subtotalAmount} {cartCost.currencyCode !== 'INR' ? cartCost.currencyCode : ''}
-                          </span>
-                        </div>
-                      )}
-                      {cartError && (
-                        <p role="alert" className="mt-3 border-l-2 border-olive pl-3 font-body text-xs text-cocoa">
-                          {cartError}
-                        </p>
-                      )}
-                      <p className="mt-3 font-body text-xs leading-relaxed text-bark">
-                        We confirm pricing and delivery by email — nothing is charged here.
-                      </p>
-
-                      <button type="button" onClick={beginCheckout} className="btn mt-4 w-full">
-                        Checkout
-                      </button>
-                      <button
-                        type="button"
-                        onClick={clearCart}
-                        className="mt-3 w-full font-mono text-[10px] uppercase tracking-widest text-bark underline underline-offset-4 transition-colors hover:text-cocoa"
-                      >
-                        Clear cart
-                      </button>
-                    </>
+                    </div>
                   )}
                 </footer>
               </>

@@ -1,347 +1,250 @@
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useTransform, useReducedMotion } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import Reveal, { Rise, RiseInView, EASE } from '../components/Motion'
 import Magnetic from '../components/Magnetic'
 import OrganicShape from '../components/OrganicShape'
-import MoodMatcher from '../components/MoodMatcher'
 import TaglineTicker from '../components/TaglineTicker'
-import FlavorPlate from '../components/FlavorPlate'
+import ProductCard from '../components/ProductCard'
 import Photo from '../components/Photo'
 import { photos } from '../data/photos'
 import { useShopifyProducts } from '../context/ShopifyContext'
 
 const STEPS = [
-  { n: '01', title: 'Tear', body: 'One sachet, one cup. The ratio is already decided, so there is nothing to measure and nothing to get wrong.' },
-  { n: '02', title: 'Stir', body: 'Cold milk, oat, or water. It dissolves in about ten seconds against the side of the glass. No whisk, no bowl, no sieve.' },
-  { n: '03', title: 'Drink', body: 'That is the whole method. The ceremony is lovely and we are not doing it on a Tuesday morning.' },
+  { n: '01', title: 'Tear', body: 'One sachet, one cup. Pre-portioned Japanese Uji matcha powder ready for your daily routine.' },
+  { n: '02', title: 'Stir', body: 'Stir directly into cold or warm milk or water. Dissolves quickly and smoothly.' },
+  { n: '03', title: 'Drink', body: 'Enjoy stone-ground Uji matcha quality on your counter in seconds.' },
 ]
-
-/**
- * One flavour in the index, which takes the sticky plate when it reaches the
- * middle of the screen.
- *
- * The section already swapped the plate on hover, and that is still the fastest
- * way to browse it with a mouse. But hovering is not scrolling: reading down
- * the list left the plate showing whatever was pointed at last, and on a
- * trackpad that is usually nothing. The observer band is the middle tenth of
- * the viewport, so a row takes the plate as it arrives at eye level and holds
- * it until the next one does.
- */
-function FlavourRow({ index, isActive, onActivate, children }) {
-  const ref = useRef(null)
-
-  useEffect(() => {
-    const el = ref.current
-    if (!el || typeof IntersectionObserver === 'undefined') return undefined
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) onActivate(index)
-      },
-      { rootMargin: '-45% 0px -45% 0px' },
-    )
-    observer.observe(el)
-    return () => observer.disconnect()
-  }, [index, onActivate])
-
-  return (
-    <li
-      ref={ref}
-      onMouseEnter={() => onActivate(index)}
-      onFocus={() => onActivate(index)}
-      data-active={isActive || undefined}
-      className="rule group py-7 first:border-t-0 first:pt-0"
-    >
-      {children}
-    </li>
-  )
-}
 
 export default function Home() {
   const { products } = useShopifyProducts()
-  const [active, setActive] = useState(0)
   const heroRef = useRef(null)
-  const flavoursRef = useRef(null)
   const reduceMotion = useReducedMotion()
 
-  // The fold's own scroll, start to end. The powder drifts up a little slower
-  // than the type leaving above it and closes very slightly as it goes, so the
-  // fold reads as a room being left rather than as a panel scrolling off.
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
     offset: ['start start', 'end start'],
   })
-  const powderY = useTransform(heroProgress, [0, 1], ['0%', '14%'])
-  const powderScale = useTransform(heroProgress, [0, 1], [1, 1.07])
-  const foldFade = useTransform(heroProgress, [0, 0.75], [1, 0])
+  const heroParallax = useTransform(heroProgress, [0, 1], [0, -40])
 
-  // The sticky plate's own frame, not its crossfade: a very slight rotation
-  // and lift across the whole section, so the object held in place still
-  // reads as being passed by rather than as a paused video.
-  const { scrollYProgress: flavoursProgress } = useScroll({
-    target: flavoursRef,
-    offset: ['start end', 'end start'],
-  })
-  const plateRotate = useTransform(flavoursProgress, [0, 0.5, 1], [-1.4, 0, 1.4])
-  const plateY = useTransform(flavoursProgress, [0, 0.5, 1], [16, 0, -16])
+  const powderProducts = products.filter((p) => p.category === 'Matcha Powder')
+  const kitProducts = products.filter((p) => p.category === 'Matcha Kits')
+  const hamperProducts = products.filter((p) => p.category === 'Gift Hampers')
 
   return (
     <PageShell>
-      {/* ── HERO ─────────────────────────────────────────────────────────────
-          One photograph, one sentence. The cut-out glass that used to hold the
-          right-hand columns is gone: against the powder it read as a second
-          picture pasted over the first, and the fold says more with the leaf
-          alone than it did with a product shot floating on top of it.
-
-          The whole fold stands on a photograph of the powder itself, run
-          full bleed behind the type. Ink brown on mid-green is nowhere near
-          readable, so the type inverts to cream and the picture carries a
-          scrim: 70% ink under the words, which puts cream at about 6:1, easing
-          to 25% across the right, where nothing is set and the grain is worth
-          seeing at full strength. Any lighter under the type and the headline
-          stops clearing AA; any heavier and there is no point having a
-          photograph there at all. */}
+      {/* ── HERO SECTION ────────────────────────────────────────────────────────── */}
       <section
         ref={heroRef}
-        className="relative isolate flex min-h-[78vh] flex-col justify-end overflow-hidden bg-ink"
+        className="relative isolate min-h-[85vh] bg-[#E9E7D0] px-6 pb-20 pt-16 sm:px-10 sm:pt-24 overflow-hidden flex items-center"
       >
-        {photos.powderTexture && (
-          <motion.div
-            aria-hidden
-            className="absolute inset-0 -z-10"
-            style={reduceMotion ? undefined : { y: powderY, scale: powderScale }}
-          >
-            {/* The powder settles out of a slight over-scale as the page
-                arrives — the same gesture ImageReveal uses on every other
-                photograph, played slower because this one is the whole fold. */}
-            <motion.img
-              src={photos.powderTexture.src}
-              alt=""
-              width={photos.powderTexture.width}
-              height={photos.powderTexture.height}
-              fetchPriority="high"
-              className="h-full w-full object-cover"
-              initial={reduceMotion ? false : { scale: 1.09, opacity: 0.55 }}
-              animate={{ scale: 1, opacity: 1 }}
-              transition={{ duration: 1.9, ease: EASE }}
-            />
-            <div className="absolute inset-0 bg-gradient-to-r from-ink/70 via-ink/55 to-ink/25" />
-          </motion.div>
-        )}
+        <OrganicShape
+          className="-right-20 top-10 h-[46rem] w-[46rem]"
+          surface="lightBold"
+          path={0}
+          distance={80}
+          side="right"
+        />
+        <OrganicShape
+          className="-left-32 bottom-0 h-[38rem] w-[38rem]"
+          surface="glass"
+          path={1}
+          distance={50}
+          side="left"
+        />
 
-        <motion.div
-          className="mx-auto w-full max-w-[100rem] px-5 pb-14 pt-32 sm:px-10 sm:pb-16 sm:pt-40"
-          style={reduceMotion ? undefined : { opacity: foldFade }}
-        >
-          <Reveal delay={0.2}>
-            <p className="spec text-linen">Uji, Kyoto &rarr; your kitchen counter</p>
-          </Reveal>
+        <div className="relative mx-auto w-full max-w-[100rem]">
+          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+            {/* Left Column: Bold Typography & CTAs */}
+            <motion.div
+              className="lg:col-span-7"
+              style={reduceMotion ? undefined : { y: heroParallax }}
+            >
+              <Reveal delay={0.1}>
+                <div className="inline-flex items-center gap-2 px-4 py-1.5 glass-pill rounded-full mb-6">
+                  <span className="h-2 w-2 rounded-full bg-[#5C8A2E] animate-pulse" />
+                  <span className="spec text-[#4E6B3E] text-xs">Uji, Kyoto &rarr; Your Kitchen Counter</span>
+                </div>
+              </Reveal>
 
-          {/* The three lines climb out one after another, and the eyebrow, the
-              rule and the buttons are spaced around them so the fold assembles
-              over about a second and a half rather than appearing at once. */}
-          <h1 className="mt-6 max-w-5xl font-display text-mega tracking-display text-cream">
-            <Rise delay={0.35}>Matcha,</Rise>
-            <Rise delay={0.47}>minus the</Rise>
-            <Rise delay={0.59} className="text-linen">ceremony</Rise>
-          </h1>
+              <h1 className="font-display text-5xl sm:text-7xl lg:text-8xl tracking-tight text-[#232E1E] leading-[0.88]">
+                <Rise delay={0.25}>Pure Japanese</Rise>
+                <Rise delay={0.38} className="text-[#4E6B3E] italic">Uji Matcha.</Rise>
+              </h1>
 
-          {/* The fold's footer: the lede on the left, the two actions on the
-              right, divided from the headline by the heavy rule. */}
-          <div className="rule-heavy mt-14 border-linen pt-8 lg:grid lg:grid-cols-12 lg:gap-x-6">
-            <Reveal delay={0.95} className="lg:col-span-5">
-              <p className="max-w-md font-body text-lede text-linen">
-                Stone-ground leaf from a single region, blended with real fruit and sealed one
-                cup at a time. Tear it, stir it, drink it.
-              </p>
-            </Reveal>
-            <Reveal delay={1.1} className="mt-8 flex flex-wrap gap-3 lg:col-span-5 lg:col-start-8 lg:mt-0 lg:justify-end">
-              <Magnetic>
-                <Link to="/matchas" className="btn border-cream bg-cream text-cocoa hover:bg-olive hover:text-cream">
-                  Shop the sachets
-                </Link>
-              </Magnetic>
-              <Magnetic>
-                <Link to="/matcha-kits" className="btn-outline border-cream text-cream hover:bg-cream hover:text-cocoa">
-                  Try all five
-                </Link>
-              </Magnetic>
-            </Reveal>
-          </div>
-        </motion.div>
-      </section>
-
-      {/* ── THE CLAIM ────────────────────────────────────────────────────────
-          One dark room in the middle of a paper site. The sentence still runs
-          the section — it holds seven of twelve columns and nothing is allowed
-          to interrupt it — and the photograph beside it is the evidence for
-          the claim rather than decoration on top of it. */}
-      <section className="relative isolate overflow-hidden bg-ink py-24 sm:py-36">
-        <OrganicShape className="right-[-14%] top-1/2 h-[42rem] w-[42rem] -translate-y-1/2" surface="dark" distance={70} side="right" />
-        <div className="relative mx-auto max-w-[100rem] px-5 sm:px-10">
-          <div className="lg:grid lg:grid-cols-12 lg:items-center lg:gap-x-12">
-            <div className="lg:col-span-7">
-              <p className="spec text-linen">What is actually in it</p>
-              <h2 className="mt-8 max-w-5xl font-display text-major tracking-display text-cream">
-                <RiseInView>Most flavoured</RiseInView>
-                <RiseInView delay={0.08}>matcha is sugar</RiseInView>
-                <RiseInView delay={0.16}>with a green tint.</RiseInView>
-              </h2>
-              <Reveal delay={0.3} className="mt-10 max-w-xl">
-                <p className="font-serif text-lede italic text-linen">
-                  Ours is single-region leaf, stone-ground slowly enough not to scorch, then
-                  blended with real fruit rather than flavouring. You can taste which one you
-                  picked.
+              <Reveal delay={0.65} className="mt-8 max-w-xl">
+                <p className="font-body text-lg leading-relaxed text-[#232E1E]/80">
+                  Single-origin Uji matcha leaf, stone-ground on granite mills. Pre-portioned sachets, curated matcha kits, and premium gift hampers.
                 </p>
               </Reveal>
-            </div>
 
-            <div className="mt-12 lg:col-span-5 lg:mt-0">
-              <Photo photo={photos.toolsGreenWood} delay={0.15} className="aspect-[5/4] w-full" parallax={44} />
-              <p className="spec mt-4 text-linen">The same leaf, whisked the long way</p>
+              <Reveal delay={0.8} className="mt-10 flex flex-wrap items-center gap-4">
+                <Magnetic>
+                  <Link to="/matchas" className="btn border-[#4E6B3E] bg-[#4E6B3E] text-[#F8F5EB] shadow-lg">
+                    Matcha Powder &rarr;
+                  </Link>
+                </Magnetic>
+                <Magnetic>
+                  <Link to="/matcha-kits" className="btn-outline">
+                    Matcha Kits
+                  </Link>
+                </Magnetic>
+                <Magnetic>
+                  <Link to="/gift-hampers" className="btn-outline">
+                    Gift Hampers
+                  </Link>
+                </Magnetic>
+              </Reveal>
+
+              <Reveal delay={0.95} className="mt-12 border-t border-[#232E1E]/15 pt-6">
+                <div className="grid grid-cols-3 gap-6 max-w-lg">
+                  <div>
+                    <span className="block font-display text-2xl text-[#4E6B3E]">100%</span>
+                    <span className="spec text-[0.65rem] text-[#232E1E]/70">Single Origin</span>
+                  </div>
+                  <div>
+                    <span className="block font-display text-2xl text-[#4E6B3E]">Stone Ground</span>
+                    <span className="spec text-[0.65rem] text-[#232E1E]/70">Uji, Kyoto</span>
+                  </div>
+                  <div>
+                    <span className="block font-display text-2xl text-[#4E6B3E]">Up to 30%</span>
+                    <span className="spec text-[0.65rem] text-[#232E1E]/70">Bulk Savings</span>
+                  </div>
+                </div>
+              </Reveal>
+            </motion.div>
+
+            {/* Right Column: Featured Image */}
+            <div className="lg:col-span-5 relative">
+              <motion.div
+                initial={{ opacity: 0, scale: 0.94 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 1, delay: 0.3, ease: EASE }}
+                className="relative rounded-2xl glass-panel p-6 sm:p-8 shadow-2xl border border-[#232E1E]/15"
+              >
+                <div className="relative aspect-[4/5] w-full overflow-hidden rounded-lg shadow-md">
+                  <Photo photo={photos.counterKit} className="h-full w-full object-cover" priority />
+                  <div className="absolute top-4 right-4 glass-dark px-3 py-1.5 rounded-full text-xs font-mono font-bold tracking-widest text-[#F8F5EB]">
+                    BEST VALUE
+                  </div>
+                </div>
+
+                <div className="mt-6 flex items-center justify-between border-t border-[#232E1E]/12 pt-4">
+                  <div>
+                    <h3 className="font-display text-2xl text-[#232E1E]">Matcha Powder Pack of 20</h3>
+                    <p className="spec text-[#4E6B3E]">₹2,100 &middot; 30% OFF</p>
+                  </div>
+                  <Link to="/matchas" className="h-10 w-10 flex items-center justify-center rounded-full bg-[#4E6B3E] text-[#F8F5EB] hover:bg-[#232E1E] transition-colors">
+                    &rarr;
+                  </Link>
+                </div>
+              </motion.div>
             </div>
           </div>
         </div>
       </section>
 
-      {/* ── THE FIVE ─────────────────────────────────────────────────────────
-          An index, not a card grid. The plate on the left belongs to whichever
-          row is at eye level, so reading down the list plays the five flavours
-          in order without touching anything — and hovering still overrides it
-          for anyone browsing with a mouse. */}
-      <section ref={flavoursRef} className="relative isolate bg-camel py-24 sm:py-32">
-        {/* Straddles the seam with the dark section above it: a shape that
-            belongs to this section but pokes up past its own top edge,
-            visible over the last few pixels of the ink claim section behind
-            it. That is the actual technique — a shape crossing a boundary —
-            rather than a hard cut from one section's background to the
-            next. */}
-        <OrganicShape
-          className="left-1/2 top-[-6rem] h-[26rem] w-[min(38rem,88vw)] -translate-x-1/2"
-          surface="lightBold"
-          path={1}
-          distance={36}
-          side="left"
-          scaleRange={[0.92, 1.06]}
-        />
-        <div className="relative mx-auto max-w-[100rem] px-5 sm:px-10">
-          <div className="rule-heavy flex items-baseline justify-between gap-6 pt-8">
-            <h2 className="font-display text-minor tracking-display">Five flavours</h2>
-            <Link to="/matchas" className="link-draw font-mono text-spec uppercase">
-              All sachets
+      {/* ── MATCHA POWDER SECTION (PACK OPTIONS & SAVINGS) ────────────────────────── */}
+      <section className="relative bg-[#F8F5EB] py-24 sm:py-32 px-6 sm:px-10 border-t border-b border-[#232E1E]/10">
+        <div className="relative mx-auto max-w-[100rem]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-[#232E1E] pb-6 mb-12">
+            <div>
+              <span className="spec text-[#4E6B3E]">Single Serve Packets</span>
+              <h2 className="font-display text-4xl sm:text-6xl text-[#232E1E] mt-1">Matcha Powder</h2>
+              <p className="mt-2 font-body text-base text-[#232E1E]/80">
+                Choose from 5, 10, or 20 sachet packs. Save up to 30% on larger packs.
+              </p>
+            </div>
+            <Link to="/matchas" className="link-draw font-mono text-spec uppercase text-[#4E6B3E] font-bold mt-4 sm:mt-0">
+              View All Powder Packs &rarr;
             </Link>
           </div>
 
-          <div className="mt-12 lg:grid lg:grid-cols-12 lg:gap-x-10">
-            {/* The plate. Sticky on desktop so it stays with the reader as the
-                list moves; hidden on mobile, where each row carries its own. */}
-            <div className="hidden lg:col-span-4 lg:block">
-              <div className="relative">
-                {/* The one flagship Mello move on the site: a real organic
-                    shape, sized larger than the photo and offset behind it,
-                    peeking out at the corners rather than sitting hidden in
-                    a dark section. It never touches the photograph's own
-                    sharp frame — the plate stays exactly the rectangle it
-                    always was, drawn on top, in front of the shape. */}
-                <OrganicShape
-                  className="-left-12 -top-12 h-[124%] w-[124%]"
-                  surface="lightBold"
-                  distance={46}
-                  side="right"
-                />
-                <motion.div
-                  className="sticky top-28 aspect-[4/5] w-full"
-                  style={reduceMotion ? undefined : { rotate: plateRotate, y: plateY }}
-                >
-                {products.map((p, i) => (
-                  <motion.div
-                    key={p.id}
-                    aria-hidden={i !== active}
-                    initial={false}
-                    animate={{
-                      opacity: i === active ? 1 : 0,
-                      scale: i === active ? 1 : 1.03,
-                    }}
-                    transition={{ duration: 0.7, ease: EASE }}
-                    className="absolute inset-0"
-                  >
-                    <FlavorPlate item={p} />
-                  </motion.div>
-                ))}
-                </motion.div>
-              </div>
-            </div>
-
-            <ul className="lg:col-span-7 lg:col-start-6">
-              {products.map((p, i) => (
-                <FlavourRow
-                  key={p.id}
-                  index={i}
-                  isActive={i === active}
-                  onActivate={setActive}
-                >
-                  <Link to="/matchas" className="block">
-                    <div className="flex items-baseline gap-5">
-                      <span
-                        className={`index-num transition-colors duration-500 ${
-                          i === active ? 'text-olive' : ''
-                        }`}
-                      >
-                        {String(i + 1).padStart(2, '0')}
-                      </span>
-                      {/* The row holding the plate says so, quietly: it steps
-                          in from its numeral and takes the olive. */}
-                      <h3
-                        className={`font-display text-minor tracking-display transition-[color,transform] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:text-olive motion-reduce:transform-none ${
-                          i === active ? 'text-olive lg:translate-x-1' : ''
-                        }`}
-                      >
-                        {p.flavor}
-                      </h3>
-                    </div>
-                    <p className="mt-3 max-w-lg pl-11 font-body text-sm leading-relaxed text-bark">
-                      {p.blurb}
-                    </p>
-                    {/* Mobile carries the plate inline, since there is no room
-                        for a sticky companion and no hover to drive it. */}
-                    <div className="mt-5 pl-11 lg:hidden">
-                      <div className="aspect-[4/5] w-full max-w-[15rem]">
-                        <FlavorPlate item={p} />
-                      </div>
-                    </div>
-                  </Link>
-                </FlavourRow>
-              ))}
-            </ul>
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {powderProducts.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
+            ))}
           </div>
         </div>
       </section>
 
-      {/* ── METHOD ───────────────────────────────────────────────────────────
-          Three steps set as numerals on rules. No boxes, no icons. */}
-      <section className="bg-card py-24 sm:py-32">
-        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
-          <h2 className="max-w-3xl font-display text-major tracking-display">
-            <RiseInView>Ten seconds,</RiseInView>
-            <RiseInView delay={0.08}>start to finish.</RiseInView>
-          </h2>
+      {/* ── MATCHA KITS SECTION ───────────────────────────────────────────────────── */}
+      <section className="relative bg-[#E9E7D0] py-24 sm:py-32 px-6 sm:px-10 border-b border-[#232E1E]/10">
+        <div className="relative mx-auto max-w-[100rem]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-[#232E1E] pb-6 mb-12">
+            <div>
+              <span className="spec text-[#4E6B3E]">Curated Sets</span>
+              <h2 className="font-display text-4xl sm:text-6xl text-[#232E1E] mt-1">Matcha Kits</h2>
+              <p className="mt-2 font-body text-base text-[#232E1E]/80">
+                Essential Uji matcha kits designed for daily ritual.
+              </p>
+            </div>
+            <Link to="/matcha-kits" className="link-draw font-mono text-spec uppercase text-[#4E6B3E] font-bold mt-4 sm:mt-0">
+              View Matcha Kits &rarr;
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
+            {kitProducts.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── GIFT HAMPERS SECTION ──────────────────────────────────────────────────── */}
+      <section className="relative bg-[#F8F5EB] py-24 sm:py-32 px-6 sm:px-10 border-b border-[#232E1E]/10">
+        <div className="relative mx-auto max-w-[100rem]">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between border-b-2 border-[#232E1E] pb-6 mb-12">
+            <div>
+              <span className="spec text-[#4E6B3E]">Special Edition</span>
+              <h2 className="font-display text-4xl sm:text-6xl text-[#232E1E] mt-1">Gift Hampers</h2>
+              <p className="mt-2 font-body text-base text-[#232E1E]/80">
+                Premium boxed hampers for special occasions and gifting.
+              </p>
+            </div>
+            <Link to="/gift-hampers" className="link-draw font-mono text-spec uppercase text-[#4E6B3E] font-bold mt-4 sm:mt-0">
+              View Gift Hampers &rarr;
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 gap-8 sm:grid-cols-2 lg:grid-cols-2 max-w-4xl mx-auto">
+            {hamperProducts.map((product, i) => (
+              <ProductCard key={product.id} product={product} index={i} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── METHOD SECTION ────────────────────────────────────────────────────────── */}
+      <section className="bg-[#E9E7D0] py-24 sm:py-32 px-6 sm:px-10">
+        <div className="mx-auto max-w-[100rem]">
+          <div className="max-w-3xl">
+            <span className="spec text-[#4E6B3E]">Simple Preparation</span>
+            <h2 className="font-display text-4xl sm:text-6xl text-[#232E1E] mt-2">
+              Ten seconds, start to finish.
+            </h2>
+          </div>
 
           <div className="mt-16 grid gap-10 lg:grid-cols-12 lg:gap-x-12">
-            {/* The whole method, photographed: tin, sifter, whisk, glass. It
-                sits beside the steps rather than above them so the numerals
-                still carry the reading. */}
-            <div className="lg:col-span-3">
-              <Photo photo={photos.counterKit} className="w-full" natural parallax={38} />
-              <p className="spec mt-4">Everything the method needs</p>
+            <div className="lg:col-span-4">
+              <div className="glass-panel p-4 rounded-xl shadow-md">
+                <Photo photo={photos.counterKit} className="w-full rounded-lg" natural parallax={20} />
+                <p className="spec mt-4 px-2 text-[#4E6B3E]">Stone-ground Uji matcha</p>
+              </div>
             </div>
 
-            <div className="grid gap-y-10 sm:grid-cols-3 sm:gap-x-10 lg:col-span-8 lg:col-start-5">
+            <div className="grid gap-8 sm:grid-cols-3 lg:col-span-8">
               {STEPS.map((step, i) => (
-                <Reveal key={step.n} delay={i * 0.08} className="rule pt-5">
-                  <span className="index-num">{step.n}</span>
-                  <h3 className="mt-4 font-display text-xl tracking-display">{step.title}</h3>
-                  <p className="mt-3 font-body text-sm leading-relaxed text-bark">{step.body}</p>
+                <Reveal key={step.n} delay={i * 0.1}>
+                  <div className="glass-card p-6 rounded-xl h-full flex flex-col justify-between">
+                    <div>
+                      <span className="font-mono text-2xl font-bold text-[#4E6B3E]">{step.n}</span>
+                      <h3 className="mt-4 font-display text-2xl text-[#232E1E]">{step.title}</h3>
+                      <p className="mt-3 font-body text-sm leading-relaxed text-[#232E1E]/80">{step.body}</p>
+                    </div>
+                  </div>
                 </Reveal>
               ))}
             </div>
@@ -349,65 +252,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── MOOD MATCHER ─────────────────────────────────────────────────── */}
-      <section className="bg-camel py-24 sm:py-32">
-        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
-          <div className="rule-heavy pt-8">
-            <h2 className="font-display text-minor tracking-display">Pick by mood instead</h2>
-          </div>
-          <Reveal delay={0.1} className="mt-10">
-            <MoodMatcher />
-          </Reveal>
-        </div>
-      </section>
-
       <TaglineTicker />
 
-      {/* ── THE FIELD ────────────────────────────────────────────────────────
-          A breath before the close, set to the same pattern the story page
-          uses: half the width for the picture, the other half for what it is
-          a picture of. The photograph is never drawn wider than the file
-          actually is — stretched across the viewport it went soft — so the
-          column it does not need belongs to the copy. */}
-      <section className="bg-camel px-5 py-16 sm:px-10 sm:py-20">
-        <div className="mx-auto grid max-w-[100rem] gap-10 lg:grid-cols-12 lg:items-center lg:gap-x-12">
-          <div className="lg:col-span-6">
-            <Photo photo={photos.bowlsFlatlay} className="w-full" natural parallax={62} />
-          </div>
-
-          <div className="lg:col-span-5 lg:col-start-8">
-            <span className="index-num">Uji, Kyoto</span>
-            <h2 className="mt-4 font-display text-minor tracking-display">
-              Where the green comes from
-            </h2>
-            <p className="mt-5 max-w-lg font-body text-lede text-bark">
-              One shaded terrace, one family, and granite mills that turn out thirty grams an
-              hour. Everything we do after that is packaging.
-            </p>
-            <Link to="/our-story" className="link-draw mt-7 inline-block font-mono text-spec uppercase">
-              Read the whole story
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* ── CLOSE ────────────────────────────────────────────────────────── */}
-      <section className="bg-ink py-28 sm:py-40">
-        <div className="mx-auto max-w-[100rem] px-5 sm:px-10">
-          <h2 className="max-w-4xl font-display text-major tracking-display text-cream">
-            <RiseInView>Start with one</RiseInView>
-            <RiseInView delay={0.08}>of each.</RiseInView>
+      {/* ── CLOSE CTA SECTION ───────────────────────────────────────────────── */}
+      <section className="bg-[#232E1E] text-[#F8F5EB] py-28 sm:py-36 px-6 sm:px-10 relative overflow-hidden">
+        <OrganicShape className="left-[-10%] top-1/2 h-[38rem] w-[38rem] -translate-y-1/2" surface="dark" distance={40} side="left" />
+        <div className="relative mx-auto max-w-[100rem]">
+          <h2 className="max-w-4xl font-display text-5xl sm:text-7xl text-[#F8F5EB] leading-[0.9]">
+            <RiseInView>Japanese Uji Matcha</RiseInView>
+            <RiseInView delay={0.08} className="text-[#C4D2B8] italic">delivered to your door.</RiseInView>
           </h2>
-          <div className="rule mt-12 flex flex-col gap-8 border-linen pt-8 sm:flex-row sm:items-end sm:justify-between">
-            <p className="max-w-md font-serif text-lede italic text-linen">
-              The Discovery Pack is five sachets, one of every flavour. It is the shortest route
-              to knowing which one you actually reach for.
+          <div className="mt-12 flex flex-col gap-8 border-t border-[#F8F5EB]/20 pt-10 sm:flex-row sm:items-end sm:justify-between">
+            <p className="max-w-md font-serif text-xl italic text-[#C4D2B8]">
+              Single-origin Uji matcha sachets, curated kits, and gift hampers.
             </p>
             <Link
-              to="/matcha-kits"
-              className="btn shrink-0 border-cream bg-cream text-cocoa hover:bg-olive hover:text-cream"
+              to="/matchas"
+              className="btn border-[#F8F5EB] bg-[#F8F5EB] text-[#232E1E] hover:bg-[#4E6B3E] hover:text-[#F8F5EB] hover:border-[#4E6B3E] shadow-xl shrink-0"
             >
-              See the bundles
+              Shop Matcha Powder &rarr;
             </Link>
           </div>
         </div>

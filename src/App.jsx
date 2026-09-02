@@ -11,16 +11,11 @@ import { ShopifyProvider } from './context/ShopifyContext'
 import { ToastProvider } from './components/Toast'
 import Home from './pages/Home'
 import Matchas from './pages/Matchas'
-import DiyKits from './pages/DiyKits'
 import MatchaKits from './pages/MatchaKits'
+import GiftHampers from './pages/GiftHampers'
 import OurStory from './pages/OurStory'
 import NotFound from './pages/NotFound'
 
-// Route changes should land at the top of the new page, not wherever the
-// previous page happened to be scrolled to. Routed through the smooth-scroll
-// instance when one exists: a plain window.scrollTo would be intercepted and
-// animated, so arriving on a new page would look like being thrown up the old
-// one.
 function ScrollToTop() {
   const { pathname } = useLocation()
   useEffect(() => {
@@ -29,17 +24,12 @@ function ScrollToTop() {
   return null
 }
 
-// Smooth scrolling for pointer devices. Everything scroll-linked on the site
-// reads better against an eased scroll position than against a stepped one, so
-// this is set up once, above the router, and torn down with the app.
 function useSmoothScroll() {
   useEffect(() => initSmoothScroll(), [])
 }
 
 function useMetaPixelPageViews() {
   const location = useLocation()
-  // index.html already tracks the first PageView. Keeping the last path in a
-  // ref also prevents React Strict Mode's effect replay from creating one.
   const lastTrackedPath = useRef(location.pathname)
 
   useEffect(() => {
@@ -69,11 +59,10 @@ export default function App() {
               <Routes location={location} key={location.pathname}>
                 <Route path="/" element={<Home />} />
                 <Route path="/matchas" element={<Matchas />} />
-                <Route path="/diy-kits" element={<DiyKits />} />
                 <Route path="/matcha-kits" element={<MatchaKits />} />
+                <Route path="/gift-hampers" element={<GiftHampers />} />
+                <Route path="/diy-kits" element={<GiftHampers />} />
                 <Route path="/our-story" element={<OurStory />} />
-                {/* Anything else. Without this the router matched nothing and
-                    rendered a header and footer around an empty middle. */}
                 <Route path="*" element={<NotFound />} />
               </Routes>
             </AnimatePresence>

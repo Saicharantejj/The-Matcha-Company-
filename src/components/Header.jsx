@@ -6,29 +6,12 @@ import { setSmoothScrollPaused } from '../lib/smoothScroll'
 import { EASE } from './Motion'
 
 const NAV_LINKS = [
-  { to: '/matchas', label: 'Sachets' },
-  { to: '/matcha-kits', label: 'Bundles' },
-  { to: '/diy-kits', label: 'Recipes' },
-  { to: '/our-story', label: 'Uji' },
+  { to: '/matchas', label: 'Matcha Powder' },
+  { to: '/matcha-kits', label: 'Matcha Kits' },
+  { to: '/gift-hampers', label: 'Gift Hampers' },
+  { to: '/our-story', label: 'Our Story' },
 ]
 
-/**
- * Site chrome.
- *
- * Two things went. The scrolling ticker that used to sit above the bar — a
- * strip of shouting capitals in the first 30px of every page — and the cart
- * button's offset shadow, which made the most utilitarian control on the site
- * also the loudest thing in the header.
- *
- * What replaced them: the bar is transparent over the top of a page and only
- * draws its paper and its hairline once you have scrolled past the fold, so the
- * landing page opens on an uninterrupted image. Navigation is set small and
- * wide-tracked, and hover is an underline drawn in from the left rather than a
- * colour change.
- *
- * Mobile gets a composed full-screen panel rather than the old squeezed
- * dropdown: the same four destinations set large enough to be the page.
- */
 export default function Header() {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
@@ -43,10 +26,8 @@ export default function Header() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  // A route change should never leave the panel hanging open behind the new page.
   useEffect(() => setMenuOpen(false), [pathname])
 
-  // The panel takes over the screen, so the page underneath must not scroll.
   useEffect(() => {
     document.body.style.overflow = menuOpen ? 'hidden' : ''
     setSmoothScrollPaused(menuOpen)
@@ -58,32 +39,28 @@ export default function Header() {
 
   return (
     <header
-      className={`sticky top-0 z-50 transition-[background-color,backdrop-filter,border-color] duration-500 ${
-        scrolled && !menuOpen
-          ? 'border-b border-ink/15 bg-camel/75 backdrop-blur-md backdrop-saturate-150'
-          : menuOpen
-            ? 'border-b border-ink bg-camel'
-            : 'border-b border-transparent bg-camel'
+      className={`sticky top-0 z-50 transition-all duration-500 ${
+        scrolled || menuOpen
+          ? 'bg-[#F8F5EB]/90 backdrop-blur-xl border-b border-[#232E1E]/12 shadow-sm'
+          : 'bg-[#E9E7D0]/70 backdrop-blur-md border-b border-transparent'
       }`}
     >
-      <div className="mx-auto flex max-w-[100rem] items-center justify-between px-5 py-5 sm:px-10">
+      <div className="mx-auto flex max-w-[100rem] items-center justify-between px-6 py-5 sm:px-10">
         <NavLink to="/" aria-label="Drink Yojo — home" className="relative z-10">
-          {/* Set as type rather than the old bitmap wordmark: the picture
-              said the old name and could not be repainted, and Archivo Black
-              is the face that picture was drawn in anyway. */}
-          {/* The wordmark settles in before the nav does, so the bar assembles
-              left to right rather than appearing all at once. */}
-          <motion.span
+          <motion.div
             aria-hidden="true"
-            className="block font-display uppercase leading-[0.8] tracking-display text-cocoa"
-            style={{ fontSize: 'clamp(0.95rem, 1.2vw, 1.1rem)' }}
+            className="flex items-center gap-3"
             initial={reduceMotion ? false : { opacity: 0, y: -6 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, ease: EASE }}
           >
-            <span className="block">Drink</span>
-            <span className="block">Yojo</span>
-          </motion.span>
+            <span className="block font-display text-2xl uppercase leading-none tracking-tight text-[#232E1E] font-bold">
+              Drink Yōjō
+            </span>
+            <span className="hidden sm:inline-block px-2.5 py-0.5 text-[0.65rem] font-mono font-bold uppercase tracking-widest text-[#4E6B3E] bg-[#C4D2B0]/40 border border-[#4E6B3E]/20 rounded-full">
+              Uji Matcha
+            </span>
+          </motion.div>
         </NavLink>
 
         <nav aria-label="Primary" className="hidden items-center gap-10 lg:flex">
@@ -97,7 +74,9 @@ export default function Header() {
               <NavLink
                 to={link.to}
                 className={({ isActive }) =>
-                  `link-draw font-mono text-spec uppercase ${isActive ? 'text-olive' : 'text-cocoa'}`
+                  `link-draw font-mono text-spec uppercase tracking-widest ${
+                    isActive ? 'text-[#4E6B3E] font-bold' : 'text-[#232E1E] hover:text-[#4E6B3E]'
+                  }`
                 }
               >
                 {link.label}
@@ -116,11 +95,14 @@ export default function Header() {
             type="button"
             onClick={openCart}
             aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
-            animate={lastAddedId && !reduceMotion ? { opacity: [1, 0.4, 1] } : { opacity: 1 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
-            className="link-draw font-mono text-spec uppercase"
+            animate={lastAddedId && !reduceMotion ? { scale: [1, 1.08, 1] } : { scale: 1 }}
+            transition={{ duration: 0.4 }}
+            className="group relative inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#4E6B3E] text-[#F8F5EB] font-mono text-spec uppercase tracking-widest shadow-md hover:bg-[#232E1E] transition-all duration-300"
           >
-            Cart <span className="tabular-nums">({cartCount})</span>
+            <span>Cart</span>
+            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#F8F5EB] text-[#232E1E] text-[0.7rem] font-bold tabular-nums">
+              {cartCount}
+            </span>
           </motion.button>
 
           <button
@@ -128,16 +110,11 @@ export default function Header() {
             aria-label={menuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={menuOpen}
             onClick={() => setMenuOpen((v) => !v)}
-            className="flex h-6 w-6 flex-col items-center justify-center gap-[5px] lg:hidden"
+            className="flex h-8 w-8 items-center justify-center rounded-full border border-[#232E1E]/20 bg-[#F8F5EB] lg:hidden"
           >
             <span
-              className={`h-px w-5 bg-cocoa transition-transform duration-300 ${
-                menuOpen ? 'translate-y-[3px] rotate-45' : ''
-              }`}
-            />
-            <span
-              className={`h-px w-5 bg-cocoa transition-transform duration-300 ${
-                menuOpen ? '-translate-y-[3px] -rotate-45' : ''
+              className={`h-0.5 w-4 bg-[#232E1E] transition-transform duration-300 ${
+                menuOpen ? 'rotate-45 translate-y-[1px]' : '-translate-y-1'
               }`}
             />
           </button>
@@ -147,35 +124,38 @@ export default function Header() {
       <AnimatePresence>
         {menuOpen && (
           <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.35, ease: EASE }}
-            className="fixed inset-0 top-[73px] z-40 bg-camel lg:hidden"
+            className="fixed inset-0 top-[73px] z-40 bg-[#F8F5EB]/98 backdrop-blur-2xl lg:hidden"
           >
-            <nav aria-label="Primary" className="flex h-full flex-col justify-between px-5 pb-12 pt-8">
-              <ul>
+            <nav aria-label="Primary" className="flex h-full flex-col justify-between px-6 pb-12 pt-8">
+              <ul className="space-y-4">
                 {NAV_LINKS.map((link, i) => (
                   <motion.li
                     key={link.to}
-                    initial={reduceMotion ? false : { opacity: 0, y: 14 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.06 + i * 0.06, duration: 0.5, ease: EASE }}
-                    className="rule py-5 first:border-t-0"
+                    initial={reduceMotion ? false : { opacity: 0, x: -16 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ delay: 0.06 + i * 0.06, duration: 0.4, ease: EASE }}
+                    className="border-b border-[#232E1E]/10 pb-4"
                   >
                     <NavLink
                       to={link.to}
-                      className="flex items-baseline justify-between font-display text-minor tracking-display"
+                      className="flex items-center justify-between font-display text-3xl text-[#232E1E]"
                     >
                       {link.label}
-                      <span className="index-num">{String(i + 1).padStart(2, '0')}</span>
+                      <span className="index-num text-lg">{String(i + 1).padStart(2, '0')}</span>
                     </NavLink>
                   </motion.li>
                 ))}
               </ul>
-              <p className="font-serif text-lede italic text-bark">
-                Stone-ground in Uji. Opened at your kitchen counter.
-              </p>
+              <div className="p-6 glass-panel rounded-lg">
+                <p className="spec text-[#4E6B3E] mb-2">Single-Region Uji Matcha</p>
+                <p className="font-serif text-lg italic text-[#232E1E]">
+                  Stone-ground in Uji, Kyoto. Enjoyed on your kitchen counter in ten seconds.
+                </p>
+              </div>
             </nav>
           </motion.div>
         )}

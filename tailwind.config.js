@@ -22,6 +22,12 @@ export default {
         matcha: '#5C8A2E', // Product green (drink liquid only)
 
         cream: '#F8F5EB',  // Light ivory
+
+        // Glass surfaces (used via .glass utilities in index.css,
+        // these tokens are for inline Tailwind where needed)
+        'glass-ivory': 'rgba(248, 245, 235, 0.55)',
+        'glass-warm': 'rgba(248, 245, 235, 0.65)',
+        'glass-border': 'rgba(35, 46, 30, 0.08)',
       },
       fontFamily: {
         display: ['"Instrument Serif"', 'Georgia', 'serif'],
@@ -44,17 +50,20 @@ export default {
         hard: '4px 4px 0px 0px #232E1E',
         'hard-sm': '2px 2px 0px 0px #232E1E',
         'hard-olive': '4px 4px 0px 0px #4E6B3E',
+        // Glass shadows — warm, soft, directional
+        'glass': '0 1px 2px rgba(35,46,30,0.04), 0 4px 16px rgba(35,46,30,0.03)',
+        'glass-lg': '0 2px 4px rgba(35,46,30,0.05), 0 8px 32px rgba(35,46,30,0.04)',
+        'glass-xl': '0 4px 8px rgba(35,46,30,0.06), 0 16px 48px rgba(35,46,30,0.05)',
       },
       fontSize: {
-        mega: ['clamp(2.75rem, 8.5vw, 8rem)', { lineHeight: '0.82', letterSpacing: '-0.035em' }],
+        // Cinematic hero — even larger for editorial impact
+        mega: ['clamp(3rem, 9vw, 8.5rem)', { lineHeight: '0.82', letterSpacing: '-0.035em' }],
         major: ['clamp(2.25rem, 5.6vw, 4.5rem)', { lineHeight: '0.88', letterSpacing: '-0.028em' }],
         minor: ['clamp(1.75rem, 3.4vw, 2.75rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
         lede: ['clamp(1.0625rem, 1.5vw, 1.375rem)', { lineHeight: '1.5', letterSpacing: '-0.01em' }],
         spec: ['0.6875rem', { lineHeight: '1.2', letterSpacing: '0.16em' }],
       },
       letterSpacing: {
-        // Archivo Black is a heavy grotesque like the wordmark — it wants to be
-        // set tight, not letterspaced the way the old light display face was.
         display: '-0.02em',
       },
       keyframes: {
@@ -70,6 +79,15 @@ export default {
       animation: {
         marquee: 'marquee 22s linear infinite',
         marqueeSlow: 'marqueeSlow 45s linear infinite',
+      },
+      transitionTimingFunction: {
+        'out-expo': 'cubic-bezier(0.22, 1, 0.36, 1)',
+      },
+      transitionDuration: {
+        '600': '600ms',
+        '800': '800ms',
+        '900': '900ms',
+        '1100': '1100ms',
       },
     },
   },
