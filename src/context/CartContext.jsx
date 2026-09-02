@@ -83,11 +83,16 @@ export function CartProvider({ children }) {
     }
 
     const addItem = async (item, kind = 'sachet') => {
-      // Must have a real Shopify variant ID
-      const variantId = item?.variantId || item?.id
-      if (!variantId || typeof variantId !== 'string' || !variantId.startsWith('gid://shopify/')) {
-        console.error('Cannot add item without valid Shopify variant ID:', item)
-        setError('Invalid Shopify product variant.')
+      const variantId =
+        item?.variantId ||
+        (typeof item?.id === 'string' && item.id.startsWith('gid://shopify/ProductVariant/')
+          ? item.id
+          : null)
+
+      if (!variantId) {
+        const itemName = item?.name || item?.flavor || 'This item'
+        console.warn(`Cannot add "${itemName}" to Shopify cart: no Shopify variant ID mapped.`)
+        setError(`"${itemName}" does not have a Shopify variant assigned yet.`)
         return
       }
 
