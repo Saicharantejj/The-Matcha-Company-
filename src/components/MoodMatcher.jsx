@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { moods, products } from '../data/products'
+import { moods } from '../data/products'
+import { useShopifyProducts } from '../context/ShopifyContext'
 import FlavorPlate from './FlavorPlate'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
@@ -16,11 +17,12 @@ import { useMetaPixelProductView } from '../lib/metaPixel'
  * active one held in olive, with the recommendation opposite.
  */
 export default function MoodMatcher() {
+  const { products } = useShopifyProducts()
   const [activeId, setActiveId] = useState(moods[0].id)
   const { addItem, openCart } = useCart()
   const { notify } = useToast()
   const active = moods.find((m) => m.id === activeId)
-  const activeProduct = products.find((p) => p.id === active.productId)
+  const activeProduct = products.find((p) => p.id === active.productId) || products[0]
   const productRef = useMetaPixelProductView(activeProduct)
 
   const handleAdd = () => {

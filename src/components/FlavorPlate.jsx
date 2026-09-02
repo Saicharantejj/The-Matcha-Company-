@@ -13,10 +13,22 @@ import { photos } from '../data/photos'
  * The caller owns the shape. This fills it.
  */
 export default function FlavorPlate({ item, className = '' }) {
-  const photo = photos[item.photo]
+  if (item?.imageUrl) {
+    return (
+      <img
+        src={item.imageUrl}
+        alt={item.imageAlt || item.title || item.name || item.flavor}
+        loading="lazy"
+        decoding="async"
+        className={`h-full w-full object-cover ${className}`}
+      />
+    )
+  }
+
+  const photo = photos[item?.photo]
 
   if (!photo) {
-    return <SachetGraphic swatch={item.swatch} flavor={item.flavor} className={className} />
+    return <SachetGraphic swatch={item?.swatch || 'matcha'} flavor={item?.flavor || item?.name} className={className} />
   }
 
   return (

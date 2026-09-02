@@ -9,8 +9,8 @@ import MoodMatcher from '../components/MoodMatcher'
 import TaglineTicker from '../components/TaglineTicker'
 import FlavorPlate from '../components/FlavorPlate'
 import Photo from '../components/Photo'
-import { products } from '../data/products'
 import { photos } from '../data/photos'
+import { useShopifyProducts } from '../context/ShopifyContext'
 
 const STEPS = [
   { n: '01', title: 'Tear', body: 'One sachet, one cup. The ratio is already decided, so there is nothing to measure and nothing to get wrong.' },
@@ -59,6 +59,7 @@ function FlavourRow({ index, isActive, onActivate, children }) {
 }
 
 export default function Home() {
+  const { products } = useShopifyProducts()
   const [active, setActive] = useState(0)
   const heroRef = useRef(null)
   const flavoursRef = useRef(null)

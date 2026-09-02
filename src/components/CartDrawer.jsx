@@ -112,7 +112,7 @@ const EMPTY_DETAILS = {
 }
 
 export default function CartDrawer() {
-  const { lines, count, isOpen, closeCart, increment, decrement, removeItem, clearCart } = useCart()
+  const { lines, count, cartCost, checkoutUrl, error: cartError, isOpen, closeCart, increment, decrement, removeItem, clearCart } = useCart()
   const [placed, setPlaced] = useState(null)
   const [checkingOut, setCheckingOut] = useState(false)
   const [details, setDetails] = useState(EMPTY_DETAILS)
@@ -192,9 +192,13 @@ export default function CartDrawer() {
 
   const beginCheckout = () => {
     if (checkoutStartedRef.current || lines.length === 0) return
+    if (!checkoutUrl || typeof checkoutUrl !== 'string') {
+      setError('Checkout is temporarily unavailable. Please try again.')
+      return
+    }
     checkoutStartedRef.current = true
     trackInitiateCheckout(lines)
-    setCheckingOut(true)
+    window.location.href = checkoutUrl
   }
 
   return (
@@ -299,9 +303,16 @@ export default function CartDrawer() {
                               {KIND_LABEL[line.kind] || 'Item'}
                               {line.size ? ` · ${line.size}` : ''}
                             </p>
-                            <h3 className="mt-1 font-display text-sm leading-snug tracking-display">
-                              {line.name}
-                            </h3>
+                            <div className="flex items-start justify-between gap-2">
+                              <h3 className="mt-1 font-display text-sm leading-snug tracking-display">
+                                {line.name}
+                              </h3>
+                              {line.price && (
+                                <span className="mt-1 font-mono text-xs tabular-nums text-cocoa shrink-0">
+                                  {line.currency === 'INR' ? '₹' : ''}{line.price} {line.currency !== 'INR' ? line.currency : ''}
+                                </span>
+                              )}
+                            </div>
 
                             <div className="mt-3 flex items-center gap-3">
                               <QtyStepper
@@ -381,6 +392,19 @@ export default function CartDrawer() {
                         <span className="text-bark">Total items</span>
                         <span className="tabular-nums text-cocoa">{count}</span>
                       </div>
+                      {cartCost?.subtotalAmount && (
+                        <div className="mt-2 flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
+                          <span className="text-bark">Subtotal</span>
+                          <span className="tabular-nums text-cocoa">
+                            {cartCost.currencyCode === 'INR' ? '₹' : ''}{cartCost.subtotalAmount} {cartCost.currencyCode !== 'INR' ? cartCost.currencyCode : ''}
+                          </span>
+                        </div>
+                      )}
+                      {cartError && (
+                        <p role="alert" className="mt-3 border-l-2 border-olive pl-3 font-body text-xs text-cocoa">
+                          {cartError}
+                        </p>
+                      )}
                       <p className="mt-3 font-body text-xs leading-relaxed text-bark">
                         We confirm pricing and delivery by email — nothing is charged here.
                       </p>

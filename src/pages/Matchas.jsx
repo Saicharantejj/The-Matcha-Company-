@@ -5,11 +5,9 @@ import PageShell from '../components/PageShell'
 import Reveal, { Rise, EASE } from '../components/Motion'
 import ProductCard from '../components/ProductCard'
 import Photo from '../components/Photo'
-import { products } from '../data/products'
 import { photos } from '../data/photos'
 import { useMetaPixelCategoryView } from '../lib/metaPixel'
-
-const ALL_TAGS = [...new Set(products.flatMap((p) => p.tags ?? []))]
+import { useShopifyProducts } from '../context/ShopifyContext'
 
 /**
  * The catalogue.
@@ -24,6 +22,7 @@ const ALL_TAGS = [...new Set(products.flatMap((p) => p.tags ?? []))]
  * one in olive with a rule under it.
  */
 export default function Matchas() {
+  const { products } = useShopifyProducts()
   const [active, setActive] = useState(null)
   const heroRef = useRef(null)
   const reduceMotion = useReducedMotion()
@@ -37,9 +36,11 @@ export default function Matchas() {
   const groundScale = useTransform(heroProgress, [0, 1], [1, 1.06])
   const foldFade = useTransform(heroProgress, [0, 0.75], [1, 0])
 
+  const ALL_TAGS = useMemo(() => [...new Set(products.flatMap((p) => p.tags ?? []))], [products])
+
   const visible = useMemo(
     () => (active ? products.filter((p) => p.tags?.includes(active)) : products),
-    [active],
+    [active, products],
   )
 
   return (

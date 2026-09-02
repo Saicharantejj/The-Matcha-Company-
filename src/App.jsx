@@ -7,6 +7,7 @@ import CartDrawer from './components/CartDrawer'
 import GrainOverlay from './components/GrainOverlay'
 import { initSmoothScroll, scrollToTopImmediately } from './lib/smoothScroll'
 import { CartProvider } from './context/CartContext'
+import { ShopifyProvider } from './context/ShopifyContext'
 import { ToastProvider } from './components/Toast'
 import Home from './pages/Home'
 import Matchas from './pages/Matchas'
@@ -57,30 +58,32 @@ export default function App() {
   useMetaPixelPageViews()
 
   return (
-    <CartProvider>
-      <ToastProvider>
-        <div className="flex min-h-screen flex-col">
-          <ScrollToTop />
-          <Header />
+    <ShopifyProvider>
+      <CartProvider>
+        <ToastProvider>
+          <div className="flex min-h-screen flex-col">
+            <ScrollToTop />
+            <Header />
 
-          <AnimatePresence mode="wait" initial={false}>
-            <Routes location={location} key={location.pathname}>
-              <Route path="/" element={<Home />} />
-              <Route path="/matchas" element={<Matchas />} />
-              <Route path="/diy-kits" element={<DiyKits />} />
-              <Route path="/matcha-kits" element={<MatchaKits />} />
-              <Route path="/our-story" element={<OurStory />} />
-              {/* Anything else. Without this the router matched nothing and
-                  rendered a header and footer around an empty middle. */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AnimatePresence>
+            <AnimatePresence mode="wait" initial={false}>
+              <Routes location={location} key={location.pathname}>
+                <Route path="/" element={<Home />} />
+                <Route path="/matchas" element={<Matchas />} />
+                <Route path="/diy-kits" element={<DiyKits />} />
+                <Route path="/matcha-kits" element={<MatchaKits />} />
+                <Route path="/our-story" element={<OurStory />} />
+                {/* Anything else. Without this the router matched nothing and
+                    rendered a header and footer around an empty middle. */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AnimatePresence>
 
-          <Footer />
-          <CartDrawer />
-          <GrainOverlay />
-        </div>
-      </ToastProvider>
-    </CartProvider>
+            <Footer />
+            <CartDrawer />
+            <GrainOverlay />
+          </div>
+        </ToastProvider>
+      </CartProvider>
+    </ShopifyProvider>
   )
 }

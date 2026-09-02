@@ -1,102 +1,193 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { trackAddToCart } from '../lib/metaPixel'
+import {
+  createShopifyCart,
+  getShopifyCart,
+  addShopifyCartLines,
+  updateShopifyCartLines,
+  removeShopifyCartLines,
+} from '../lib/shopify'
 
 const CartContext = createContext(null)
 
-const STORAGE_KEY = 'tmc.cart.v1'
+const CART_ID_KEY = 'tmc.shopify_cart_id.v1'
 
-// localStorage can be absent, blocked, or throw outright (private windows,
-// embedded previews, browsers set to block site data). Every read and write is
-// guarded so the cart silently falls back to in-memory state instead of
-// breaking the page.
-function readStoredCart() {
+function getStoredCartId() {
   try {
-    const raw = window.localStorage.getItem(STORAGE_KEY)
-    if (!raw) return []
-    const parsed = JSON.parse(raw)
-    if (!Array.isArray(parsed)) return []
-    return parsed.filter((line) => line && line.id && typeof line.qty === 'number')
+    return window.localStorage.getItem(CART_ID_KEY) || null
   } catch {
-    return []
+    return null
   }
 }
 
-function writeStoredCart(lines) {
+function setStoredCartId(cartId) {
   try {
-    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(lines))
+    if (cartId) {
+      window.localStorage.setItem(CART_ID_KEY, cartId)
+    } else {
+      window.localStorage.removeItem(CART_ID_KEY)
+    }
   } catch {
-    /* storage unavailable — cart still works for this session */
+    /* storage unavailable */
   }
 }
 
 export function CartProvider({ children }) {
-  // Lines are { id, name, kind, flavor, size, swatch, qty }
-  const [lines, setLines] = useState(readStoredCart)
+  const [cartState, setCartState] = useState(null)
   const [isOpen, setIsOpen] = useState(false)
-  // Bumps every time something is added, so the header badge can react.
   const [lastAddedId, setLastAddedId] = useState(null)
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
 
+  // On mount, restore existing cart from Shopify if cart ID exists in localStorage
   useEffect(() => {
-    writeStoredCart(lines)
-  }, [lines])
-
-  const value = useMemo(() => {
-    const count = lines.reduce((sum, line) => sum + line.qty, 0)
-
-    const addItem = (item, kind = 'sachet') => {
-      if (!item?.id) return
-      setLines((prev) => {
-        const existing = prev.find((line) => line.id === item.id)
-        if (existing) {
-          return prev.map((line) =>
-            line.id === item.id ? { ...line, qty: line.qty + 1 } : line,
-          )
-        }
-        return [
-          ...prev,
-          {
-            id: item.id,
-            name: item.name,
-            kind,
-            flavor: item.flavor ?? null,
-            size: item.size ?? null,
-            swatch: item.swatch ?? 'matcha',
-            price: item.price ?? null,
-            currency: item.currency ?? null,
-            qty: 1,
-          },
-        ]
-      })
-      // A valid item is accepted into this in-memory cart synchronously, so
-      // this represents a successful add rather than merely a button click.
-      trackAddToCart(item)
-      setLastAddedId(item.id)
-      window.setTimeout(() => setLastAddedId(null), 1500)
+    let isMounted = true
+    const storedId = getStoredCartId()
+    if (!storedId) {
+      setLoading(false)
+      return
     }
 
-    const setQty = (id, qty) => {
-      setLines((prev) =>
-        qty <= 0
-          ? prev.filter((line) => line.id !== id)
-          : prev.map((line) => (line.id === id ? { ...line, qty } : line)),
-      )
+    getShopifyCart(storedId)
+      .then((cart) => {
+        if (!isMounted) return
+        if (cart) {
+          setCartState(cart)
+        } else {
+          setStoredCartId(null)
+        }
+        setLoading(false)
+      })
+      .catch(() => {
+        if (!isMounted) return
+        setStoredCartId(null)
+        setLoading(false)
+      })
+
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
+  const value = useMemo(() => {
+    const lines = cartState?.lines || []
+    const count = cartState?.totalQuantity || 0
+    const cartCost = cartState?.cost || null
+
+    const handleCartUpdate = (newCart) => {
+      if (newCart) {
+        setCartState(newCart)
+        setStoredCartId(newCart.id)
+        setError(null)
+      }
+    }
+
+    const addItem = async (item, kind = 'sachet') => {
+      // Must have a real Shopify variant ID
+      const variantId = item?.variantId || item?.id
+      if (!variantId || typeof variantId !== 'string' || !variantId.startsWith('gid://shopify/')) {
+        console.error('Cannot add item without valid Shopify variant ID:', item)
+        setError('Invalid Shopify product variant.')
+        return
+      }
+
+      setLoading(true)
+      setError(null)
+
+      try {
+        let updatedCart = null
+        const currentCartId = cartState?.id || getStoredCartId()
+
+        if (!currentCartId) {
+          updatedCart = await createShopifyCart(variantId, 1)
+        } else {
+          try {
+            updatedCart = await addShopifyCartLines(currentCartId, variantId, 1)
+          } catch (err) {
+            // If existing cart ID expired or invalid, fall back to creating new cart
+            updatedCart = await createShopifyCart(variantId, 1)
+          }
+        }
+
+        handleCartUpdate(updatedCart)
+        trackAddToCart(item)
+
+        const addedLine = updatedCart.lines.find((l) => l.variantId === variantId)
+        if (addedLine) {
+          setLastAddedId(addedLine.id)
+          window.setTimeout(() => setLastAddedId(null), 1500)
+        }
+      } catch (err) {
+        console.error('Shopify Cart addItem error:', err)
+        setError(err.message || 'Could not add product to cart.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    const setQty = async (lineId, qty) => {
+      if (!cartState?.id || !lineId) return
+      setLoading(true)
+      setError(null)
+      try {
+        let updatedCart
+        if (qty <= 0) {
+          updatedCart = await removeShopifyCartLines(cartState.id, lineId)
+        } else {
+          updatedCart = await updateShopifyCartLines(cartState.id, lineId, qty)
+        }
+        handleCartUpdate(updatedCart)
+      } catch (err) {
+        console.error('Shopify Cart update error:', err)
+        setError(err.message || 'Could not update quantity.')
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    const increment = (lineId) => {
+      const line = lines.find((l) => l.id === lineId)
+      if (line) {
+        setQty(lineId, line.qty + 1)
+      }
+    }
+
+    const decrement = (lineId) => {
+      const line = lines.find((l) => l.id === lineId)
+      if (line) {
+        setQty(lineId, line.qty - 1)
+      }
+    }
+
+    const removeItem = (lineId) => {
+      setQty(lineId, 0)
+    }
+
+    const clearCart = async () => {
+      setCartState(null)
+      setStoredCartId(null)
+      setError(null)
     }
 
     return {
       lines,
       count,
+      cartCost,
+      checkoutUrl: cartState?.checkoutUrl || null,
       isOpen,
       lastAddedId,
+      loading,
+      error,
       addItem,
       setQty,
-      increment: (id) => setQty(id, (lines.find((l) => l.id === id)?.qty ?? 0) + 1),
-      decrement: (id) => setQty(id, (lines.find((l) => l.id === id)?.qty ?? 0) - 1),
-      removeItem: (id) => setLines((prev) => prev.filter((line) => line.id !== id)),
-      clearCart: () => setLines([]),
+      increment,
+      decrement,
+      removeItem,
+      clearCart,
       openCart: () => setIsOpen(true),
       closeCart: () => setIsOpen(false),
     }
-  }, [lines, isOpen, lastAddedId])
+  }, [cartState, isOpen, lastAddedId, loading, error])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }
