@@ -91,7 +91,7 @@ export function ShopifyProvider({ children }) {
 
           return {
             ...localProduct,
-            variantId: null,
+            variantId: localProduct.variantId || null,
           }
         })
 

@@ -19,6 +19,7 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'matcha',
     blurb: '5 single-serve sachets of stone-ground Japanese Uji matcha powder.',
     handle: 'matcha-powder-pack-of-5',
+    variantId: 'gid://shopify/ProductVariant/53806558675238',
   },
   {
     id: 'matcha-powder-10',
@@ -36,6 +37,7 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'matcha',
     blurb: '10 single-serve sachets of stone-ground Japanese Uji matcha powder.',
     handle: 'matcha-powder-pack-of-10',
+    variantId: 'gid://shopify/ProductVariant/53806572372262',
   },
   {
     id: 'matcha-powder-20',
@@ -53,6 +55,7 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'matcha',
     blurb: '20 single-serve sachets of stone-ground Japanese Uji matcha powder.',
     handle: 'matcha-powder-pack-of-20',
+    variantId: 'gid://shopify/ProductVariant/53806576402726',
   },
 
   // ── MATCHA KITS ─────────────────────────────────────────────────────────────
@@ -71,6 +74,7 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'moss',
     blurb: 'Contents being finalized.',
     handle: 'basic-matcha-kit',
+    variantId: 'gid://shopify/ProductVariant/53806586691878',
   },
   {
     id: 'premium-matcha-kit',
@@ -87,13 +91,14 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'moss',
     blurb: 'Contents being finalized.',
     handle: 'premium-matcha-kit',
+    variantId: 'gid://shopify/ProductVariant/53806589640998',
   },
 
   // ── GIFT HAMPERS ───────────────────────────────────────────────────────────
   {
     id: 'essential-gift-hamper',
-    name: 'Essential Gift Hamper',
-    flavor: 'Essential Gift Hamper',
+    name: 'Basic Gift Hamper',
+    flavor: 'Basic Gift Hamper',
     category: 'Gift Hampers',
     size: 'Gift Hamper',
     mrp: 999,
@@ -105,6 +110,7 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'olive',
     blurb: 'Contents being finalized.',
     handle: 'basic-gift-hamper',
+    variantId: 'gid://shopify/ProductVariant/53806608056614',
   },
   {
     id: 'premium-gift-hamper',
@@ -121,6 +127,7 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'olive',
     blurb: 'Contents being finalized.',
     handle: 'premium-gift-hamper',
+    variantId: 'gid://shopify/ProductVariant/53806616969510',
   },
 ]
 
