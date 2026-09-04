@@ -48,7 +48,7 @@ export default function Footer() {
     <footer className="bg-ink text-cream border-t border-linen/10">
       <div className="mx-auto max-w-[100rem] px-5 pb-12 pt-24 sm:px-10 sm:pt-32">
         <div className="grid gap-12 lg:grid-cols-12 lg:gap-x-12">
-          <div className="lg:col-span-4">
+          <div className="lg:col-span-3">
             <h2 className="spec text-linen">How it works</h2>
             <p className="mt-5 max-w-xs font-body text-sm leading-relaxed text-linen/80">
               Online only. Order any flavour and it ships to your door &mdash; one sachet, stirred
@@ -72,7 +72,31 @@ export default function Footer() {
             </ul>
           </nav>
 
-          <div className="lg:col-span-4 lg:col-start-9">
+          <div className="lg:col-span-3">
+            <h2 className="spec text-linen">Contact</h2>
+            <ul className="mt-5 space-y-3">
+              <li className="border-b border-linen/15 pb-3">
+                <span className="block text-xs text-linen/60 spec">Email</span>
+                <a
+                  href="mailto:wedrinkyojo@gmail.com"
+                  className="mt-1 block font-body text-sm text-cream transition-colors duration-300 hover:text-linen"
+                >
+                  wedrinkyojo@gmail.com
+                </a>
+              </li>
+              <li className="pt-1">
+                <span className="block text-xs text-linen/60 spec">Phone</span>
+                <a
+                  href="tel:+917975298131"
+                  className="mt-1 block font-body text-sm text-cream transition-colors duration-300 hover:text-linen"
+                >
+                  +91 79752 98131
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div className="lg:col-span-3">
             <h2 className="spec text-linen">One email a month</h2>
             <form onSubmit={handleSubmit} className="mt-5">
               <label htmlFor="footer-email" className="sr-only">
