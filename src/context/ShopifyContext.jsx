@@ -79,11 +79,12 @@ export function ShopifyProvider({ children }) {
           const matchedShopify = shopifyItems.find((sp) => isMatch(localProduct, sp))
 
           if (matchedShopify) {
+            const parsedPrice = matchedShopify.price ? parseFloat(matchedShopify.price) : NaN
             return {
               ...localProduct,
-              variantId: matchedShopify.variantId,
+              variantId: matchedShopify.variantId || localProduct.variantId,
               shopifyId: matchedShopify.shopifyId,
-              price: matchedShopify.price ? parseFloat(matchedShopify.price) : localProduct.price,
+              price: Number.isFinite(parsedPrice) && parsedPrice > 0 ? parsedPrice : localProduct.price,
               currency: matchedShopify.currency || 'INR',
               imageUrl: matchedShopify.imageUrl || localProduct.imageUrl,
             }

@@ -4,7 +4,6 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { useShopifyProducts } from '../context/ShopifyContext'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
-import { trackInitiateCheckout } from '../lib/metaPixel'
 
 const SWATCH = {
   matcha: '#5C8A2E',
@@ -74,7 +73,7 @@ export default function CartDrawer() {
     clearCart,
     addItem,
   } = useCart()
-  const { testProduct } = useShopifyProducts()
+  const { products: catalogueProducts, testProduct } = useShopifyProducts()
   const [error, setError] = useState(null)
   const checkoutStartedRef = useRef(false)
 
@@ -108,7 +107,6 @@ export default function CartDrawer() {
       return
     }
     checkoutStartedRef.current = true
-    trackInitiateCheckout(lines)
     window.location.href = checkoutUrl
   }
 
@@ -200,12 +198,19 @@ export default function CartDrawer() {
                               <h3 className="mt-1 font-display text-base leading-snug tracking-display">
                                 {line.name}
                               </h3>
-                              {line.price && (
-                                <span className="mt-1 font-mono text-xs tabular-nums text-cocoa font-bold shrink-0">
-                                  {line.currency === 'INR' ? '₹' : ''}
-                                  {line.price} {line.currency !== 'INR' ? line.currency : ''}
-                                </span>
-                              )}
+                              {(() => {
+                                const raw = parseFloat(line.price)
+                                const catMatch = catalogueProducts?.find((p) => p.variantId === line.variantId || p.handle === line.handle || p.name === line.name)
+                                const displayVal = Number.isFinite(raw) && raw > 0 ? raw : (catMatch?.price || line.price)
+                                return (
+                                  displayVal ? (
+                                    <span className="mt-1 font-mono text-xs tabular-nums text-cocoa font-bold shrink-0">
+                                      {line.currency === 'INR' || !line.currency ? '₹' : ''}
+                                      {displayVal} {line.currency && line.currency !== 'INR' ? line.currency : ''}
+                                    </span>
+                                  ) : null
+                                )
+                              })()}
                             </div>
 
                             <div className="mt-3 flex items-center gap-4">
