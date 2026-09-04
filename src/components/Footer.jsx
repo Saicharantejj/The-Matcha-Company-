@@ -4,10 +4,7 @@ import { Link } from 'react-router-dom'
 import Reveal from './Motion'
 
 const SOCIALS = [
-  { label: 'Instagram', href: 'https://instagram.com' },
-  { label: 'TikTok', href: 'https://tiktok.com' },
-  { label: 'X', href: 'https://x.com' },
-  { label: 'Pinterest', href: 'https://pinterest.com' },
+  { label: 'Instagram', href: 'https://www.instagram.com/yojo.in/' },
 ]
 
 const EXPLORE = [
