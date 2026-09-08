@@ -6,7 +6,7 @@ import App from './App.jsx'
 
 // HashRouter is used (instead of BrowserRouter) so the built site can be hosted
 // as static files anywhere — including single-file previews — without needing
-// server-side rewrite rules for deep links like /matchas or /our-story.
+// server-side rewrite rules for deep links like /shop or /our-story.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <HashRouter>

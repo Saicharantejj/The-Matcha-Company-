@@ -12,7 +12,6 @@ import { photos } from '../data/photos'
 export default function Home() {
   const flavouredPacks = PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')
 
-
   return (
     <PageShell>
       {/* ── 1. PRODUCT CAMPAIGN HERO SECTION ──────────────────────────────── */}
@@ -27,22 +26,21 @@ export default function Home() {
               </span>
 
               <h1 className="font-display text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tight text-[#6E433D] leading-[0.92] uppercase">
-                THE CRUNCH <br />
-                <span className="text-[#D23D2D]">INDIA CAN’T STOP</span> <br />
-                SNACKING ON.
+                MAKHANA WITH <br />
+                <span className="text-[#D23D2D]">A CHASKA.</span>
               </h1>
 
               <p className="font-body text-lg sm:text-xl leading-relaxed text-[#6E433D]/90 font-medium max-w-lg">
-                Roasted makhana, made ridiculously good. Handpicked lotus seeds slow-roasted in small batches with chef-crafted seasonings.
+                Big crunch. Bold flavour. Zero boring snacking. Handpicked lotus seeds slow-roasted in small batches with chef-crafted seasonings.
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link to="/shop" className="btn shadow-md">
-                  SHOP MAKHANA ➔
+                  SHOP CHASKA ➔
                 </Link>
-                <a href="#build-your-box" className="btn-green shadow-md">
+                <Link to="/build-your-box" className="btn-green shadow-md">
                   BUILD YOUR BOX
-                </a>
+                </Link>
               </div>
             </div>
 
@@ -109,7 +107,7 @@ export default function Home() {
       <BenefitsGrid />
 
       {/* ── 5. BRAND MANIFESTO ────────────────────────────────────────────── */}
-      <section className="py-28 bg-[#6E433D] text-[#F8EECB] border-b border-[#F8EECB]/15 relative overflow-hidden">
+      <section className="py-28 bg-[#6E433D] text-[#F8EECB] border-b border-[#F8EECB]/15 relative overflow-hidden" id="why-chaska">
         <div className="mx-auto max-w-[96rem] px-6 sm:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
@@ -118,13 +116,13 @@ export default function Home() {
                 BRAND MANIFESTO
               </span>
               <h2 className="font-display text-4xl sm:text-6xl font-black uppercase leading-tight tracking-tight text-white">
-                MAKHANA HAS ALWAYS BEEN AROUND. WE JUST THINK IT DESERVES BETTER.
+                MAKHANA HAS ALWAYS BEEN AROUND. WE GAVE IT A CHASKA.
               </h2>
               <p className="text-[#F8EECB]/90 text-base sm:text-lg leading-relaxed font-body max-w-2xl font-medium">
-                We started The Makhana Company to liberate lotus seeds from plain diet snack aisles. Handpicked in Bihar, slow-roasted in small batches, and tossed in real spices for an absurdly delicious crunch.
+                We started CHASKA to liberate lotus seeds from plain diet snack aisles. Handpicked in Bihar wetlands, slow-roasted in small batches, and tossed in real spices for an absurdly addictive crunch.
               </p>
               <div className="pt-4">
-                <Link to="/our-story" className="btn bg-[#D23D2D] text-[#F8EECB] hover:bg-[#31603D] transition-colors">
+                <Link to="/about" className="btn bg-[#D23D2D] text-[#F8EECB] hover:bg-[#31603D] transition-colors">
                   OUR FULL STORY ➔
                 </Link>
               </div>
@@ -134,7 +132,7 @@ export default function Home() {
               <div className="aspect-square rounded-3xl overflow-hidden border border-[#F8EECB]/20 bg-white/5 p-2 shadow-2xl">
                 <img
                   src={photos.stashBox.src}
-                  alt="Packaging Box"
+                  alt="Chaska Packaging Box"
                   className="w-full h-full object-cover rounded-2xl"
                 />
               </div>

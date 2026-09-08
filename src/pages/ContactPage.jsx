@@ -26,7 +26,7 @@ export default function ContactPage() {
             SAY HELLO
           </span>
           <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-[#6E433D] tracking-tight">
-            GET IN TOUCH
+            GET IN TOUCH WITH CHASKA
           </h1>
           <p className="font-mono text-sm text-[#6E433D]/80 max-w-xl mx-auto">
             Have questions about your order, bulk corporate gifting, or just want to talk about makhana? Drop us a line!
@@ -46,23 +46,23 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-display text-xl font-bold uppercase text-white">EMAIL US</h3>
                   <p className="font-mono text-xs text-[#F8EECB]/70 mt-1">For orders, feedback &amp; inquiries:</p>
-                  <a href="mailto:hello@themakhanacompany.com" className="font-mono text-sm font-bold text-[#F5C065] hover:underline block mt-1">
-                    hello@themakhanacompany.com
+                  <a href="mailto:hello@chaskasnacks.com" className="font-mono text-sm font-bold text-[#F5C065] hover:underline block mt-1">
+                    hello@chaskasnacks.com
                   </a>
                 </div>
 
                 <div>
                   <h3 className="font-display text-xl font-bold uppercase text-white">CORPORATE &amp; BULK</h3>
                   <p className="font-mono text-xs text-[#F8EECB]/70 mt-1">Custom stash boxes &amp; event hampers:</p>
-                  <a href="mailto:gifting@themakhanacompany.com" className="font-mono text-sm font-bold text-[#F5C065] hover:underline block mt-1">
-                    gifting@themakhanacompany.com
+                  <a href="mailto:gifting@chaskasnacks.com" className="font-mono text-sm font-bold text-[#F5C065] hover:underline block mt-1">
+                    gifting@chaskasnacks.com
                   </a>
                 </div>
 
                 <div>
                   <h3 className="font-display text-xl font-bold uppercase text-white">ROASTING FACILITY</h3>
                   <p className="font-mono text-xs text-[#F8EECB]/80 leading-relaxed mt-1">
-                    The Makhana Company HQ<br />
+                    CHASKA HQ<br />
                     Industrial Tech Park, Sector 62<br />
                     Noida, Uttar Pradesh — 201309
                   </p>
@@ -91,7 +91,7 @@ export default function ContactPage() {
                   MESSAGE RECEIVED!
                 </h3>
                 <p className="font-mono text-xs text-[#6E433D]/70 max-w-sm mx-auto">
-                  Thank you for contacting us. Our team will review your note and respond within 24 hours.
+                  Thank you for reaching out to CHASKA. Our team will review your note and respond within 24 hours.
                 </p>
                 <button
                   onClick={() => setSubmitted(false)}

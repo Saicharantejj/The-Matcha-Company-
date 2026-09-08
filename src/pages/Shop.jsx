@@ -24,17 +24,17 @@ export default function Shop() {
               THE FULL CRUNCH CATALOGUE
             </span>
             <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-white tracking-tight leading-none">
-              SHOP MAKHANA
+              SHOP CHASKA
             </h1>
             <p className="font-mono text-xs sm:text-sm text-[#F8EECB]/80 leading-relaxed">
-              Handpicked lotus seeds slow-roasted in small batches. Choose individual packs or curated variety stash boxes.
+              Handpicked lotus seeds slow-roasted in small batches by CHASKA. Explore single packs or curated variety stash boxes.
             </p>
           </div>
 
           {/* Filter Tabs */}
           <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-[#F8EECB]/15 relative z-10">
             {[
-              { id: 'ALL', label: 'ALL PRODUCTS' },
+              { id: 'ALL', label: 'ALL MAKHANA' },
               { id: 'FLAVOURS', label: 'SINGLE FLAVORS' },
               { id: 'BUNDLES', label: 'VARIETY BOXES & GIFTS' },
             ].map((cat) => (
@@ -68,7 +68,7 @@ export default function Shop() {
               10% BUNDLE SAVINGS
             </span>
             <h2 className="font-display text-3xl font-bold uppercase text-white">
-              PREFER TO BUILD YOUR OWN 4-PACK?
+              BUILD YOUR CUSTOM CHASKA STASH
             </h2>
             <p className="font-mono text-xs text-[#F8EECB]/80 leading-relaxed">
               Select your exact ratio of sweet, spicy, and savory flavors in our interactive stash builder.

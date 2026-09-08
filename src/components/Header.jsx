@@ -59,9 +59,9 @@ export default function Header() {
         <div className="mx-auto flex max-w-[96rem] items-center justify-between px-6 sm:px-12">
           
           {/* Logo / Brand Mark */}
-          <NavLink to="/" aria-label="The Makhana Company" className="group relative z-10 flex items-center gap-3">
-            <span className="font-display text-xl sm:text-2xl font-black uppercase tracking-tight text-[#6E433D] leading-none group-hover:text-[#D23D2D] transition-colors">
-              THE MAKHANA COMPANY
+          <NavLink to="/" aria-label="CHASKA" className="group relative z-10 flex items-center gap-3">
+            <span className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#6E433D] leading-none group-hover:text-[#D23D2D] transition-colors">
+              CHASKA
             </span>
           </NavLink>
 

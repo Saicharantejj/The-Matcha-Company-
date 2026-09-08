@@ -18,7 +18,7 @@ export default function PrivacyPolicyPage() {
 
         <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#6E433D]/15 space-y-6 shadow-md text-[#6E433D] text-sm leading-relaxed">
           <p>
-            At <strong>THE MAKHANA COMPANY</strong>, we value your privacy. We collect basic customer information (name, address, phone number, email) solely for fulfilling orders and communicating shipping updates.
+            At <strong>CHASKA</strong>, we value your privacy. We collect basic customer information (name, address, phone number, email) solely for fulfilling orders and communicating shipping updates.
           </p>
           <h2 className="font-display text-lg font-bold text-[#D23D2D]">DATA PROTECTION</h2>
           <p>

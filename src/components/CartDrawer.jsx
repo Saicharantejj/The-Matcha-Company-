@@ -73,7 +73,7 @@ export default function CartDrawer() {
   }, [isOpen, closeCart])
 
   const handleCheckoutClick = () => {
-    addToast('Online checkout for The Makhana Company is launching soon! 🍿', 'info')
+    addToast('Online checkout for CHASKA is launching soon! 🍿', 'info')
   }
 
   return (

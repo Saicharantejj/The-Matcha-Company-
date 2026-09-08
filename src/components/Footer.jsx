@@ -21,7 +21,7 @@ export default function Footer() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#F8EECB]/15">
           <div className="lg:col-span-6 space-y-3">
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#F5C065]">
-              JOIN THE CRUNCH CLUB
+              GET A LITTLE CHASKA
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
               Get secret flavor drops &amp; 15% off your first stash box.
@@ -59,7 +59,7 @@ export default function Footer() {
           <div className="space-y-3">
             <p className="font-bold uppercase tracking-wider text-[#F5C065]">SHOP</p>
             <ul className="space-y-2.5">
-              <li><NavLink to="/shop" className="hover:text-white transition-colors">All Products</NavLink></li>
+              <li><NavLink to="/shop" className="hover:text-white transition-colors">All Makhana</NavLink></li>
               <li><NavLink to="/shop" className="hover:text-white transition-colors">Bestsellers</NavLink></li>
               <li><NavLink to="/build-your-box" className="hover:text-white transition-colors">Build Your Box</NavLink></li>
             </ul>
@@ -69,7 +69,7 @@ export default function Footer() {
             <p className="font-bold uppercase tracking-wider text-[#F5C065]">ABOUT</p>
             <ul className="space-y-2.5">
               <li><NavLink to="/about" className="hover:text-white transition-colors">Our Story</NavLink></li>
-              <li><NavLink to="/about#why-makhana" className="hover:text-white transition-colors">Why Makhana</NavLink></li>
+              <li><NavLink to="/about#why-chaska" className="hover:text-white transition-colors">Why Chaska</NavLink></li>
               <li><NavLink to="/contact" className="hover:text-white transition-colors">Contact Us</NavLink></li>
             </ul>
           </div>
@@ -103,15 +103,15 @@ export default function Footer() {
         {/* Minimal Wordmark */}
         <div className="py-12 border-b border-[#F8EECB]/15 text-center">
           <NavLink to="/" className="inline-block group">
-            <h1 className="font-display text-[10vw] font-black uppercase leading-none tracking-tighter text-[#F8EECB]/90 group-hover:text-white transition-colors select-none">
-              THE MAKHANA CO.
+            <h1 className="font-display text-[14vw] font-black uppercase leading-none tracking-tighter text-[#F8EECB]/90 group-hover:text-white transition-colors select-none">
+              CHASKA
             </h1>
           </NavLink>
         </div>
 
         {/* Legal Footer */}
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-xs font-mono text-[#F8EECB]/70 gap-4">
-          <p>© {new Date().getFullYear()} THE MAKHANA COMPANY. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} CHASKA. All rights reserved.</p>
           <div className="flex gap-6">
             <NavLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink>
             <NavLink to="/terms" className="hover:text-white transition-colors">Terms of Service</NavLink>

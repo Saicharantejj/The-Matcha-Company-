@@ -18,7 +18,7 @@ export default function TermsPage() {
 
         <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#6E433D]/15 space-y-6 shadow-md text-[#6E433D] text-sm leading-relaxed">
           <p>
-            Welcome to <strong>THE MAKHANA COMPANY</strong> website. By accessing or purchasing from our store, you agree to bound by these terms.
+            Welcome to <strong>CHASKA</strong>. By accessing or purchasing from our store, you agree to be bound by these terms.
           </p>
           <h2 className="font-display text-lg font-bold text-[#D23D2D]">PRODUCT INFORMATION</h2>
           <p>
@@ -26,7 +26,7 @@ export default function TermsPage() {
           </p>
           <h2 className="font-display text-lg font-bold text-[#D23D2D]">INTELLECTUAL PROPERTY</h2>
           <p>
-            All brand logos, photography, visual elements, graphics, and text content belong strictly to The Makhana Company.
+            All brand logos, photography, visual elements, graphics, and text content belong strictly to CHASKA.
           </p>
         </div>
 

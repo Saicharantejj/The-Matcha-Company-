@@ -1,4 +1,4 @@
-// Central product catalogue for THE MAKHANA COMPANY.
+// Central product catalogue for CHASKA.
 // Standalone local product definitions.
 
 export const PRODUCTS_CATALOGUE = [

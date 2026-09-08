@@ -68,9 +68,7 @@ export default function App() {
               <Route path="/privacy" element={<PrivacyPolicyPage />} />
               <Route path="/terms" element={<TermsPage />} />
 
-              {/* Legacy Aliases */}
-              <Route path="/matchas" element={<Shop />} />
-              <Route path="/matcha-kits" element={<BuildYourBoxPage />} />
+              {/* Additional Aliases */}
               <Route path="/gift-hampers" element={<Shop />} />
               <Route path="/diy-kits" element={<Shop />} />
 
