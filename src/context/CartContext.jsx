@@ -6,13 +6,14 @@ const CartContext = createContext(null)
 const LOCAL_CART_KEY = 'tmc.cart_items.v1'
 
 function getPhotoForId(id) {
-  const photoKey = id === 'makhana-pink-salt' ? 'pinkSaltPack'
+  const photoKey = id === 'makhana-chilly-cheese' ? 'chillyCheesePack'
+    : id === 'makhana-pudhina' ? 'pudhinaPack'
+    : id === 'makhana-barbeque' ? 'barbequePack'
     : id === 'makhana-peri-peri' ? 'periPeriPack'
-    : id === 'makhana-pudina-lime' ? 'pudinaPack'
-    : id === 'makhana-smoky-cheese' ? 'cheddarPack'
-    : id === 'makhana-jaggery-sesame' ? 'jaggeryPack'
-    : 'stashBox'
-  return photos[photoKey]?.src || null
+    : id === 'makhana-black-pepper' ? 'blackPepperPack'
+    : id === 'makhana-variety-box' ? 'stashBox'
+    : 'yellowBasket'
+  return photos[photoKey]?.src || photos.brandPoster?.src || null
 }
 
 function sanitizeCartItem(item) {

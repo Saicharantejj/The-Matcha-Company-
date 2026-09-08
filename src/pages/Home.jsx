@@ -60,7 +60,7 @@ export default function Home() {
                 <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-white/95 backdrop-blur-md border border-[#6E433D]/15 flex items-center justify-between shadow-md">
                   <div>
                     <span className="font-mono text-[10px] font-bold text-[#D23D2D] uppercase">SIGNATURE FLAVOUR</span>
-                    <p className="font-display font-bold text-base text-[#6E433D]">Spicy Peri Peri Fiesta</p>
+                    <p className="font-display font-bold text-base text-[#6E433D]">Fiery Peri Peri Makhana</p>
                   </div>
                   <Link to="/shop" className="px-4 py-2 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold hover:bg-[#6E433D] transition-colors">
                     SHOP
@@ -131,8 +131,8 @@ export default function Home() {
             <div className="lg:col-span-4">
               <div className="aspect-square rounded-3xl overflow-hidden border border-[#F8EECB]/20 bg-white/5 p-2 shadow-2xl">
                 <img
-                  src={photos.stashBox.src}
-                  alt="Chaska Packaging Box"
+                  src={photos.brandPoster.src}
+                  alt="CHASKA Brand Art Poster"
                   className="w-full h-full object-cover rounded-2xl"
                 />
               </div>

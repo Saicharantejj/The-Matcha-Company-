@@ -1,10 +1,10 @@
 import { photos } from '../data/photos'
 
 const GALLERY_ITEMS = [
-  { img: photos.lifestyleCrunch.src, title: 'Desk Setup Crunch' },
-  { img: photos.lifestyleParty.src, title: 'Party Bowl Stash' },
-  { img: photos.lifestyleFriends.src, title: 'Shared Snack Moment' },
-  { img: photos.heroMakhanaBowl.src, title: 'Golden Roast Bowl' },
+  { img: photos.brandPoster.src, title: 'CHASKA Retro Brand Art' },
+  { img: photos.handPour.src, title: 'Hand-Poured Spiced Makhana' },
+  { img: photos.yellowBasket.src, title: 'Yellow Stash Basket' },
+  { img: photos.heroMakhanaBowl.src, title: 'Fresh Roasted Makhana' },
 ]
 
 export default function UgcGrid() {

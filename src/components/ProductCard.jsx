@@ -21,21 +21,22 @@ export default function ProductCard({ product, index = 0 }) {
 
   const priceFormatted = product.displayPrice || `₹${product.price}`
 
-  const photoKey = product.id === 'makhana-pink-salt' ? 'pinkSaltPack'
+  const photoKey = product.id === 'makhana-chilly-cheese' ? 'chillyCheesePack'
+    : product.id === 'makhana-pudhina' ? 'pudhinaPack'
+    : product.id === 'makhana-barbeque' ? 'barbequePack'
     : product.id === 'makhana-peri-peri' ? 'periPeriPack'
-    : product.id === 'makhana-pudina-lime' ? 'pudinaPack'
-    : product.id === 'makhana-smoky-cheese' ? 'cheddarPack'
-    : product.id === 'makhana-jaggery-sesame' ? 'jaggeryPack'
-    : 'stashBox'
+    : product.id === 'makhana-black-pepper' ? 'blackPepperPack'
+    : product.id === 'makhana-variety-box' ? 'stashBox'
+    : 'yellowBasket'
 
-  const photoObj = photos[photoKey]
+  const photoObj = photos[photoKey] || photos.brandPoster
 
   // Playful flavor descriptors
-  const playfulTag = product.id === 'makhana-pink-salt' ? 'Simple. Salty. Thoda teekha.'
+  const playfulTag = product.id === 'makhana-chilly-cheese' ? 'Cheezy. Teekha. Dil se.'
+    : product.id === 'makhana-pudhina' ? 'Thanda mint. Kadak chaska.'
+    : product.id === 'makhana-barbeque' ? 'Smoky. Hot. Non-stop crunch.'
     : product.id === 'makhana-peri-peri' ? 'Teekha hai. Par rukoge nahi.'
-    : product.id === 'makhana-pudina-lime' ? 'Thanda mint. Kadak lime.'
-    : product.id === 'makhana-smoky-cheese' ? 'Cheddar dust. Extra velvety.'
-    : product.id === 'makhana-jaggery-sesame' ? 'Organic gur. Mitha crunch.'
+    : product.id === 'makhana-black-pepper' ? 'Pure rock salt. Malabar pepper.'
     : product.id === 'makhana-variety-box' ? '5 Flavours. Pure chaska.'
     : 'Mega stash. Party sorted.'
 

@@ -29,29 +29,30 @@ export default function ProductDetail() {
     addToast(`${qty}x ${product.name} added to cart!`, 'success')
   }
 
-  const photoKey = product.id === 'makhana-pink-salt' ? 'pinkSaltPack'
+  const photoKey = product.id === 'makhana-chilly-cheese' ? 'chillyCheesePack'
+    : product.id === 'makhana-pudhina' ? 'pudhinaPack'
+    : product.id === 'makhana-barbeque' ? 'barbequePack'
     : product.id === 'makhana-peri-peri' ? 'periPeriPack'
-    : product.id === 'makhana-pudina-lime' ? 'pudinaPack'
-    : product.id === 'makhana-smoky-cheese' ? 'cheddarPack'
-    : product.id === 'makhana-jaggery-sesame' ? 'jaggeryPack'
-    : 'stashBox'
+    : product.id === 'makhana-black-pepper' ? 'blackPepperPack'
+    : product.id === 'makhana-variety-box' ? 'stashBox'
+    : 'yellowBasket'
 
-  const photoObj = photos[photoKey]
+  const photoObj = photos[photoKey] || photos.brandPoster
 
   // Related products
   const relatedProducts = PRODUCTS_CATALOGUE.filter((p) => p.id !== product.id).slice(0, 3)
 
   // Flavor specific taste tags
-  const tasteTags = product.id === 'makhana-pink-salt'
-    ? ['CLASSIC & SALTY', 'CRUSHED MALABAR PEPPER', 'GOLDEN ROASTED', 'LIGHT & AIRY']
+  const tasteTags = product.id === 'makhana-chilly-cheese'
+    ? ['AGED CHEDDAR DUST', 'GREEN CHILI HEAT', 'ROASTED GARLIC', 'SAVORY & CHEEZY']
+    : product.id === 'makhana-pudhina'
+    ? ['FRESH GARDEN MINT', 'TANGY DRY MANGO', 'KALA NAMAK BURST', 'HERBAL & COOL']
+    : product.id === 'makhana-barbeque'
+    ? ['HICKORY SMOKE GLAZE', 'SMOKED PAPRIKA', 'SWEET TOMATO TANG', 'BOLD & SMOKY']
     : product.id === 'makhana-peri-peri'
-    ? ['FIERY BIRD’S EYE CHILI', 'SMOKY PAPRIKA', 'ZINGY LIME TWIST', 'EXTRA CRUNCHY']
-    : product.id === 'makhana-pudina-lime'
-    ? ['FRESH GARDEN MINT', 'TANGY DRY MANGO', 'KAFFIR LIME BURST', 'HERBAL & COOL']
-    : product.id === 'makhana-smoky-cheese'
-    ? ['AGED CHEDDAR DUST', 'HICKORY SMOKE', 'SAVORY & VELVETY', 'MILD CHEESY CRUNCH']
-    : product.id === 'makhana-jaggery-sesame'
-    ? ['ARTISANAL ORGANIC GUR', 'TOASTED WHITE SESAME', 'CARDAMOM INFUSED', 'SWEET & CRISP']
+    ? ['FIERY BIRD’S EYE CHILI', 'GARLIC DUST', 'ZINGY LIME TWIST', 'EXTRA CRUNCHY']
+    : product.id === 'makhana-black-pepper'
+    ? ['HIMALAYAN PINK SALT', 'MALABAR BLACK PEPPER', 'GOLDEN ROASTED', 'LIGHT & PURE']
     : ['ALL-STAR STASH', '5 SIGNATURE FLAVORS', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
   // Occasions

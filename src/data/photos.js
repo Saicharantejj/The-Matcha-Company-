@@ -1,65 +1,88 @@
 // Central photography & asset map for CHASKA.
-// Centralized image paths & fallback graphics for effortless replacement with studio product photos.
+// Using authentic brand photography and high-resolution studio assets.
 
 export const photos = {
+  // Key Brand Photography from uploaded assets
+  brandPoster: {
+    src: '/images/chaska-brand-poster.jpg',
+    width: 1000,
+    height: 1000,
+    alt: 'CHASKA Vintage Indian Brand Poster with Elephants, Lotus and Sun',
+  },
   heroMakhanaBowl: {
-    src: 'https://images.unsplash.com/photo-1621996346565-e3d5d6281293?auto=format&fit=crop&w=1200&q=80',
-    width: 1200,
-    height: 800,
-    alt: 'Golden roasted makhana pops tossed in spices in a ceramic bowl',
+    src: '/images/chaska-hand-pour.jpg',
+    width: 1000,
+    height: 1200,
+    alt: 'Roasted spiced makhana tossed into a steel thali with red chillies',
   },
-  pinkSaltPack: {
-    src: 'https://images.unsplash.com/photo-1599490659213-e2b9527bd087?auto=format&fit=crop&w=800&q=80',
-    width: 800,
-    height: 800,
-    alt: 'Himalayan Pink Salt & Black Pepper Roasted Makhana pack',
+  stashBox: {
+    src: '/images/chaska-yellow-basket.jpg',
+    width: 1000,
+    height: 1200,
+    alt: 'Yellow snack basket packed with roasted spicy CHASKA makhana pops',
   },
-  periPeriPack: {
-    src: 'https://images.unsplash.com/photo-1601050690597-df0568f70950?auto=format&fit=crop&w=800&q=80',
-    width: 800,
-    height: 800,
-    alt: 'Spicy Peri Peri Fiesta Makhana with red chili flakes',
+  handPour: {
+    src: '/images/chaska-hand-pour.jpg',
+    width: 1000,
+    height: 1200,
+    alt: 'Hands with traditional bangles pouring spiced makhana pops',
   },
-  pudinaPack: {
+  yellowBasket: {
+    src: '/images/chaska-yellow-basket.jpg',
+    width: 1000,
+    height: 1200,
+    alt: 'Hand holding yellow basket full of roasted spicy makhana pops',
+  },
+
+  // Flavour Specific Product Photography
+  chillyCheesePack: {
+    src: '/images/chaska-yellow-basket.jpg',
+    width: 1000,
+    height: 1200,
+    alt: 'Chilly Cheese Makhana Pack - Cheezy Spice Crunch',
+  },
+  pudhinaPack: {
     src: 'https://images.unsplash.com/photo-1540420773420-3366772f4999?auto=format&fit=crop&w=800&q=80',
     width: 800,
     height: 800,
-    alt: 'Creamy Pudina Lime Makhana with fresh mint leaves',
+    alt: 'Pudhina Makhana Pack - Cool Mint & Tangy Amchur',
   },
-  cheddarPack: {
-    src: 'https://images.unsplash.com/photo-1563729784474-d77dbb933a9e?auto=format&fit=crop&w=800&q=80',
-    width: 800,
-    height: 800,
-    alt: 'Smoky Cheddar Cheese roasted makhana crunch',
-  },
-  jaggeryPack: {
-    src: 'https://images.unsplash.com/photo-1589301760014-d929f3979dbc?auto=format&fit=crop&w=800&q=80',
-    width: 800,
-    height: 800,
-    alt: 'Sweet Jaggery Sesame glazed makhana',
-  },
-  stashBox: {
-    src: 'https://images.unsplash.com/photo-1528825871115-3581a5387919?auto=format&fit=crop&w=1000&q=80',
+  barbequePack: {
+    src: '/images/chaska-hand-pour.jpg',
     width: 1000,
-    height: 700,
-    alt: 'CHASKA 5-Flavor Variety Stash Box',
+    height: 1200,
+    alt: 'Smoky Barbeque Makhana Pack - Hickory Smoke Heat',
   },
+  periPeriPack: {
+    src: '/images/chaska-hand-pour.jpg',
+    width: 1000,
+    height: 1200,
+    alt: 'Fiery Peri Peri Makhana Pack - Bird Eye Chili Blast',
+  },
+  blackPepperPack: {
+    src: '/images/chaska-yellow-basket.jpg',
+    width: 1000,
+    height: 1200,
+    alt: 'Salt & Black Pepper Makhana Pack - Himalayan Pink Salt & Malabar Pepper',
+  },
+
+  // Lifestyle & Social Proof Photos
   lifestyleCrunch: {
-    src: 'https://images.unsplash.com/photo-1565299624946-b28f40a0ae38?auto=format&fit=crop&w=1000&q=80',
+    src: '/images/chaska-hand-pour.jpg',
     width: 1000,
-    height: 750,
-    alt: 'Snacking on crunchy makhana while working on laptop',
+    height: 1200,
+    alt: 'Hands tossing freshly roasted CHASKA spiced makhana',
   },
   lifestyleFriends: {
-    src: 'https://images.unsplash.com/photo-1511632765486-a01980e01a18?auto=format&fit=crop&w=1000&q=80',
+    src: '/images/chaska-yellow-basket.jpg',
     width: 1000,
-    height: 750,
-    alt: 'Friends sharing CHASKA snack packs at a hangout',
+    height: 1200,
+    alt: 'CHASKA spicy makhana basket shared among friends',
   },
   lifestyleParty: {
-    src: 'https://images.unsplash.com/photo-1530103862676-de8c9debad1d?auto=format&fit=crop&w=1000&q=80',
+    src: '/images/chaska-brand-poster.jpg',
     width: 1000,
-    height: 750,
-    alt: 'Party snack table stacked with roasted makhana bowls',
+    height: 1000,
+    alt: 'CHASKA brand artwork display',
   },
 }
