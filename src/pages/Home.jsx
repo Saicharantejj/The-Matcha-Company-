@@ -21,24 +21,24 @@ export default function Home() {
             
             {/* Left Column: Bold Headline & Whitespace */}
             <div className="lg:col-span-7 space-y-8">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
+              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
                 ⚡ MODERN INDIAN SNACK BRAND
               </span>
 
               <h1 className="font-display text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tight text-[#6E433D] leading-[0.92] uppercase">
-                MAKHANA WITH <br />
-                <span className="text-[#D23D2D]">A CHASKA.</span>
+                MAKHANA KO <br />
+                <span className="text-[#D23D2D]">CHASKA LAGA DIYA.</span>
               </h1>
 
-              <p className="font-body text-lg sm:text-xl leading-relaxed text-[#6E433D]/90 font-medium max-w-lg">
-                Big crunch. Bold flavour. Zero boring snacking. Handpicked lotus seeds slow-roasted in small batches with chef-crafted seasonings.
+              <p className="font-sans text-lg sm:text-xl leading-relaxed text-[#6E433D]/90 font-medium max-w-lg">
+                Big crunch. Bold flavour. Bas boring nahi. Handpicked lotus seeds slow-roasted in small batches with chef-crafted seasonings.
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Link to="/shop" className="btn shadow-md">
+                <Link to="/shop" className="btn shadow-md text-xs font-bold">
                   SHOP CHASKA ➔
                 </Link>
-                <Link to="/build-your-box" className="btn-green shadow-md">
+                <Link to="/build-your-box" className="btn-green shadow-md text-xs font-bold">
                   BUILD YOUR BOX
                 </Link>
               </div>
@@ -80,7 +80,7 @@ export default function Home() {
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
             <div className="space-y-3">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
-                THE FLAVOUR LINEUP
+                AB BATAO, KAUNSA CHASKA?
               </span>
               <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#6E433D] leading-none">
                 MEET YOUR NEW FAVOURITE SNACK.
@@ -116,10 +116,10 @@ export default function Home() {
                 BRAND MANIFESTO
               </span>
               <h2 className="font-display text-4xl sm:text-6xl font-black uppercase leading-tight tracking-tight text-white">
-                MAKHANA HAS ALWAYS BEEN AROUND. WE GAVE IT A CHASKA.
+                MAKHANA KO BORING KISNE BOLA?
               </h2>
-              <p className="text-[#F8EECB]/90 text-base sm:text-lg leading-relaxed font-body max-w-2xl font-medium">
-                We started CHASKA to liberate lotus seeds from plain diet snack aisles. Handpicked in Bihar wetlands, slow-roasted in small batches, and tossed in real spices for an absurdly addictive crunch.
+              <p className="text-[#F8EECB]/90 text-base sm:text-lg leading-relaxed font-sans max-w-2xl font-medium">
+                Makhana has been around forever. We just thought it deserved a little more chaska. Handpicked in Bihar wetlands, slow-roasted in small batches, and tossed in real spices for an absurdly addictive crunch.
               </p>
               <div className="pt-4">
                 <Link to="/about" className="btn bg-[#D23D2D] text-[#F8EECB] hover:bg-[#31603D] transition-colors">

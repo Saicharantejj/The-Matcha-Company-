@@ -1,4 +1,4 @@
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useNavigate } from 'react'
 import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
@@ -29,6 +29,15 @@ export default function ProductCard({ product, index = 0 }) {
     : 'stashBox'
 
   const photoObj = photos[photoKey]
+
+  // Playful flavor descriptors
+  const playfulTag = product.id === 'makhana-pink-salt' ? 'Simple. Salty. Thoda teekha.'
+    : product.id === 'makhana-peri-peri' ? 'Teekha hai. Par rukoge nahi.'
+    : product.id === 'makhana-pudina-lime' ? 'Thanda mint. Kadak lime.'
+    : product.id === 'makhana-smoky-cheese' ? 'Cheddar dust. Extra velvety.'
+    : product.id === 'makhana-jaggery-sesame' ? 'Organic gur. Mitha crunch.'
+    : product.id === 'makhana-variety-box' ? '5 Flavours. Pure chaska.'
+    : 'Mega stash. Party sorted.'
 
   // Accent badge colors
   const badgeBg = product.swatch === 'chili' ? '#D23D2D' : product.swatch === 'pudina' ? '#31603D' : '#F5C065'
@@ -88,6 +97,10 @@ export default function ProductCard({ product, index = 0 }) {
                 {name}
               </h3>
             </Link>
+
+            <p className="mt-1.5 font-hindi text-xs font-bold text-[#D23D2D] italic">
+              "{playfulTag}"
+            </p>
 
             <p className="mt-2 font-sans text-xs leading-relaxed text-[#6E433D]/80 line-clamp-2">
               {product.blurb}

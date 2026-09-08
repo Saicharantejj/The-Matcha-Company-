@@ -79,7 +79,7 @@ export default function CartDrawer() {
   return (
     <AnimatePresence>
       {isOpen && (
-        <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Your snack stash cart">
+        <div className="fixed inset-0 z-[60]" role="dialog" aria-modal="true" aria-label="Your CHASKA stash cart">
           {/* Backdrop */}
           <motion.div
             initial={{ opacity: 0 }}
@@ -102,7 +102,7 @@ export default function CartDrawer() {
             <header className="flex items-center justify-between border-b border-[#6E433D]/15 px-6 py-5 bg-white/80 backdrop-blur-md">
               <div className="flex items-center gap-3">
                 <span className="font-display text-xl font-bold uppercase tracking-tight text-[#6E433D]">
-                  YOUR SNACK STASH
+                  CHASKA STASH
                 </span>
                 {count > 0 && (
                   <span className="px-2.5 py-0.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold tabular-nums">
@@ -145,11 +145,11 @@ export default function CartDrawer() {
                   🍿
                 </div>
                 <div className="space-y-1">
-                  <h3 className="font-display text-xl font-bold uppercase text-[#6E433D]">
-                    YOUR SNACK STASH IS EMPTY
+                  <h3 className="font-display text-2xl font-bold uppercase text-[#6E433D]">
+                    ARRE, CART KHALI HAI.
                   </h3>
-                  <p className="font-sans text-xs text-[#6E433D]/70 max-w-xs mx-auto leading-relaxed">
-                    Looks like you haven't added any crunch yet.
+                  <p className="font-hindi text-xs text-[#6E433D]/80 max-w-xs mx-auto leading-relaxed font-bold">
+                    "Chalo kuch crunchy add karte hain."
                   </p>
                 </div>
                 <Link
@@ -157,7 +157,7 @@ export default function CartDrawer() {
                   onClick={closeCart}
                   className="btn bg-[#D23D2D] text-[#F8EECB] hover:bg-[#6E433D] px-8 py-3.5 text-xs font-bold shadow-md"
                 >
-                  EXPLORE MAKHANA &rarr;
+                  SHOP MAKHANA &rarr;
                 </Link>
               </div>
             ) : (
