@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react'
-import PageShell from '../components/PageShell'
+import { NavLink } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import { PRODUCTS_CATALOGUE } from '../data/products'
 
@@ -13,54 +13,73 @@ export default function Shop() {
     return PRODUCTS_CATALOGUE
   }, [activeCategory])
 
-
   return (
-    <PageShell>
-      {/* Header */}
-      <section className="bg-cream px-6 py-16 sm:px-12 sm:py-24 border-b border-black/10">
-        <div className="mx-auto max-w-[96rem]">
-          <div className="max-w-3xl space-y-4">
-            <span className="font-mono text-xs font-medium uppercase tracking-widest text-muted">
-              CATALOGUE
+    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB]">
+      <div className="mx-auto max-w-[96rem] space-y-12">
+        
+        {/* Header Banner */}
+        <div className="p-8 sm:p-14 rounded-[2.5rem] bg-[#6E433D] text-[#F8EECB] space-y-6 shadow-xl relative overflow-hidden">
+          <div className="max-w-2xl space-y-4 relative z-10">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold uppercase tracking-widest">
+              THE FULL CRUNCH CATALOGUE
             </span>
-            <h1 className="font-display text-5xl sm:text-7xl font-black uppercase tracking-tight text-charcoal leading-tight">
-              ROASTED MAKHANA.
+            <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-white tracking-tight leading-none">
+              SHOP MAKHANA
             </h1>
-            <p className="text-muted text-base sm:text-lg font-body leading-relaxed max-w-xl">
+            <p className="font-mono text-xs sm:text-sm text-[#F8EECB]/80 leading-relaxed">
               Handpicked lotus seeds slow-roasted in small batches. Choose individual packs or curated variety stash boxes.
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="mt-12 flex flex-wrap items-center gap-3 pt-6 border-t border-black/10">
-            {['ALL', 'FLAVOURS', 'BUNDLES'].map((cat) => (
+          <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-[#F8EECB]/15 relative z-10">
+            {[
+              { id: 'ALL', label: 'ALL PRODUCTS' },
+              { id: 'FLAVOURS', label: 'SINGLE FLAVORS' },
+              { id: 'BUNDLES', label: 'VARIETY BOXES & GIFTS' },
+            ].map((cat) => (
               <button
-                key={cat}
+                key={cat.id}
                 type="button"
-                onClick={() => setActiveCategory(cat)}
-                className={`px-5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
-                  activeCategory === cat
-                    ? 'bg-charcoal text-white shadow-sm'
-                    : 'bg-white text-charcoal border border-black/15 hover:border-charcoal'
+                onClick={() => setActiveCategory(cat.id)}
+                className={`px-6 py-3 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
+                  activeCategory === cat.id
+                    ? 'bg-[#D23D2D] text-[#F8EECB] shadow-md scale-105'
+                    : 'bg-white/10 text-[#F8EECB] border border-[#F8EECB]/20 hover:bg-white/20'
                 }`}
               >
-                {cat === 'ALL' ? 'ALL PRODUCTS' : cat === 'FLAVOURS' ? 'SINGLE PACKS' : 'BOXES & BUNDLES'}
+                {cat.label}
               </button>
             ))}
           </div>
         </div>
-      </section>
 
-      {/* Grid */}
-      <section className="bg-surface px-6 py-20 sm:px-12 pb-32">
-        <div className="mx-auto max-w-[96rem]">
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredProducts.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
-            ))}
-          </div>
+        {/* Product Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          {filteredProducts.map((product, i) => (
+            <ProductCard key={product.id} product={product} index={i} />
+          ))}
         </div>
-      </section>
-    </PageShell>
+
+        {/* Custom Box Banner */}
+        <div className="p-8 sm:p-12 rounded-[2.5rem] bg-[#31603D] text-[#F8EECB] flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+          <div className="space-y-3 max-w-xl text-center md:text-left">
+            <span className="px-3 py-1 rounded-full bg-[#F8EECB] text-[#31603D] font-mono text-xs font-bold uppercase">
+              10% BUNDLE SAVINGS
+            </span>
+            <h2 className="font-display text-3xl font-bold uppercase text-white">
+              PREFER TO BUILD YOUR OWN 4-PACK?
+            </h2>
+            <p className="font-mono text-xs text-[#F8EECB]/80 leading-relaxed">
+              Select your exact ratio of sweet, spicy, and savory flavors in our interactive stash builder.
+            </p>
+          </div>
+          <NavLink to="/build-your-box" className="btn bg-[#D23D2D] text-[#F8EECB] hover:bg-[#6E433D] px-8 py-4 text-xs font-bold shrink-0">
+            BUILD YOUR BOX &rarr;
+          </NavLink>
+        </div>
+
+      </div>
+    </main>
   )
 }
