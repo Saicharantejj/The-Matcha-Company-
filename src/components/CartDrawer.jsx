@@ -1,48 +1,26 @@
-import { useEffect, useRef, useState } from 'react'
+import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
-import { useShopifyProducts } from '../context/ShopifyContext'
+import { useToast } from './Toast'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
 
-const SWATCH = {
-  matcha: '#5C8A2E',
-  moss: '#C4D2B8',
-  olive: '#4E6B3E',
-}
-
-function LineMark({ swatch }) {
-  const fill = SWATCH[swatch] || SWATCH.matcha
-  return (
-    <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center border border-ink/20 bg-ink">
-      <svg viewBox="0 0 120 150" className="h-9 w-auto" aria-hidden="true">
-        <path
-          d="M14 28 Q14 18 24 18 L96 18 Q106 18 106 28 L106 128 Q106 140 94 140 L26 140 Q14 140 14 128 Z"
-          fill={fill}
-          stroke="#F8F5EB"
-          strokeWidth="3"
-        />
-        <path d="M52 18 L60 27 L68 18 Z" fill="#F8F5EB" />
-        <rect x="18" y="62" width="84" height="34" fill="#F8F5EB" />
-      </svg>
-    </div>
-  )
-}
+const FREE_SHIPPING_THRESHOLD = 499
 
 function QtyStepper({ qty, onDecrement, onIncrement, name }) {
   return (
-    <div className="inline-flex items-center border border-ink/20 bg-card/60 backdrop-blur-sm">
+    <div className="inline-flex items-center border border-[#6E433D]/20 rounded-full bg-white overflow-hidden shadow-sm">
       <button
         type="button"
         onClick={onDecrement}
         aria-label={`Decrease quantity of ${name}`}
-        className="flex h-8 w-8 items-center justify-center font-mono text-sm leading-none text-cocoa transition-colors hover:bg-ink hover:text-cream"
+        className="flex h-7 w-7 items-center justify-center font-mono text-xs text-[#6E433D] font-bold transition-colors hover:bg-[#D23D2D] hover:text-white"
       >
         –
       </button>
       <span
         aria-live="polite"
-        className="min-w-[2.25rem] border-x border-ink/20 px-2 text-center font-mono text-xs tabular-nums text-cocoa font-bold"
+        className="min-w-[1.75rem] px-1 text-center font-mono text-xs tabular-nums text-[#6E433D] font-bold"
       >
         {qty}
       </span>
@@ -50,7 +28,7 @@ function QtyStepper({ qty, onDecrement, onIncrement, name }) {
         type="button"
         onClick={onIncrement}
         aria-label={`Increase quantity of ${name}`}
-        className="flex h-8 w-8 items-center justify-center font-mono text-sm leading-none text-cocoa transition-colors hover:bg-ink hover:text-cream"
+        className="flex h-7 w-7 items-center justify-center font-mono text-xs text-[#6E433D] font-bold transition-colors hover:bg-[#D23D2D] hover:text-white"
       >
         +
       </button>
@@ -62,20 +40,15 @@ export default function CartDrawer() {
   const {
     lines,
     count,
-    cartCost,
-    checkoutUrl,
-    error: cartError,
+    subtotal,
     isOpen,
     closeCart,
     increment,
     decrement,
     removeItem,
     clearCart,
-    addItem,
   } = useCart()
-  const { products: catalogueProducts, testProduct } = useShopifyProducts()
-  const [error, setError] = useState(null)
-  const checkoutStartedRef = useRef(false)
+  const { notify } = useToast()
 
   useEffect(() => {
     if (!isOpen) return undefined
@@ -93,27 +66,12 @@ export default function CartDrawer() {
     }
   }, [isOpen, closeCart])
 
-  useEffect(() => {
-    if (isOpen) {
-      setError(null)
-      checkoutStartedRef.current = false
-    }
-  }, [isOpen])
-
-  const beginCheckout = () => {
-    if (checkoutStartedRef.current || lines.length === 0) return
-    if (!checkoutUrl || typeof checkoutUrl !== 'string') {
-      setError('Checkout URL is unavailable. Please check that products have active Shopify variants.')
-      return
-    }
-    checkoutStartedRef.current = true
-    window.location.href = checkoutUrl
+  const handleCheckoutClick = () => {
+    notify('Online checkout for The Makhana Company is launching soon! 🍿', { duration: 4000 })
   }
 
-  const handleAddTestProduct = () => {
-    if (!testProduct) return
-    addItem(testProduct)
-  }
+  const progressPercent = Math.min(100, Math.round((subtotal / FREE_SHIPPING_THRESHOLD) * 100))
+  const remainingForFreeShipping = Math.max(0, FREE_SHIPPING_THRESHOLD - subtotal)
 
   return (
     <AnimatePresence>
@@ -125,57 +83,66 @@ export default function CartDrawer() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={closeCart}
-            className="absolute inset-0 bg-ink/40 backdrop-blur-sm"
+            className="absolute inset-0 bg-[#6E433D]/30 backdrop-blur-sm"
           />
 
           <motion.aside
             initial={{ x: '100%' }}
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
-            transition={{ duration: 0.38, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-ink/10 bg-card/85 shadow-glass-xl backdrop-blur-2xl backdrop-saturate-150"
+            transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+            className="absolute right-0 top-0 flex h-full w-full max-w-md flex-col border-l border-[#6E433D]/15 bg-[#F8EECB] shadow-2xl"
           >
-            <header className="flex items-center justify-between border-b border-ink/15 px-6 py-5">
+            {/* Header */}
+            <header className="flex items-center justify-between border-b border-[#6E433D]/10 px-6 py-5 bg-[#FBF4DC]">
               <div>
-                <p className="spec text-olive">Your order</p>
-                <h2 className="mt-1 font-display text-2xl tracking-display">
-                  Cart{count > 0 ? ` (${count})` : ''}
+                <p className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#D23D2D]">YOUR SNACK STASH</p>
+                <h2 className="font-display text-xl font-bold text-[#6E433D]">
+                  CART{count > 0 ? ` (${count})` : ''}
                 </h2>
               </div>
               <button
                 type="button"
                 onClick={closeCart}
                 aria-label="Close cart"
-                className="flex h-9 w-9 items-center justify-center border border-ink/20 bg-transparent font-mono text-sm text-cocoa transition-colors hover:bg-ink hover:text-cream"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#6E433D]/20 bg-white font-mono text-xs text-[#6E433D] hover:bg-[#D23D2D] hover:text-white transition-colors"
               >
                 ✕
               </button>
             </header>
 
+            {/* Free Shipping Line */}
+            <div className="px-6 py-3 bg-[#F5C065]/20 border-b border-[#6E433D]/10">
+              <div className="flex justify-between items-center text-xs font-mono text-[#6E433D] mb-1 font-bold">
+                {remainingForFreeShipping > 0 ? (
+                  <span>Add ₹{remainingForFreeShipping} more for FREE SHIPPING! ⚡</span>
+                ) : (
+                  <span className="text-[#31603D]">🎉 FREE SHIPPING UNLOCKED!</span>
+                )}
+                <span>{progressPercent}%</span>
+              </div>
+              <div className="w-full bg-[#6E433D]/15 h-1.5 rounded-full overflow-hidden">
+                <div
+                  className="bg-[#D23D2D] h-full rounded-full transition-all duration-300"
+                  style={{ width: `${progressPercent}%` }}
+                />
+              </div>
+            </div>
+
+            {/* Cart Body */}
             {lines.length === 0 ? (
               <div className="flex flex-1 flex-col items-center justify-center px-8 text-center">
-                <p className="spec text-bark/60">Nothing here yet</p>
-                <h3 className="mt-3 font-display text-2xl tracking-display">Your cart is empty</h3>
-                <p className="mt-3 font-body text-sm leading-relaxed text-bark">
-                  Pick a Matcha Powder pack, a Matcha Kit, or a Gift Hamper to add it here.
+                <h3 className="font-display text-xl font-bold text-[#6E433D]">Your cart is empty</h3>
+                <p className="mt-2 font-body text-xs text-[#8A5D57] max-w-xs">
+                  Browse our roasted makhana flavors and add your favorites to get started.
                 </p>
-                <Link to="/matchas" onClick={closeCart} className="btn mt-8">
-                  Shop Matcha Powder
+                <Link to="/shop" onClick={closeCart} className="btn mt-6 text-xs">
+                  EXPLORE FLAVORS
                 </Link>
-
-                {testProduct && (
-                  <button
-                    type="button"
-                    onClick={handleAddTestProduct}
-                    className="mt-6 font-mono text-[0.65rem] uppercase tracking-widest text-[#4E6B3E] hover:underline"
-                  >
-                    [Dev Test] Add Matcha Test Product to Cart
-                  </button>
-                )}
               </div>
             ) : (
               <>
-                <ul data-lenis-prevent className="flex-1 divide-y divide-ink/10 overflow-y-auto px-6 py-2">
+                <ul data-lenis-prevent className="flex-1 divide-y divide-[#6E433D]/10 overflow-y-auto px-6 py-2">
                   <AnimatePresence initial={false}>
                     {lines.map((line) => (
                       <motion.li
@@ -184,36 +151,28 @@ export default function CartDrawer() {
                         initial={{ opacity: 0, height: 0 }}
                         animate={{ opacity: 1, height: 'auto' }}
                         exit={{ opacity: 0, height: 0 }}
-                        transition={{ duration: 0.25, ease: 'easeOut' }}
+                        transition={{ duration: 0.25 }}
                         className="overflow-hidden"
                       >
-                        <div className="flex gap-4 py-5">
-                          <LineMark swatch={line.swatch} />
+                        <div className="flex gap-4 py-4 items-center">
+                          <div className="flex h-14 w-14 flex-shrink-0 items-center justify-center rounded-xl border border-[#6E433D]/15 bg-white font-display font-bold text-lg text-[#6E433D]">
+                            🍿
+                          </div>
 
                           <div className="min-w-0 flex-1">
-                            <p className="spec text-olive">
-                              {line.size ? line.size : 'Matcha Product'}
-                            </p>
+                            <span className="font-mono text-[9px] font-bold uppercase tracking-wider text-[#D23D2D]">
+                              {line.size || '70G PACK'}
+                            </span>
                             <div className="flex items-start justify-between gap-2">
-                              <h3 className="mt-1 font-display text-base leading-snug tracking-display">
+                              <h3 className="font-display text-sm font-bold text-[#6E433D] leading-tight">
                                 {line.name}
                               </h3>
-                              {(() => {
-                                const raw = parseFloat(line.price)
-                                const catMatch = catalogueProducts?.find((p) => p.variantId === line.variantId || p.handle === line.handle || p.name === line.name)
-                                const displayVal = Number.isFinite(raw) && raw > 0 ? raw : (catMatch?.price || line.price)
-                                return (
-                                  displayVal ? (
-                                    <span className="mt-1 font-mono text-xs tabular-nums text-cocoa font-bold shrink-0">
-                                      {line.currency === 'INR' || !line.currency ? '₹' : ''}
-                                      {displayVal} {line.currency && line.currency !== 'INR' ? line.currency : ''}
-                                    </span>
-                                  ) : null
-                                )
-                              })()}
+                              <span className="font-mono text-xs tabular-nums text-[#6E433D] font-bold shrink-0">
+                                ₹{line.price}
+                              </span>
                             </div>
 
-                            <div className="mt-3 flex items-center gap-4">
+                            <div className="mt-2.5 flex items-center justify-between">
                               <QtyStepper
                                 qty={line.qty}
                                 name={line.name}
@@ -223,9 +182,9 @@ export default function CartDrawer() {
                               <button
                                 type="button"
                                 onClick={() => removeItem(line.id)}
-                                className="spec text-bark/60 underline underline-offset-4 transition-colors hover:text-cocoa"
+                                className="font-mono text-[10px] font-bold text-[#8A5D57] hover:text-[#D23D2D] transition-colors"
                               >
-                                Remove
+                                REMOVE
                               </button>
                             </div>
                           </div>
@@ -235,58 +194,33 @@ export default function CartDrawer() {
                   </AnimatePresence>
                 </ul>
 
-                <footer className="border-t border-ink/15 bg-card/40 px-6 py-6 backdrop-blur-md">
-                  <div className="flex items-center justify-between font-mono text-spec uppercase">
-                    <span className="text-bark">Total items</span>
-                    <span className="tabular-nums text-cocoa font-bold">{count}</span>
+                {/* Footer */}
+                <footer className="border-t border-[#6E433D]/15 bg-[#FBF4DC] px-6 py-5">
+                  <div className="flex items-center justify-between font-mono text-xs text-[#8A5D57] font-bold uppercase">
+                    <span>TOTAL PACKS</span>
+                    <span className="tabular-nums text-[#6E433D]">{count}</span>
                   </div>
-                  {cartCost?.subtotalAmount && parseFloat(cartCost.subtotalAmount) > 0 && (
-                    <div className="mt-3 flex items-center justify-between font-mono text-xs font-bold uppercase tracking-widest">
-                      <span className="text-bark">Subtotal</span>
-                      <span className="tabular-nums text-cocoa">
-                        {cartCost.currencyCode === 'INR' ? '₹' : ''}
-                        {cartCost.subtotalAmount} {cartCost.currencyCode !== 'INR' ? cartCost.currencyCode : ''}
-                      </span>
-                    </div>
-                  )}
-
-                  {(cartError || error) && (
-                    <p role="alert" className="mt-3 border-l-2 border-olive pl-3 font-body text-xs text-cocoa">
-                      {cartError || error}
-                    </p>
-                  )}
-
-                  <p className="mt-3 font-body text-xs leading-relaxed text-bark">
-                    Redirects to secure Shopify hosted checkout to complete your order.
-                  </p>
+                  <div className="mt-2 flex items-center justify-between font-display text-xl font-bold text-[#6E433D]">
+                    <span>SUBTOTAL</span>
+                    <span className="tabular-nums text-[#D23D2D]">₹{subtotal}</span>
+                  </div>
 
                   <button
                     type="button"
-                    onClick={beginCheckout}
+                    onClick={handleCheckoutClick}
                     disabled={lines.length === 0}
-                    className="btn mt-5 w-full disabled:opacity-50"
+                    className="btn mt-4 w-full text-center justify-center font-bold text-xs shadow-md disabled:opacity-50"
                   >
-                    Checkout
+                    CHECKOUT (COMING SOON) ➔
                   </button>
+
                   <button
                     type="button"
                     onClick={clearCart}
-                    className="mt-3 w-full font-mono text-spec uppercase tracking-widest text-bark/60 underline underline-offset-4 transition-colors hover:text-cocoa"
+                    className="mt-3 w-full font-mono text-[10px] uppercase font-bold tracking-widest text-[#8A5D57] hover:text-[#D23D2D] transition-colors"
                   >
-                    Clear cart
+                    CLEAR CART
                   </button>
-
-                  {testProduct && (
-                    <div className="mt-4 pt-3 border-t border-ink/10 text-center">
-                      <button
-                        type="button"
-                        onClick={handleAddTestProduct}
-                        className="font-mono text-[0.65rem] uppercase tracking-widest text-[#4E6B3E] hover:underline"
-                      >
-                        [Dev Test] Add Matcha Test Product to Cart
-                      </button>
-                    </div>
-                  )}
                 </footer>
               </>
             )}

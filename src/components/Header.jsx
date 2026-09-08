@@ -3,13 +3,11 @@ import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
-import { EASE } from './Motion'
 
 const NAV_LINKS = [
-  { to: '/matchas', label: 'Matcha Powder' },
-  { to: '/matcha-kits', label: 'Matcha Kits' },
-  { to: '/gift-hampers', label: 'Gift Hampers' },
-  { to: '/our-story', label: 'Our Story' },
+  { to: '/shop', label: 'SHOP' },
+  { to: '/build-box', label: 'BUILD YOUR BOX' },
+  { to: '/our-story', label: 'OUR STORY' },
 ]
 
 export default function Header() {
@@ -20,7 +18,7 @@ export default function Header() {
   const { pathname } = useLocation()
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24)
+    const onScroll = () => setScrolled(window.scrollY > 16)
     onScroll()
     window.addEventListener('scroll', onScroll, { passive: true })
     return () => window.removeEventListener('scroll', onScroll)
@@ -38,128 +36,110 @@ export default function Header() {
   }, [menuOpen])
 
   return (
-    <header
-      className={`sticky top-0 z-50 transition-all duration-500 ${
-        scrolled || menuOpen
-          ? 'bg-[#F8F5EB]/90 backdrop-blur-xl border-b border-[#232E1E]/12 shadow-sm'
-          : 'bg-[#E9E7D0]/70 backdrop-blur-md border-b border-transparent'
-      }`}
-    >
-      <div className="mx-auto flex max-w-[100rem] items-center justify-between px-6 py-5 sm:px-10">
-        <NavLink to="/" aria-label="Drink Yojo — home" className="relative z-10">
-          <motion.div
-            aria-hidden="true"
-            className="flex items-center gap-3"
-            initial={reduceMotion ? false : { opacity: 0, y: -6 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, ease: EASE }}
-          >
-            <span className="block font-display text-2xl uppercase leading-none tracking-tight text-[#232E1E] font-bold">
-              Drink Yōjō
-            </span>
-            <span className="hidden sm:inline-block px-2.5 py-0.5 text-[0.65rem] font-mono font-bold uppercase tracking-widest text-[#4E6B3E] bg-[#C4D2B0]/40 border border-[#4E6B3E]/20 rounded-full">
-              Uji Matcha
-            </span>
-          </motion.div>
-        </NavLink>
+    <>
+      {/* ── FIRE RED ANNOUNCEMENT BAR ─────────────────────────────────────── */}
+      <div className="bg-[#D23D2D] text-[#F8EECB] py-2 px-4 text-center font-mono text-[10px] font-bold uppercase tracking-widest border-b border-[#6E433D]/20">
+        <span>⚡ FREE SHIPPING ACROSS INDIA ON ORDERS OVER ₹499</span>
+      </div>
 
-        <nav aria-label="Primary" className="hidden items-center gap-10 lg:flex">
-          {NAV_LINKS.map((link, i) => (
-            <motion.div
-              key={link.to}
-              initial={reduceMotion ? false : { opacity: 0, y: -6 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.055, ease: EASE }}
-            >
+      {/* ── VANILLA CREAM GLASS NAVBAR ──────────────────────────────────── */}
+      <header
+        className={`sticky top-0 z-50 transition-all duration-300 ${
+          scrolled || menuOpen
+            ? 'glass-header py-3.5 shadow-subtle'
+            : 'bg-[#F8EECB]/90 backdrop-blur-md py-5 border-b border-transparent'
+        }`}
+      >
+        <div className="mx-auto flex max-w-[96rem] items-center justify-between px-6 sm:px-12">
+          
+          {/* Logo / Brand Mark */}
+          <NavLink to="/" aria-label="The Makhana Company" className="group relative z-10 flex items-center gap-3">
+            <span className="font-display text-xl sm:text-2xl font-black uppercase tracking-tight text-[#6E433D] leading-none">
+              THE MAKHANA COMPANY
+            </span>
+          </NavLink>
+
+          {/* Desktop Navigation Links */}
+          <nav aria-label="Primary navigation" className="hidden items-center gap-10 lg:flex">
+            {NAV_LINKS.map((link) => (
               <NavLink
+                key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `link-draw font-mono text-spec uppercase tracking-widest ${
-                    isActive ? 'text-[#4E6B3E] font-bold' : 'text-[#232E1E] hover:text-[#4E6B3E]'
+                  `font-mono text-xs uppercase font-bold tracking-wider transition-colors duration-200 ${
+                    isActive ? 'text-[#D23D2D] border-b-2 border-[#D23D2D] pb-0.5' : 'text-[#6E433D] hover:text-[#D23D2D]'
                   }`
                 }
               >
                 {link.label}
               </NavLink>
-            </motion.div>
-          ))}
-        </nav>
+            ))}
+          </nav>
 
-        <motion.div
-          className="relative z-10 flex items-center gap-6"
-          initial={reduceMotion ? false : { opacity: 0, y: -6 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.32, ease: EASE }}
-        >
-          <motion.button
-            type="button"
-            onClick={openCart}
-            aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
-            animate={lastAddedId && !reduceMotion ? { scale: [1, 1.08, 1] } : { scale: 1 }}
-            transition={{ duration: 0.4 }}
-            className="group relative inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full bg-[#4E6B3E] text-[#F8F5EB] font-mono text-spec uppercase tracking-widest shadow-md hover:bg-[#232E1E] transition-all duration-300"
-          >
-            <span>Cart</span>
-            <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#F8F5EB] text-[#232E1E] text-[0.7rem] font-bold tabular-nums">
-              {cartCount}
-            </span>
-          </motion.button>
+          {/* Right Actions */}
+          <div className="relative z-10 flex items-center gap-4">
+            {/* Cart Trigger */}
+            <motion.button
+              type="button"
+              onClick={openCart}
+              aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
+              animate={lastAddedId && !reduceMotion ? { scale: [1, 1.06, 1] } : { scale: 1 }}
+              transition={{ duration: 0.3 }}
+              className="group relative inline-flex items-center gap-2.5 px-5 py-2 rounded-full border border-[#6E433D]/20 bg-white text-[#6E433D] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#D23D2D] hover:text-[#D23D2D] transition-all shadow-sm"
+            >
+              <span>CART</span>
+              <span className="inline-flex h-4 w-4 items-center justify-center rounded-full bg-[#D23D2D] text-[#F8EECB] text-[10px] font-mono tabular-nums">
+                {cartCount}
+              </span>
+            </motion.button>
 
-          <button
-            type="button"
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            aria-expanded={menuOpen}
-            onClick={() => setMenuOpen((v) => !v)}
-            className="flex h-8 w-8 items-center justify-center rounded-full border border-[#232E1E]/20 bg-[#F8F5EB] lg:hidden"
-          >
-            <span
-              className={`h-0.5 w-4 bg-[#232E1E] transition-transform duration-300 ${
-                menuOpen ? 'rotate-45 translate-y-[1px]' : '-translate-y-1'
-              }`}
-            />
-          </button>
-        </motion.div>
-      </div>
-
-      <AnimatePresence>
-        {menuOpen && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -10 }}
-            transition={{ duration: 0.35, ease: EASE }}
-            className="fixed inset-0 top-[73px] z-40 bg-[#F8F5EB]/98 backdrop-blur-2xl lg:hidden"
-          >
-            <nav aria-label="Primary" className="flex h-full flex-col justify-between px-6 pb-12 pt-8">
-              <ul className="space-y-4">
-                {NAV_LINKS.map((link, i) => (
-                  <motion.li
-                    key={link.to}
-                    initial={reduceMotion ? false : { opacity: 0, x: -16 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.06 + i * 0.06, duration: 0.4, ease: EASE }}
-                    className="border-b border-[#232E1E]/10 pb-4"
-                  >
-                    <NavLink
-                      to={link.to}
-                      className="flex items-center justify-between font-display text-3xl text-[#232E1E]"
-                    >
-                      {link.label}
-                      <span className="index-num text-lg">{String(i + 1).padStart(2, '0')}</span>
-                    </NavLink>
-                  </motion.li>
-                ))}
-              </ul>
-              <div className="p-6 glass-panel rounded-lg">
-                <p className="spec text-[#4E6B3E] mb-2">Single-Region Uji Matcha</p>
-                <p className="font-serif text-lg italic text-[#232E1E]">
-                  Stone-ground in Uji, Kyoto. Enjoyed on your kitchen counter in ten seconds.
-                </p>
+            {/* Mobile Hamburger Toggle */}
+            <button
+              type="button"
+              aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+              aria-expanded={menuOpen}
+              onClick={() => setMenuOpen((v) => !v)}
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-[#6E433D]/20 bg-white lg:hidden shadow-sm"
+            >
+              <div className="relative w-4 h-3.5 flex flex-col justify-between">
+                <span className={`h-0.5 w-full bg-[#6E433D] rounded-full transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-[6px]' : ''}`} />
+                <span className={`h-0.5 w-full bg-[#6E433D] rounded-full transition-opacity duration-300 ${menuOpen ? 'opacity-0' : 'opacity-100'}`} />
+                <span className={`h-0.5 w-full bg-[#6E433D] rounded-full transition-transform duration-300 ${menuOpen ? '-rotate-45 -translate-y-[6px]' : ''}`} />
               </div>
-            </nav>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </header>
+            </button>
+          </div>
+
+        </div>
+
+        {/* ── MOBILE NAV DRAWER ──────────────────────────────────────────── */}
+        <AnimatePresence>
+          {menuOpen && (
+            <motion.div
+              initial={{ opacity: 0, height: 0 }}
+              animate={{ opacity: 1, height: 'auto' }}
+              exit={{ opacity: 0, height: 0 }}
+              transition={{ duration: 0.3 }}
+              className="fixed inset-x-0 top-[90px] z-40 bg-[#F8EECB] border-b border-[#6E433D]/20 shadow-lg lg:hidden"
+            >
+              <nav aria-label="Mobile navigation" className="flex flex-col px-6 py-8 space-y-6">
+                <ul className="space-y-4">
+                  {NAV_LINKS.map((link, i) => (
+                    <li key={link.to} className="border-b border-[#6E433D]/10 pb-3">
+                      <NavLink
+                        to={link.to}
+                        className="flex items-center justify-between font-display text-2xl font-bold text-[#6E433D] hover:text-[#D23D2D]"
+                      >
+                        {link.label}
+                        <span className="font-mono text-xs text-[#D23D2D]">0{i + 1}</span>
+                      </NavLink>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </header>
+    </>
   )
 }

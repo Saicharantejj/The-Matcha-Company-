@@ -9,14 +9,12 @@ import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { diyKits } from '../data/products'
 import { photos } from '../data/photos'
-import { useMetaPixelCategoryView, useMetaPixelProductView } from '../lib/metaPixel'
 
 function KitRow({ kit, index }) {
   const [open, setOpen] = useState(false)
   const [checked, setChecked] = useState(() => new Set())
   const { addItem, openCart } = useCart()
   const { notify } = useToast()
-  const kitRef = useMetaPixelProductView(kit)
 
   const handleAdd = () => {
     addItem(kit, 'diy-kit')
@@ -34,7 +32,7 @@ function KitRow({ kit, index }) {
   const panelId = `kit-panel-${kit.id}`
 
   return (
-    <article ref={kitRef} className="group/row glass-card p-6 sm:p-10 rounded-2xl mb-8 border border-[#4E6B3E]/20">
+    <article className="group/row glass-card p-6 sm:p-10 rounded-2xl mb-8 border border-[#4E6B3E]/20">
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-12 lg:items-center">
         <div className="flex flex-col justify-center lg:col-span-7">
           <div className="flex items-center gap-4">
@@ -142,8 +140,6 @@ function KitRow({ kit, index }) {
 }
 
 export default function DiyKits() {
-  useMetaPixelCategoryView('DIY Matcha Kits', diyKits)
-
   return (
     <PageShell>
       <section className="relative bg-[#E9E7D0] px-6 pb-20 pt-16 sm:px-10 sm:pt-24 overflow-hidden border-b border-[#232E1E]/10">

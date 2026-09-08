@@ -4,90 +4,63 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Brand Direction 01: Ivory ───────────────────────────────────────
-        // Warm ivory ground #E9E7D0, light ivory surface #F8F5EB, dark ink #232E1E,
-        // and deep sage #4E6B3E.
-        camel: '#E9E7D0',  // Ivory ground: warm ivory paper background
-        card: '#F8F5EB',   // Card surface: lighter than ground (1.146:1 ratio)
-        ink: '#232E1E',    // Dark ink: rules, borders, dark sections
+        // ── Brand Color Palette from User Spec ────────────────────────────────
+        // FIRE RED:     #D23D2D (Primary vibrant action & headline accent)
+        // VANILLA CREAM:#F8EECB (Primary ground & soft surface tone)
+        // SAFFRON:      #F5C065 (Warm secondary highlight & badge tone)
+        // RETRO GREEN:  #31603D (Deep vintage forest accent)
+        // RUSSET:       #6E433D (Deep warm chocolate brown for text & dark rules)
+        
+        'fire-red': '#D23D2D',
+        'vanilla': '#F8EECB',
+        'saffron': '#F5C065',
+        'retro-green': '#31603D',
+        'russet': '#6E433D',
 
-        // Type tones
-        cocoa: '#232E1E',  // Primary type — dark ink
-        bark: '#4E6B3E',   // Secondary type — deep sage
-        linen: '#C4D2B8',  // Pale sage fill/accent on dark
+        // Semantic Mapping
+        cream: '#F8EECB',       // Primary background (Vanilla Cream)
+        surface: '#FFFFFF',     // Clean white surface card
+        'surface-warm': '#FBF4DC', // Slightly lighter vanilla surface
+        charcoal: '#6E433D',    // Primary text & dark borders (Russet)
+        cocoa: '#6E433D',       // Dark chocolate text
+        muted: '#8A5D57',       // Muted Russet secondary text
+        accent: '#D23D2D',      // Primary Accent (Fire Red)
+        'accent-green': '#31603D', // Secondary Accent (Retro Green)
+        'accent-yellow': '#F5C065', // Secondary Accent (Saffron)
 
-        // Working greens & fills
-        olive: '#4E6B3E',  // Deep sage (text, action buttons)
-        moss: '#C4D2B8',   // Pale sage (fills only)
-        matcha: '#5C8A2E', // Product green (drink liquid only)
-
-        cream: '#F8F5EB',  // Light ivory
-
-        // Glass surfaces (used via .glass utilities in index.css,
-        // these tokens are for inline Tailwind where needed)
-        'glass-ivory': 'rgba(248, 245, 235, 0.55)',
-        'glass-warm': 'rgba(248, 245, 235, 0.65)',
-        'glass-border': 'rgba(35, 46, 30, 0.08)',
+        // Glass surface tokens
+        'glass-vanilla': 'rgba(248, 238, 203, 0.88)',
+        'glass-white': 'rgba(255, 255, 255, 0.85)',
+        'glass-dark': 'rgba(110, 67, 61, 0.92)',
+        'glass-border': 'rgba(110, 67, 61, 0.12)',
       },
       fontFamily: {
-        display: ['"Instrument Serif"', 'Georgia', 'serif'],
-        body: ['"Instrument Sans"', 'sans-serif'],
-        mono: ['"Courier Prime"', 'monospace'],
-        serif: ['"Instrument Serif"', 'Georgia', 'serif'],
+        display: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+        body: ['"Plus Jakarta Sans"', '"Inter"', 'sans-serif'],
+        mono: ['"DM Mono"', 'monospace'],
       },
       borderRadius: {
         none: '0px',
-        sm: '3px',
-        DEFAULT: '3px',
-        md: '4px',
-        lg: '4px',
-        xl: '4px',
-        '2xl': '4px',
-        '3xl': '4px',
-        full: '4px',
+        sm: '8px',
+        DEFAULT: '16px',
+        md: '20px',
+        lg: '24px',
+        xl: '32px',
+        '2xl': '40px',
+        full: '9999px',
       },
       boxShadow: {
-        hard: '4px 4px 0px 0px #232E1E',
-        'hard-sm': '2px 2px 0px 0px #232E1E',
-        'hard-olive': '4px 4px 0px 0px #4E6B3E',
-        // Glass shadows — warm, soft, directional
-        'glass': '0 1px 2px rgba(35,46,30,0.04), 0 4px 16px rgba(35,46,30,0.03)',
-        'glass-lg': '0 2px 4px rgba(35,46,30,0.05), 0 8px 32px rgba(35,46,30,0.04)',
-        'glass-xl': '0 4px 8px rgba(35,46,30,0.06), 0 16px 48px rgba(35,46,30,0.05)',
+        'subtle': '0 4px 20px rgba(110, 67, 61, 0.04)',
+        'card': '0 8px 30px rgba(110, 67, 61, 0.06)',
+        'pop': '0 20px 40px rgba(110, 67, 61, 0.12)',
+        'glass': '0 8px 32px rgba(110, 67, 61, 0.06)',
       },
       fontSize: {
-        // Cinematic hero — even larger for editorial impact
-        mega: ['clamp(3rem, 9vw, 8.5rem)', { lineHeight: '0.82', letterSpacing: '-0.035em' }],
-        major: ['clamp(2.25rem, 5.6vw, 4.5rem)', { lineHeight: '0.88', letterSpacing: '-0.028em' }],
-        minor: ['clamp(1.75rem, 3.4vw, 2.75rem)', { lineHeight: '0.95', letterSpacing: '-0.02em' }],
-        lede: ['clamp(1.0625rem, 1.5vw, 1.375rem)', { lineHeight: '1.5', letterSpacing: '-0.01em' }],
-        spec: ['0.6875rem', { lineHeight: '1.2', letterSpacing: '0.16em' }],
-      },
-      letterSpacing: {
-        display: '-0.02em',
-      },
-      keyframes: {
-        marquee: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-        marqueeSlow: {
-          '0%': { transform: 'translateX(0%)' },
-          '100%': { transform: 'translateX(-50%)' },
-        },
-      },
-      animation: {
-        marquee: 'marquee 22s linear infinite',
-        marqueeSlow: 'marqueeSlow 45s linear infinite',
-      },
-      transitionTimingFunction: {
-        'out-expo': 'cubic-bezier(0.22, 1, 0.36, 1)',
-      },
-      transitionDuration: {
-        '600': '600ms',
-        '800': '800ms',
-        '900': '900ms',
-        '1100': '1100ms',
+        mega: ['clamp(3.5rem, 8.5vw, 7.5rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
+        major: ['clamp(2.5rem, 5vw, 4.5rem)', { lineHeight: '0.95', letterSpacing: '-0.03em' }],
+        minor: ['clamp(1.75rem, 3vw, 2.5rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
+        lede: ['clamp(1.1rem, 1.5vw, 1.35rem)', { lineHeight: '1.6', letterSpacing: '-0.01em' }],
+        spec: ['0.75rem', { lineHeight: '1.2', letterSpacing: '0.12em' }],
       },
     },
   },
