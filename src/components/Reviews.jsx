@@ -17,7 +17,7 @@ const REVIEWS = [
     name: 'Tanya V.',
     role: 'Verified Buyer',
     location: 'Delhi NCR',
-    quote: 'The packaging, the crunch, the cheesy flavor—everything feels super premium. Ordered the 5-Flavor Variety Box.',
+    quote: 'The packaging, the crunch, the cheesy flavor—everything feels super premium. CHASKA is my new daily stash.',
     flavor: 'Variety Box',
   },
 ]
@@ -31,8 +31,9 @@ export default function Reviews() {
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
             COMMUNITY REVIEWS
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#6E433D] leading-none">
-            PEOPLE ARE CRUNCHING.
+          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#6E433D] leading-none flex flex-wrap items-baseline gap-3">
+            <span>PEOPLE ARE CRUNCHING.</span>
+            <span className="text-[#D23D2D] font-hindi text-2xl sm:text-4xl font-extrabold">लोग क्या कह रहे हैं</span>
           </h2>
         </div>
 
@@ -40,16 +41,16 @@ export default function Reviews() {
           {REVIEWS.map((rev, i) => (
             <div
               key={i}
-              className="bg-[#F8EECB] border border-[#6E433D]/15 rounded-2xl p-6 sm:p-8 flex flex-col justify-between shadow-sm"
+              className="bg-[#F8EECB] border border-[#6E433D]/15 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm"
             >
-              <p className="font-body text-sm sm:text-base text-[#6E433D] leading-relaxed font-medium mb-8">
+              <p className="font-sans text-sm sm:text-base text-[#6E433D] leading-relaxed font-medium mb-8">
                 "{rev.quote}"
               </p>
 
               <div className="pt-4 border-t border-[#6E433D]/15 flex items-center justify-between font-mono text-xs">
                 <div>
                   <h4 className="font-bold text-[#6E433D]">{rev.name}</h4>
-                  <span className="text-[#8A5D57] text-[10px]">{rev.location}</span>
+                  <span className="text-[#6E433D]/70 text-[10px]">{rev.location}</span>
                 </div>
                 <span className="text-[#D23D2D] text-[10px] uppercase font-bold">{rev.flavor}</span>
               </div>

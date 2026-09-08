@@ -15,7 +15,7 @@ export default function BuildYourBox() {
   ])
 
   const { addItem, openCart } = useCart()
-  const { notify } = useToast()
+  const { addToast } = useToast()
 
   const handleSelectSlot = (index, product) => {
     const next = [...selectedFlavors]
@@ -25,7 +25,7 @@ export default function BuildYourBox() {
 
   const handleAddBoxToCart = () => {
     addItem(varietyBoxProduct, 1)
-    notify(`Custom Stash Box added to cart!`, { action: 'View Cart', onAction: openCart })
+    addToast('Custom CHASKA Stash Box added to cart! 📦', 'success')
   }
 
   return (
@@ -37,11 +37,12 @@ export default function BuildYourBox() {
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
             STASH BUILDER
           </span>
-          <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#6E433D] leading-none">
-            BUILD YOUR BOX.
+          <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#6E433D] leading-none flex flex-wrap items-baseline gap-3">
+            <span>BUILD YOUR BOX.</span>
+            <span className="text-[#D23D2D] font-hindi text-3xl sm:text-5xl font-extrabold">अपना BOX बनाओ</span>
           </h2>
           <p className="text-[#8A5D57] text-base font-body leading-relaxed font-medium">
-            Pick your 4 favourite flavours. Mix it up. Make your perfect snack stash.
+            Pick your 4 favourite flavours. Mix it up. Make your perfect CHASKA snack stash.
           </p>
         </div>
 

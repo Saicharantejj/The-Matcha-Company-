@@ -5,9 +5,9 @@ import { useCart } from '../context/CartContext'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
 
 const NAV_LINKS = [
-  { to: '/shop', label: 'SHOP' },
-  { to: '/build-your-box', label: 'BUILD YOUR BOX' },
-  { to: '/about', label: 'ABOUT' },
+  { to: '/shop', label: 'SHOP', hindi: 'दुकान' },
+  { to: '/build-your-box', label: 'BUILD YOUR BOX', hindi: 'अपना BOX बनाओ' },
+  { to: '/about', label: 'ABOUT', hindi: 'कहानी' },
 ]
 
 const SECONDARY_MOBILE_LINKS = [
@@ -45,7 +45,7 @@ export default function Header() {
     <>
       {/* ── FIRE RED ANNOUNCEMENT BAR ─────────────────────────────────────── */}
       <div className="bg-[#D23D2D] text-[#F8EECB] py-2 px-4 text-center font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest border-b border-[#6E433D]/20">
-        <span>⚡ ROASTED NOT FRIED. 100% FREE SHIPPING ON ORDERS OVER ₹499</span>
+        <span>⚡ KARARE. CHATPATE. ADDICTIVE. 🌶️ मुफ़्त डिलीवरी OVER ₹499</span>
       </div>
 
       {/* ── VANILLA CREAM GLASS NAVBAR ──────────────────────────────────── */}
@@ -59,9 +59,12 @@ export default function Header() {
         <div className="mx-auto flex max-w-[96rem] items-center justify-between px-6 sm:px-12">
           
           {/* Logo / Brand Mark */}
-          <NavLink to="/" aria-label="CHASKA" className="group relative z-10 flex items-center gap-3">
+          <NavLink to="/" aria-label="CHASKA" className="group relative z-10 flex items-center gap-2.5">
             <span className="font-display text-2xl sm:text-3xl font-black uppercase tracking-tight text-[#6E433D] leading-none group-hover:text-[#D23D2D] transition-colors">
               CHASKA
+            </span>
+            <span className="px-2 py-0.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-hindi text-[10px] font-bold tracking-wide shadow-xs">
+              चस्का 🍿
             </span>
           </NavLink>
 
@@ -72,12 +75,12 @@ export default function Header() {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `font-mono text-xs uppercase font-bold tracking-wider transition-colors duration-200 ${
+                  `font-mono text-xs uppercase font-bold tracking-wider transition-colors duration-200 flex items-center gap-1.5 ${
                     isActive ? 'text-[#D23D2D] border-b-2 border-[#D23D2D] pb-0.5' : 'text-[#6E433D] hover:text-[#D23D2D]'
                   }`
                 }
               >
-                {link.label}
+                <span>{link.label}</span>
               </NavLink>
             ))}
           </nav>
@@ -93,7 +96,7 @@ export default function Header() {
               transition={{ duration: 0.3 }}
               className="group relative inline-flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-[#6E433D]/20 bg-white text-[#6E433D] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#D23D2D] hover:text-[#D23D2D] transition-all shadow-sm"
             >
-              <span>CART</span>
+              <span>STASH</span>
               <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#D23D2D] text-[#F8EECB] text-[10px] font-mono font-bold tabular-nums">
                 {cartCount}
               </span>
@@ -135,7 +138,10 @@ export default function Header() {
                         to={link.to}
                         className="flex items-center justify-between font-display text-2xl font-bold text-[#6E433D] hover:text-[#D23D2D]"
                       >
-                        {link.label}
+                        <div className="flex items-center gap-2">
+                          <span>{link.label}</span>
+                          <span className="text-sm font-hindi font-normal text-[#D23D2D]">({link.hindi})</span>
+                        </div>
                         <span className="font-mono text-xs text-[#D23D2D]">0{i + 1}</span>
                       </NavLink>
                     </li>

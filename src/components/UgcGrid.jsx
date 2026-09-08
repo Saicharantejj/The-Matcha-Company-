@@ -16,8 +16,9 @@ export default function UgcGrid() {
           <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
             CAMPAIGN GALLERY
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#6E433D] leading-none">
-            SPOTTED SNACKING.
+          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#6E433D] leading-none flex flex-wrap items-baseline gap-3">
+            <span>SPOTTED SNACKING.</span>
+            <span className="text-[#D23D2D] font-hindi text-2xl sm:text-4xl font-extrabold">हर जगह CHASKA</span>
           </h2>
         </div>
 
@@ -25,7 +26,7 @@ export default function UgcGrid() {
           {GALLERY_ITEMS.map((item, idx) => (
             <div
               key={idx}
-              className="group relative aspect-[4/5] rounded-2xl overflow-hidden border border-[#6E433D]/15 bg-white shadow-card"
+              className="group relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#6E433D]/15 bg-white shadow-card"
             >
               <img
                 src={item.img}
