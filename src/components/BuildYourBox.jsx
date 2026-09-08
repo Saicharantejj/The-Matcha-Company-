@@ -24,7 +24,7 @@ export default function BuildYourBox() {
   }
 
   const handleAddBoxToCart = () => {
-    addItem(varietyBoxProduct, 'Custom Box Bundle')
+    addItem(varietyBoxProduct, 1)
     notify(`Custom Stash Box added to cart!`, { action: 'View Cart', onAction: openCart })
   }
 

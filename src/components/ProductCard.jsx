@@ -15,7 +15,7 @@ export default function ProductCard({ product, index = 0 }) {
   const handleAdd = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    addItem(product, 'Makhana Pack')
+    addItem(product, 1)
     addToast(`${name} added to stash!`, 'success')
   }
 

@@ -17,7 +17,7 @@ function KitRow({ kit, index }) {
   const { notify } = useToast()
 
   const handleAdd = () => {
-    addItem(kit, 'diy-kit')
+    addItem(kit, 1)
     notify(`${kit.name} added`, { action: 'View cart', onAction: openCart })
   }
 

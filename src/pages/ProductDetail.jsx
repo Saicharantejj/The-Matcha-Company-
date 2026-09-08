@@ -25,7 +25,7 @@ export default function ProductDetail() {
   }
 
   const handleAddToCart = () => {
-    addItem(product, 'Makhana Pack', qty)
+    addItem(product, qty)
     addToast(`${qty}x ${product.name} added to cart!`, 'success')
   }
 
