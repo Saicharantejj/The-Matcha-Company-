@@ -1,16 +1,11 @@
-import { products, diyKits, matchaKits } from '../../src/data/products.js'
+import { products, snackBundles } from '../../src/data/products.js'
 
 /**
  * The server's copy of the catalog, keyed by id.
- *
- * The client posts ids and quantities only. Names and kinds are re-derived
- * here rather than trusted from the request, so a tampered payload cannot
- * invent a product, rename one, or smuggle markup into the confirmation email.
  */
 const CATALOG = new Map([
-  ...products.map((p) => [p.id, { name: p.name, kind: 'sachet' }]),
-  ...diyKits.map((k) => [k.id, { name: k.name, kind: 'diy-kit' }]),
-  ...matchaKits.map((k) => [k.id, { name: k.name, kind: 'bundle' }]),
+  ...products.map((p) => [p.id, { name: p.name, kind: 'makhana-pack' }]),
+  ...snackBundles.map((k) => [k.id, { name: k.name, kind: 'bundle' }]),
 ])
 
 export const MAX_LINE_QTY = 99

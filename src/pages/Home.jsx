@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import PageShell from '../components/PageShell'
@@ -6,11 +7,31 @@ import BuildYourBox from '../components/BuildYourBox'
 import BenefitsGrid from '../components/BenefitsGrid'
 import Reviews from '../components/Reviews'
 import UgcGrid from '../components/UgcGrid'
-import { PRODUCTS_CATALOGUE } from '../data/products'
+import { fetchShopifyProducts } from '../lib/shopify/api'
 import { photos } from '../data/photos'
 
 export default function Home() {
-  const flavouredPacks = PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')
+  const [products, setProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function load() {
+      setIsLoading(true)
+      try {
+        const live = await fetchShopifyProducts(6)
+        if (live && live.length > 0) {
+          setProducts(live)
+        }
+      } catch (err) {
+        console.error('[Home Products Fetch Error]', err)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+    load()
+  }, [])
+
+  const flavouredPacks = products.filter((p) => p.category === 'Flavoured Makhana' || !p.category?.includes('Bundle'))
 
   return (
     <PageShell>

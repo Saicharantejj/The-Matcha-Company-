@@ -1,12 +1,11 @@
 import { useState, useMemo, useEffect } from 'react'
 import { useParams, NavLink, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { PRODUCTS_CATALOGUE } from '../data/products'
 import { photos } from '../data/photos'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { trackViewContent } from '../lib/metaPixel'
-import { fetchShopifyProductByHandle } from '../lib/shopify/api'
+import { fetchShopifyProductByHandle, fetchShopifyProducts } from '../lib/shopify/api'
 import ProductCard from '../components/ProductCard'
 import NotFound from './NotFound'
 
@@ -16,32 +15,65 @@ export default function ProductDetail() {
   const { addToast } = useToast()
 
   const [qty, setQty] = useState(1)
-  const [shopifyProduct, setShopifyProduct] = useState(null)
+  const [product, setProduct] = useState(null)
+  const [relatedProducts, setRelatedProducts] = useState([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState(null)
 
   useEffect(() => {
-    async function load() {
-      if (handle) {
-        try {
-          const sp = await fetchShopifyProductByHandle(handle)
-          if (sp) setShopifyProduct(sp)
-        } catch {}
+    async function loadProduct() {
+      setIsLoading(true)
+      setError(null)
+      try {
+        const sp = await fetchShopifyProductByHandle(handle)
+        if (sp) {
+          setProduct(sp)
+          // Load related products
+          const allProducts = await fetchShopifyProducts(6)
+          setRelatedProducts(allProducts.filter((p) => p.handle !== handle).slice(0, 3))
+        } else {
+          setProduct(null)
+        }
+      } catch (err) {
+        console.error('[Product Fetch Error]', err)
+        setError(err.message || 'Product not found')
+      } finally {
+        setIsLoading(false)
       }
     }
-    load()
+
+    if (handle) {
+      loadProduct()
+    }
   }, [handle])
 
-  // Find product by handle or id
-  const product = useMemo(() => {
-    return shopifyProduct || PRODUCTS_CATALOGUE.find((p) => p.handle === handle || p.id === handle)
-  }, [handle, shopifyProduct])
-
+  // Fire Meta Pixel ViewContent when product loads
   useEffect(() => {
     if (product) {
       trackViewContent(product)
     }
   }, [product])
 
-  if (!product) {
+  if (isLoading) {
+    return (
+      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB] flex items-center justify-center">
+        <div className="mx-auto max-w-4xl w-full p-8 rounded-3xl bg-white/60 border border-[#6E433D]/10 animate-pulse space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="aspect-square rounded-2xl bg-[#6E433D]/10" />
+            <div className="space-y-4">
+              <div className="h-4 w-1/4 rounded bg-[#6E433D]/15" />
+              <div className="h-8 w-3/4 rounded bg-[#6E433D]/20" />
+              <div className="h-4 w-1/3 rounded bg-[#6E433D]/15" />
+              <div className="h-24 w-full rounded bg-[#6E433D]/10" />
+              <div className="h-12 w-full rounded-full bg-[#6E433D]/20" />
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  if (!product || error) {
     return <NotFound />
   }
 
@@ -50,31 +82,28 @@ export default function ProductDetail() {
     addToast(`${qty}x ${product.name} added to cart!`, 'success')
   }
 
-  const photoKey = product.id === 'makhana-chilly-cheese' ? 'chillyCheesePack'
-    : product.id === 'makhana-pudhina' ? 'pudhinaPack'
-    : product.id === 'makhana-barbeque' ? 'barbequePack'
-    : product.id === 'makhana-peri-peri' ? 'periPeriPack'
-    : product.id === 'makhana-black-pepper' ? 'blackPepperPack'
-    : product.id === 'makhana-variety-box' ? 'stashBox'
-    : 'yellowBasket'
+  const photoKey = product.id?.includes('cheese') ? 'chillyCheesePack'
+    : product.id?.includes('pudhina') ? 'pudhinaPack'
+    : product.id?.includes('barbeque') ? 'barbequePack'
+    : product.id?.includes('peri-peri') ? 'periPeriPack'
+    : product.id?.includes('black-pepper') ? 'blackPepperPack'
+    : 'stashBox'
 
   const photoObj = photos[photoKey] || photos.brandPoster
-
-  // Related products
-  const relatedProducts = PRODUCTS_CATALOGUE.filter((p) => p.id !== product.id).slice(0, 3)
+  const displayImage = product.image || (product.images && product.images[0]?.url) || photoObj?.src
 
   // Flavor specific taste tags
-  const tasteTags = product.id === 'makhana-chilly-cheese'
+  const tasteTags = product.id?.includes('cheese')
     ? ['AGED CHEDDAR DUST', 'GREEN CHILI HEAT', 'ROASTED GARLIC', 'SAVORY & CHEEZY']
-    : product.id === 'makhana-pudhina'
+    : product.id?.includes('pudhina')
     ? ['FRESH GARDEN MINT', 'TANGY DRY MANGO', 'KALA NAMAK BURST', 'HERBAL & COOL']
-    : product.id === 'makhana-barbeque'
+    : product.id?.includes('barbeque')
     ? ['HICKORY SMOKE GLAZE', 'SMOKED PAPRIKA', 'SWEET TOMATO TANG', 'BOLD & SMOKY']
-    : product.id === 'makhana-peri-peri'
+    : product.id?.includes('peri-peri')
     ? ['FIERY BIRD’S EYE CHILI', 'GARLIC DUST', 'ZINGY LIME TWIST', 'EXTRA CRUNCHY']
-    : product.id === 'makhana-black-pepper'
+    : product.id?.includes('black-pepper')
     ? ['HIMALAYAN PINK SALT', 'MALABAR BLACK PEPPER', 'GOLDEN ROASTED', 'LIGHT & PURE']
-    : ['ALL-STAR STASH', '5 SIGNATURE FLAVORS', 'PERFECT GIFT', 'MAXIMUM VALUE']
+    : ['ALL-STAR STASH', 'SIGNATURE FLAVOR', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
   // Occasions
   const occasions = [
@@ -86,255 +115,276 @@ export default function ProductDetail() {
 
   return (
     <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB]">
-      <div className="mx-auto max-w-[90rem] space-y-16">
+      <div className="mx-auto max-w-7xl space-y-16">
         
-        {/* Breadcrumbs */}
-        <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-xs font-mono text-[#6E433D]/70">
-          <NavLink to="/" className="hover:text-[#D23D2D]">HOME</NavLink>
+        {/* Breadcrumb Navigation */}
+        <nav className="flex items-center gap-2 font-mono text-xs text-[#6E433D]/70 font-bold uppercase tracking-wider">
+          <Link to="/" className="hover:text-[#D23D2D] transition-colors">HOME</Link>
           <span>/</span>
-          <NavLink to="/shop" className="hover:text-[#D23D2D]">SHOP</NavLink>
+          <Link to="/shop" className="hover:text-[#D23D2D] transition-colors">SHOP</Link>
           <span>/</span>
-          <span className="text-[#6E433D] font-bold truncate">{product.name}</span>
+          <span className="text-[#D23D2D] line-clamp-1">{product.name}</span>
         </nav>
 
-        {/* ── SECTION 1: PRODUCT HERO ─────────────────────────────────────── */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
-          {/* Gallery / Image Box */}
+        {/* ── MAIN PRODUCT HERO (EDITORIAL SPLIT) ─────────────────────────── */}
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+          
+          {/* Left Column: Product Gallery / Image Stage */}
           <div className="lg:col-span-6 space-y-4">
-            <div className="relative aspect-square w-full rounded-[2.5rem] bg-white border border-[#6E433D]/15 p-8 flex items-center justify-center shadow-xl overflow-hidden">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.96 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.4 }}
+              className="relative aspect-square w-full rounded-[2.5rem] bg-white border border-[#6E433D]/15 shadow-xl p-8 flex items-center justify-center overflow-hidden"
+            >
               {product.badge && (
-                <span className="absolute top-6 left-6 z-10 px-4 py-1.5 font-mono text-xs font-bold uppercase tracking-widest rounded-full bg-[#D23D2D] text-[#F8EECB] shadow-md">
+                <span className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold uppercase tracking-widest shadow-md">
                   {product.badge}
                 </span>
               )}
-              {photoObj ? (
+
+              {displayImage ? (
                 <img
-                  src={photoObj.src}
+                  src={displayImage}
                   alt={product.name}
-                  className="h-full w-full object-cover rounded-3xl"
+                  className="h-full w-full object-contain rounded-2xl"
                 />
               ) : (
-                <div className="font-display text-8xl">🍿</div>
+                <span className="font-display text-8xl">🍿</span>
               )}
-            </div>
+            </motion.div>
+
+            {/* Thumbnail selector */}
+            {product.images && product.images.length > 1 && (
+              <div className="flex items-center gap-3 overflow-x-auto pb-2">
+                {product.images.map((img, i) => (
+                  <div
+                    key={i}
+                    className="h-20 w-20 shrink-0 rounded-2xl bg-white border border-[#6E433D]/20 p-2 overflow-hidden shadow-sm"
+                  >
+                    <img src={img.url} alt={img.altText || product.name} className="h-full w-full object-cover rounded-xl" />
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
-          {/* Product Purchase Actions */}
-          <div className="lg:col-span-6 space-y-8 p-8 sm:p-10 rounded-[2.5rem] bg-white/90 border border-[#6E433D]/15 shadow-xl">
+          {/* Right Column: Information, Specs & Add-to-Cart */}
+          <div className="lg:col-span-6 space-y-8">
+            
+            {/* Header */}
             <div className="space-y-3">
               <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full bg-[#F8EECB] font-mono text-xs font-bold uppercase text-[#6E433D]">
+                <span className="px-3 py-1 rounded-full bg-[#F5C065] text-[#6E433D] font-mono text-[10px] font-bold uppercase tracking-wider">
                   {product.size || '70G PACK'}
                 </span>
                 {product.spiceLevel && (
-                  <span className="px-3 py-1 rounded-full bg-[#FFF0EC] font-mono text-xs font-bold text-[#D23D2D]">
+                  <span className="px-3 py-1 rounded-full bg-[#FFF0EC] text-[#D23D2D] font-mono text-[10px] font-bold uppercase tracking-wider">
                     {product.spiceLevel}
+                  </span>
+                )}
+                {product.availableForSale === false && (
+                  <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 font-mono text-[10px] font-bold uppercase tracking-wider">
+                    SOLD OUT
                   </span>
                 )}
               </div>
 
-              <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#6E433D] leading-tight">
+              <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#6E433D] tracking-tight leading-tight">
                 {product.name}
               </h1>
 
-              <p className="font-sans text-base text-[#6E433D]/85 leading-relaxed">
-                {product.description}
+              {/* Price & Savings */}
+              <div className="flex items-baseline gap-4 pt-2">
+                <span className="font-display text-3xl sm:text-4xl font-black text-[#D23D2D]">
+                  {product.displayPrice}
+                </span>
+                {product.mrp && product.mrp > product.price && (
+                  <>
+                    <span className="font-mono text-lg text-[#6E433D]/60 line-through">
+                      ₹{product.mrp}
+                    </span>
+                    <span className="font-mono text-xs font-bold text-[#31603D] bg-[#E8F5E9] px-2.5 py-1 rounded-full">
+                      SAVE {product.discount}
+                    </span>
+                  </>
+                )}
+              </div>
+            </div>
+
+            {/* Description */}
+            <div className="p-6 rounded-2xl bg-white border border-[#6E433D]/12 space-y-3 shadow-sm">
+              <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#6E433D]/70">
+                FLAVOUR PROFILE
+              </h3>
+              <p className="font-sans text-sm text-[#6E433D]/90 leading-relaxed font-medium">
+                {product.description || product.blurb}
               </p>
             </div>
 
-            {/* Price Row */}
-            <div className="flex items-baseline gap-4 p-4 rounded-2xl bg-[#FAF6EE] border border-[#6E433D]/10">
-              <span className="font-mono text-3xl font-bold text-[#6E433D]">
-                {product.displayPrice || `₹${product.price}`}
+            {/* Taste Tags */}
+            <div className="space-y-2">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#6E433D]/70">
+                TASTE NOTES &amp; TEXTURE
               </span>
-              {product.mrp && product.mrp > product.price && (
-                <span className="font-mono text-sm text-[#6E433D]/60 line-through">
-                  ₹{product.mrp}
-                </span>
-              )}
-              {product.discount && (
-                <span className="px-2.5 py-1 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold">
-                  {product.discount}
-                </span>
-              )}
-              <span className="ml-auto font-mono text-xs text-[#31603D] font-bold">
-                ✓ IN STOCK
-              </span>
+              <div className="flex flex-wrap gap-2">
+                {tasteTags.map((tag, i) => (
+                  <span
+                    key={i}
+                    className="px-3.5 py-1.5 rounded-full bg-[#FAF6EE] border border-[#6E433D]/15 font-mono text-[10px] font-bold text-[#6E433D] uppercase"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
             </div>
 
-            {/* Quantity & Add to Cart */}
-            <div className="space-y-4 pt-2">
+            {/* Quantity Stepper & Add to Cart Button */}
+            <div className="space-y-4 pt-4 border-t border-[#6E433D]/15">
               <div className="flex items-center gap-4">
-                <span className="font-mono text-xs font-bold uppercase text-[#6E433D]">QUANTITY:</span>
-                <div className="flex items-center border border-[#6E433D]/20 rounded-full bg-white px-3 py-1.5 shadow-sm">
+                <div className="flex items-center border border-[#6E433D]/20 rounded-full bg-white px-3 py-2 shadow-sm">
                   <button
                     type="button"
-                    onClick={() => setQty(Math.max(1, qty - 1))}
-                    className="h-8 w-8 rounded-full flex items-center justify-center font-mono text-lg font-bold text-[#6E433D] hover:bg-[#F8EECB]"
+                    onClick={() => setQty((q) => Math.max(1, q - 1))}
+                    disabled={qty <= 1}
+                    className="h-8 w-8 font-mono text-base font-bold text-[#6E433D] hover:bg-[#D23D2D] hover:text-white rounded-full transition-colors flex items-center justify-center disabled:opacity-30"
                   >
-                    -
+                    −
                   </button>
-                  <span className="w-10 text-center font-mono text-sm font-bold text-[#6E433D]">
+                  <span className="min-w-[2.5rem] text-center font-mono text-sm font-bold text-[#6E433D]">
                     {qty}
                   </span>
                   <button
                     type="button"
-                    onClick={() => setQty(qty + 1)}
-                    className="h-8 w-8 rounded-full flex items-center justify-center font-mono text-lg font-bold text-[#6E433D] hover:bg-[#F8EECB]"
+                    onClick={() => setQty((q) => q + 1)}
+                    className="h-8 w-8 font-mono text-base font-bold text-[#6E433D] hover:bg-[#D23D2D] hover:text-white rounded-full transition-colors flex items-center justify-center"
                   >
                     +
                   </button>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="w-full btn bg-[#D23D2D] hover:bg-[#6E433D] py-4 text-sm font-bold shadow-lg"
+                  disabled={product.availableForSale === false}
+                  className="flex-1 btn bg-[#D23D2D] hover:bg-[#6E433D] py-4 text-xs font-bold uppercase tracking-wider shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  ADD TO STASH CART 🛒
+                  {product.availableForSale === false ? 'SOLD OUT' : `ADD TO STASH • ₹${(product.price * qty).toFixed(0)}`}
                 </button>
-                <Link
-                  to="/build-your-box"
-                  className="w-full btn-outline border-[#6E433D]/30 py-4 text-xs font-bold text-center"
-                >
-                  ADD TO 4-PACK BOX 📦
-                </Link>
+              </div>
+
+              <div className="flex items-center justify-between text-xs font-mono text-[#6E433D]/80 pt-2 px-2">
+                <span>⚡ Ships within 24 Hours</span>
+                <span>🍃 100% Roasted Lotus Seeds</span>
+                <span>🇮🇳 Made in India</span>
               </div>
             </div>
 
-            {/* Micro Benefits Banner */}
-            <div className="grid grid-cols-3 gap-2 pt-4 border-t border-[#6E433D]/10 text-center font-mono text-[10px] font-bold uppercase text-[#6E433D]/80">
-              <div className="p-2 rounded-xl bg-[#FAF6EE]">🔥 ROASTED NOT FRIED</div>
-              <div className="p-2 rounded-xl bg-[#FAF6EE]">⚡ 0% TRANS FAT</div>
-              <div className="p-2 rounded-xl bg-[#FAF6EE]">🚚 FREE SHIP &gt; ₹499</div>
-            </div>
           </div>
-        </section>
+        </div>
 
-        {/* ── SECTION 2: WHAT IT TASTES LIKE ─────────────────────────────── */}
-        <section className="p-8 sm:p-12 rounded-[2.5rem] bg-[#6E433D] text-[#F8EECB] space-y-8 shadow-xl">
-          <div className="space-y-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#F5C065]">
-              // SENSORY TASTE PROFILE
+        {/* ── 2. NUTRITIONAL FACTS & INGREDIENTS ─────────────────────────────── */}
+        <section className="p-8 sm:p-12 rounded-[2.5rem] bg-white border border-[#6E433D]/15 shadow-xl space-y-8">
+          <div className="max-w-2xl space-y-2">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
+              CLEAN SNACKING SPECS
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold uppercase text-white">
-              WHAT IT TASTES LIKE
+            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#6E433D]">
+              WHAT'S INSIDE THE PACK
             </h2>
-            <p className="font-sans text-lg text-[#F8EECB]/90 max-w-2xl">
-              "{product.blurb}"
-            </p>
           </div>
 
-          <div className="flex flex-wrap gap-3">
-            {tasteTags.map((tag) => (
-              <span key={tag} className="px-5 py-2.5 rounded-full bg-white/10 border border-[#F8EECB]/20 font-mono text-xs font-bold text-[#F5C065]">
-                {tag}
-              </span>
-            ))}
-          </div>
-        </section>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
+            {/* Ingredients */}
+            <div className="space-y-4">
+              <h3 className="font-display text-lg font-bold text-[#6E433D] uppercase">
+                INGREDIENTS
+              </h3>
+              <p className="font-sans text-sm text-[#6E433D]/90 leading-relaxed font-medium bg-[#FAF6EE] p-5 rounded-2xl border border-[#6E433D]/10">
+                {product.ingredients || 'Jumbo Foxnuts (Makhana), Olive Oil, Natural Spices, Sea Salt.'}
+              </p>
+              <div className="flex flex-wrap gap-2 pt-2">
+                <span className="px-3 py-1 rounded-full bg-[#E8F5E9] text-[#31603D] font-mono text-[10px] font-bold">✓ GLUTEN FREE</span>
+                <span className="px-3 py-1 rounded-full bg-[#E8F5E9] text-[#31603D] font-mono text-[10px] font-bold">✓ ZERO TRANS FAT</span>
+                <span className="px-3 py-1 rounded-full bg-[#E8F5E9] text-[#31603D] font-mono text-[10px] font-bold">✓ NOT FRIED</span>
+                <span className="px-3 py-1 rounded-full bg-[#E8F5E9] text-[#31603D] font-mono text-[10px] font-bold">✓ PLANT PROTEIN</span>
+              </div>
+            </div>
 
-        {/* ── SECTION 3: WHAT'S INSIDE (INGREDIENTS & NUTRITION) ───────────── */}
-        <section className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-          <div className="lg:col-span-6 p-8 sm:p-10 rounded-3xl bg-white border border-[#6E433D]/15 space-y-6 shadow-md">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
-              CLEAN INGREDIENTS
-            </span>
-            <h3 className="font-display text-2xl font-bold uppercase text-[#6E433D]">
-              WHAT’S INSIDE
-            </h3>
-            <p className="font-sans text-sm text-[#6E433D]/85 leading-relaxed">
-              {product.ingredients}
-            </p>
-            <div className="p-4 rounded-2xl bg-[#E8F5E9] border border-[#31603D]/20 text-xs font-mono text-[#31603D] font-bold">
-              ✓ NO PALM OIL • NO MSG • NO ARTIFICIAL COLOURS OR FLAVOURS
+            {/* Nutrition Grid */}
+            <div className="space-y-4">
+              <h3 className="font-display text-lg font-bold text-[#6E433D] uppercase">
+                NUTRITIONAL VALUE (PER 70G PACK)
+              </h3>
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                {Object.entries(product.nutrition || { calories: '132 kcal', protein: '4.2g', carbs: '21g', fat: '3.5g', fiber: '3.6g' }).map(([key, val]) => (
+                  <div key={key} className="p-4 rounded-2xl bg-[#FAF6EE] border border-[#6E433D]/10 text-center">
+                    <span className="font-mono text-[10px] font-bold uppercase text-[#6E433D]/60 block mb-1">
+                      {key}
+                    </span>
+                    <span className="font-display text-base font-bold text-[#6E433D]">
+                      {val}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
-
-          <div className="lg:col-span-6 p-8 sm:p-10 rounded-3xl bg-white border border-[#6E433D]/15 space-y-6 shadow-md">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#31603D]">
-              MACRO BREAKDOWN
-            </span>
-            <h3 className="font-display text-2xl font-bold uppercase text-[#6E433D]">
-              NUTRITION FACTS
-            </h3>
-            
-            {product.nutrition && (
-              <div className="divide-y divide-[#6E433D]/10 font-mono text-xs text-[#6E433D]">
-                <div className="py-2.5 flex justify-between"><span>CALORIES</span><span className="font-bold">{product.nutrition.calories}</span></div>
-                <div className="py-2.5 flex justify-between"><span>PLANT PROTEIN</span><span className="font-bold text-[#31603D]">{product.nutrition.protein}</span></div>
-                <div className="py-2.5 flex justify-between"><span>DIETARY FIBER</span><span className="font-bold">{product.nutrition.fiber}</span></div>
-                <div className="py-2.5 flex justify-between"><span>COMPLEX CARBS</span><span className="font-bold">{product.nutrition.carbs}</span></div>
-                <div className="py-2.5 flex justify-between"><span>GOOD FATS</span><span className="font-bold">{product.nutrition.fat}</span></div>
-              </div>
-            )}
-          </div>
         </section>
 
-        {/* ── SECTION 4: HOW TO ENJOY IT ─────────────────────────────────── */}
+        {/* ── 3. PERFECT OCCASIONS ─────────────────────────────────────────── */}
         <section className="space-y-8">
-          <div className="text-center space-y-3">
+          <div className="text-center max-w-2xl mx-auto space-y-2">
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
-              SNACKING OCCASIONS
+              SNACK ANYWHERE
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold uppercase text-[#6E433D]">
-              HOW TO ENJOY IT
+            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#6E433D]">
+              PERFECT CRUNCH OCCASIONS
             </h2>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {occasions.map((occ) => (
-              <div key={occ.title} className="p-6 rounded-3xl bg-white border border-[#6E433D]/15 space-y-3 shadow-sm hover:shadow-md transition-shadow">
-                <span className="text-3xl">{occ.icon}</span>
-                <h3 className="font-display text-lg font-bold uppercase text-[#6E433D]">{occ.title}</h3>
-                <p className="font-sans text-xs text-[#6E433D]/80 leading-relaxed">{occ.desc}</p>
+            {occasions.map((occ, idx) => (
+              <div
+                key={idx}
+                className="p-6 rounded-3xl bg-white border border-[#6E433D]/15 shadow-sm space-y-3 hover:shadow-md transition-shadow"
+              >
+                <span className="text-3xl block">{occ.icon}</span>
+                <h3 className="font-display text-base font-bold uppercase text-[#6E433D]">
+                  {occ.title}
+                </h3>
+                <p className="font-sans text-xs text-[#6E433D]/80 leading-relaxed font-medium">
+                  {occ.desc}
+                </p>
               </div>
             ))}
           </div>
         </section>
 
-        {/* ── SECTION 5: RELATED PRODUCTS ────────────────────────────────── */}
-        <section className="space-y-8 pt-8 border-t border-[#6E433D]/15">
-          <div className="flex flex-col sm:flex-row items-baseline justify-between gap-4">
-            <div>
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
-                IF YOU LIKE THIS, TRY...
-              </span>
-              <h2 className="font-display text-2xl sm:text-3xl font-bold uppercase text-[#6E433D]">
-                EXPLORE OTHER FLAVORS
-              </h2>
+        {/* ── 4. RELATED PRODUCTS ──────────────────────────────────────────── */}
+        {relatedProducts.length > 0 && (
+          <section className="space-y-8 pt-8 border-t border-[#6E433D]/15">
+            <div className="flex items-end justify-between">
+              <div>
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
+                  MORE FLAVOURS
+                </span>
+                <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#6E433D]">
+                  YOU MIGHT ALSO CRAVE
+                </h2>
+              </div>
+              <Link to="/shop" className="font-mono text-xs font-bold uppercase text-[#D23D2D] hover:text-[#6E433D] transition-colors">
+                VIEW ALL ➔
+              </Link>
             </div>
-            <NavLink to="/shop" className="font-mono text-xs font-bold uppercase text-[#D23D2D] hover:underline">
-              VIEW ALL FLAVORS &rarr;
-            </NavLink>
-          </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {relatedProducts.map((p, i) => (
-              <ProductCard key={p.id} product={p} index={i} />
-            ))}
-          </div>
-        </section>
-
-        {/* ── SECTION 6: BUILD YOUR BOX CTA BANNER ───────────────────────── */}
-        <section className="p-8 sm:p-12 rounded-[2.5rem] bg-[#31603D] text-[#F8EECB] flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
-          <div className="space-y-3 max-w-xl text-center md:text-left">
-            <span className="px-3 py-1 rounded-full bg-[#F8EECB] text-[#31603D] font-mono text-xs font-bold uppercase">
-              10% BUNDLE SAVINGS
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-bold uppercase text-white">
-              BUILD YOUR CUSTOM 4-PACK STASH
-            </h2>
-            <p className="font-mono text-xs text-[#F8EECB]/80 leading-relaxed">
-              Mix and match your favorite roasted makhana flavors into a custom stash box and save 10% automatically!
-            </p>
-          </div>
-          <NavLink to="/build-your-box" className="btn bg-[#D23D2D] text-[#F8EECB] hover:bg-[#6E433D] px-8 py-4 text-xs font-bold shrink-0">
-            BUILD YOUR BOX NOW &rarr;
-          </NavLink>
-        </section>
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {relatedProducts.map((p, i) => (
+                <ProductCard key={p.id || p.handle} product={p} index={i} />
+              ))}
+            </div>
+          </section>
+        )}
 
       </div>
     </main>

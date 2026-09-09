@@ -9,8 +9,11 @@ export default function ProductCard({ product, index = 0 }) {
   const { addToast } = useToast()
   const navigate = useNavigate()
 
-  const name = product.name || product.flavor
-  const productUrl = `/product/${product.handle || product.id}`
+  if (!product) return null
+
+  const name = product.title || product.name || product.flavor || 'CHASKA Makhana'
+  const handle = product.handle || product.id
+  const productUrl = `/product/${handle}`
 
   const handleAdd = (e) => {
     e.preventDefault()
@@ -19,30 +22,33 @@ export default function ProductCard({ product, index = 0 }) {
     addToast(`${name} added to stash!`, 'success')
   }
 
-  const priceFormatted = product.displayPrice || `₹${product.price}`
+  const priceFormatted = product.displayPrice || (typeof product.price === 'number' ? `₹${Math.round(product.price)}` : `₹${product.price || 199}`)
+  const mrpFormatted = product.mrp && product.mrp > product.price ? (product.displayMrp || `₹${Math.round(product.mrp)}`) : null
 
-  const photoKey = product.id === 'makhana-chilly-cheese' ? 'chillyCheesePack'
-    : product.id === 'makhana-pudhina' ? 'pudhinaPack'
-    : product.id === 'makhana-barbeque' ? 'barbequePack'
-    : product.id === 'makhana-peri-peri' ? 'periPeriPack'
-    : product.id === 'makhana-black-pepper' ? 'blackPepperPack'
-    : product.id === 'makhana-variety-box' ? 'stashBox'
+  const photoKey = product.id?.includes('cheese') || handle?.includes('cheese') ? 'chillyCheesePack'
+    : product.id?.includes('pudhina') || handle?.includes('pudhina') ? 'pudhinaPack'
+    : product.id?.includes('barbeque') || handle?.includes('barbeque') ? 'barbequePack'
+    : product.id?.includes('peri-peri') || handle?.includes('peri-peri') ? 'periPeriPack'
+    : product.id?.includes('black-pepper') || handle?.includes('black-pepper') ? 'blackPepperPack'
+    : product.id?.includes('box') || handle?.includes('box') ? 'stashBox'
     : 'yellowBasket'
 
   const photoObj = photos[photoKey] || photos.brandPoster
+  const displayImage = product.image || (product.images && product.images[0]?.url) || photoObj?.src
 
   // Playful flavor descriptors
-  const playfulTag = product.id === 'makhana-chilly-cheese' ? 'Cheezy. Teekha. Dil se.'
-    : product.id === 'makhana-pudhina' ? 'Thanda mint. Kadak chaska.'
-    : product.id === 'makhana-barbeque' ? 'Smoky. Hot. Non-stop crunch.'
-    : product.id === 'makhana-peri-peri' ? 'Teekha hai. Par rukoge nahi.'
-    : product.id === 'makhana-black-pepper' ? 'Pure rock salt. Malabar pepper.'
-    : product.id === 'makhana-variety-box' ? '5 Flavours. Pure chaska.'
+  const playfulTag = handle?.includes('cheese') ? 'Cheezy. Teekha. Dil se.'
+    : handle?.includes('pudhina') ? 'Thanda mint. Kadak chaska.'
+    : handle?.includes('barbeque') ? 'Smoky. Hot. Non-stop crunch.'
+    : handle?.includes('peri-peri') ? 'Teekha hai. Par rukoge nahi.'
+    : handle?.includes('black-pepper') ? 'Pure rock salt. Malabar pepper.'
+    : handle?.includes('box') ? '5 Flavours. Pure chaska.'
     : 'Mega stash. Party sorted.'
 
   // Accent badge colors
   const badgeBg = product.swatch === 'chili' ? '#D23D2D' : product.swatch === 'pudina' ? '#31603D' : '#F5C065'
   const badgeText = product.swatch === 'cheddar' || product.swatch === 'butter' ? '#6E433D' : '#F8EECB'
+  const isAvailable = product.availableForSale !== false
 
   return (
     <motion.article
@@ -65,10 +71,10 @@ export default function ProductCard({ product, index = 0 }) {
             </span>
           )}
 
-          {photoObj ? (
+          {displayImage ? (
             <img
-              src={photoObj.src}
-              alt={product.name}
+              src={displayImage}
+              alt={name}
               className="h-full w-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-500"
               loading="lazy"
             />
@@ -104,7 +110,7 @@ export default function ProductCard({ product, index = 0 }) {
             </p>
 
             <p className="mt-2 font-sans text-xs leading-relaxed text-[#6E433D]/80 line-clamp-2">
-              {product.blurb}
+              {product.description || product.blurb || 'Handpicked lotus seeds roasted with authentic spices.'}
             </p>
           </div>
 
@@ -113,9 +119,9 @@ export default function ProductCard({ product, index = 0 }) {
             <div className="flex items-baseline justify-between">
               <div className="flex items-baseline gap-2">
                 <span className="font-mono text-lg font-bold text-[#6E433D]">{priceFormatted}</span>
-                {product.mrp && product.mrp > product.price && (
+                {mrpFormatted && (
                   <span className="font-mono text-xs text-[#6E433D]/60 line-through">
-                    ₹{product.mrp}
+                    {mrpFormatted}
                   </span>
                 )}
               </div>
@@ -130,9 +136,10 @@ export default function ProductCard({ product, index = 0 }) {
               <button
                 type="button"
                 onClick={handleAdd}
-                className="w-full py-2.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-[11px] font-bold uppercase tracking-wider hover:bg-[#6E433D] transition-colors shadow-sm"
+                disabled={!isAvailable}
+                className="w-full py-2.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-[11px] font-bold uppercase tracking-wider hover:bg-[#6E433D] transition-colors shadow-sm disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                + ADD
+                {isAvailable ? '+ ADD' : 'SOLD OUT'}
               </button>
               <Link
                 to={productUrl}

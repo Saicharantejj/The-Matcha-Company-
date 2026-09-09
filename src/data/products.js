@@ -220,20 +220,10 @@ export const PRODUCTS_CATALOGUE = [
 ]
 
 /**
- * Loads products from Shopify Storefront API with fallback to local catalogue
+ * Loads products directly from Shopify Storefront API
  */
 export async function getLiveProducts() {
-  try {
-    const shopifyProducts = await fetchShopifyProducts(25)
-    if (shopifyProducts && shopifyProducts.length > 0) {
-      return shopifyProducts
-    }
-  } catch (err) {
-    if (import.meta.env?.DEV) {
-      console.warn('[Shopify Catalogue Loading Fallback]', err)
-    }
-  }
-  return PRODUCTS_CATALOGUE
+  return await fetchShopifyProducts(25)
 }
 
 export const products = PRODUCTS_CATALOGUE

@@ -1,21 +1,40 @@
-import { useState } from 'react'
-import { PRODUCTS_CATALOGUE } from '../data/products'
+import { useState, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
+import { fetchShopifyProducts } from '../lib/shopify/api'
 
 export default function BuildYourBox() {
-  const flavorPacks = PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')
-  const varietyBoxProduct = PRODUCTS_CATALOGUE.find((p) => p.id === 'makhana-variety-box') || PRODUCTS_CATALOGUE[0]
-
-  const [selectedFlavors, setSelectedFlavors] = useState([
-    flavorPacks[0],
-    flavorPacks[1],
-    flavorPacks[2],
-    flavorPacks[3],
-  ])
-
+  const [flavorPacks, setFlavorPacks] = useState([])
+  const [selectedFlavors, setSelectedFlavors] = useState([])
   const { addItem, openCart } = useCart()
   const { addToast } = useToast()
+
+  useEffect(() => {
+    async function load() {
+      try {
+        const live = await fetchShopifyProducts(10)
+        if (live && live.length > 0) {
+          const singles = live.filter((p) => p.category === 'Flavoured Makhana' || !p.name?.toLowerCase().includes('box'))
+          setFlavorPacks(singles)
+          if (singles.length >= 4) {
+            setSelectedFlavors([singles[0], singles[1], singles[2], singles[3]])
+          } else {
+            setSelectedFlavors(singles)
+          }
+        }
+      } catch (err) {
+        console.error('[BuildYourBox Error]', err)
+      }
+    }
+    load()
+  }, [])
+
+  const varietyBoxProduct = flavorPacks.find((p) => p.name?.toLowerCase().includes('box') || p.id?.includes('variety')) || flavorPacks[0] || {
+    id: 'chaska-custom-box',
+    name: 'Custom 4-Pack Stash Box',
+    price: 899,
+    displayPrice: '₹899',
+  }
 
   const handleSelectSlot = (index, product) => {
     const next = [...selectedFlavors]

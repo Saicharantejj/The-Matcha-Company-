@@ -29,21 +29,26 @@ export async function shopifyFetch({ query, variables = {} }) {
       body: JSON.stringify({ query, variables }),
     })
 
-    if (!response.ok) {
-      throw new Error(`Shopify Storefront API HTTP Error: ${response.status} ${response.statusText}`)
+    let json
+    try {
+      json = await response.json()
+    } catch {
+      json = null
     }
 
-    const json = await response.json()
-
-    if (json.errors && json.errors.length > 0) {
+    if (json?.errors && json.errors.length > 0) {
       const errorMsg = json.errors.map((e) => e.message).join(' | ')
-      throw new Error(`Shopify GraphQL Error: ${errorMsg}`)
+      throw new Error(errorMsg)
     }
 
-    return json.data
+    if (!response.ok) {
+      throw new Error(`Shopify Storefront API Error: ${response.status} ${response.statusText}`)
+    }
+
+    return json?.data
   } catch (err) {
     if (import.meta.env?.DEV) {
-      console.warn('[Shopify Storefront API Warning]', err.message || err)
+      console.warn('[Shopify Storefront API Error]', err.message || err)
     }
     throw err
   }
