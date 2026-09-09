@@ -31,7 +31,11 @@ export function fbqCall(...args) {
  */
 export function initMetaPixel() {
   if (typeof window === 'undefined') return
-  if (isInitialized) return
+  if (isInitialized || window.__META_PIXEL_INITIALIZED__) return
+
+  // Strict global initialization guard
+  window.__META_PIXEL_INITIALIZED__ = true
+  isInitialized = true
 
   // Define window.fbq stub according to Meta Pixel standard
   if (!window.fbq) {
@@ -64,10 +68,8 @@ export function initMetaPixel() {
     }
   }
 
-  // Initialize Pixel ID 1045964184868120
+  // Initialize Pixel ID 1045964184868120 EXACTLY ONCE
   fbqCall('init', META_PIXEL_ID)
-
-  isInitialized = true
 }
 
 /**
