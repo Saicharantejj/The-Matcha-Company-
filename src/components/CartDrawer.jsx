@@ -44,6 +44,7 @@ export default function CartDrawer() {
     lines,
     count,
     subtotal: rawSubtotal,
+    checkoutUrl,
     isOpen,
     closeCart,
     increment,
@@ -75,7 +76,8 @@ export default function CartDrawer() {
 
   const handleCheckoutClick = () => {
     trackInitiateCheckout(lines, safeSubtotal)
-    addToast('Online checkout for CHASKA is launching soon! 🍿', 'info')
+    const targetUrl = checkoutUrl || 'https://fr10jp-rw.myshopify.com/cart'
+    window.location.href = targetUrl
   }
 
   return (

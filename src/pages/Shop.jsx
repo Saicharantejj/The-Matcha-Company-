@@ -1,17 +1,28 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
-import { PRODUCTS_CATALOGUE } from '../data/products'
+import { PRODUCTS_CATALOGUE, getLiveProducts } from '../data/products'
 
 export default function Shop() {
   const [activeCategory, setActiveCategory] = useState('ALL')
+  const [productsList, setProductsList] = useState(PRODUCTS_CATALOGUE)
+
+  useEffect(() => {
+    async function load() {
+      const live = await getLiveProducts()
+      if (live && live.length > 0) {
+        setProductsList(live)
+      }
+    }
+    load()
+  }, [])
 
   const filteredProducts = useMemo(() => {
-    if (activeCategory === 'ALL') return PRODUCTS_CATALOGUE
-    if (activeCategory === 'FLAVOURS') return PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')
-    if (activeCategory === 'BUNDLES') return PRODUCTS_CATALOGUE.filter((p) => p.category === 'Snack Bundles' || p.category === 'Gift Hampers')
-    return PRODUCTS_CATALOGUE
-  }, [activeCategory])
+    if (activeCategory === 'ALL') return productsList
+    if (activeCategory === 'FLAVOURS') return productsList.filter((p) => p.category === 'Flavoured Makhana')
+    if (activeCategory === 'BUNDLES') return productsList.filter((p) => p.category === 'Snack Bundles' || p.category === 'Gift Hampers')
+    return productsList
+  }, [activeCategory, productsList])
 
   return (
     <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB]">
@@ -57,7 +68,7 @@ export default function Shop() {
         {/* Product Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
           {filteredProducts.map((product, i) => (
-            <ProductCard key={product.id} product={product} index={i} />
+            <ProductCard key={product.id || product.handle} product={product} index={i} />
           ))}
         </div>
 

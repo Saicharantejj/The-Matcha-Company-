@@ -1,5 +1,7 @@
 // Central product catalogue for CHASKA.
-// Local product definitions for the 5 signature flavours and bundles.
+// Local product definitions with Storefront API integration.
+
+import { fetchShopifyProducts } from '../lib/shopify/api'
 
 export const PRODUCTS_CATALOGUE = [
   // ── 5 SIGNATURE FLAVOURED MAKHANA PACKS ──────────────────────────────────
@@ -216,6 +218,23 @@ export const PRODUCTS_CATALOGUE = [
     handle: 'mega-crunch-party-hamper',
   },
 ]
+
+/**
+ * Loads products from Shopify Storefront API with fallback to local catalogue
+ */
+export async function getLiveProducts() {
+  try {
+    const shopifyProducts = await fetchShopifyProducts(25)
+    if (shopifyProducts && shopifyProducts.length > 0) {
+      return shopifyProducts
+    }
+  } catch (err) {
+    if (import.meta.env?.DEV) {
+      console.warn('[Shopify Catalogue Loading Fallback]', err)
+    }
+  }
+  return PRODUCTS_CATALOGUE
+}
 
 export const products = PRODUCTS_CATALOGUE
 export const flavouredMakhana = PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')

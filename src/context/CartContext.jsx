@@ -1,18 +1,26 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { photos } from '../data/photos'
 import { trackAddToCart } from '../lib/metaPixel'
+import {
+  createShopifyCart,
+  getShopifyCart,
+  addShopifyCartLines,
+  updateShopifyCartLines,
+  removeShopifyCartLines,
+} from '../lib/shopify/api'
 
 const CartContext = createContext(null)
 
-const LOCAL_CART_KEY = 'tmc.cart_items.v1'
+const SHOPIFY_CART_ID_KEY = 'chaska.shopify_cart_id'
+const LOCAL_CART_ITEMS_KEY = 'chaska.cart_items.v2'
 
 function getPhotoForId(id) {
-  const photoKey = id === 'makhana-chilly-cheese' ? 'chillyCheesePack'
-    : id === 'makhana-pudhina' ? 'pudhinaPack'
-    : id === 'makhana-barbeque' ? 'barbequePack'
-    : id === 'makhana-peri-peri' ? 'periPeriPack'
-    : id === 'makhana-black-pepper' ? 'blackPepperPack'
-    : id === 'makhana-variety-box' ? 'stashBox'
+  const photoKey = id?.includes('cheese') ? 'chillyCheesePack'
+    : id?.includes('pudhina') ? 'pudhinaPack'
+    : id?.includes('barbeque') ? 'barbequePack'
+    : id?.includes('peri-peri') ? 'periPeriPack'
+    : id?.includes('black-pepper') ? 'blackPepperPack'
+    : id?.includes('box') || id?.includes('stash') ? 'stashBox'
     : 'yellowBasket'
   return photos[photoKey]?.src || photos.brandPoster?.src || null
 }
@@ -21,29 +29,26 @@ function sanitizeCartItem(item) {
   if (!item || typeof item !== 'object') return null
   const id = String(item.id || item.productId || 'makhana-pack')
   
-  // Extract clean price
   const priceNum = typeof item.price === 'number' && !isNaN(item.price)
     ? item.price
     : parseFloat(item.price)
   const price = !isNaN(priceNum) && priceNum >= 0 ? priceNum : 199
 
-  // Extract clean quantity (numeric ONLY)
   let numQty = 1
   if (typeof item.quantity === 'number' && !isNaN(item.quantity) && item.quantity > 0) {
     numQty = Math.floor(item.quantity)
   } else if (typeof item.qty === 'number' && !isNaN(item.qty) && item.qty > 0) {
     numQty = Math.floor(item.qty)
-  } else if (typeof item.quantity === 'string' || typeof item.qty === 'string') {
-    const parsed = parseInt(item.quantity || item.qty, 10)
-    if (!isNaN(parsed) && parsed > 0) numQty = parsed
   }
 
-  const name = String(item.name || item.flavor || 'Makhana Pack')
+  const name = String(item.name || item.flavor || 'CHASKA Makhana Pack')
   const packSize = String(item.packSize || item.size || '70g Pack')
   const image = item.image || getPhotoForId(id)
 
   return {
     id,
+    lineId: item.lineId || id,
+    variantId: item.variantId || id,
     productId: id,
     name,
     flavor: item.flavor || name,
@@ -57,9 +62,9 @@ function sanitizeCartItem(item) {
   }
 }
 
-function getStoredCart() {
+function getStoredLocalCart() {
   try {
-    const raw = window.localStorage.getItem(LOCAL_CART_KEY)
+    const raw = window.localStorage.getItem(LOCAL_CART_ITEMS_KEY)
     if (!raw) return []
     const parsed = JSON.parse(raw)
     if (!Array.isArray(parsed)) return []
@@ -69,40 +74,79 @@ function getStoredCart() {
   }
 }
 
-function setStoredCart(items) {
-  try {
-    window.localStorage.setItem(LOCAL_CART_KEY, JSON.stringify(items))
-  } catch {
-    /* storage unavailable */
-  }
-}
-
 export function CartProvider({ children }) {
-  const [items, setItems] = useState(() => getStoredCart())
+  const [shopifyCartId, setShopifyCartId] = useState(() => {
+    try {
+      return window.localStorage.getItem(SHOPIFY_CART_ID_KEY) || null
+    } catch {
+      return null
+    }
+  })
+
+  const [items, setItems] = useState(() => getStoredLocalCart())
+  const [subtotalState, setSubtotalState] = useState(0)
+  const [countState, setCountState] = useState(0)
+  const [checkoutUrl, setCheckoutUrl] = useState(null)
+
   const [isOpen, setIsOpen] = useState(false)
   const [lastAddedId, setLastAddedId] = useState(null)
+  const [isSyncing, setIsSyncing] = useState(false)
 
-  // Save sanitized items to localStorage
+  // Sync state to local storage backup
   useEffect(() => {
-    setStoredCart(items)
+    try {
+      window.localStorage.setItem(LOCAL_CART_ITEMS_KEY, JSON.stringify(items))
+    } catch {}
   }, [items])
 
+  // Initialize Shopify Cart from stored ID on app startup
+  useEffect(() => {
+    async function syncShopifyCart() {
+      const storedId = window.localStorage.getItem(SHOPIFY_CART_ID_KEY)
+      if (!storedId) return
+
+      setIsSyncing(true)
+      try {
+        const shopifyCart = await getShopifyCart(storedId)
+        if (shopifyCart && shopifyCart.id) {
+          setShopifyCartId(shopifyCart.id)
+          setCheckoutUrl(shopifyCart.checkoutUrl)
+          setItems(shopifyCart.lines.map(sanitizeCartItem).filter(Boolean))
+          setSubtotalState(shopifyCart.subtotal)
+          setCountState(shopifyCart.totalQuantity)
+        } else {
+          window.localStorage.removeItem(SHOPIFY_CART_ID_KEY)
+          setShopifyCartId(null)
+        }
+      } catch (err) {
+        // Fallback to local state if offline or tokenless query restricted
+      } finally {
+        setIsSyncing(false)
+      }
+    }
+
+    syncShopifyCart()
+  }, [])
+
   const value = useMemo(() => {
-    const count = items.reduce((sum, i) => {
-      const q = Number(i.quantity || i.qty)
-      return sum + (isNaN(q) || q <= 0 ? 1 : q)
+    const calculatedCount = items.reduce((sum, i) => {
+      const q = Number(i.quantity || i.qty) || 1
+      return sum + q
     }, 0)
 
-    const subtotal = items.reduce((sum, i) => {
+    const calculatedSubtotal = items.reduce((sum, i) => {
       const p = Number(i.price) || 0
       const q = Number(i.quantity || i.qty) || 1
-      return sum + (isNaN(p) || isNaN(q) ? 0 : p * q)
+      return sum + p * q
     }, 0)
 
-    const addItem = (product, quantity = 1) => {
+    const count = countState > 0 ? countState : calculatedCount
+    const subtotal = subtotalState > 0 ? subtotalState : calculatedSubtotal
+
+    // ── ADD ITEM ─────────────────────────────────────────────────────────────
+    const addItem = async (product, quantity = 1) => {
       if (!product || (!product.id && !product.name)) return
 
-      // Enforce numeric quantity ONLY
       let addQty = 1
       if (typeof quantity === 'number' && !isNaN(quantity) && quantity > 0) {
         addQty = Math.floor(quantity)
@@ -116,8 +160,9 @@ export function CartProvider({ children }) {
 
       if (!cleanItem) return
 
+      // Optimistic local update
       setItems((prev) => {
-        const existingIdx = prev.findIndex((i) => i.id === cleanItem.id)
+        const existingIdx = prev.findIndex((i) => i.id === cleanItem.id || i.variantId === cleanItem.variantId)
         if (existingIdx >= 0) {
           const next = [...prev]
           const curQty = Number(next[existingIdx].quantity || next[existingIdx].qty) || 1
@@ -136,64 +181,113 @@ export function CartProvider({ children }) {
       setLastAddedId(cleanItem.id)
       trackAddToCart(cleanItem, addQty)
       window.setTimeout(() => setLastAddedId(null), 1500)
+
+      // Remote Shopify Storefront Cart Sync
+      try {
+        let updatedCart = null
+        const targetVariantId = product.variantId || product.shopifyId || product.id
+
+        if (shopifyCartId) {
+          updatedCart = await addShopifyCartLines(shopifyCartId, [{ variantId: targetVariantId, quantity: addQty }])
+        } else {
+          updatedCart = await createShopifyCart([{ variantId: targetVariantId, quantity: addQty }])
+        }
+
+        if (updatedCart && updatedCart.id) {
+          setShopifyCartId(updatedCart.id)
+          try {
+            window.localStorage.setItem(SHOPIFY_CART_ID_KEY, updatedCart.id)
+          } catch {}
+          setCheckoutUrl(updatedCart.checkoutUrl)
+          if (updatedCart.lines.length > 0) {
+            setItems(updatedCart.lines.map(sanitizeCartItem).filter(Boolean))
+          }
+          setSubtotalState(updatedCart.subtotal)
+          setCountState(updatedCart.totalQuantity)
+        }
+      } catch (err) {
+        // Keep optimistic update if Storefront API call fails
+      }
     }
 
-    const setQty = (id, quantity) => {
+    // ── SET QUANTITY ─────────────────────────────────────────────────────────
+    const setQty = async (id, quantity) => {
       const targetId = String(id)
       const numQty = typeof quantity === 'number' && !isNaN(quantity) ? Math.floor(quantity) : parseInt(quantity, 10)
-      
-      setItems((prev) => {
-        if (isNaN(numQty) || numQty <= 0) {
-          return prev.filter((i) => i.id !== targetId)
-        }
-        return prev.map((i) => (i.id === targetId ? { ...i, quantity: numQty, qty: numQty } : i))
-      })
-    }
 
-    const increment = (id) => {
-      const targetId = String(id)
-      setItems((prev) =>
-        prev.map((i) => {
-          if (i.id === targetId) {
-            const cur = Number(i.quantity || i.qty) || 1
-            return { ...i, quantity: cur + 1, qty: cur + 1 }
+      if (isNaN(numQty) || numQty <= 0) {
+        return removeItem(targetId)
+      }
+
+      setItems((prev) => prev.map((i) => (i.id === targetId || i.lineId === targetId ? { ...i, quantity: numQty, qty: numQty } : i)))
+
+      const targetItem = items.find((i) => i.id === targetId || i.lineId === targetId)
+      if (shopifyCartId && targetItem?.lineId) {
+        try {
+          const updatedCart = await updateShopifyCartLines(shopifyCartId, [{ lineId: targetItem.lineId, quantity: numQty }])
+          if (updatedCart) {
+            setItems(updatedCart.lines.map(sanitizeCartItem).filter(Boolean))
+            setSubtotalState(updatedCart.subtotal)
+            setCountState(updatedCart.totalQuantity)
           }
-          return i
-        })
-      )
+        } catch {}
+      }
     }
 
+    // ── INCREMENT ────────────────────────────────────────────────────────────
+    const increment = (id) => {
+      const targetItem = items.find((i) => i.id === String(id) || i.lineId === String(id))
+      const curQty = Number(targetItem?.quantity || targetItem?.qty) || 1
+      setQty(id, curQty + 1)
+    }
+
+    // ── DECREMENT ────────────────────────────────────────────────────────────
     const decrement = (id) => {
-      const targetId = String(id)
-      setItems((prev) =>
-        prev
-          .map((i) => {
-            if (i.id === targetId) {
-              const cur = Number(i.quantity || i.qty) || 1
-              const next = cur - 1
-              return { ...i, quantity: next, qty: next }
-            }
-            return i
-          })
-          .filter((i) => (Number(i.quantity || i.qty) || 0) > 0)
-      )
+      const targetItem = items.find((i) => i.id === String(id) || i.lineId === String(id))
+      const curQty = Number(targetItem?.quantity || targetItem?.qty) || 1
+      setQty(id, curQty - 1)
     }
 
-    const removeItem = (id) => {
+    // ── REMOVE ITEM ──────────────────────────────────────────────────────────
+    const removeItem = async (id) => {
       const targetId = String(id)
-      setItems((prev) => prev.filter((i) => i.id !== targetId))
+      const targetItem = items.find((i) => i.id === targetId || i.lineId === targetId)
+
+      setItems((prev) => prev.filter((i) => i.id !== targetId && i.lineId !== targetId))
+
+      if (shopifyCartId && targetItem?.lineId) {
+        try {
+          const updatedCart = await removeShopifyCartLines(shopifyCartId, [targetItem.lineId])
+          if (updatedCart) {
+            setItems(updatedCart.lines.map(sanitizeCartItem).filter(Boolean))
+            setSubtotalState(updatedCart.subtotal)
+            setCountState(updatedCart.totalQuantity)
+          }
+        } catch {}
+      }
     }
 
+    // ── CLEAR CART ───────────────────────────────────────────────────────────
     const clearCart = () => {
       setItems([])
+      setSubtotalState(0)
+      setCountState(0)
+      setShopifyCartId(null)
+      try {
+        window.localStorage.removeItem(SHOPIFY_CART_ID_KEY)
+        window.localStorage.removeItem(LOCAL_CART_ITEMS_KEY)
+      } catch {}
     }
 
     return {
       lines: items,
       count,
       subtotal,
+      checkoutUrl,
+      shopifyCartId,
       isOpen,
       lastAddedId,
+      isSyncing,
       addItem,
       setQty,
       increment,
@@ -203,7 +297,7 @@ export function CartProvider({ children }) {
       openCart: () => setIsOpen(true),
       closeCart: () => setIsOpen(false),
     }
-  }, [items, isOpen, lastAddedId])
+  }, [items, countState, subtotalState, checkoutUrl, shopifyCartId, isOpen, lastAddedId, isSyncing])
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>
 }

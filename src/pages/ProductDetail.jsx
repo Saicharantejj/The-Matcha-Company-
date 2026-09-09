@@ -6,6 +6,7 @@ import { photos } from '../data/photos'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { trackViewContent } from '../lib/metaPixel'
+import { fetchShopifyProductByHandle } from '../lib/shopify/api'
 import ProductCard from '../components/ProductCard'
 import NotFound from './NotFound'
 
@@ -15,11 +16,24 @@ export default function ProductDetail() {
   const { addToast } = useToast()
 
   const [qty, setQty] = useState(1)
+  const [shopifyProduct, setShopifyProduct] = useState(null)
+
+  useEffect(() => {
+    async function load() {
+      if (handle) {
+        try {
+          const sp = await fetchShopifyProductByHandle(handle)
+          if (sp) setShopifyProduct(sp)
+        } catch {}
+      }
+    }
+    load()
+  }, [handle])
 
   // Find product by handle or id
   const product = useMemo(() => {
-    return PRODUCTS_CATALOGUE.find((p) => p.handle === handle || p.id === handle)
-  }, [handle])
+    return shopifyProduct || PRODUCTS_CATALOGUE.find((p) => p.handle === handle || p.id === handle)
+  }, [handle, shopifyProduct])
 
   useEffect(() => {
     if (product) {
