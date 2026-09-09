@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useToast } from '../components/Toast'
+import { trackContact } from '../lib/metaPixel'
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function ContactPage() {
   const handleSubmit = (e) => {
     e.preventDefault()
     setSubmitted(true)
+    trackContact()
     addToast('Message sent successfully! We will get back to you within 24 hours.', 'success')
   }
 

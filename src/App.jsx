@@ -8,6 +8,7 @@ import GrainOverlay from './components/GrainOverlay'
 import { initSmoothScroll, scrollToTopImmediately } from './lib/smoothScroll'
 import { CartProvider } from './context/CartContext'
 import { ToastProvider } from './components/Toast'
+import { initMetaPixel, trackPageView } from './lib/metaPixel'
 
 // Core Pages
 import Home from './pages/Home'
@@ -33,6 +34,20 @@ function ScrollToTop() {
   return null
 }
 
+function MetaPixelTracker() {
+  const { pathname } = useLocation()
+
+  useEffect(() => {
+    initMetaPixel()
+  }, [])
+
+  useEffect(() => {
+    trackPageView(pathname)
+  }, [pathname])
+
+  return null
+}
+
 function useSmoothScroll() {
   useEffect(() => initSmoothScroll(), [])
 }
@@ -46,6 +61,7 @@ export default function App() {
       <ToastProvider>
         <div className="flex min-h-screen flex-col bg-[#F8EECB] text-[#6E433D]">
           <ScrollToTop />
+          <MetaPixelTracker />
           <Header />
 
           <AnimatePresence mode="wait" initial={false}>

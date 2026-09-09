@@ -1,5 +1,6 @@
 import { createContext, useContext, useEffect, useMemo, useState } from 'react'
 import { photos } from '../data/photos'
+import { trackAddToCart } from '../lib/metaPixel'
 
 const CartContext = createContext(null)
 
@@ -133,6 +134,7 @@ export function CartProvider({ children }) {
       })
 
       setLastAddedId(cleanItem.id)
+      trackAddToCart(cleanItem, addQty)
       window.setTimeout(() => setLastAddedId(null), 1500)
     }
 

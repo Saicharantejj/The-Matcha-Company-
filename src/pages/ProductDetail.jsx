@@ -1,10 +1,11 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { useParams, NavLink, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { PRODUCTS_CATALOGUE } from '../data/products'
 import { photos } from '../data/photos'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
+import { trackViewContent } from '../lib/metaPixel'
 import ProductCard from '../components/ProductCard'
 import NotFound from './NotFound'
 
@@ -19,6 +20,12 @@ export default function ProductDetail() {
   const product = useMemo(() => {
     return PRODUCTS_CATALOGUE.find((p) => p.handle === handle || p.id === handle)
   }, [handle])
+
+  useEffect(() => {
+    if (product) {
+      trackViewContent(product)
+    }
+  }, [product])
 
   if (!product) {
     return <NotFound />

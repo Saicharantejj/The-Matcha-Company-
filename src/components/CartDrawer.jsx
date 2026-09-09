@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
+import { trackInitiateCheckout } from '../lib/metaPixel'
 
 const FREE_SHIPPING_THRESHOLD = 499
 
@@ -73,6 +74,7 @@ export default function CartDrawer() {
   }, [isOpen, closeCart])
 
   const handleCheckoutClick = () => {
+    trackInitiateCheckout(lines, safeSubtotal)
     addToast('Online checkout for CHASKA is launching soon! 🍿', 'info')
   }
 
