@@ -1,10 +1,9 @@
 /**
  * Central Meta Pixel Utility for CHASKA (React/Vite SPA)
- * Meta Pixel IDs: 1668996534945099 & 1045964184868120
+ * META PIXEL ID: 1045964184868120
  */
 
-export const META_PIXEL_IDS = ['1668996534945099', '1045964184868120']
-export const META_PIXEL_ID = META_PIXEL_IDS[0]
+export const META_PIXEL_ID = '1045964184868120'
 
 let isInitialized = false
 
@@ -34,7 +33,7 @@ export function initMetaPixel() {
   if (typeof window === 'undefined') return
   if (isInitialized) return
 
-  // Check if fbq script is already injected & initialized
+  // Define window.fbq stub according to Meta Pixel standard
   if (!window.fbq) {
     const n = function () {
       if (n.callMethod) {
@@ -65,10 +64,8 @@ export function initMetaPixel() {
     }
   }
 
-  // Initialize both Pixel IDs safely
-  META_PIXEL_IDS.forEach((id) => {
-    fbqCall('init', id)
-  })
+  // Initialize Pixel ID 1045964184868120
+  fbqCall('init', META_PIXEL_ID)
 
   isInitialized = true
 }
