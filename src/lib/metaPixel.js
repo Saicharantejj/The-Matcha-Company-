@@ -1,9 +1,9 @@
 /**
  * Central Meta Pixel Utility for CHASKA (React/Vite SPA)
- * Meta Pixel ID: 1045964184868120
+ * Meta Pixel ID: 1668996534945099
  */
 
-export const META_PIXEL_ID = '1045964184868120'
+export const META_PIXEL_ID = '1668996534945099'
 
 let isInitialized = false
 
