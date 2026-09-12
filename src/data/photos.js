@@ -4,9 +4,9 @@
 export const photos = {
   // ── KEY CAMPAIGN & LIFESTYLE ASSETS (OFFICIAL BRAND PHOTOGRAPHY) ───────────
   masalaPouchHero: {
-    src: '/images/chaska-masala-pouch-hero.png',
-    width: 1080,
-    height: 1620,
+    src: '/images/chaska-masala-pouch-blue.jpg',
+    width: 687,
+    height: 1024,
     alt: 'CHASKA 50g Matte Black Masala Makhana Pouch against Midnight Blue',
     title: '50g Signature Masala Pouch',
   },
@@ -76,15 +76,15 @@ export const photos = {
 
   // ── FLAVOUR SPECIFIC PRODUCT PACK MAPPINGS ─────────────────────────────────
   masalaPack: {
-    src: '/images/chaska-masala-pouch-hero.png',
-    width: 1080,
-    height: 1620,
+    src: '/images/chaska-masala-pouch-blue.jpg',
+    width: 687,
+    height: 1024,
     alt: 'CHASKA Masala Makhana 50g Pouch',
   },
   periPeriPack: {
-    src: '/images/chaska-masala-pouch-hero.png',
-    width: 1080,
-    height: 1620,
+    src: '/images/chaska-masala-pouch-blue.jpg',
+    width: 687,
+    height: 1024,
     alt: 'Fiery Peri Peri Makhana Pack',
   },
   chillyCheesePack: {
