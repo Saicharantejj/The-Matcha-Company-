@@ -15,14 +15,14 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-[#17245B] text-[#F5EEDD] pt-20 pb-12 border-t-4 border-[#E2AE35] overflow-hidden">
+    <footer className="bg-[#17245B] text-[#F5EEDD] pt-20 pb-12 border-t-4 border-[#A9223A] overflow-hidden">
       <div className="mx-auto max-w-[96rem] px-6 sm:px-12">
         
         {/* Top Newsletter */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-[#F5EEDD]/15">
           <div className="lg:col-span-6 space-y-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
-              GET A LITTLE CHASKA
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#A9223A] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
+              🔥 GET A LITTLE CHASKA
             </span>
             <h2 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white">
               Get secret flavor drops &amp; 15% off your first stash box.
@@ -42,11 +42,11 @@ export default function Footer() {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-white/10 border border-[#F5EEDD]/20 rounded-full px-6 py-4 text-sm text-white placeholder-[#F5EEDD]/60 focus:outline-none focus:border-[#E2AE35] transition-colors"
+                  className="flex-1 bg-white/10 border border-[#F5EEDD]/20 rounded-full px-6 py-4 text-sm text-white placeholder-[#F5EEDD]/60 focus:outline-none focus:border-[#A9223A] transition-colors"
                 />
                 <button
                   type="submit"
-                  className="px-8 py-4 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#A9223A] hover:text-[#F5EEDD] transition-colors shadow-sm"
+                  className="px-8 py-4 rounded-full bg-[#A9223A] text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#E2AE35] hover:text-[#17245B] transition-colors shadow-md"
                 >
                   SUBSCRIBE
                 </button>

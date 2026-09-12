@@ -75,30 +75,35 @@ export default function Home() {
   return (
     <PageShell>
       {/* ── 1. PRODUCT CAMPAIGN HERO SECTION ──────────────────────────────── */}
-      <section className="relative bg-[#F5EEDD] px-6 pt-6 pb-12 sm:px-12 sm:pt-8 sm:pb-14 border-b border-[#17245B]/15 flex items-center">
+      <section className="relative bg-[#F5EEDD] px-6 pt-8 pb-14 sm:px-12 sm:pt-10 sm:pb-16 border-b border-[#17245B]/15 flex items-center">
         <div className="mx-auto w-full max-w-[96rem]">
           <div className="grid gap-8 lg:gap-12 lg:grid-cols-12 lg:items-center">
             
             {/* Left Column: Bold Headline & Whitespace */}
-            <div className="lg:col-span-7 space-y-5">
-              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#17245B] text-[#F5EEDD] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
-                ⚡ MODERN INDIAN SNACK BRAND <span className="text-[#E2AE35]">🍿</span>
-              </span>
+            <div className="lg:col-span-7 space-y-6">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#A9223A] text-white font-mono text-xs font-extrabold uppercase tracking-wider shadow-sm">
+                  🔥 100% SLOW-ROASTED MAKHANA
+                </span>
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#17245B] text-[#F5EEDD] font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+                  ⚡ MODERN INDIAN CRUNCH <span className="text-[#E2AE35]">🍿</span>
+                </span>
+              </div>
 
               <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.85rem] font-black tracking-tight text-[#17245B] leading-[0.92] uppercase">
                 MAKHANA KO <br />
-                <span className="text-[#E2AE35]">CHASKA LAGA DIYA.</span>
+                <span className="text-[#A9223A]">CHASKA</span> <span className="text-[#E2AE35]">LAGA DIYA.</span>
               </h1>
 
               <p className="font-sans text-base sm:text-lg leading-relaxed text-[#17245B]/90 font-medium max-w-lg">
-                Big crunch. Bold flavour. Bas boring nahi. Handpicked lotus seeds slow-roasted in small batches with chef-crafted seasonings.
+                Big crunch. Bold flavour. Bas boring nahi. Handpicked Bihar lotus seeds slow-roasted in small batches with chef-crafted seasonings.
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Link to="/shop" className="btn shadow-md text-xs font-bold">
+                <Link to="/shop" className="btn-lacquer shadow-lg text-xs font-bold px-8 py-4">
                   SHOP CHASKA ➔
                 </Link>
-                <Link to="/build-your-box" className="btn-indigo shadow-md text-xs font-bold">
+                <Link to="/build-your-box" className="btn-indigo shadow-lg text-xs font-bold px-8 py-4">
                   BUILD YOUR BOX
                 </Link>
               </div>
@@ -111,23 +116,26 @@ export default function Home() {
                 initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
                 transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
-                className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#17245B]/15 shadow-pop bg-[#17245B]"
+                className="relative aspect-[4/5] rounded-3xl overflow-hidden border-2 border-[#17245B] shadow-pop bg-[#17245B]"
               >
                 <img
                   src={activeHeroPhoto.src}
                   alt={activeHeroPhoto.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-[#17245B]/15 flex items-center justify-between shadow-md">
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#A9223A] text-white font-mono text-[10px] font-extrabold uppercase tracking-widest shadow-md">
+                  {activeHeroPhoto.badge}
+                </div>
+                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-[#17245B]/95 text-[#F5EEDD] backdrop-blur-md border border-[#F5EEDD]/20 flex items-center justify-between shadow-xl">
                   <div>
-                    <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase tracking-wider">
+                    <span className="font-mono text-[10px] font-bold text-[#E2AE35] uppercase tracking-wider">
                       {activeHeroPhoto.tag}
                     </span>
-                    <p className="font-display font-bold text-sm sm:text-base text-[#17245B] leading-tight">
+                    <p className="font-display font-bold text-sm sm:text-base text-white leading-tight">
                       {activeHeroPhoto.title}
                     </p>
                   </div>
-                  <Link to="/shop" className="px-3.5 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold hover:bg-[#17245B] hover:text-[#F5EEDD] transition-colors">
+                  <Link to="/shop" className="px-3.5 py-1.5 rounded-full bg-[#A9223A] text-white font-mono text-xs font-bold hover:bg-[#E2AE35] hover:text-[#17245B] transition-colors shadow-sm">
                     SHOP
                   </Link>
                 </div>
@@ -142,8 +150,8 @@ export default function Home() {
                     onClick={() => setHeroPhotoIndex(idx)}
                     className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
                       heroPhotoIndex === idx
-                        ? 'border-[#E2AE35] ring-2 ring-[#E2AE35]/40 scale-105 shadow-md'
-                        : 'border-[#17245B]/15 opacity-70 hover:opacity-100'
+                        ? 'border-[#A9223A] ring-2 ring-[#A9223A]/40 scale-105 shadow-md'
+                        : 'border-[#17245B]/20 opacity-75 hover:opacity-100'
                     }`}
                   >
                     <img src={item.src} alt={item.tag} className="w-full h-full object-cover" />
@@ -156,16 +164,42 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── 1.25 DUAL-BAND TICKER RIBBON (MIDNIGHT INDIGO & CHILLI RED) ──── */}
+      <div className="border-b border-[#17245B]/15 overflow-hidden shadow-xs">
+        {/* Band 1: Midnight Indigo */}
+        <div className="bg-[#17245B] text-[#F5EEDD] py-2.5 px-4 font-mono text-xs font-bold uppercase tracking-widest flex items-center justify-around gap-4 whitespace-nowrap overflow-x-auto no-scrollbar">
+          <span>🍿 100% SLOW ROASTED</span>
+          <span className="text-[#E2AE35]">★</span>
+          <span>🌶️ ZERO PALM OIL</span>
+          <span className="text-[#E2AE35]">★</span>
+          <span>💥 CRACKLING CRUNCH</span>
+          <span className="text-[#E2AE35]">★</span>
+          <span>🇮🇳 BIHAR LOTUS SEEDS</span>
+          <span className="text-[#E2AE35]">★</span>
+          <span>⚡ ADDICTIVE MASALAS</span>
+        </div>
+        {/* Band 2: Chilli Red */}
+        <div className="bg-[#A9223A] text-white py-2 px-4 font-mono text-[11px] font-bold uppercase tracking-wider flex items-center justify-around gap-4 whitespace-nowrap overflow-x-auto no-scrollbar">
+          <span>🔥 KARARE. CHATPATE. ADDICTIVE.</span>
+          <span className="text-[#E2AE35]">•</span>
+          <span>📦 FLAT 15% OFF CODE: CHASKA15</span>
+          <span className="text-[#E2AE35]">•</span>
+          <span>⚡ FREE NATIONWIDE SHIPPING OVER ₹499</span>
+          <span className="text-[#E2AE35]">•</span>
+          <span>🍿 NO MAIDA • NO ARTIFICIAL COLOURS</span>
+        </div>
+      </div>
+
       {/* ── 1.5 OFFICIAL CAMPAIGN PHOTO SHOWCASE (OVER MEET YOUR NEW SNACK) ─ */}
       <section className="py-16 bg-[#FAF6ED] border-b border-[#17245B]/15">
         <div className="mx-auto max-w-[96rem] px-6 sm:px-12 space-y-10">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-2">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
-                ⚡ OFFICIAL 2026 CAMPAIGN PHOTOS
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#A9223A] text-white font-mono text-xs font-bold uppercase tracking-widest">
+                🔥 OFFICIAL 2026 CAMPAIGN PHOTOS
               </span>
               <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
-                THE SIGNATURE CHASKA DROP
+                THE SIGNATURE <span className="text-[#A9223A]">CHASKA</span> DROP
               </h2>
             </div>
             <Link to="/shop" className="btn-indigo text-xs font-bold shadow-md">
@@ -174,8 +208,8 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {/* Card 1: 50g Signature Masala Pouch */}
-            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all">
+            {/* Card 1: 50g Signature Masala Pouch (Midnight Indigo Accent) */}
+            <div className="group rounded-3xl overflow-hidden border-2 border-[#17245B]/20 bg-white shadow-card hover:border-[#17245B] hover:shadow-xl transition-all">
               <div className="aspect-[4/5] overflow-hidden bg-[#17245B]">
                 <img
                   src={photos.masalaPouchHero.src}
@@ -184,7 +218,7 @@ export default function Home() {
                 />
               </div>
               <div className="p-6 space-y-2">
-                <span className="font-mono text-[10px] font-bold text-[#E2AE35] uppercase tracking-wider">
+                <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase tracking-wider">
                   SIGNATURE POUCH • 50G
                 </span>
                 <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
@@ -194,15 +228,15 @@ export default function Home() {
                   Slow-roasted Bihar lotus seeds enrobed in signature secret spices. Big crunch, zero frying.
                 </p>
                 <div className="pt-2">
-                  <Link to="/shop" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors">
+                  <Link to="/shop" className="font-mono text-xs font-bold text-[#A9223A] hover:text-[#17245B] transition-colors">
                     GRAB THIS PACK ➔
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* Card 2: Fresh Ingredients & Whole Spices (Red Mesh Bag) */}
-            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all">
+            {/* Card 2: Fresh Ingredients & Whole Spices (Chilli Red Accent) */}
+            <div className="group rounded-3xl overflow-hidden border-2 border-[#A9223A]/30 bg-white shadow-card hover:border-[#A9223A] hover:shadow-xl transition-all">
               <div className="aspect-[4/5] overflow-hidden bg-[#A9223A]">
                 <img
                   src={photos.meshBagIngredients.src}
@@ -221,15 +255,15 @@ export default function Home() {
                   Fresh red chillies, sun-dried heirloom tomatoes, and pure rock salt tossed in cold-pressed oil.
                 </p>
                 <div className="pt-2">
-                  <Link to="/about" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors">
+                  <Link to="/about" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#A9223A] transition-colors">
                     OUR SOURCING STORY ➔
                   </Link>
                 </div>
               </div>
             </div>
 
-            {/* Card 3: The CHASKA Gazette (Newspaper Edition) */}
-            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all">
+            {/* Card 3: The CHASKA Gazette (Midnight Indigo Accent) */}
+            <div className="group rounded-3xl overflow-hidden border-2 border-[#17245B]/20 bg-white shadow-card hover:border-[#17245B] hover:shadow-xl transition-all">
               <div className="aspect-[4/5] overflow-hidden bg-[#17245B]">
                 <img
                   src={photos.newspaperComingSoon.src}
@@ -248,7 +282,7 @@ export default function Home() {
                   Better snacks made for conversation, cocktails, midnight cravings, and desk crunching.
                 </p>
                 <div className="pt-2">
-                  <Link to="/build-your-box" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors">
+                  <Link to="/build-your-box" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#A9223A] transition-colors">
                     BUILD YOUR STASH ➔
                   </Link>
                 </div>
@@ -264,14 +298,14 @@ export default function Home() {
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-16 gap-6">
             <div className="space-y-3">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
-                AB BATAO, KAUNSA CHASKA?
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#A9223A]">
+                🔥 AB BATAO, KAUNSA CHASKA?
               </span>
               <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#17245B] leading-none">
-                MEET YOUR NEW FAVOURITE SNACK.
+                MEET YOUR NEW <span className="text-[#A9223A]">CHASKA.</span>
               </h2>
             </div>
-            <Link to="/shop" className="font-mono text-xs font-bold uppercase tracking-wider text-[#17245B] hover:text-[#E2AE35] transition-colors">
+            <Link to="/shop" className="font-mono text-xs font-bold uppercase tracking-wider text-[#17245B] hover:text-[#A9223A] transition-colors">
               VIEW CATALOGUE ➔
             </Link>
           </div>

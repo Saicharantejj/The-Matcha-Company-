@@ -47,24 +47,27 @@ export default function Header({ onOpenSearch }) {
 
   return (
     <>
-      {/* ── MIDNIGHT INDIGO ANNOUNCEMENT BAR ──────────────────────────────── */}
-      <div className="bg-[#17245B] text-[#F5EEDD] py-2 px-4 text-center font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest border-b border-[#F5EEDD]/15">
-        <span>⚡ KARARE. CHATPATE. ADDICTIVE. 🍿 <span className="text-[#E2AE35]">मुफ़्त डिलीवरी</span> OVER ₹499</span>
+      {/* ── MIDNIGHT INDIGO & CHILLI RED ANNOUNCEMENT BAR ──────────────── */}
+      <div className="bg-[#17245B] text-[#F5EEDD] py-2 px-4 text-center font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest border-b border-[#A9223A]/40 flex items-center justify-center gap-2 shadow-xs">
+        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#A9223A] text-white text-[9px] font-mono tracking-wider font-extrabold shadow-xs">
+          🔥 HOT DROP
+        </span>
+        <span>KARARE. CHATPATE. ADDICTIVE. 🍿 <span className="text-[#E2AE35]">मुफ़्त डिलीवरी</span> OVER ₹499</span>
       </div>
 
       {/* ── RICE-PAPER IVORY GLASS NAVBAR ─────────────────────────────────── */}
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled || menuOpen
-            ? 'glass-header py-3 sm:py-3.5 shadow-md'
-            : 'bg-[#F5EEDD]/90 backdrop-blur-md py-4 sm:py-5 border-b border-transparent'
+            ? 'glass-header py-3 sm:py-3.5 shadow-md border-b border-[#17245B]/15'
+            : 'bg-[#F5EEDD]/95 backdrop-blur-md py-4 sm:py-5 border-b border-[#17245B]/10'
         }`}
       >
         <div className="mx-auto flex max-w-[96rem] items-center justify-between px-4 sm:px-12">
           
           {/* Logo / Brand Mark with Official Typography */}
           <NavLink to="/" aria-label="CHASKA Home" className="group relative z-10 flex items-center">
-            <ChaskaLogo className="h-6 sm:h-8 w-auto" color="#17245B" accentColor="#E2AE35" showTagline />
+            <ChaskaLogo className="h-6 sm:h-8 w-auto" color="#17245B" accentColor="#A9223A" showTagline />
           </NavLink>
 
           {/* Desktop Navigation Links */}
@@ -75,11 +78,18 @@ export default function Header({ onOpenSearch }) {
                 to={link.to}
                 className={({ isActive }) =>
                   `font-mono text-xs uppercase font-bold tracking-wider transition-colors duration-200 flex items-center gap-1.5 ${
-                    isActive ? 'text-[#17245B] border-b-2 border-[#E2AE35] pb-0.5' : 'text-[#17245B] hover:text-[#E2AE35]'
+                    isActive
+                      ? 'text-[#A9223A] border-b-2 border-[#A9223A] pb-0.5'
+                      : 'text-[#17245B] hover:text-[#A9223A]'
                   }`
                 }
               >
                 <span>{link.label}</span>
+                {link.to === '/collections' && (
+                  <span className="px-1.5 py-0.2 rounded-full bg-[#A9223A] text-[9px] text-white font-mono font-extrabold tracking-tighter">
+                    NEW
+                  </span>
+                )}
               </NavLink>
             ))}
           </nav>
@@ -91,24 +101,24 @@ export default function Header({ onOpenSearch }) {
               type="button"
               onClick={onOpenSearch}
               aria-label="Search snacks"
-              className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full border border-[#17245B]/20 bg-white text-[#17245B] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#E2AE35] hover:text-[#E2AE35] transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-4 sm:py-2.5 rounded-full border border-[#17245B]/25 bg-white text-[#17245B] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#A9223A] hover:text-[#A9223A] transition-all shadow-xs"
             >
               <span className="text-sm">🔍</span>
               <span className="hidden md:inline">SEARCH</span>
-              <span className="hidden xl:inline-block px-1.5 py-0.5 rounded bg-[#FAF6ED] text-[10px] text-[#17245B]/60 border border-[#17245B]/10">⌘K</span>
+              <span className="hidden xl:inline-block px-1.5 py-0.5 rounded bg-[#FAF6ED] text-[10px] text-[#17245B]/70 border border-[#17245B]/15">⌘K</span>
             </button>
 
-            {/* Cart Trigger */}
+            {/* Cart Trigger (Bold Midnight Indigo with Chilli Red Hover) */}
             <motion.button
               type="button"
               onClick={openCart}
               aria-label={`Open cart, ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
               animate={lastAddedId && !reduceMotion ? { scale: [1, 1.08, 1] } : { scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="group relative inline-flex items-center gap-2 sm:gap-2.5 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#17245B]/20 bg-white text-[#17245B] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#E2AE35] hover:text-[#E2AE35] transition-all shadow-sm"
+              className="group relative inline-flex items-center gap-2 sm:gap-2.5 px-3.5 py-2 sm:px-5 sm:py-2.5 rounded-full border border-[#17245B] bg-[#17245B] text-[#F5EEDD] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#A9223A] hover:border-[#A9223A] transition-all shadow-md"
             >
               <span>STASH</span>
-              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#E2AE35] text-[#17245B] text-[10px] font-mono font-bold tabular-nums">
+              <span className="inline-flex h-5 w-5 items-center justify-center rounded-full bg-[#E2AE35] text-[#17245B] text-[10px] font-mono font-bold tabular-nums shadow-xs">
                 {cartCount}
               </span>
             </motion.button>
