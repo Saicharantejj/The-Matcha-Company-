@@ -14,6 +14,40 @@ import { PRODUCTS_CATALOGUE } from '../data/products'
 export default function Home() {
   const [products, setProducts] = useState(PRODUCTS_CATALOGUE)
   const [isLoading, setIsLoading] = useState(true)
+  const [heroPhotoIndex, setHeroPhotoIndex] = useState(0)
+
+  const heroPhotos = [
+    {
+      src: photos.masalaPouchHero.src,
+      tag: 'SIGNATURE 50G POUCH',
+      badge: 'OFFICIAL PACK',
+      title: 'Masala Makhana Pouch',
+      caption: 'Slow-roasted Bihar lotus seeds in chef-crafted masala',
+    },
+    {
+      src: photos.meshBagIngredients.src,
+      tag: 'REAL INGREDIENTS',
+      badge: 'FARM FRESH',
+      title: 'Whole Spices & Farm Red Chilies',
+      caption: '100% real ingredients, zero artificial colors or flavours',
+    },
+    {
+      src: photos.newspaperComingSoon.src,
+      tag: 'CHASKA GAZETTE',
+      badge: '2026 EDITION',
+      title: 'Good Food, Good Company',
+      caption: 'Better snacks for modern everyday cravings',
+    },
+    {
+      src: photos.tabletopLifestyle.src,
+      tag: 'TABLETOP SPREAD',
+      badge: 'BETTER SNACKS',
+      title: 'Tabletop Feast & Cocktail Hour',
+      caption: 'Crisp lotus pops served in traditional brass bowl',
+    },
+  ]
+
+  const activeHeroPhoto = heroPhotos[heroPhotoIndex] || heroPhotos[0]
 
   useEffect(() => {
     async function load() {
@@ -69,31 +103,156 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right Column: Large Editorial Product Image */}
-            <div className="lg:col-span-5">
+            {/* Right Column: Hero Photo Stage with Provided Photos */}
+            <div className="lg:col-span-5 space-y-3">
               <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
+                key={activeHeroPhoto.src}
+                initial={{ opacity: 0, scale: 0.97 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
-                className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#17245B]/15 shadow-pop bg-[#FAF6ED]"
+                transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}
+                className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#17245B]/15 shadow-pop bg-[#17245B]"
               >
                 <img
-                  src={photos.tabletopLifestyle.src}
-                  alt="CHASKA Tabletop Feast - Good Food, Good Company, Better Snacks"
+                  src={activeHeroPhoto.src}
+                  alt={activeHeroPhoto.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700"
                 />
-                <div className="absolute bottom-6 left-6 right-6 p-5 rounded-2xl bg-white/95 backdrop-blur-md border border-[#17245B]/15 flex items-center justify-between shadow-md">
+                <div className="absolute bottom-5 left-5 right-5 p-4 rounded-2xl bg-white/95 backdrop-blur-md border border-[#17245B]/15 flex items-center justify-between shadow-md">
                   <div>
-                    <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase tracking-wider">GOOD COMPANY • 2026</span>
-                    <p className="font-display font-bold text-base text-[#17245B]">Masala Makhana Stash</p>
+                    <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase tracking-wider">
+                      {activeHeroPhoto.tag}
+                    </span>
+                    <p className="font-display font-bold text-sm sm:text-base text-[#17245B] leading-tight">
+                      {activeHeroPhoto.title}
+                    </p>
                   </div>
-                  <Link to="/shop" className="px-4 py-2 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold hover:bg-[#17245B] hover:text-[#F5EEDD] transition-colors">
+                  <Link to="/shop" className="px-3.5 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold hover:bg-[#17245B] hover:text-[#F5EEDD] transition-colors">
                     SHOP
                   </Link>
                 </div>
               </motion.div>
+
+              {/* Photo Selector Thumbnails */}
+              <div className="grid grid-cols-4 gap-2">
+                {heroPhotos.map((item, idx) => (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setHeroPhotoIndex(idx)}
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                      heroPhotoIndex === idx
+                        ? 'border-[#E2AE35] ring-2 ring-[#E2AE35]/40 scale-105 shadow-md'
+                        : 'border-[#17245B]/15 opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={item.src} alt={item.tag} className="w-full h-full object-cover" />
+                  </button>
+                ))}
+              </div>
             </div>
 
+          </div>
+        </div>
+      </section>
+
+      {/* ── 1.5 OFFICIAL CAMPAIGN PHOTO SHOWCASE (OVER MEET YOUR NEW SNACK) ─ */}
+      <section className="py-16 bg-[#FAF6ED] border-b border-[#17245B]/15">
+        <div className="mx-auto max-w-[96rem] px-6 sm:px-12 space-y-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="space-y-2">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
+                ⚡ OFFICIAL 2026 CAMPAIGN PHOTOS
+              </span>
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
+                THE SIGNATURE CHASKA DROP
+              </h2>
+            </div>
+            <Link to="/shop" className="btn-indigo text-xs font-bold shadow-md">
+              SHOP ALL FLAVOURS ➔
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1: 50g Signature Masala Pouch */}
+            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all">
+              <div className="aspect-[4/5] overflow-hidden bg-[#17245B]">
+                <img
+                  src={photos.masalaPouchHero.src}
+                  alt="CHASKA 50g Masala Makhana Pouch"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div className="p-6 space-y-2">
+                <span className="font-mono text-[10px] font-bold text-[#E2AE35] uppercase tracking-wider">
+                  SIGNATURE POUCH • 50G
+                </span>
+                <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+                  Masala Makhana Pouch
+                </h3>
+                <p className="font-sans text-xs text-[#17245B]/80 leading-relaxed font-medium">
+                  Slow-roasted Bihar lotus seeds enrobed in signature secret spices. Big crunch, zero frying.
+                </p>
+                <div className="pt-2">
+                  <Link to="/shop" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors">
+                    GRAB THIS PACK ➔
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 2: Fresh Ingredients & Whole Spices (Red Mesh Bag) */}
+            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all">
+              <div className="aspect-[4/5] overflow-hidden bg-[#A9223A]">
+                <img
+                  src={photos.meshBagIngredients.src}
+                  alt="CHASKA Real Ingredients in Red Mesh Net Bag"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div className="p-6 space-y-2">
+                <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase tracking-wider">
+                  REAL WHOLE SPICES
+                </span>
+                <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+                  Farm Fresh &amp; Honest
+                </h3>
+                <p className="font-sans text-xs text-[#17245B]/80 leading-relaxed font-medium">
+                  Fresh red chillies, sun-dried heirloom tomatoes, and pure rock salt tossed in cold-pressed oil.
+                </p>
+                <div className="pt-2">
+                  <Link to="/about" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors">
+                    OUR SOURCING STORY ➔
+                  </Link>
+                </div>
+              </div>
+            </div>
+
+            {/* Card 3: The CHASKA Gazette (Newspaper Edition) */}
+            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all">
+              <div className="aspect-[4/5] overflow-hidden bg-[#17245B]">
+                <img
+                  src={photos.newspaperComingSoon.src}
+                  alt="The CHASKA Gazette Edition 2026"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                />
+              </div>
+              <div className="p-6 space-y-2">
+                <span className="font-mono text-[10px] font-bold text-[#17245B] uppercase tracking-wider">
+                  THE PRINT EDITION • 2026
+                </span>
+                <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+                  Good Food, Good Company
+                </h3>
+                <p className="font-sans text-xs text-[#17245B]/80 leading-relaxed font-medium">
+                  Better snacks made for conversation, cocktails, midnight cravings, and desk crunching.
+                </p>
+                <div className="pt-2">
+                  <Link to="/build-your-box" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors">
+                    BUILD YOUR STASH ➔
+                  </Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
