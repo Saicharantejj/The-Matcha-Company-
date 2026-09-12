@@ -172,10 +172,13 @@ export default function BuildYourBox() {
 
             <button
               type="button"
+              disabled={selectedFlavors.length === 0}
               onClick={handleAddBoxToCart}
-              className="btn-lacquer w-full py-4 text-center justify-center font-bold text-xs bg-[#A9223A] hover:bg-[#E2AE35] hover:text-[#17245B] transition-colors shadow-xl"
+              className={`btn-lacquer w-full py-4 text-center justify-center font-bold text-xs bg-[#A9223A] hover:bg-[#E2AE35] hover:text-[#17245B] transition-colors shadow-xl ${
+                selectedFlavors.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
+              }`}
             >
-              ADD STASH BOX TO CART ➔
+              {selectedFlavors.length === 0 ? 'STASH BOX UNAVAILABLE' : 'ADD STASH BOX TO CART ➔'}
             </button>
           </div>
 
