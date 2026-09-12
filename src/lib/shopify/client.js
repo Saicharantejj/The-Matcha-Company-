@@ -1,16 +1,19 @@
 /**
  * Shopify Storefront API Client for CHASKA
- * Target Endpoint: https://fr10jp-rw.myshopify.com/api/2026-07/graphql.json
+ * Target Endpoint: https://502a8s-aj.myshopify.com/api/2026-07/graphql.json
  */
 
-// Target domain is strictly fr10jp-rw.myshopify.com
+const TARGET_STORE_DOMAIN = '502a8s-aj.myshopify.com'
+
+// Target domain is strictly 502a8s-aj.myshopify.com
 const envDomain = import.meta.env.VITE_SHOPIFY_STORE_DOMAIN
-const SHOPIFY_DOMAIN = (envDomain && !envDomain.includes('xtx1fi')) ? envDomain : 'fr10jp-rw.myshopify.com'
+const SHOPIFY_DOMAIN = (envDomain && envDomain.endsWith('.myshopify.com') && envDomain.startsWith('502a8s'))
+  ? envDomain
+  : TARGET_STORE_DOMAIN
 const API_VERSION = '2026-07'
 
-// Only use Storefront Access Token if valid and not the legacy Matcha store token
-const rawToken = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || ''
-const ACCESS_TOKEN = rawToken === 'f229736886731719c57822e05e180c22' ? '' : rawToken
+// Only use Storefront Access Token if explicitly provided and valid
+const ACCESS_TOKEN = import.meta.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || ''
 
 export const GRAPHQL_ENDPOINT = `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`
 export { SHOPIFY_DOMAIN, API_VERSION }

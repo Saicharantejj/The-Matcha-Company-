@@ -5,6 +5,7 @@ import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
 import { trackInitiateCheckout } from '../lib/metaPixel'
+import { SHOPIFY_DOMAIN } from '../lib/shopify/client'
 
 const FREE_SHIPPING_THRESHOLD = 499
 
@@ -76,7 +77,7 @@ export default function CartDrawer() {
 
   const handleCheckoutClick = () => {
     trackInitiateCheckout(lines, safeSubtotal)
-    const targetUrl = checkoutUrl || 'https://fr10jp-rw.myshopify.com/cart'
+    const targetUrl = checkoutUrl || `https://${SHOPIFY_DOMAIN}/cart`
     window.location.href = targetUrl
   }
 
