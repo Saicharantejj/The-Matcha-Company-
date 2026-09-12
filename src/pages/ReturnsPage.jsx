@@ -2,23 +2,23 @@ import { NavLink } from 'react-router-dom'
 
 export default function ReturnsPage() {
   return (
-    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB]">
+    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
       <div className="mx-auto max-w-3xl space-y-10">
         <div className="space-y-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold uppercase tracking-widest">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#17245B] text-[#E2AE35] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
             100% CRUNCH GUARANTEE
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#6E433D] tracking-tight">
+          <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] tracking-tight">
             RETURNS &amp; REFUNDS
           </h1>
-          <p className="font-mono text-xs text-[#6E433D]/80">
+          <p className="font-mono text-xs text-[#17245B]/80">
             Last updated: September 2026
           </p>
         </div>
 
-        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#6E433D]/15 space-y-8 shadow-md text-[#6E433D] leading-relaxed">
+        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#17245B]/15 space-y-8 shadow-md text-[#17245B] leading-relaxed">
           <section className="space-y-3">
-            <h2 className="font-display text-xl font-bold uppercase text-[#D23D2D]">
+            <h2 className="font-display text-xl font-bold uppercase text-[#17245B]">
               1. OUR GUARANTEE
             </h2>
             <p className="text-sm">
@@ -27,16 +27,16 @@ export default function ReturnsPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl font-bold uppercase text-[#D23D2D]">
+            <h2 className="font-display text-xl font-bold uppercase text-[#17245B]">
               2. DAMAGED OR INCORRECT SHIPMENTS
             </h2>
             <p className="text-sm">
-              If you receive a package that is damaged or missing items, please email us at <strong>hello@themakhanacompany.com</strong> within 48 hours of delivery along with a photo of the package. We will issue a free replacement pack or a full refund to your original payment method.
+              If you receive a package that is damaged or missing items, please email us at <strong>hello@chaskasnacks.com</strong> within 48 hours of delivery along with a photo of the package. We will issue a free replacement pack or a full refund to your original payment method.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl font-bold uppercase text-[#D23D2D]">
+            <h2 className="font-display text-xl font-bold uppercase text-[#17245B]">
               3. REFUND TIMELINES
             </h2>
             <p className="text-sm">
@@ -46,7 +46,7 @@ export default function ReturnsPage() {
         </div>
 
         <div className="text-center">
-          <NavLink to="/contact" className="btn bg-[#D23D2D]">
+          <NavLink to="/contact" className="btn bg-[#E2AE35] text-[#17245B] font-bold hover:bg-[#17245B] hover:text-[#F5EEDD]">
             CONTACT SUPPORT
           </NavLink>
         </div>

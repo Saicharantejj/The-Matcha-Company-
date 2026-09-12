@@ -2,6 +2,7 @@
 // Local product definitions with Storefront API integration.
 
 import { fetchShopifyProducts } from '../lib/shopify/api'
+import { photos } from './photos'
 
 export const PRODUCTS_CATALOGUE = [
   // ── 5 SIGNATURE FLAVOURED MAKHANA PACKS ──────────────────────────────────
@@ -21,6 +22,12 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'cheddar',
     accentColor: '#EAB308',
     bgColor: '#FFFBEB',
+    image: photos.chillyCheesePack.src,
+    images: [
+      { url: photos.chillyCheesePack.src, altText: 'Chilly Cheese Makhana Pack' },
+      { url: photos.masalaPouchHero.src, altText: 'CHASKA 50g Pouch' },
+      { url: photos.tabletopLifestyle.src, altText: 'CHASKA Tabletop Spread' },
+    ],
     crunchRating: '5/5',
     spiceLevel: 'Medium 🌶️🧀',
     blurb: 'Melted cheddar cheese dust blended with green chili fire and roasted garlic.',
@@ -51,6 +58,12 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'pudina',
     accentColor: '#15803D',
     bgColor: '#F0FDF4',
+    image: photos.pudhinaPack.src,
+    images: [
+      { url: photos.pudhinaPack.src, altText: 'Pudhina Makhana & Fresh Ingredients' },
+      { url: photos.masalaPouchHero.src, altText: 'CHASKA 50g Pouch' },
+      { url: photos.tabletopLifestyle.src, altText: 'CHASKA Tabletop Spread' },
+    ],
     crunchRating: '5/5',
     spiceLevel: 'Zesty 🌿',
     blurb: 'Sun-dried garden mint leaves paired with tangy amchur and roasted black salt.',
@@ -81,6 +94,12 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'chili',
     accentColor: '#B91C1C',
     bgColor: '#FEF2F2',
+    image: photos.barbequePack.src,
+    images: [
+      { url: photos.barbequePack.src, altText: 'Smoky Barbeque Makhana Pack' },
+      { url: photos.masalaPouchHero.src, altText: 'CHASKA 50g Pouch' },
+      { url: photos.tabletopLifestyle.src, altText: 'CHASKA Tabletop Spread' },
+    ],
     crunchRating: '5/5',
     spiceLevel: 'Smoky Spicy 🍖',
     blurb: 'Rich hickory smoke seasoning with sweet tomato undertones and roasted spices.',
@@ -111,6 +130,13 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'chili',
     accentColor: '#DC2626',
     bgColor: '#FFF1F2',
+    image: photos.masalaPack.src,
+    images: [
+      { url: photos.masalaPack.src, altText: 'Fiery Peri Peri / Masala Makhana 50g Pouch' },
+      { url: photos.tabletopLifestyle.src, altText: 'Tabletop Spread with Makhana Bowl and Cocktail' },
+      { url: photos.meshBagIngredients.src, altText: 'Fresh Ingredients & Spices' },
+      { url: photos.newspaperComingSoon.src, altText: 'CHASKA Gazette' },
+    ],
     crunchRating: '5/5',
     spiceLevel: 'Spicy 🌶️🌶️',
     blurb: 'Fiery African bird’s eye chili blend with garlic dust and a zingy lemon twist.',
@@ -141,6 +167,12 @@ export const PRODUCTS_CATALOGUE = [
     swatch: 'sand',
     accentColor: '#334155',
     bgColor: '#F8FAFC',
+    image: photos.blackPepperPack.src,
+    images: [
+      { url: photos.blackPepperPack.src, altText: 'Salt & Black Pepper Makhana Tabletop' },
+      { url: photos.masalaPouchHero.src, altText: 'CHASKA 50g Pouch' },
+      { url: photos.tabletopLifestyle.src, altText: 'CHASKA Tabletop Spread' },
+    ],
     crunchRating: '5/5',
     spiceLevel: 'Peppery 🌶️',
     blurb: 'Crushed Himalayan pink salt with freshly cracked Malabar black pepper.',
@@ -171,8 +203,14 @@ export const PRODUCTS_CATALOGUE = [
     discount: '10% OFF',
     badge: 'BEST VALUE STASH ⭐',
     swatch: 'butter',
-    accentColor: '#D23D2D',
-    bgColor: '#FFFBEB',
+    accentColor: '#E2AE35',
+    bgColor: '#F5EEDD',
+    image: photos.stashBox.src,
+    images: [
+      { url: photos.stashBox.src, altText: 'Ultimate 5-Flavor Variety Box' },
+      { url: photos.newspaperComingSoon.src, altText: 'CHASKA Gazette Edition' },
+      { url: photos.comingSoonPoster.src, altText: 'Editorial Poster' },
+    ],
     crunchRating: '5/5',
     spiceLevel: 'All 5 Flavors Included',
     blurb: '1 Pack of each signature flavor: Chilly Cheese, Pudhina, Barbeque, Peri Peri & Black Pepper.',
@@ -201,8 +239,14 @@ export const PRODUCTS_CATALOGUE = [
     discount: '12% OFF',
     badge: 'LIMITED EDITION GIFT 🎁',
     swatch: 'chili',
-    accentColor: '#31603D',
-    bgColor: '#F0FDF4',
+    accentColor: '#17245B',
+    bgColor: '#F5EEDD',
+    image: photos.comingSoonPoster.src,
+    images: [
+      { url: photos.comingSoonPoster.src, altText: 'Mega Crunch Party Hamper' },
+      { url: photos.tabletopLifestyle.src, altText: 'Tabletop Feast' },
+      { url: photos.newspaperComingSoon.src, altText: 'CHASKA Gazette' },
+    ],
     crunchRating: '5/5',
     spiceLevel: 'Full Flavor Party',
     blurb: '8 Packs of our signature 5 flavors packed in a collectible CHASKA gift box.',

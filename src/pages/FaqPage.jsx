@@ -60,17 +60,17 @@ export default function FaqPage() {
   }
 
   return (
-    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB]">
+    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
       <div className="mx-auto max-w-4xl space-y-12">
         {/* Header */}
         <div className="text-center space-y-4">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold uppercase tracking-widest">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
             GOT QUESTIONS?
           </span>
-          <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-[#6E433D] tracking-tight">
+          <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-[#17245B] tracking-tight">
             FREQUENTLY ASKED QUESTIONS
           </h1>
-          <p className="font-mono text-sm text-[#6E433D]/80 max-w-xl mx-auto">
+          <p className="font-mono text-sm text-[#17245B]/80 max-w-xl mx-auto">
             Everything you need to know about our roasted makhana, sourcing, shipping, and stash building.
           </p>
         </div>
@@ -79,7 +79,7 @@ export default function FaqPage() {
         <div className="space-y-10">
           {FAQ_DATA.map((cat, catIdx) => (
             <div key={cat.category} className="space-y-4">
-              <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D] px-2">
+              <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35] px-2">
                 // {cat.category}
               </h2>
 
@@ -91,17 +91,17 @@ export default function FaqPage() {
                   return (
                     <div
                       key={item.q}
-                      className="bg-white/90 border border-[#6E433D]/15 rounded-2xl overflow-hidden transition-all duration-200 shadow-sm"
+                      className="bg-white/90 border border-[#17245B]/15 rounded-2xl overflow-hidden transition-all duration-200 shadow-sm"
                     >
                       <button
                         type="button"
                         onClick={() => toggleAccordion(id)}
                         className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
                       >
-                        <span className="font-display text-lg font-bold text-[#6E433D] pr-4">
+                        <span className="font-display text-lg font-bold text-[#17245B] pr-4">
                           {item.q}
                         </span>
-                        <span className={`inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#F8EECB] text-[#6E433D] font-mono text-base font-bold transition-transform duration-300 ${isOpen ? 'rotate-45 bg-[#D23D2D] text-[#F8EECB]' : ''}`}>
+                        <span className={`inline-flex items-center justify-center h-8 w-8 rounded-full bg-[#F5EEDD] text-[#17245B] font-mono text-base font-bold transition-transform duration-300 ${isOpen ? 'rotate-45 bg-[#E2AE35] text-[#17245B]' : ''}`}>
                           +
                         </span>
                       </button>
@@ -115,7 +115,7 @@ export default function FaqPage() {
                             transition={{ duration: 0.25 }}
                             className="overflow-hidden"
                           >
-                            <div className="px-6 pb-6 pt-1 border-t border-[#6E433D]/10 text-sm font-sans text-[#6E433D]/85 leading-relaxed">
+                            <div className="px-6 pb-6 pt-1 border-t border-[#17245B]/10 text-sm font-sans text-[#17245B]/85 leading-relaxed">
                               {item.a}
                             </div>
                           </motion.div>
@@ -129,19 +129,19 @@ export default function FaqPage() {
           ))}
         </div>
 
-        {/* CTA Footer */}
-        <div className="p-8 rounded-3xl bg-[#6E433D] text-[#F8EECB] text-center space-y-4 shadow-lg">
-          <h3 className="font-display text-2xl font-bold uppercase text-white">
+        {/* CTA Footer (Midnight Indigo) */}
+        <div className="p-8 rounded-3xl bg-[#17245B] text-[#F5EEDD] text-center space-y-4 shadow-lg border border-[#17245B]">
+          <h3 className="font-display text-2xl font-bold uppercase text-[#F5EEDD]">
             STILL HAVE A QUESTION?
           </h3>
-          <p className="font-mono text-xs text-[#F8EECB]/80 max-w-md mx-auto">
+          <p className="font-mono text-xs text-[#F5EEDD]/80 max-w-md mx-auto">
             Our snack team is online 7 days a week to help with your orders or custom stash inquiries.
           </p>
           <div className="pt-2 flex flex-wrap justify-center gap-4">
-            <NavLink to="/contact" className="btn bg-[#D23D2D] hover:bg-[#31603D]">
+            <NavLink to="/contact" className="btn bg-[#E2AE35] text-[#17245B] hover:bg-white">
               CONTACT US
             </NavLink>
-            <NavLink to="/shop" className="btn-outline border-[#F8EECB]/40 text-[#F8EECB] hover:bg-[#F8EECB] hover:text-[#6E433D]">
+            <NavLink to="/shop" className="btn-outline border-[#F5EEDD]/40 text-[#F5EEDD] hover:bg-[#F5EEDD] hover:text-[#17245B]">
               EXPLORE SHOP
             </NavLink>
           </div>

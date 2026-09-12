@@ -24,16 +24,16 @@ const REVIEWS = [
 
 export default function Reviews() {
   return (
-    <section className="py-24 bg-white border-b border-[#6E433D]/15">
+    <section className="py-24 bg-white border-b border-[#17245B]/15">
       <div className="mx-auto max-w-[96rem] px-6 sm:px-12">
         
         <div className="max-w-2xl mb-16 space-y-3">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
             COMMUNITY REVIEWS
           </span>
-          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#6E433D] leading-none flex flex-wrap items-baseline gap-3">
+          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] leading-none flex flex-wrap items-baseline gap-3">
             <span>PEOPLE ARE CRUNCHING.</span>
-            <span className="text-[#D23D2D] font-hindi text-2xl sm:text-4xl font-extrabold">लोग क्या कह रहे हैं</span>
+            <span className="text-[#E2AE35] font-hindi text-2xl sm:text-4xl font-extrabold">लोग क्या कह रहे हैं</span>
           </h2>
         </div>
 
@@ -41,18 +41,18 @@ export default function Reviews() {
           {REVIEWS.map((rev, i) => (
             <div
               key={i}
-              className="bg-[#F8EECB] border border-[#6E433D]/15 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm"
+              className="bg-[#F5EEDD] border border-[#17245B]/15 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-sm"
             >
-              <p className="font-sans text-sm sm:text-base text-[#6E433D] leading-relaxed font-medium mb-8">
+              <p className="font-sans text-sm sm:text-base text-[#17245B] leading-relaxed font-medium mb-8">
                 "{rev.quote}"
               </p>
 
-              <div className="pt-4 border-t border-[#6E433D]/15 flex items-center justify-between font-mono text-xs">
+              <div className="pt-4 border-t border-[#17245B]/15 flex items-center justify-between font-mono text-xs">
                 <div>
-                  <h4 className="font-bold text-[#6E433D]">{rev.name}</h4>
-                  <span className="text-[#6E433D]/70 text-[10px]">{rev.location}</span>
+                  <h4 className="font-bold text-[#17245B]">{rev.name}</h4>
+                  <span className="text-[#17245B]/70 text-[10px]">{rev.location}</span>
                 </div>
-                <span className="text-[#D23D2D] text-[10px] uppercase font-bold">{rev.flavor}</span>
+                <span className="text-[#E2AE35] text-[10px] uppercase font-bold">{rev.flavor}</span>
               </div>
             </div>
           ))}
@@ -62,3 +62,4 @@ export default function Reviews() {
     </section>
   )
 }
+

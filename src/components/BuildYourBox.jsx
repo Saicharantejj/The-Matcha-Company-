@@ -2,10 +2,12 @@ import { useState, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { fetchShopifyProducts } from '../lib/shopify/api'
+import { PRODUCTS_CATALOGUE } from '../data/products'
 
 export default function BuildYourBox() {
-  const [flavorPacks, setFlavorPacks] = useState([])
-  const [selectedFlavors, setSelectedFlavors] = useState([])
+  const defaultPacks = PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')
+  const [flavorPacks, setFlavorPacks] = useState(defaultPacks)
+  const [selectedFlavors, setSelectedFlavors] = useState(defaultPacks.slice(0, 4))
   const { addItem, openCart } = useCart()
   const { addToast } = useToast()
 
@@ -23,7 +25,7 @@ export default function BuildYourBox() {
           }
         }
       } catch (err) {
-        console.error('[BuildYourBox Error]', err)
+        console.warn('[BuildYourBox Shopify Error, using local catalog]', err)
       }
     }
     load()
@@ -48,19 +50,19 @@ export default function BuildYourBox() {
   }
 
   return (
-    <section className="py-24 bg-[#F8EECB] border-y border-[#6E433D]/15 relative overflow-hidden" id="build-your-box">
+    <section className="py-24 bg-[#F5EEDD] border-y border-[#17245B]/15 relative overflow-hidden" id="build-your-box">
       <div className="mx-auto max-w-[96rem] px-6 sm:px-12">
         
         {/* Section Header */}
         <div className="max-w-2xl space-y-3 mb-16">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#D23D2D]">
+          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
             STASH BUILDER
           </span>
-          <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#6E433D] leading-none flex flex-wrap items-baseline gap-3">
+          <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#17245B] leading-none flex flex-wrap items-baseline gap-3">
             <span>BUILD YOUR BOX.</span>
-            <span className="text-[#D23D2D] font-hindi text-3xl sm:text-5xl font-extrabold">अपना BOX बनाओ</span>
+            <span className="text-[#E2AE35] font-hindi text-3xl sm:text-5xl font-extrabold">अपना BOX बनाओ</span>
           </h2>
-          <p className="text-[#8A5D57] text-base font-body leading-relaxed font-medium">
+          <p className="text-[#17245B]/80 text-base font-body leading-relaxed font-medium">
             Pick your 4 favourite flavours. Mix it up. Make your perfect CHASKA snack stash.
           </p>
         </div>
@@ -69,25 +71,35 @@ export default function BuildYourBox() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left: 4-Slot Selection Panel */}
-          <div className="lg:col-span-7 bg-white border border-[#6E433D]/15 rounded-3xl p-6 sm:p-10 shadow-card">
-            <h3 className="font-display text-lg font-bold text-[#6E433D] mb-6 flex items-center justify-between">
+          <div className="lg:col-span-7 bg-white border border-[#17245B]/15 rounded-3xl p-6 sm:p-10 shadow-card">
+            <h3 className="font-display text-lg font-bold text-[#17245B] mb-6 flex items-center justify-between">
               <span>YOUR 4-PACK SELECTION</span>
-              <span className="font-mono text-xs text-[#31603D] font-bold">4 / 4 SLOTS FILLED</span>
+              <span className="font-mono text-xs text-[#E2AE35] font-bold">4 / 4 SLOTS FILLED</span>
             </h3>
 
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {selectedFlavors.map((item, slotIdx) => (
                 <div
                   key={slotIdx}
-                  className="bg-[#FBF4DC] border border-[#6E433D]/10 rounded-2xl p-4 flex flex-col justify-between"
+                  className="bg-[#FAF6ED] border border-[#17245B]/10 rounded-2xl p-4 flex flex-col justify-between"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[10px] font-bold text-[#D23D2D] uppercase">SLOT 0{slotIdx + 1}</span>
+                    <span className="font-mono text-[10px] font-bold text-[#E2AE35] uppercase">SLOT 0{slotIdx + 1}</span>
+                    <span className="font-mono text-[10px] text-[#17245B]/60 font-bold uppercase">70G PACK</span>
                   </div>
 
-                  <div className="my-2">
-                    <p className="font-display font-bold text-base text-[#6E433D]">{item.flavor}</p>
-                    <p className="font-mono text-[10px] text-[#8A5D57] font-bold uppercase">70G PACK</p>
+                  <div className="my-2 flex items-center gap-3">
+                    <div className="h-14 w-14 shrink-0 rounded-xl bg-white border border-[#17245B]/10 p-1 flex items-center justify-center overflow-hidden">
+                      <img
+                        src={item.image || photos.masalaPouchHero.src}
+                        alt={item.flavor || item.name}
+                        className="h-full w-full object-cover rounded-lg"
+                      />
+                    </div>
+                    <div>
+                      <p className="font-display font-bold text-sm sm:text-base text-[#17245B] line-clamp-1">{item.flavor || item.name}</p>
+                      <p className="font-mono text-[10px] text-[#A9223A] font-bold">{item.spiceLevel || 'Chef Crafted'}</p>
+                    </div>
                   </div>
 
                   <select
@@ -96,11 +108,11 @@ export default function BuildYourBox() {
                       const match = flavorPacks.find((p) => p.id === e.target.value)
                       if (match) handleSelectSlot(slotIdx, match)
                     }}
-                    className="mt-3 w-full bg-white border border-[#6E433D]/20 rounded-xl px-3 py-2 font-mono text-xs text-[#6E433D] font-bold focus:outline-none focus:border-[#D23D2D] transition-colors"
+                    className="mt-3 w-full bg-white border border-[#17245B]/20 rounded-xl px-3 py-2 font-mono text-xs text-[#17245B] font-bold focus:outline-none focus:border-[#E2AE35] transition-colors"
                   >
                     {flavorPacks.map((fp) => (
                       <option key={fp.id} value={fp.id}>
-                        {fp.flavor}
+                        {fp.flavor || fp.name}
                       </option>
                     ))}
                   </select>
@@ -109,43 +121,43 @@ export default function BuildYourBox() {
             </div>
           </div>
 
-          {/* Right: Summary Card */}
-          <div className="lg:col-span-5 bg-[#31603D] text-[#F8EECB] rounded-3xl p-8 sm:p-10 shadow-pop flex flex-col justify-between space-y-8">
+          {/* Right: Summary Card (Midnight Indigo) */}
+          <div className="lg:col-span-5 bg-[#17245B] text-[#F5EEDD] rounded-3xl p-8 sm:p-10 shadow-pop flex flex-col justify-between space-y-8">
             <div className="space-y-3">
-              <span className="px-3 py-1 rounded-full bg-[#F5C065] text-[#6E433D] font-mono text-[10px] font-bold uppercase tracking-widest">
+              <span className="px-3 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-[10px] font-bold uppercase tracking-widest">
                 BUNDLE SAVINGS
               </span>
               <h3 className="font-display text-3xl font-black uppercase text-white leading-none">
                 4-PACK STASH BOX
               </h3>
-              <p className="text-[#F8EECB]/90 text-sm leading-relaxed font-body">
+              <p className="text-[#F5EEDD]/90 text-sm leading-relaxed font-body">
                 Save 10% on your box plus free shipping across India. Packed in our collectible box.
               </p>
             </div>
 
-            <div className="space-y-3 pt-6 border-t border-[#F8EECB]/20">
-              <div className="flex justify-between font-mono text-xs text-[#F8EECB]/80 font-bold">
+            <div className="space-y-3 pt-6 border-t border-[#F5EEDD]/20">
+              <div className="flex justify-between font-mono text-xs text-[#F5EEDD]/80 font-bold">
                 <span>Individual 4 Packs</span>
                 <span className="line-through">₹796</span>
               </div>
-              <div className="flex justify-between font-mono text-xs text-[#F8EECB]/80 font-bold">
+              <div className="flex justify-between font-mono text-xs text-[#F5EEDD]/80 font-bold">
                 <span>Bundle Discount</span>
-                <span className="text-[#F5C065] font-extrabold">-₹97</span>
+                <span className="text-[#E2AE35] font-extrabold">-₹97</span>
               </div>
-              <div className="flex justify-between font-mono text-xs text-[#F8EECB]/80 font-bold">
+              <div className="flex justify-between font-mono text-xs text-[#F5EEDD]/80 font-bold">
                 <span>Shipping</span>
-                <span className="text-[#F5C065] font-extrabold">FREE</span>
+                <span className="text-[#E2AE35] font-extrabold">FREE</span>
               </div>
-              <div className="flex justify-between items-baseline font-display text-3xl font-black text-white pt-3 border-t border-[#F8EECB]/20">
+              <div className="flex justify-between items-baseline font-display text-3xl font-black text-white pt-3 border-t border-[#F5EEDD]/20">
                 <span>TOTAL</span>
-                <span className="text-[#F5C065]">₹699</span>
+                <span className="text-[#E2AE35]">₹699</span>
               </div>
             </div>
 
             <button
               type="button"
               onClick={handleAddBoxToCart}
-              className="btn w-full py-4 text-center justify-center font-bold text-xs bg-[#D23D2D] hover:bg-white hover:text-[#6E433D] text-[#F8EECB] transition-colors shadow-lg"
+              className="btn w-full py-4 text-center justify-center font-bold text-xs bg-[#E2AE35] hover:bg-white text-[#17245B] transition-colors shadow-lg"
             >
               ADD STASH BOX TO CART ➔
             </button>
@@ -157,3 +169,4 @@ export default function BuildYourBox() {
     </section>
   )
 }
+

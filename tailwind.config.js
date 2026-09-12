@@ -4,35 +4,41 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Brand Color Palette from User Spec ────────────────────────────────
-        // FIRE RED:     #D23D2D (Primary vibrant action & headline accent)
-        // VANILLA CREAM:#F8EECB (Primary ground & soft surface tone)
-        // SAFFRON:      #F5C065 (Warm secondary highlight & badge tone)
-        // RETRO GREEN:  #31603D (Deep vintage forest accent)
-        // RUSSET:       #6E433D (Deep warm chocolate brown for text & dark rules)
+        // ── Master Colour System (Brand Spec) ─────────────────────────────────
+        // FOUNDATION (65%):       Midnight Indigo   #17245B
+        // CANVAS NEUTRAL (25%):   Rice-Paper Ivory  #F5EEDD
+        // APPETITE ACCENT (7%):   Toasted Saffron   #E2AE35
+        // HEAT ACCENT (3%):       Chilli Lacquer    #A9223A
         
-        'fire-red': '#D23D2D',
-        'vanilla': '#F8EECB',
-        'saffron': '#F5C065',
-        'retro-green': '#31603D',
-        'russet': '#6E433D',
+        'midnight-indigo': '#17245B',
+        'rice-paper-ivory': '#F5EEDD',
+        'toasted-saffron': '#E2AE35',
+        'chilli-lacquer': '#A9223A',
 
-        // Semantic Mapping
-        cream: '#F8EECB',       // Primary background (Vanilla Cream)
-        surface: '#FFFFFF',     // Clean white surface card
-        'surface-warm': '#FBF4DC', // Slightly lighter vanilla surface
-        charcoal: '#6E433D',    // Primary text & dark borders (Russet)
-        cocoa: '#6E433D',       // Dark chocolate text
-        muted: '#8A5D57',       // Muted Russet secondary text
-        accent: '#D23D2D',      // Primary Accent (Fire Red)
-        'accent-green': '#31603D', // Secondary Accent (Retro Green)
-        'accent-yellow': '#F5C065', // Secondary Accent (Saffron)
+        // Semantic mappings
+        foundation: '#17245B',
+        indigo: '#17245B',
+        ivory: '#F5EEDD',
+        saffron: '#E2AE35',
+        lacquer: '#A9223A',
+        chilli: '#A9223A',
+        cream: '#F5EEDD',
+        surface: '#FFFFFF',
+        'surface-warm': '#FAF6ED',
+        charcoal: '#17245B',
+        cocoa: '#17245B',
+        oxblood: '#17245B',
+        teal: '#17245B',
+        muted: '#A5A29A',
+        accent: '#E2AE35',
+        'accent-heat': '#A9223A',
+        'accent-yellow': '#E2AE35',
 
         // Glass surface tokens
-        'glass-vanilla': 'rgba(248, 238, 203, 0.88)',
-        'glass-white': 'rgba(255, 255, 255, 0.85)',
-        'glass-dark': 'rgba(110, 67, 61, 0.92)',
-        'glass-border': 'rgba(110, 67, 61, 0.12)',
+        'glass-ivory': 'rgba(245, 238, 221, 0.92)',
+        'glass-white': 'rgba(255, 255, 255, 0.92)',
+        'glass-dark': 'rgba(23, 36, 91, 0.94)',
+        'glass-border': 'rgba(23, 36, 91, 0.12)',
       },
       fontFamily: {
         display: ['"Bricolage Grotesque"', '"Noto Sans Devanagari"', '"Plus Jakarta Sans"', 'sans-serif'],
@@ -51,10 +57,10 @@ export default {
         full: '9999px',
       },
       boxShadow: {
-        'subtle': '0 4px 20px rgba(110, 67, 61, 0.04)',
-        'card': '0 8px 30px rgba(110, 67, 61, 0.06)',
-        'pop': '0 20px 40px rgba(110, 67, 61, 0.12)',
-        'glass': '0 8px 32px rgba(110, 67, 61, 0.06)',
+        'subtle': '0 4px 20px rgba(23, 36, 91, 0.04)',
+        'card': '0 8px 30px rgba(23, 36, 91, 0.06)',
+        'pop': '0 20px 40px rgba(23, 36, 91, 0.12)',
+        'glass': '0 8px 32px rgba(23, 36, 91, 0.06)',
       },
       fontSize: {
         mega: ['clamp(3.5rem, 8.5vw, 7.5rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],

@@ -59,7 +59,7 @@ export default function App() {
   return (
     <CartProvider>
       <ToastProvider>
-        <div className="flex min-h-screen flex-col bg-[#F8EECB] text-[#6E433D]">
+        <div className="flex min-h-screen flex-col bg-[#F5EEDD] text-[#17245B]">
           <ScrollToTop />
           <MetaPixelTracker />
           <Header />

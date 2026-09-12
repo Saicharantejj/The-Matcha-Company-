@@ -41,13 +41,12 @@ export function ToastProvider({ children }) {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -20, scale: 0.96 }}
               transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-              className="pointer-events-auto flex items-center gap-3 border-2 border-ink bg-card px-4 py-3"
-              style={{ boxShadow: '4px 4px 0px 0px #232E1E' }}
+              className="pointer-events-auto flex items-center gap-3 border-2 border-[#17245B] bg-[#F5EEDD] px-4 py-3 rounded-2xl shadow-lg"
             >
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center border-2 border-ink bg-olive text-cream">
+              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#E2AE35] text-[#17245B]">
                 <Check size={12} strokeWidth={3} aria-hidden="true" />
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-cocoa">
+              <span className="font-mono text-[11px] uppercase tracking-widest text-[#17245B] font-bold">
                 {t.message}
               </span>
               {t.action && (
@@ -57,7 +56,7 @@ export function ToastProvider({ children }) {
                     t.onAction?.()
                     dismiss(t.id)
                   }}
-                  className="flex items-center gap-1 border-l-2 border-ink/20 pl-3 font-mono text-[10px] uppercase tracking-widest text-olive underline underline-offset-4 hover:text-cocoa"
+                  className="flex items-center gap-1 border-l-2 border-[#17245B]/20 pl-3 font-mono text-[10px] uppercase tracking-widest text-[#17245B] underline underline-offset-4 hover:text-[#E2AE35]"
                 >
                   <ShoppingBag size={11} strokeWidth={2.5} aria-hidden="true" />
                   {t.action}

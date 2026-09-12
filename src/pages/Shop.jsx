@@ -2,10 +2,11 @@ import { useState, useMemo, useEffect } from 'react'
 import { NavLink } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import { fetchShopifyProducts } from '../lib/shopify/api'
+import { PRODUCTS_CATALOGUE } from '../data/products'
 
 export default function Shop() {
   const [activeCategory, setActiveCategory] = useState('ALL')
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState(PRODUCTS_CATALOGUE)
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
 
@@ -14,10 +15,14 @@ export default function Shop() {
     setError(null)
     try {
       const liveProducts = await fetchShopifyProducts(25)
-      setProducts(liveProducts || [])
+      if (liveProducts && liveProducts.length > 0) {
+        setProducts(liveProducts)
+      } else {
+        setProducts(PRODUCTS_CATALOGUE)
+      }
     } catch (err) {
-      console.error('[Shopify Products Fetch Error]', err)
-      setError(err.message || 'Unable to connect to Shopify store.')
+      console.warn('[Shopify API Offline/Locked, falling back to local catalog]', err)
+      setProducts(PRODUCTS_CATALOGUE)
     } finally {
       setIsLoading(false)
     }
@@ -39,25 +44,25 @@ export default function Shop() {
   }, [activeCategory, products])
 
   return (
-    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB]">
+    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
       <div className="mx-auto max-w-[96rem] space-y-12">
         
-        {/* Header Banner */}
-        <div className="p-8 sm:p-14 rounded-[2.5rem] bg-[#6E433D] text-[#F8EECB] space-y-6 shadow-xl relative overflow-hidden">
+        {/* Header Banner (Midnight Indigo) */}
+        <div className="p-8 sm:p-14 rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] space-y-6 shadow-xl relative overflow-hidden">
           <div className="max-w-2xl space-y-4 relative z-10">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#D23D2D] text-[#F8EECB] font-mono text-xs font-bold uppercase tracking-widest">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase tracking-widest">
               THE FULL CRUNCH CATALOGUE
             </span>
             <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-white tracking-tight leading-none">
               SHOP CHASKA
             </h1>
-            <p className="font-mono text-xs sm:text-sm text-[#F8EECB]/80 leading-relaxed">
+            <p className="font-mono text-xs sm:text-sm text-[#F5EEDD]/80 leading-relaxed">
               Handpicked lotus seeds slow-roasted in small batches by CHASKA. Powered by our official Shopify commerce store.
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-[#F8EECB]/15 relative z-10">
+          <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-[#F5EEDD]/15 relative z-10">
             {[
               { id: 'ALL', label: 'ALL PRODUCTS' },
               { id: 'FLAVOURS', label: 'SINGLE FLAVORS' },
@@ -69,8 +74,8 @@ export default function Shop() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-6 py-3 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                   activeCategory === cat.id
-                    ? 'bg-[#D23D2D] text-[#F8EECB] shadow-md scale-105'
-                    : 'bg-white/10 text-[#F8EECB] border border-[#F8EECB]/20 hover:bg-white/20'
+                    ? 'bg-[#E2AE35] text-[#17245B] shadow-md scale-105'
+                    : 'bg-white/10 text-[#F5EEDD] border border-[#F5EEDD]/20 hover:bg-white/20'
                 }`}
               >
                 {cat.label}
@@ -87,15 +92,15 @@ export default function Shop() {
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <div
                 key={n}
-                className="h-[460px] rounded-3xl bg-white/60 border border-[#6E433D]/10 p-6 flex flex-col justify-between animate-pulse"
+                className="h-[460px] rounded-3xl bg-white/60 border border-[#17245B]/10 p-6 flex flex-col justify-between animate-pulse"
               >
-                <div className="aspect-[4/3] w-full rounded-2xl bg-[#6E433D]/10" />
+                <div className="aspect-[4/3] w-full rounded-2xl bg-[#17245B]/10" />
                 <div className="space-y-3 mt-4">
-                  <div className="h-4 w-1/3 rounded bg-[#6E433D]/15" />
-                  <div className="h-6 w-3/4 rounded bg-[#6E433D]/20" />
-                  <div className="h-3 w-full rounded bg-[#6E433D]/10" />
+                  <div className="h-4 w-1/3 rounded bg-[#17245B]/15" />
+                  <div className="h-6 w-3/4 rounded bg-[#17245B]/20" />
+                  <div className="h-3 w-full rounded bg-[#17245B]/10" />
                 </div>
-                <div className="h-10 w-full rounded-full bg-[#6E433D]/15 mt-4" />
+                <div className="h-10 w-full rounded-full bg-[#17245B]/15 mt-4" />
               </div>
             ))}
           </div>
@@ -103,21 +108,21 @@ export default function Shop() {
 
         {/* 2. Error State */}
         {!isLoading && error && (
-          <div className="rounded-3xl bg-white border border-[#D23D2D]/30 p-10 sm:p-14 text-center space-y-5 shadow-card max-w-2xl mx-auto">
-            <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FFF0EC] text-3xl">
+          <div className="rounded-3xl bg-white border border-[#E2AE35]/40 p-10 sm:p-14 text-center space-y-5 shadow-card max-w-2xl mx-auto">
+            <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FAF6ED] text-3xl">
               ⚠️
             </span>
-            <h3 className="font-display text-2xl font-bold uppercase text-[#6E433D]">
+            <h3 className="font-display text-2xl font-bold uppercase text-[#17245B]">
               Unable to load Shopify products
             </h3>
-            <p className="font-mono text-xs text-[#6E433D]/80 leading-relaxed max-w-md mx-auto">
+            <p className="font-mono text-xs text-[#17245B]/80 leading-relaxed max-w-md mx-auto">
               {error}
             </p>
             <div className="pt-2">
               <button
                 type="button"
                 onClick={loadProducts}
-                className="btn bg-[#D23D2D] hover:bg-[#6E433D] px-8 py-3.5 text-xs font-bold shadow-md"
+                className="btn bg-[#E2AE35] text-[#17245B] hover:bg-[#17245B] hover:text-[#F5EEDD] px-8 py-3.5 text-xs font-bold shadow-md"
               >
                 RETRY SHOPIFY CONNECTION
               </button>
@@ -127,14 +132,14 @@ export default function Shop() {
 
         {/* 3. Empty State */}
         {!isLoading && !error && filteredProducts.length === 0 && (
-          <div className="rounded-3xl bg-white border border-[#6E433D]/15 p-12 sm:p-16 text-center space-y-4 shadow-card max-w-xl mx-auto">
-            <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FAF6EE] text-3xl">
+          <div className="rounded-3xl bg-white border border-[#17245B]/15 p-12 sm:p-16 text-center space-y-4 shadow-card max-w-xl mx-auto">
+            <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FAF6ED] text-3xl">
               🍿
             </span>
-            <h3 className="font-display text-2xl font-bold uppercase text-[#6E433D]">
+            <h3 className="font-display text-2xl font-bold uppercase text-[#17245B]">
               No products found
             </h3>
-            <p className="font-mono text-xs text-[#6E433D]/70 max-w-sm mx-auto">
+            <p className="font-mono text-xs text-[#17245B]/70 max-w-sm mx-auto">
               No products are currently available in the selected category from Shopify.
             </p>
           </div>
@@ -149,20 +154,20 @@ export default function Shop() {
           </div>
         )}
 
-        {/* Custom Box Banner */}
-        <div className="p-8 sm:p-12 rounded-[2.5rem] bg-[#31603D] text-[#F8EECB] flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
+        {/* Custom Box Banner (Midnight Indigo) */}
+        <div className="p-8 sm:p-12 rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
           <div className="space-y-3 max-w-xl text-center md:text-left">
-            <span className="px-3 py-1 rounded-full bg-[#F8EECB] text-[#31603D] font-mono text-xs font-bold uppercase">
+            <span className="px-3 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase">
               10% BUNDLE SAVINGS
             </span>
             <h2 className="font-display text-3xl font-bold uppercase text-white">
               BUILD YOUR CUSTOM CHASKA STASH
             </h2>
-            <p className="font-mono text-xs text-[#F8EECB]/80 leading-relaxed">
+            <p className="font-mono text-xs text-[#F5EEDD]/80 leading-relaxed">
               Select your exact ratio of sweet, spicy, and savory flavors in our interactive stash builder.
             </p>
           </div>
-          <NavLink to="/build-your-box" className="btn bg-[#D23D2D] text-[#F8EECB] hover:bg-[#6E433D] px-8 py-4 text-xs font-bold shrink-0">
+          <NavLink to="/build-your-box" className="btn bg-[#E2AE35] text-[#17245B] hover:bg-white px-8 py-4 text-xs font-bold shrink-0">
             BUILD YOUR BOX &rarr;
           </NavLink>
         </div>
@@ -171,3 +176,4 @@ export default function Shop() {
     </main>
   )
 }
+

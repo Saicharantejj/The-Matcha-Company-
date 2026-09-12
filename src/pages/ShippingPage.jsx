@@ -2,23 +2,23 @@ import { NavLink } from 'react-router-dom'
 
 export default function ShippingPage() {
   return (
-    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F8EECB]">
+    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
       <div className="mx-auto max-w-3xl space-y-10">
         <div className="space-y-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#31603D] text-[#F8EECB] font-mono text-xs font-bold uppercase tracking-widest">
+          <span className="inline-block px-4 py-1.5 rounded-full bg-[#17245B] text-[#E2AE35] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
             LOGISTICS &amp; DELIVERY
           </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#6E433D] tracking-tight">
+          <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] tracking-tight">
             SHIPPING POLICY
           </h1>
-          <p className="font-mono text-xs text-[#6E433D]/80">
+          <p className="font-mono text-xs text-[#17245B]/80">
             Last updated: September 2026
           </p>
         </div>
 
-        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#6E433D]/15 space-y-8 shadow-md text-[#6E433D] leading-relaxed">
+        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#17245B]/15 space-y-8 shadow-md text-[#17245B] leading-relaxed">
           <section className="space-y-3">
-            <h2 className="font-display text-xl font-bold uppercase text-[#D23D2D]">
+            <h2 className="font-display text-xl font-bold uppercase text-[#17245B]">
               1. FREE SHIPPING THRESHOLD
             </h2>
             <p className="text-sm">
@@ -27,7 +27,7 @@ export default function ShippingPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl font-bold uppercase text-[#D23D2D]">
+            <h2 className="font-display text-xl font-bold uppercase text-[#17245B]">
               2. PROCESSING &amp; DISPATCH TIMELINES
             </h2>
             <p className="text-sm">
@@ -36,7 +36,7 @@ export default function ShippingPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl font-bold uppercase text-[#D23D2D]">
+            <h2 className="font-display text-xl font-bold uppercase text-[#17245B]">
               3. ESTIMATED DELIVERY TIMES
             </h2>
             <ul className="list-disc pl-5 text-sm space-y-2">
@@ -47,7 +47,7 @@ export default function ShippingPage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-display text-xl font-bold uppercase text-[#D23D2D]">
+            <h2 className="font-display text-xl font-bold uppercase text-[#17245B]">
               4. LIVE ORDER TRACKING
             </h2>
             <p className="text-sm">
@@ -57,7 +57,7 @@ export default function ShippingPage() {
         </div>
 
         <div className="text-center">
-          <NavLink to="/shop" className="btn bg-[#D23D2D]">
+          <NavLink to="/shop" className="btn bg-[#E2AE35] text-[#17245B] font-bold hover:bg-[#17245B] hover:text-[#F5EEDD]">
             BACK TO SHOP
           </NavLink>
         </div>
