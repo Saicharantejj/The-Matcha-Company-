@@ -3,6 +3,7 @@ import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { fetchShopifyProducts } from '../lib/shopify/api'
 import { PRODUCTS_CATALOGUE } from '../data/products'
+import { photos } from '../data/photos'
 
 export default function BuildYourBox() {
   const defaultPacks = PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')
