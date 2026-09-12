@@ -40,22 +40,22 @@ export default function Home() {
   return (
     <PageShell>
       {/* ── 1. PRODUCT CAMPAIGN HERO SECTION ──────────────────────────────── */}
-      <section className="relative min-h-[85vh] bg-[#F5EEDD] px-6 py-16 sm:px-12 sm:py-24 border-b border-[#17245B]/15 flex items-center">
+      <section className="relative bg-[#F5EEDD] px-6 pt-6 pb-12 sm:px-12 sm:pt-8 sm:pb-14 border-b border-[#17245B]/15 flex items-center">
         <div className="mx-auto w-full max-w-[96rem]">
-          <div className="grid gap-12 lg:grid-cols-12 lg:items-center">
+          <div className="grid gap-8 lg:gap-12 lg:grid-cols-12 lg:items-center">
             
             {/* Left Column: Bold Headline & Whitespace */}
-            <div className="lg:col-span-7 space-y-8">
-              <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#17245B] text-[#F5EEDD] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
+            <div className="lg:col-span-7 space-y-5">
+              <span className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#17245B] text-[#F5EEDD] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
                 ⚡ MODERN INDIAN SNACK BRAND <span className="text-[#E2AE35]">🍿</span>
               </span>
 
-              <h1 className="font-display text-5xl sm:text-7xl lg:text-[5.5rem] font-black tracking-tight text-[#17245B] leading-[0.92] uppercase">
+              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.85rem] font-black tracking-tight text-[#17245B] leading-[0.92] uppercase">
                 MAKHANA KO <br />
                 <span className="text-[#E2AE35]">CHASKA LAGA DIYA.</span>
               </h1>
 
-              <p className="font-sans text-lg sm:text-xl leading-relaxed text-[#17245B]/90 font-medium max-w-lg">
+              <p className="font-sans text-base sm:text-lg leading-relaxed text-[#17245B]/90 font-medium max-w-lg">
                 Big crunch. Bold flavour. Bas boring nahi. Handpicked lotus seeds slow-roasted in small batches with chef-crafted seasonings.
               </p>
 
