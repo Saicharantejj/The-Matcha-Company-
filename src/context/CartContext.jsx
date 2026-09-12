@@ -62,13 +62,19 @@ function sanitizeCartItem(item) {
   }
 }
 
+function isMatchaItem(item) {
+  if (!item) return false
+  const str = `${item.id || ''} ${item.name || ''} ${item.flavor || ''} ${item.slug || ''} ${item.handle || ''}`.toLowerCase()
+  return str.includes('matcha')
+}
+
 function getStoredLocalCart() {
   try {
     const raw = window.localStorage.getItem(LOCAL_CART_ITEMS_KEY)
     if (!raw) return []
     const parsed = JSON.parse(raw)
     if (!Array.isArray(parsed)) return []
-    return parsed.map(sanitizeCartItem).filter(Boolean)
+    return parsed.map(sanitizeCartItem).filter(item => item && !isMatchaItem(item))
   } catch {
     return []
   }
@@ -109,11 +115,22 @@ export function CartProvider({ children }) {
       try {
         const shopifyCart = await getShopifyCart(storedId)
         if (shopifyCart && shopifyCart.id) {
-          setShopifyCartId(shopifyCart.id)
-          setCheckoutUrl(shopifyCart.checkoutUrl)
-          setItems(shopifyCart.lines.map(sanitizeCartItem).filter(Boolean))
-          setSubtotalState(shopifyCart.subtotal)
-          setCountState(shopifyCart.totalQuantity)
+          const hasMatcha = (shopifyCart.lines || []).some(isMatchaItem)
+          if (hasMatcha) {
+            window.localStorage.removeItem(SHOPIFY_CART_ID_KEY)
+            window.localStorage.removeItem(LOCAL_CART_ITEMS_KEY)
+            setShopifyCartId(null)
+            setCheckoutUrl(null)
+            setItems([])
+            setSubtotalState(0)
+            setCountState(0)
+          } else {
+            setShopifyCartId(shopifyCart.id)
+            setCheckoutUrl(shopifyCart.checkoutUrl)
+            setItems(shopifyCart.lines.map(sanitizeCartItem).filter(item => item && !isMatchaItem(item)))
+            setSubtotalState(shopifyCart.subtotal)
+            setCountState(shopifyCart.totalQuantity)
+          }
         } else {
           window.localStorage.removeItem(SHOPIFY_CART_ID_KEY)
           setShopifyCartId(null)

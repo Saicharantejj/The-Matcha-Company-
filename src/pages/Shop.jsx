@@ -2,7 +2,6 @@ import { useState, useMemo, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import { fetchShopifyProducts, fetchShopifyCollectionByHandle } from '../lib/shopify/api'
-import { PRODUCTS_CATALOGUE } from '../data/products'
 
 const COLLECTION_METADATA = {
   all: {
@@ -32,7 +31,7 @@ export default function Shop() {
   const initialCategory = urlHandle ? urlHandle.toLowerCase() : 'all'
 
   const [activeCategory, setActiveCategory] = useState(initialCategory)
-  const [products, setProducts] = useState(PRODUCTS_CATALOGUE)
+  const [products, setProducts] = useState([])
   const [searchFilter, setSearchFilter] = useState('')
   const [sortBy, setSortBy] = useState('featured')
   const [isLoading, setIsLoading] = useState(true)
@@ -50,7 +49,7 @@ export default function Shop() {
     try {
       if (urlHandle && urlHandle !== 'all' && urlHandle !== 'best-sellers' && urlHandle !== 'flavours' && urlHandle !== 'bundles') {
         const col = await fetchShopifyCollectionByHandle(urlHandle)
-        if (col && col.products?.length > 0) {
+        if (col && Array.isArray(col.products)) {
           setProducts(col.products)
           setIsLoading(false)
           return
@@ -58,14 +57,15 @@ export default function Shop() {
       }
 
       const liveProducts = await fetchShopifyProducts(25)
-      if (liveProducts && liveProducts.length > 0) {
+      if (liveProducts && Array.isArray(liveProducts)) {
         setProducts(liveProducts)
       } else {
-        setProducts(PRODUCTS_CATALOGUE)
+        setProducts([])
       }
     } catch (err) {
-      console.warn('[Shopify API Offline/Locked, falling back to local catalog]', err)
-      setProducts(PRODUCTS_CATALOGUE)
+      console.warn('[Shopify Storefront API Error]', err)
+      setError(err.message || 'Unable to connect to Shopify Storefront API')
+      setProducts([])
     } finally {
       setIsLoading(false)
     }

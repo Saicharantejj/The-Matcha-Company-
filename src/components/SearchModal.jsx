@@ -2,7 +2,6 @@ import { useState, useEffect, useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { fetchShopifyProducts } from '../lib/shopify/api'
-import { PRODUCTS_CATALOGUE } from '../data/products'
 
 const QUICK_TAGS = [
   'Masala',
@@ -15,7 +14,7 @@ const QUICK_TAGS = [
 
 export default function SearchModal({ isOpen, onClose }) {
   const [query, setQuery] = useState('')
-  const [products, setProducts] = useState(PRODUCTS_CATALOGUE)
+  const [products, setProducts] = useState([])
   const inputRef = useRef(null)
   const navigate = useNavigate()
 
@@ -23,11 +22,13 @@ export default function SearchModal({ isOpen, onClose }) {
     async function load() {
       try {
         const live = await fetchShopifyProducts(25)
-        if (live && live.length > 0) {
+        if (live && Array.isArray(live)) {
           setProducts(live)
+        } else {
+          setProducts([])
         }
       } catch {
-        // Fallback to catalogue
+        setProducts([])
       }
     }
     load()

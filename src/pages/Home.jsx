@@ -10,10 +10,9 @@ import UgcGrid from '../components/UgcGrid'
 import FourPillars from '../components/FourPillars'
 import { fetchShopifyProducts } from '../lib/shopify/api'
 import { photos } from '../data/photos'
-import { PRODUCTS_CATALOGUE } from '../data/products'
 
 export default function Home() {
-  const [products, setProducts] = useState(PRODUCTS_CATALOGUE)
+  const [products, setProducts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [heroPhotoIndex, setHeroPhotoIndex] = useState(0)
 
@@ -55,14 +54,14 @@ export default function Home() {
       setIsLoading(true)
       try {
         const live = await fetchShopifyProducts(6)
-        if (live && live.length > 0) {
+        if (live && Array.isArray(live)) {
           setProducts(live)
         } else {
-          setProducts(PRODUCTS_CATALOGUE)
+          setProducts([])
         }
       } catch (err) {
-        console.warn('[Shopify API Offline/Locked, falling back to local catalog]', err)
-        setProducts(PRODUCTS_CATALOGUE)
+        console.warn('[Shopify Storefront API Error on Home]', err)
+        setProducts([])
       } finally {
         setIsLoading(false)
       }
@@ -310,11 +309,34 @@ export default function Home() {
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
-            {flavouredPacks.map((product, i) => (
-              <ProductCard key={product.id} product={product} index={i} />
-            ))}
-          </div>
+          {isLoading ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {[1, 2, 3].map((n) => (
+                <div key={n} className="h-[440px] rounded-3xl bg-[#FAF6ED] border border-[#17245B]/10 p-6 animate-pulse" />
+              ))}
+            </div>
+          ) : flavouredPacks.length > 0 ? (
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+              {flavouredPacks.map((product, i) => (
+                <ProductCard key={product.id || product.handle} product={product} index={i} />
+              ))}
+            </div>
+          ) : (
+            <div className="rounded-3xl bg-[#FAF6ED] border-2 border-dashed border-[#17245B]/20 p-12 text-center space-y-3 max-w-xl mx-auto">
+              <span className="text-4xl block">🍿</span>
+              <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+                New Flavour Drop Arriving Soon
+              </h3>
+              <p className="font-mono text-xs text-[#17245B]/70 max-w-sm mx-auto">
+                Our artisanal small-batch flavours are currently being roasted. Check out our collections or build a custom box!
+              </p>
+              <div className="pt-2">
+                <Link to="/shop" className="btn-indigo text-xs font-bold px-6 py-2.5">
+                  EXPLORE SHOP ➔
+                </Link>
+              </div>
+            </div>
+          )}
 
         </div>
       </section>

@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { fetchShopifyProducts } from '../lib/shopify/api'
-import { PRODUCTS_CATALOGUE } from '../data/products'
 import { photos } from '../data/photos'
 
 export default function BuildYourBox() {
-  const defaultPacks = PRODUCTS_CATALOGUE.filter((p) => p.category === 'Flavoured Makhana')
-  const [flavorPacks, setFlavorPacks] = useState(defaultPacks)
-  const [selectedFlavors, setSelectedFlavors] = useState(defaultPacks.slice(0, 4))
-  const { addItem, openCart } = useCart()
+  const [flavorPacks, setFlavorPacks] = useState([])
+  const [selectedFlavors, setSelectedFlavors] = useState([])
+  const { addItem } = useCart()
   const { addToast } = useToast()
 
   useEffect(() => {
@@ -24,9 +22,14 @@ export default function BuildYourBox() {
           } else {
             setSelectedFlavors(singles)
           }
+        } else {
+          setFlavorPacks([])
+          setSelectedFlavors([])
         }
       } catch (err) {
-        console.warn('[BuildYourBox Shopify Error, using local catalog]', err)
+        console.warn('[BuildYourBox Shopify Error]', err)
+        setFlavorPacks([])
+        setSelectedFlavors([])
       }
     }
     load()
@@ -35,8 +38,8 @@ export default function BuildYourBox() {
   const varietyBoxProduct = flavorPacks.find((p) => p.name?.toLowerCase().includes('box') || p.id?.includes('variety')) || flavorPacks[0] || {
     id: 'chaska-custom-box',
     name: 'Custom 4-Pack Stash Box',
-    price: 899,
-    displayPrice: '₹899',
+    price: 699,
+    displayPrice: '₹699',
   }
 
   const handleSelectSlot = (index, product) => {
@@ -75,51 +78,63 @@ export default function BuildYourBox() {
           <div className="lg:col-span-7 bg-white border-2 border-[#17245B]/15 rounded-3xl p-6 sm:p-10 shadow-card">
             <h3 className="font-display text-lg font-bold text-[#17245B] mb-6 flex items-center justify-between">
               <span>YOUR 4-PACK SELECTION</span>
-              <span className="px-3 py-1 rounded-full bg-[#17245B] text-white font-mono text-xs font-bold">4 / 4 SLOTS FILLED</span>
+              <span className="px-3 py-1 rounded-full bg-[#17245B] text-white font-mono text-xs font-bold">
+                {selectedFlavors.length} / 4 SLOTS FILLED
+              </span>
             </h3>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {selectedFlavors.map((item, slotIdx) => (
-                <div
-                  key={slotIdx}
-                  className="bg-[#FAF6ED] border border-[#17245B]/15 rounded-2xl p-4 flex flex-col justify-between hover:border-[#A9223A]/40 transition-colors"
-                >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase">SLOT 0{slotIdx + 1}</span>
-                    <span className="font-mono text-[10px] text-[#17245B]/70 font-bold uppercase">70G PACK</span>
-                  </div>
-
-                  <div className="my-2 flex items-center gap-3">
-                    <div className="h-14 w-14 shrink-0 rounded-xl bg-white border border-[#17245B]/10 p-1 flex items-center justify-center overflow-hidden">
-                      <img
-                        src={item.image || photos.masalaPouchHero.src}
-                        alt={item.flavor || item.name}
-                        className="h-full w-full object-cover rounded-lg"
-                      />
-                    </div>
-                    <div>
-                      <p className="font-display font-bold text-sm sm:text-base text-[#17245B] line-clamp-1">{item.flavor || item.name}</p>
-                      <p className="font-mono text-[10px] text-[#A9223A] font-bold">{item.spiceLevel || 'Chef Crafted'}</p>
-                    </div>
-                  </div>
-
-                  <select
-                    value={item.id}
-                    onChange={(e) => {
-                      const match = flavorPacks.find((p) => p.id === e.target.value)
-                      if (match) handleSelectSlot(slotIdx, match)
-                    }}
-                    className="mt-3 w-full bg-white border border-[#17245B]/20 rounded-xl px-3 py-2 font-mono text-xs text-[#17245B] font-bold focus:outline-none focus:border-[#A9223A] transition-colors"
+            {selectedFlavors.length === 0 ? (
+              <div className="py-12 px-6 text-center space-y-3 bg-[#FAF6ED] rounded-2xl border-2 border-dashed border-[#17245B]/15">
+                <span className="text-3xl block">🍿</span>
+                <p className="font-display text-base font-bold text-[#17245B] uppercase">Custom Stash Slots Loading</p>
+                <p className="font-mono text-xs text-[#17245B]/70 max-w-sm mx-auto">
+                  Available small-batch flavors are loading from our store. You can also explore our ready-to-ship collections.
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {selectedFlavors.map((item, slotIdx) => (
+                  <div
+                    key={slotIdx}
+                    className="bg-[#FAF6ED] border border-[#17245B]/15 rounded-2xl p-4 flex flex-col justify-between hover:border-[#A9223A]/40 transition-colors"
                   >
-                    {flavorPacks.map((fp) => (
-                      <option key={fp.id} value={fp.id}>
-                        {fp.flavor || fp.name}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-              ))}
-            </div>
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase">SLOT 0{slotIdx + 1}</span>
+                      <span className="font-mono text-[10px] text-[#17245B]/70 font-bold uppercase">70G PACK</span>
+                    </div>
+
+                    <div className="my-2 flex items-center gap-3">
+                      <div className="h-14 w-14 shrink-0 rounded-xl bg-white border border-[#17245B]/10 p-1 flex items-center justify-center overflow-hidden">
+                        <img
+                          src={item.image || photos.masalaPouchHero.src}
+                          alt={item.flavor || item.name}
+                          className="h-full w-full object-cover rounded-lg"
+                        />
+                      </div>
+                      <div>
+                        <p className="font-display font-bold text-sm sm:text-base text-[#17245B] line-clamp-1">{item.flavor || item.name}</p>
+                        <p className="font-mono text-[10px] text-[#A9223A] font-bold">{item.spiceLevel || 'Chef Crafted'}</p>
+                      </div>
+                    </div>
+
+                    <select
+                      value={item.id}
+                      onChange={(e) => {
+                        const match = flavorPacks.find((p) => p.id === e.target.value)
+                        if (match) handleSelectSlot(slotIdx, match)
+                      }}
+                      className="mt-3 w-full bg-white border border-[#17245B]/20 rounded-xl px-3 py-2 font-mono text-xs text-[#17245B] font-bold focus:outline-none focus:border-[#A9223A] transition-colors"
+                    >
+                      {flavorPacks.map((fp) => (
+                        <option key={fp.id} value={fp.id}>
+                          {fp.flavor || fp.name}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           {/* Right: Summary Card (Midnight Indigo with Chilli Red Accents) */}

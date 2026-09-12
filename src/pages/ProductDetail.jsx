@@ -1,8 +1,7 @@
-import { useState, useMemo, useEffect } from 'react'
-import { useParams, NavLink, Link } from 'react-router-dom'
+import { useState, useEffect } from 'react'
+import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { photos } from '../data/photos'
-import { PRODUCTS_CATALOGUE } from '../data/products'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { trackViewContent } from '../lib/metaPixel'
@@ -12,7 +11,7 @@ import NotFound from './NotFound'
 
 export default function ProductDetail() {
   const { handle } = useParams()
-  const { addItem, openCart } = useCart()
+  const { addItem } = useCart()
   const { addToast } = useToast()
 
   const [qty, setQty] = useState(1)
@@ -28,42 +27,28 @@ export default function ProductDetail() {
       setError(null)
       setSelectedImgIndex(0)
       try {
-        let foundProduct = null
-        try {
-          foundProduct = await fetchShopifyProductByHandle(handle)
-        } catch (shopifyErr) {
-          console.warn('[Shopify API Unavailable, using local catalog fallback]', shopifyErr.message)
-        }
-
-        // If Shopify didn't return the product, match from local PRODUCTS_CATALOGUE
-        if (!foundProduct) {
-          foundProduct = PRODUCTS_CATALOGUE.find(
-            (p) => p.handle === handle || p.id === handle || p.id === `makhana-${handle}` || handle?.includes(p.flavor?.toLowerCase().replace(/\s+/g, '-'))
-          )
-        }
+        const foundProduct = await fetchShopifyProductByHandle(handle)
 
         if (foundProduct) {
           setProduct(foundProduct)
-          // Load related products
-          let related = []
+          // Load related products from Shopify
           try {
             const allShopify = await fetchShopifyProducts(6)
             if (allShopify && allShopify.length > 0) {
-              related = allShopify.filter((p) => p.handle !== handle).slice(0, 3)
+              setRelatedProducts(allShopify.filter((p) => p.handle !== handle).slice(0, 3))
+            } else {
+              setRelatedProducts([])
             }
-          } catch (e) {
-            // fallback
+          } catch {
+            setRelatedProducts([])
           }
-          if (related.length === 0) {
-            related = PRODUCTS_CATALOGUE.filter((p) => p.handle !== handle && p.id !== foundProduct.id).slice(0, 3)
-          }
-          setRelatedProducts(related)
         } else {
           setProduct(null)
         }
       } catch (err) {
-        console.error('[Product Fetch Error]', err)
-        setError(err.message || 'Product not found')
+        console.error('[Shopify Product Fetch Error]', err)
+        setError(err.message || 'Product not found on Shopify')
+        setProduct(null)
       } finally {
         setIsLoading(false)
       }
