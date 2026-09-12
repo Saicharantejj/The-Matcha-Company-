@@ -1,19 +1,62 @@
 import { useState, useMemo, useEffect } from 'react'
-import { NavLink } from 'react-router-dom'
+import { useParams, Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
-import { fetchShopifyProducts } from '../lib/shopify/api'
+import { fetchShopifyProducts, fetchShopifyCollectionByHandle } from '../lib/shopify/api'
 import { PRODUCTS_CATALOGUE } from '../data/products'
 
+const COLLECTION_METADATA = {
+  all: {
+    title: 'ALL PRODUCTS',
+    badge: 'THE FULL CRUNCH CATALOGUE',
+    description: 'Handpicked lotus seeds slow-roasted in small batches by CHASKA. Powered by our official Shopify commerce store.',
+  },
+  'best-sellers': {
+    title: 'BEST SELLERS',
+    badge: 'MOST LOVED SNACKS ⭐',
+    description: 'The highest rated, most re-ordered flavours that our community can’t get enough of.',
+  },
+  flavours: {
+    title: 'SINGLE FLAVOUR PACKS',
+    badge: 'INDIVIDUAL PACKS • 70G',
+    description: 'Signature roasted makhana pops tossed in real spices, herbs, and seasonings.',
+  },
+  bundles: {
+    title: 'VARIETY BOXES & HAMPERS',
+    badge: 'VALUE BUNDLES • SAVE UP TO 15%',
+    description: 'Multi-flavor stash boxes and limited edition gift hampers for ultimate snacking value.',
+  },
+}
+
 export default function Shop() {
-  const [activeCategory, setActiveCategory] = useState('ALL')
+  const { handle: urlHandle } = useParams()
+  const initialCategory = urlHandle ? urlHandle.toLowerCase() : 'all'
+
+  const [activeCategory, setActiveCategory] = useState(initialCategory)
   const [products, setProducts] = useState(PRODUCTS_CATALOGUE)
+  const [searchFilter, setSearchFilter] = useState('')
+  const [sortBy, setSortBy] = useState('featured')
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+
+  useEffect(() => {
+    if (urlHandle) {
+      setActiveCategory(urlHandle.toLowerCase())
+    }
+  }, [urlHandle])
 
   const loadProducts = async () => {
     setIsLoading(true)
     setError(null)
     try {
+      if (urlHandle && urlHandle !== 'all' && urlHandle !== 'best-sellers' && urlHandle !== 'flavours' && urlHandle !== 'bundles') {
+        const col = await fetchShopifyCollectionByHandle(urlHandle)
+        if (col && col.products?.length > 0) {
+          setProducts(col.products)
+          setIsLoading(false)
+          return
+        }
+      }
+
       const liveProducts = await fetchShopifyProducts(25)
       if (liveProducts && liveProducts.length > 0) {
         setProducts(liveProducts)
@@ -30,59 +73,133 @@ export default function Shop() {
 
   useEffect(() => {
     loadProducts()
-  }, [])
+  }, [urlHandle])
+
+  const currentMeta = COLLECTION_METADATA[activeCategory] || {
+    title: activeCategory.replace(/-/g, ' ').toUpperCase(),
+    badge: 'CHASKA COLLECTION',
+    description: 'Explore our premium roasted lotus seed packs and hampers.',
+  }
 
   const filteredProducts = useMemo(() => {
-    if (activeCategory === 'ALL') return products
-    if (activeCategory === 'FLAVOURS') {
-      return products.filter((p) => p.category === 'Flavoured Makhana' || !p.category?.includes('Bundle'))
+    let list = [...products]
+
+    if (activeCategory === 'best-sellers') {
+      list = list.filter((p) => p.badge?.includes('BESTSELLER') || p.id?.includes('peri-peri') || p.id?.includes('cheese') || p.name?.toLowerCase().includes('variety'))
+    } else if (activeCategory === 'flavours') {
+      list = list.filter((p) => p.category === 'Flavoured Makhana' || !p.category?.includes('Bundle'))
+    } else if (activeCategory === 'bundles') {
+      list = list.filter((p) => p.category === 'Snack Bundles' || p.category === 'Gift Hampers' || p.name?.toLowerCase().includes('box') || p.name?.toLowerCase().includes('hamper'))
     }
-    if (activeCategory === 'BUNDLES') {
-      return products.filter((p) => p.category === 'Snack Bundles' || p.category === 'Gift Hampers' || p.name?.toLowerCase().includes('box') || p.name?.toLowerCase().includes('hamper'))
+
+    if (searchFilter.trim()) {
+      const q = searchFilter.toLowerCase()
+      list = list.filter(
+        (p) =>
+          p.name?.toLowerCase().includes(q) ||
+          p.flavor?.toLowerCase().includes(q) ||
+          p.description?.toLowerCase().includes(q)
+      )
     }
-    return products
-  }, [activeCategory, products])
+
+    if (sortBy === 'price-low') {
+      list.sort((a, b) => a.price - b.price)
+    } else if (sortBy === 'price-high') {
+      list.sort((a, b) => b.price - a.price)
+    }
+
+    return list
+  }, [activeCategory, products, searchFilter, sortBy])
 
   return (
     <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
-      <div className="mx-auto max-w-[96rem] space-y-12">
+      <div className="mx-auto max-w-[96rem] space-y-10">
         
+        {/* Breadcrumb Navigation */}
+        <nav className="flex items-center gap-2 font-mono text-xs text-[#17245B]/70 font-bold uppercase tracking-wider">
+          <Link to="/" className="hover:text-[#E2AE35] transition-colors">HOME</Link>
+          <span>/</span>
+          <Link to="/collections" className="hover:text-[#E2AE35] transition-colors">COLLECTIONS</Link>
+          <span>/</span>
+          <span className="text-[#E2AE35]">{currentMeta.title}</span>
+        </nav>
+
         {/* Header Banner (Midnight Indigo) */}
         <div className="p-8 sm:p-14 rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] space-y-6 shadow-xl relative overflow-hidden">
           <div className="max-w-2xl space-y-4 relative z-10">
             <span className="inline-block px-4 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase tracking-widest">
-              THE FULL CRUNCH CATALOGUE
+              {currentMeta.badge}
             </span>
             <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-white tracking-tight leading-none">
-              SHOP CHASKA
+              {currentMeta.title}
             </h1>
             <p className="font-mono text-xs sm:text-sm text-[#F5EEDD]/80 leading-relaxed">
-              Handpicked lotus seeds slow-roasted in small batches by CHASKA. Powered by our official Shopify commerce store.
+              {currentMeta.description}
             </p>
           </div>
 
-          {/* Filter Tabs */}
+          {/* Collection Filter Tabs */}
           <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-[#F5EEDD]/15 relative z-10">
             {[
-              { id: 'ALL', label: 'ALL PRODUCTS' },
-              { id: 'FLAVOURS', label: 'SINGLE FLAVORS' },
-              { id: 'BUNDLES', label: 'VARIETY BOXES & GIFTS' },
+              { id: 'all', label: 'ALL PRODUCTS', to: '/collections/all' },
+              { id: 'best-sellers', label: '⭐ BEST SELLERS', to: '/collections/best-sellers' },
+              { id: 'flavours', label: 'SINGLE FLAVOURS', to: '/collections/flavours' },
+              { id: 'bundles', label: 'BOXES & BUNDLES', to: '/collections/bundles' },
             ].map((cat) => (
-              <button
+              <Link
                 key={cat.id}
-                type="button"
+                to={cat.to}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-6 py-3 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
+                className={`px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                   activeCategory === cat.id
                     ? 'bg-[#E2AE35] text-[#17245B] shadow-md scale-105'
                     : 'bg-white/10 text-[#F5EEDD] border border-[#F5EEDD]/20 hover:bg-white/20'
                 }`}
               >
                 {cat.label}
-              </button>
+              </Link>
             ))}
           </div>
         </div>
+
+        {/* Search & Sort Controls Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-[#17245B]/15 shadow-sm">
+          <div className="relative w-full sm:w-80 flex items-center">
+            <span className="absolute left-3 text-[#17245B]/40 text-sm">🔍</span>
+            <input
+              type="text"
+              placeholder="Search in collection..."
+              value={searchFilter}
+              onChange={(e) => setSearchFilter(e.target.value)}
+              className="w-full pl-9 pr-4 py-2 bg-[#FAF6ED] rounded-xl border border-[#17245B]/10 font-sans text-xs text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+            />
+            {searchFilter && (
+              <button
+                type="button"
+                onClick={() => setSearchFilter('')}
+                className="absolute right-3 text-xs font-mono text-[#17245B]/50 hover:text-[#17245B]"
+              >
+                ✕
+              </button>
+            )}
+          </div>
+
+          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+            <span className="font-mono text-xs text-[#17245B]/70 font-bold">
+              {filteredProducts.length} {filteredProducts.length === 1 ? 'ITEM' : 'ITEMS'}
+            </span>
+            <select
+              value={sortBy}
+              onChange={(e) => setSortBy(e.target.value)}
+              className="px-4 py-2 bg-[#FAF6ED] rounded-xl border border-[#17245B]/10 font-mono text-xs font-bold text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+            >
+              <option value="featured">SORT: FEATURED</option>
+              <option value="price-low">PRICE: LOW TO HIGH</option>
+              <option value="price-high">PRICE: HIGH TO LOW</option>
+            </select>
+          </div>
+        </div>
+
 
         {/* ── PRODUCT CONTENT AREA ────────────────────────────────────────── */}
 
@@ -167,9 +284,9 @@ export default function Shop() {
               Select your exact ratio of sweet, spicy, and savory flavors in our interactive stash builder.
             </p>
           </div>
-          <NavLink to="/build-your-box" className="btn bg-[#E2AE35] text-[#17245B] hover:bg-white px-8 py-4 text-xs font-bold shrink-0">
+          <Link to="/build-your-box" className="btn bg-[#E2AE35] text-[#17245B] hover:bg-white px-8 py-4 text-xs font-bold shrink-0">
             BUILD YOUR BOX &rarr;
-          </NavLink>
+          </Link>
         </div>
 
       </div>

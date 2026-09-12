@@ -7,6 +7,8 @@ import {
   GET_PRODUCTS_QUERY,
   GET_PRODUCT_BY_HANDLE_QUERY,
   GET_CART_QUERY,
+  GET_COLLECTIONS_QUERY,
+  GET_COLLECTION_BY_HANDLE_QUERY,
 } from './queries'
 import {
   CART_CREATE_MUTATION,
@@ -166,6 +168,60 @@ export async function fetchShopifyProductByHandle(handle) {
     variables: { handle },
   })
   return mapShopifyProduct(data?.product)
+}
+
+/**
+ * Fetches collections from Shopify Storefront API
+ */
+export async function fetchShopifyCollections(first = 10) {
+  try {
+    const data = await shopifyFetch({
+      query: GET_COLLECTIONS_QUERY,
+      variables: { first },
+    })
+    const edges = data?.collections?.edges || []
+    return edges.map((edge) => ({
+      id: edge.node.id,
+      title: edge.node.title,
+      handle: edge.node.handle,
+      description: edge.node.description,
+      image: edge.node.image?.url || null,
+    }))
+  } catch (err) {
+    if (import.meta.env?.DEV) {
+      console.warn('[Shopify Collections API Unavailable]', err.message || err)
+    }
+    return []
+  }
+}
+
+/**
+ * Fetches a single collection with its products by handle from Shopify Storefront API
+ */
+export async function fetchShopifyCollectionByHandle(handle, first = 20) {
+  if (!handle) return null
+  try {
+    const data = await shopifyFetch({
+      query: GET_COLLECTION_BY_HANDLE_QUERY,
+      variables: { handle, first },
+    })
+    const col = data?.collection
+    if (!col) return null
+    const productEdges = col.products?.edges || []
+    return {
+      id: col.id,
+      title: col.title,
+      handle: col.handle,
+      description: col.description,
+      image: col.image?.url || null,
+      products: productEdges.map((e) => mapShopifyProduct(e.node)).filter(Boolean),
+    }
+  } catch (err) {
+    if (import.meta.env?.DEV) {
+      console.warn('[Shopify Collection Handle API Unavailable]', err.message || err)
+    }
+    return null
+  }
 }
 
 /**

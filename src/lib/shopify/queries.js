@@ -181,3 +181,86 @@ export const GET_CART_QUERY = `
   }
   ${CART_FRAGMENT}
 `
+
+export const GET_COLLECTIONS_QUERY = `
+  query getCollections($first: Int = 10) {
+    collections(first: $first) {
+      edges {
+        node {
+          id
+          title
+          handle
+          description
+          image {
+            url
+            altText
+          }
+        }
+      }
+    }
+  }
+`
+
+export const GET_COLLECTION_BY_HANDLE_QUERY = `
+  query getCollectionByHandle($handle: String!, $first: Int = 20) {
+    collection(handle: $handle) {
+      id
+      title
+      handle
+      description
+      image {
+        url
+        altText
+      }
+      products(first: $first) {
+        edges {
+          node {
+            id
+            title
+            handle
+            description
+            availableForSale
+            priceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            compareAtPriceRange {
+              minVariantPrice {
+                amount
+                currencyCode
+              }
+            }
+            images(first: 5) {
+              edges {
+                node {
+                  url
+                  altText
+                }
+              }
+            }
+            variants(first: 10) {
+              edges {
+                node {
+                  id
+                  title
+                  availableForSale
+                  price {
+                    amount
+                    currencyCode
+                  }
+                  compareAtPrice {
+                    amount
+                    currencyCode
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+`
+

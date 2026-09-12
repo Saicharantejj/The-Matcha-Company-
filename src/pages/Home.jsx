@@ -7,6 +7,7 @@ import BuildYourBox from '../components/BuildYourBox'
 import BenefitsGrid from '../components/BenefitsGrid'
 import Reviews from '../components/Reviews'
 import UgcGrid from '../components/UgcGrid'
+import FourPillars from '../components/FourPillars'
 import { fetchShopifyProducts } from '../lib/shopify/api'
 import { photos } from '../data/photos'
 import { PRODUCTS_CATALOGUE } from '../data/products'
@@ -289,6 +290,9 @@ export default function Home() {
 
       {/* ── 4. WHY THE CRUNCH? (EDITORIAL BENEFITS) ────────────────────────── */}
       <BenefitsGrid />
+
+      {/* ── 4.5 FOUR FOUNDATIONAL PILLARS (TRUST, VALUE, NAVIGATION, OFFERS) ── */}
+      <FourPillars />
 
       {/* ── 5. BRAND MANIFESTO ────────────────────────────────────────────── */}
       <section className="py-28 bg-[#17245B] text-[#F5EEDD] border-b border-[#F5EEDD]/15 relative overflow-hidden" id="why-chaska">

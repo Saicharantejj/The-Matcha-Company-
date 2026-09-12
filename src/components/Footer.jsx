@@ -55,48 +55,60 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Link Columns */}
+        {/* Link Columns: 5 Columns IA */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 py-16 border-b border-[#F5EEDD]/15 text-xs font-mono text-[#F5EEDD]/80">
+          {/* 1. SHOP */}
           <div className="space-y-3">
             <p className="font-bold uppercase tracking-wider text-[#E2AE35]">SHOP</p>
             <ul className="space-y-2.5">
               <li><NavLink to="/shop" className="hover:text-white transition-colors">All Makhana</NavLink></li>
-              <li><NavLink to="/shop" className="hover:text-white transition-colors">Bestsellers</NavLink></li>
+              <li><NavLink to="/collections/best-sellers" className="hover:text-white transition-colors">Best Sellers</NavLink></li>
+              <li><NavLink to="/collections" className="hover:text-white transition-colors">Collections</NavLink></li>
               <li><NavLink to="/build-your-box" className="hover:text-white transition-colors">Build Your Box</NavLink></li>
             </ul>
           </div>
 
+          {/* 2. ABOUT */}
           <div className="space-y-3">
             <p className="font-bold uppercase tracking-wider text-[#E2AE35]">ABOUT</p>
             <ul className="space-y-2.5">
-              <li><NavLink to="/about" className="hover:text-white transition-colors">Our Story</NavLink></li>
+              <li><NavLink to="/about" className="hover:text-white transition-colors">About Chaska</NavLink></li>
               <li><NavLink to="/about#why-chaska" className="hover:text-white transition-colors">Why Chaska</NavLink></li>
+              <li><NavLink to="/b2b" className="hover:text-white transition-colors">B2B &amp; Corporate</NavLink></li>
               <li><NavLink to="/contact" className="hover:text-white transition-colors">Contact Us</NavLink></li>
             </ul>
           </div>
 
+          {/* 3. HELP */}
           <div className="space-y-3">
             <p className="font-bold uppercase tracking-wider text-[#E2AE35]">HELP</p>
             <ul className="space-y-2.5">
               <li><NavLink to="/faq" className="hover:text-white transition-colors">FAQ</NavLink></li>
-              <li><NavLink to="/shipping" className="hover:text-white transition-colors">Shipping Policy</NavLink></li>
-              <li><NavLink to="/returns" className="hover:text-white transition-colors">Return Policy</NavLink></li>
+              <li><NavLink to="/policies/shipping" className="hover:text-white transition-colors">Shipping Policy</NavLink></li>
+              <li><NavLink to="/policies/returns" className="hover:text-white transition-colors">Return Policy</NavLink></li>
+              <li><NavLink to="/contact" className="hover:text-white transition-colors">Track Order / Support</NavLink></li>
             </ul>
           </div>
 
+          {/* 4. LEGAL & POLICIES */}
           <div className="space-y-3">
-            <p className="font-bold uppercase tracking-wider text-[#E2AE35]">LEGAL</p>
+            <p className="font-bold uppercase tracking-wider text-[#E2AE35]">POLICIES</p>
             <ul className="space-y-2.5">
-              <li><NavLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink></li>
-              <li><NavLink to="/terms" className="hover:text-white transition-colors">Terms of Service</NavLink></li>
+              <li><NavLink to="/policies/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink></li>
+              <li><NavLink to="/policies/terms" className="hover:text-white transition-colors">Terms of Service</NavLink></li>
+              <li><NavLink to="/policies/shipping" className="hover:text-white transition-colors">Shipping Details</NavLink></li>
+              <li><NavLink to="/policies/returns" className="hover:text-white transition-colors">Refund Guarantee</NavLink></li>
             </ul>
           </div>
 
-          <div className="space-y-3">
-            <p className="font-bold uppercase tracking-wider text-[#E2AE35]">SOCIAL</p>
+          {/* 5. CONNECT */}
+          <div className="space-y-3 col-span-2 sm:col-span-1">
+            <p className="font-bold uppercase tracking-wider text-[#E2AE35]">CONNECT</p>
             <ul className="space-y-2.5">
               <li><a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Instagram ↗</a></li>
               <li><a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">Twitter / X ↗</a></li>
+              <li><a href="https://wa.me/919999999999?text=Hi%20CHASKA%2C%20I%20have%20an%20order%20inquiry" target="_blank" rel="noreferrer" className="hover:text-white transition-colors">WhatsApp ↗</a></li>
+              <li className="pt-1 text-[#F5EEDD]/50 text-[11px]">hello@snackchaska.shop</li>
             </ul>
           </div>
         </div>
@@ -112,8 +124,8 @@ export default function Footer() {
         <div className="flex flex-col sm:flex-row items-center justify-between pt-8 text-xs font-mono text-[#F5EEDD]/70 gap-4">
           <p>© {new Date().getFullYear()} CHASKA. All rights reserved.</p>
           <div className="flex gap-6">
-            <NavLink to="/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink>
-            <NavLink to="/terms" className="hover:text-white transition-colors">Terms of Service</NavLink>
+            <NavLink to="/policies/privacy" className="hover:text-white transition-colors">Privacy Policy</NavLink>
+            <NavLink to="/policies/terms" className="hover:text-white transition-colors">Terms of Service</NavLink>
           </div>
         </div>
 
