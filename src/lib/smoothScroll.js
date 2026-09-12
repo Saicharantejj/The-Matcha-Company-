@@ -25,32 +25,36 @@ import Lenis from 'lenis'
 let lenis = null
 
 export function initSmoothScroll() {
-  if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
-  // Coarse pointer means a finger. Leave native momentum alone.
-  if (window.matchMedia('(pointer: coarse)').matches) return undefined
+  try {
+    if (typeof window === 'undefined' || typeof window.matchMedia !== 'function') return undefined
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return undefined
+    // Coarse pointer means a finger. Leave native momentum alone.
+    if (window.matchMedia('(pointer: coarse)').matches) return undefined
 
-  lenis = new Lenis({
-    // Long enough to feel carried, short enough not to feel laggy when you
-    // flick the wheel twice.
-    duration: 1.05,
-    // The same curve as the rest of the site's motion, in function form.
-    easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
-    smoothWheel: true,
-    // Anything marked data-lenis-prevent scrolls itself — the cart drawer's
-    // contents, for one, which must not move the page behind it.
-    prevent: (node) => node.hasAttribute?.('data-lenis-prevent'),
-  })
+    lenis = new Lenis({
+      duration: 1.05,
+      easing: (t) => Math.min(1, 1.001 - 2 ** (-10 * t)),
+      smoothWheel: true,
+      prevent: (node) => node?.hasAttribute?.('data-lenis-prevent'),
+    })
 
-  let frame = requestAnimationFrame(function loop(time) {
-    lenis.raf(time)
-    frame = requestAnimationFrame(loop)
-  })
+    let frame = requestAnimationFrame(function loop(time) {
+      if (lenis) {
+        lenis.raf(time)
+        frame = requestAnimationFrame(loop)
+      }
+    })
 
-  return () => {
-    cancelAnimationFrame(frame)
-    lenis.destroy()
-    lenis = null
+    return () => {
+      cancelAnimationFrame(frame)
+      if (lenis) {
+        lenis.destroy()
+        lenis = null
+      }
+    }
+  } catch (err) {
+    console.warn('[SmoothScroll initialization bypassed]', err)
+    return undefined
   }
 }
 
