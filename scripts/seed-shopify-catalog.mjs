@@ -176,15 +176,15 @@ async function createProductWithVariants(productDef) {
   return productId;
 }
 
-async function createBuy4Box() {
-  console.log('Creating product: Chaska Buy 4 Box...');
+async function createTryAll5Box() {
+  console.log('Creating product: Chaska Try All 5...');
   const input = {
-    title: 'Chaska Buy 4 Box',
-    handle: 'chaska-buy-4-box',
-    descriptionHtml: '<p>Custom 4-pack artisanal stash box. Choose any 4 flavours from our chef-crafted makhana collection.</p>',
+    title: 'Chaska Try All 5',
+    handle: 'chaska-try-all-5',
+    descriptionHtml: '<p>Experience the complete CHASKA universe in one sampler box! Includes 1 pouch of each of our 5 signature flavours: Peri Peri, Chilli Cheese, Chilli Lime, Kashmiri Garlic Chilli, and Pudhina Makhana.</p>',
     vendor: 'CHASKA',
     productType: 'Snack Box',
-    tags: ['bundle', 'box', 'stash box', 'variety pack'],
+    tags: ['bundle', 'box', 'sampler', 'try all 5', 'variety pack', 'all flavours'],
   };
 
   const createMutation = `
@@ -203,7 +203,44 @@ async function createBuy4Box() {
 
   const res = await adminFetch(createMutation, { input });
   const productId = res.productCreate.product.id;
-  console.log(`  ✓ Chaska Buy 4 Box created (${productId})`);
+  console.log(`  ✓ Chaska Try All 5 created (${productId})`);
+
+  const variants = [
+    {
+      options: ['50g'],
+      price: '710.00',
+      compareAtPrice: '900.00',
+      sku: 'TRY5-50',
+      inventoryItem: { tracked: true },
+    },
+    {
+      options: ['100g'],
+      price: '1410.00',
+      compareAtPrice: '1600.00',
+      sku: 'TRY5-100',
+      inventoryItem: { tracked: true },
+    },
+  ];
+
+  const bulkMutation = `
+    mutation productVariantsBulkCreate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
+      productVariantsBulkCreate(productId: $productId, variants: $variants) {
+        productVariants {
+          id
+          title
+          sku
+          price
+        }
+        userErrors {
+          field
+          message
+        }
+      }
+    }
+  `;
+
+  await adminFetch(bulkMutation, { productId, variants });
+  console.log('  ✓ Created 2 size variants for Chaska Try All 5');
   return productId;
 }
 
@@ -215,10 +252,10 @@ async function run() {
       const id = await createProductWithVariants(p);
       createdIds.push(id);
     }
-    const boxId = await createBuy4Box();
+    const boxId = await createTryAll5Box();
     createdIds.push(boxId);
 
-    console.log('\n--- ALL 6 PRODUCTS & 30 VARIANTS SEEDED SUCCESSFULLY! ---');
+    console.log('\n--- ALL 6 PRODUCTS & 32 VARIANTS SEEDED SUCCESSFULLY! ---');
   } catch (err) {
     console.error('Failed to seed products:', err.message);
   }
