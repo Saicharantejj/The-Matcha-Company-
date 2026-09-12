@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { photos } from '../data/photos'
@@ -20,6 +20,8 @@ export default function ProductDetail() {
   const [relatedProducts, setRelatedProducts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [selectedSize, setSelectedSize] = useState('50g')
+  const [selectedPack, setSelectedPack] = useState('Pack of 3')
 
   useEffect(() => {
     async function loadProduct() {
@@ -89,9 +91,37 @@ export default function ProductDetail() {
     return <NotFound />
   }
 
+  const activeVariant = useMemo(() => {
+    if (!product?.variants || product.variants.length === 0) return null
+    const match = product.variants.find((v) => {
+      const options = v.selectedOptions || []
+      const sizeOpt = options.find((o) => o.name?.toLowerCase() === 'size')?.value
+      const packOpt = options.find((o) => o.name?.toLowerCase() === 'pack')?.value
+      if (sizeOpt && packOpt) {
+        return sizeOpt === selectedSize && packOpt === selectedPack
+      }
+      return v.title?.includes(selectedSize) && v.title?.includes(selectedPack)
+    })
+    return match || product.variants[0]
+  }, [product, selectedSize, selectedPack])
+
+  const currentPrice = activeVariant ? activeVariant.price : product?.price || 450
+  const currentMrp = activeVariant ? activeVariant.mrp : product?.mrp || 540
+  const currentDiscount = currentMrp > currentPrice ? `${Math.round(((currentMrp - currentPrice) / currentMrp) * 100)}% OFF` : null
+
   const handleAddToCart = () => {
-    addItem(product, qty)
-    addToast(`${qty}x ${product.name} added to cart!`, 'success')
+    const itemToAdd = {
+      ...product,
+      id: activeVariant?.id || product.id,
+      variantId: activeVariant?.id || product.variantId || product.id,
+      price: currentPrice,
+      mrp: currentMrp,
+      packSize: `${selectedSize} • ${selectedPack}`,
+      size: `${selectedSize} • ${selectedPack}`,
+      name: `${product.name} (${selectedSize}, ${selectedPack})`,
+    }
+    addItem(itemToAdd, qty)
+    addToast(`${qty}x ${product.name} (${selectedSize}, ${selectedPack}) added to cart!`, 'success')
   }
 
   const photoKey = product.id?.includes('cheese') ? 'chillyCheesePack'
@@ -227,19 +257,81 @@ export default function ProductDetail() {
               {/* Price & Savings */}
               <div className="flex items-baseline gap-4 pt-2">
                 <span className="font-display text-3xl sm:text-4xl font-black text-[#17245B]">
-                  {product.displayPrice}
+                  ₹{Math.round(currentPrice)}
                 </span>
-                {product.mrp && product.mrp > product.price && (
+                {currentMrp && currentMrp > currentPrice && (
                   <>
                     <span className="font-mono text-lg text-[#17245B]/60 line-through">
-                      ₹{product.mrp}
+                      ₹{Math.round(currentMrp)}
                     </span>
                     <span className="font-mono text-xs font-bold text-[#A9223A] bg-[#FFF0F2] px-2.5 py-1 rounded-full">
-                      SAVE {product.discount}
+                      SAVE {currentDiscount}
                     </span>
                   </>
                 )}
               </div>
+
+              {/* Size & Pack Selectors */}
+              {product.handle !== 'chaska-buy-4-box' && (
+                <div className="space-y-4 pt-2">
+                  {/* Size Options */}
+                  <div className="space-y-2">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
+                      <span>1. SELECT POUCH SIZE</span>
+                      <span className="text-[#A9223A] font-extrabold">{selectedSize} POUCH</span>
+                    </span>
+                    <div className="grid grid-cols-2 gap-3">
+                      {['50g', '100g'].map((sz) => (
+                        <button
+                          key={sz}
+                          type="button"
+                          onClick={() => setSelectedSize(sz)}
+                          className={`py-3 px-4 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
+                            selectedSize === sz
+                              ? 'border-[#17245B] bg-[#17245B] text-white shadow-md'
+                              : 'border-[#17245B]/20 bg-white text-[#17245B] hover:border-[#17245B]/50'
+                          }`}
+                        >
+                          <span>{sz} POUCH</span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* Pack Options */}
+                  <div className="space-y-2">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
+                      <span>2. SELECT QUANTITY PACK</span>
+                      <span className="text-[#A9223A] font-extrabold">{selectedPack}</span>
+                    </span>
+                    <div className="grid grid-cols-3 gap-3">
+                      {[
+                        { label: 'Pack of 3', tag: 'POPULAR' },
+                        { label: 'Pack of 6', tag: 'BEST VALUE' },
+                        { label: 'Pack of 10', tag: 'PARTY PACK' },
+                      ].map((pk) => (
+                        <button
+                          key={pk.label}
+                          type="button"
+                          onClick={() => setSelectedPack(pk.label)}
+                          className={`py-3 px-2 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex flex-col items-center justify-center gap-1 ${
+                            selectedPack === pk.label
+                              ? 'border-[#A9223A] bg-[#A9223A] text-white shadow-md'
+                              : 'border-[#17245B]/20 bg-white text-[#17245B] hover:border-[#17245B]/50'
+                          }`}
+                        >
+                          <span className="text-[11px] leading-tight">{pk.label}</span>
+                          <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-extrabold ${
+                            selectedPack === pk.label ? 'bg-white/20 text-white' : 'bg-[#FAF6ED] text-[#17245B]/70'
+                          }`}>
+                            {pk.tag}
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Description */}
@@ -299,7 +391,7 @@ export default function ProductDetail() {
                   disabled={product.availableForSale === false}
                   className="flex-1 btn bg-[#E2AE35] hover:bg-[#17245B] hover:text-[#F5EEDD] text-[#17245B] py-4 text-xs font-bold uppercase tracking-wider shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  {product.availableForSale === false ? 'SOLD OUT' : `ADD TO STASH • ₹${(product.price * qty).toFixed(0)}`}
+                  {product.availableForSale === false ? 'SOLD OUT' : `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}`}
                 </button>
               </div>
 
