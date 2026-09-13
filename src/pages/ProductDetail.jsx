@@ -68,29 +68,6 @@ export default function ProductDetail() {
     }
   }, [product])
 
-  if (isLoading) {
-    return (
-      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD] flex items-center justify-center">
-        <div className="mx-auto max-w-4xl w-full p-8 rounded-3xl bg-white/60 border border-[#17245B]/10 animate-pulse space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="aspect-square rounded-2xl bg-[#17245B]/10" />
-            <div className="space-y-4">
-              <div className="h-4 w-1/4 rounded bg-[#17245B]/15" />
-              <div className="h-8 w-3/4 rounded bg-[#17245B]/20" />
-              <div className="h-4 w-1/3 rounded bg-[#17245B]/15" />
-              <div className="h-24 w-full rounded bg-[#17245B]/10" />
-              <div className="h-12 w-full rounded-full bg-[#17245B]/20" />
-            </div>
-          </div>
-        </div>
-      </main>
-    )
-  }
-
-  if (!product || error) {
-    return <NotFound />
-  }
-
   const isTryAll5 = product?.handle === 'chaska-try-all-5'
 
   const activeVariant = useMemo(() => {
@@ -118,6 +95,29 @@ export default function ProductDetail() {
     })
     return match || product.variants[0]
   }, [product, isTryAll5, selectedSize, selectedPack])
+
+  if (isLoading) {
+    return (
+      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD] flex items-center justify-center">
+        <div className="mx-auto max-w-4xl w-full p-8 rounded-3xl bg-white/60 border border-[#17245B]/10 animate-pulse space-y-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="aspect-square rounded-2xl bg-[#17245B]/10" />
+            <div className="space-y-4">
+              <div className="h-4 w-1/4 rounded bg-[#17245B]/15" />
+              <div className="h-8 w-3/4 rounded bg-[#17245B]/20" />
+              <div className="h-4 w-1/3 rounded bg-[#17245B]/15" />
+              <div className="h-24 w-full rounded bg-[#17245B]/10" />
+              <div className="h-12 w-full rounded-full bg-[#17245B]/20" />
+            </div>
+          </div>
+        </div>
+      </main>
+    )
+  }
+
+  if (!product || error) {
+    return <NotFound />
+  }
 
   const currentPrice = activeVariant ? activeVariant.price : (product?.price || 450)
   const currentMrp = (activeVariant?.mrp && activeVariant.mrp > currentPrice)
