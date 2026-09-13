@@ -48,16 +48,16 @@ export default function ContactPage() {
                 <div>
                   <h3 className="font-display text-lg font-bold uppercase text-[#F5EEDD]">EMAIL US</h3>
                   <p className="font-sans text-xs text-[#F5EEDD]/75 mt-0.5">For orders, feedback &amp; inquiries:</p>
-                  <a href="mailto:hello@snackchaska.shop" className="font-mono text-xs font-bold text-[#E2AE35] hover:underline block mt-1">
-                    hello@snackchaska.shop
+                  <a href="mailto:snackchaska@gmail.com" className="font-sans text-xs font-bold text-[#E2AE35] hover:underline block mt-1">
+                    snackchaska@gmail.com
                   </a>
                 </div>
 
                 <div>
                   <h3 className="font-display text-lg font-bold uppercase text-[#F5EEDD]">CORPORATE &amp; BULK</h3>
                   <p className="font-sans text-xs text-[#F5EEDD]/75 mt-0.5">Custom stash boxes &amp; event hampers:</p>
-                  <a href="mailto:b2b@snackchaska.shop" className="font-mono text-xs font-bold text-[#E2AE35] hover:underline block mt-1">
-                    b2b@snackchaska.shop
+                  <a href="mailto:snackchaska@gmail.com" className="font-sans text-xs font-bold text-[#E2AE35] hover:underline block mt-1">
+                    snackchaska@gmail.com
                   </a>
                 </div>
 

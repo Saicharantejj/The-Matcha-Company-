@@ -35,7 +35,7 @@ export default function ReturnsPage() {
                 2. DAMAGED OR INCORRECT SHIPMENTS
               </h2>
               <p className="text-sm text-[#17245B]/85 leading-relaxed pl-4">
-                If you receive an unsealed or damaged package, please email us at <strong>hello@chaskasnacks.com</strong> or WhatsApp our support line within 48 hours of delivery with a photo. We will immediately dispatch a free replacement box or refund your original payment method.
+                If you receive an unsealed or damaged package, please email us at <strong>snackchaska@gmail.com</strong> or WhatsApp our support line within 48 hours of delivery with a photo. We will immediately dispatch a free replacement box or refund your original payment method.
               </p>
             </section>
 

@@ -37,11 +37,13 @@
     pointer-events: none;
   }
 
-  body {
+  html, body {
     background-color: #F5EEDD;
     color: #17245B;
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
     overflow-x: hidden;
   }
 
@@ -56,7 +58,7 @@
   }
 
   h1, h2, h3, h4, .font-display {
-    font-family: "Bricolage Grotesque", "Noto Sans Devanagari", "Plus Jakarta Sans", sans-serif;
+    font-family: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
     letter-spacing: -0.03em;
     font-weight: 800;
   }
@@ -120,7 +122,7 @@
   /* Primary Action Button: Signature Saffron Gold */
   .btn, .btn-primary, .btn-orange {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#E2AE35] px-7 py-3.5 font-mono text-xs font-extrabold uppercase text-[#17245B] rounded-full tracking-wider;
+           bg-[#E2AE35] px-7 py-3.5 font-sans text-xs font-black uppercase text-[#17245B] rounded-full tracking-wider;
     border: 1px solid #E2AE35;
     box-shadow: 0 4px 16px rgba(226, 174, 53, 0.32);
     transition: transform 0.25s ease,
@@ -145,7 +147,7 @@
   /* Secondary Button: Midnight Indigo Blue */
   .btn-indigo, .btn-charcoal {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#17245B] px-7 py-3.5 font-mono text-xs font-extrabold uppercase text-[#F5EEDD] rounded-full tracking-wider;
+           bg-[#17245B] px-7 py-3.5 font-sans text-xs font-black uppercase text-[#F5EEDD] rounded-full tracking-wider;
     border: 1px solid #17245B;
     box-shadow: 0 4px 16px rgba(23, 36, 91, 0.25);
     transition: transform 0.25s ease,
@@ -166,7 +168,7 @@
   /* Heat / Chilli Lacquer Button */
   .btn-lacquer, .btn-heat {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#A9223A] px-7 py-3.5 font-mono text-xs font-extrabold uppercase text-white rounded-full tracking-wider;
+           bg-[#A9223A] px-7 py-3.5 font-sans text-xs font-black uppercase text-white rounded-full tracking-wider;
     border: 1px solid #A9223A;
     box-shadow: 0 4px 16px rgba(169, 34, 58, 0.28);
     transition: transform 0.25s ease,
@@ -189,7 +191,7 @@
   /* Quiet Outline Button */
   .btn-outline {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-transparent px-7 py-3.5 font-mono text-xs font-bold uppercase text-[#17245B] rounded-full tracking-wider;
+           bg-transparent px-7 py-3.5 font-sans text-xs font-bold uppercase text-[#17245B] rounded-full tracking-wider;
     border: 1.5px solid rgba(23, 36, 91, 0.25);
     transition: transform 0.25s ease,
                 background-color 0.25s ease,
@@ -210,12 +212,12 @@
 
   /* ── Specs ───────────────────────────────────────────────────────────── */
   .spec {
-    font-family: "DM Mono", monospace;
+    font-family: "Plus Jakarta Sans", sans-serif;
     font-size: 0.72rem;
     text-transform: uppercase;
-    letter-spacing: 0.12em;
+    letter-spacing: 0.08em;
     color: #17245B;
-    font-weight: 500;
+    font-weight: 700;
   }
 }
 

@@ -77,8 +77,8 @@ export default function B2bPage() {
                 REQUEST A B2B QUOTE ➔
               </a>
               <a
-                href="mailto:b2b@snackchaska.shop"
-                className="px-6 py-3.5 rounded-full border border-[#F5EEDD]/30 text-[#F5EEDD] font-mono text-xs font-bold uppercase tracking-wider hover:bg-[#F5EEDD]/10 transition-colors"
+                href="mailto:snackchaska@gmail.com"
+                className="px-6 py-3.5 rounded-full border border-[#F5EEDD]/30 text-[#F5EEDD] font-sans text-xs font-bold uppercase tracking-wider hover:bg-[#F5EEDD]/10 transition-colors"
               >
                 EMAIL B2B DESK
               </a>

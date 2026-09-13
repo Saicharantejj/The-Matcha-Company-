@@ -55,10 +55,11 @@ export default {
         'glass-border': 'rgba(23, 36, 91, 0.12)',
       },
       fontFamily: {
-        display: ['"Bricolage Grotesque"', '"Noto Sans Devanagari"', '"Plus Jakarta Sans"', 'sans-serif'],
-        body: ['"Plus Jakarta Sans"', '"Noto Sans Devanagari"', 'sans-serif'],
-        hindi: ['"Noto Sans Devanagari"', '"Bricolage Grotesque"', 'sans-serif'],
-        mono: ['"DM Mono"', 'monospace'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['"Bricolage Grotesque"', '"Plus Jakarta Sans"', 'sans-serif'],
+        body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        hindi: ['"Noto Sans Devanagari"', '"Plus Jakarta Sans"', 'sans-serif'],
+        mono: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
       },
       borderRadius: {
         none: '0px',

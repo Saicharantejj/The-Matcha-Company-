@@ -48,8 +48,8 @@ export default function Header({ onOpenSearch }) {
   return (
     <>
       {/* ── TOP BANNER TICKER ────────────────────────────────────────── */}
-      <div className="bg-[#17245B] text-[#F5EEDD] py-2 px-4 text-center font-mono text-[10px] sm:text-xs font-bold uppercase tracking-widest border-b border-[#E2AE35]/30 flex items-center justify-center gap-2 shadow-xs">
-        <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#E2AE35] text-[#17245B] text-[9px] font-mono tracking-wider font-black shadow-xs">
+      <div className="bg-[#17245B] text-[#F5EEDD] py-2 px-4 text-center font-sans text-[11px] sm:text-xs font-bold uppercase tracking-wider border-b border-[#E2AE35]/30 flex items-center justify-center gap-2 shadow-xs">
+        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-[#E2AE35] text-[#17245B] text-[10px] font-sans tracking-wide font-extrabold shadow-xs">
           🔥 NEW DROP
         </span>
         <span className="truncate">
@@ -79,7 +79,7 @@ export default function Header({ onOpenSearch }) {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `font-mono text-xs uppercase font-bold tracking-wider transition-colors duration-200 flex items-center gap-1.5 py-1 ${
+                  `font-sans text-xs sm:text-[13px] uppercase font-bold tracking-wider transition-colors duration-200 flex items-center gap-1.5 py-1 ${
                     isActive
                       ? 'text-[#17245B] border-b-2 border-[#17245B]'
                       : 'text-[#17245B]/80 hover:text-[#17245B]'
@@ -88,7 +88,7 @@ export default function Header({ onOpenSearch }) {
               >
                 <span>{link.label}</span>
                 {link.isBadge && (
-                  <span className="px-1.5 py-0.5 rounded-full bg-[#E2AE35] text-[9px] text-[#17245B] font-mono font-black tracking-tight">
+                  <span className="px-2 py-0.5 rounded-full bg-[#E2AE35] text-[10px] text-[#17245B] font-sans font-extrabold tracking-wide">
                     {link.isBadge}
                   </span>
                 )}
@@ -103,7 +103,7 @@ export default function Header({ onOpenSearch }) {
               type="button"
               onClick={onOpenSearch}
               aria-label="Search snacks"
-              className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-full border border-[#17245B]/20 bg-white text-[#17245B] font-mono text-xs font-bold uppercase tracking-wider hover:border-[#17245B] hover:bg-[#FAF6ED] transition-all shadow-xs"
+              className="inline-flex items-center gap-1.5 px-3 py-2 sm:px-3.5 sm:py-2 rounded-full border border-[#17245B]/20 bg-white text-[#17245B] font-sans text-xs font-bold uppercase tracking-wider hover:border-[#17245B] hover:bg-[#FAF6ED] transition-all shadow-xs"
             >
               <span className="text-xs">🔍</span>
               <span className="hidden sm:inline">SEARCH</span>
@@ -117,10 +117,10 @@ export default function Header({ onOpenSearch }) {
               aria-label={`Open cart with ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
               animate={lastAddedId && !reduceMotion ? { scale: [1, 1.08, 1] } : { scale: 1 }}
               transition={{ duration: 0.3 }}
-              className="group relative inline-flex items-center gap-2 px-3.5 py-2 sm:px-4.5 sm:py-2 rounded-full bg-[#17245B] text-[#F5EEDD] font-mono text-xs font-extrabold uppercase tracking-wider hover:bg-[#E2AE35] hover:text-[#17245B] transition-all shadow-sm"
+              className="group relative inline-flex items-center gap-2 px-3.5 py-2 sm:px-4.5 sm:py-2 rounded-full bg-[#17245B] text-[#F5EEDD] font-sans text-xs font-black uppercase tracking-wider hover:bg-[#E2AE35] hover:text-[#17245B] transition-all shadow-sm"
             >
               <span>STASH</span>
-              <span className="inline-flex h-5 min-w-[1.25rem] px-1 items-center justify-center rounded-full bg-[#E2AE35] text-[#17245B] text-[10px] font-mono font-black tabular-nums shadow-xs">
+              <span className="inline-flex h-5 min-w-[1.25rem] px-1 items-center justify-center rounded-full bg-[#E2AE35] text-[#17245B] text-[10px] font-sans font-extrabold tabular-nums shadow-xs">
                 {cartCount}
               </span>
             </motion.button>
@@ -162,7 +162,7 @@ export default function Header({ onOpenSearch }) {
                     setMenuOpen(false)
                     if (onOpenSearch) onOpenSearch()
                   }}
-                  className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white border border-[#17245B]/15 text-[#17245B] font-mono text-xs font-bold shadow-xs"
+                  className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white border border-[#17245B]/15 text-[#17245B] font-sans text-xs font-bold shadow-xs"
                 >
                   <span className="flex items-center gap-2">
                     <span>🔍</span>
@@ -182,14 +182,14 @@ export default function Header({ onOpenSearch }) {
                           <span>{link.label}</span>
                           <span className="text-xs font-hindi font-normal text-[#17245B]/60">({link.hindi})</span>
                         </div>
-                        <span className="font-mono text-xs text-[#E2AE35]">0{i + 1}</span>
+                        <span className="font-sans text-xs text-[#E2AE35] font-bold">0{i + 1}</span>
                       </NavLink>
                     </li>
                   ))}
                 </ul>
 
                 <div className="pt-2 border-t border-[#17245B]/10 space-y-3">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#17245B]/60">
+                  <span className="font-sans text-[10px] font-bold uppercase tracking-widest text-[#17245B]/70">
                     HELP &amp; POLICIES
                   </span>
                   <div className="grid grid-cols-2 gap-2">
@@ -197,7 +197,7 @@ export default function Header({ onOpenSearch }) {
                       <NavLink
                         key={sLink.to}
                         to={sLink.to}
-                        className="px-3 py-2 rounded-xl bg-white border border-[#17245B]/15 font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] text-center shadow-xs"
+                        className="px-3 py-2 rounded-xl bg-white border border-[#17245B]/15 font-sans text-xs font-bold text-[#17245B] hover:text-[#E2AE35] text-center shadow-xs"
                       >
                         {sLink.label}
                       </NavLink>

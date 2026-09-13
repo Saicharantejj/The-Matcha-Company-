@@ -111,7 +111,7 @@ export default function Footer() {
             <ul className="space-y-2">
               <li><a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-[#E2AE35] transition-colors">Instagram ↗</a></li>
               <li><a href="https://twitter.com" target="_blank" rel="noreferrer" className="hover:text-[#E2AE35] transition-colors">Twitter / X ↗</a></li>
-              <li className="pt-2 text-white/60 text-[11px]">hello@snackchaska.shop</li>
+              <li className="pt-2 text-white/80 text-[12px] font-sans font-medium"><a href="mailto:snackchaska@gmail.com" className="hover:text-[#E2AE35] transition-colors">snackchaska@gmail.com</a></li>
             </ul>
           </div>
         </div>
@@ -124,7 +124,7 @@ export default function Footer() {
         </div>
 
         {/* Legal Bottom Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between pt-6 text-xs font-mono text-[#F5EEDD]/65 gap-3">
+        <div className="flex flex-col sm:flex-row items-center justify-between pt-6 text-xs font-sans text-[#F5EEDD]/75 gap-3">
           <p>© {new Date().getFullYear()} CHASKA SNACKS. All rights reserved.</p>
           <div className="flex gap-4">
             <NavLink to="/policies/privacy" className="hover:text-white transition-colors">Privacy</NavLink>

@@ -88,15 +88,15 @@ export default function ProductCard({ product, index = 0 }) {
           {/* Badge */}
           <div className="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start">
             {!isAvailable ? (
-              <span className="px-2.5 py-1 font-mono text-[9px] font-extrabold tracking-wider uppercase rounded-full bg-[#A9223A] text-white shadow-xs">
+              <span className="px-2.5 py-1 font-sans text-[10px] font-extrabold tracking-wider uppercase rounded-full bg-[#A9223A] text-white shadow-xs">
                 SOLD OUT
               </span>
             ) : isTryAll5 ? (
-              <span className="px-2.5 py-1 font-mono text-[9px] font-extrabold tracking-wider uppercase rounded-full bg-[#17245B] text-[#F5EEDD] shadow-xs">
+              <span className="px-2.5 py-1 font-sans text-[10px] font-extrabold tracking-wider uppercase rounded-full bg-[#17245B] text-[#F5EEDD] shadow-xs">
                 ⭐ ALL 5 FLAVOURS
               </span>
             ) : discount ? (
-              <span className="px-2.5 py-1 font-mono text-[9px] font-extrabold tracking-wider uppercase rounded-full bg-[#E2AE35] text-[#17245B] shadow-xs">
+              <span className="px-2.5 py-1 font-sans text-[10px] font-extrabold tracking-wider uppercase rounded-full bg-[#E2AE35] text-[#17245B] shadow-xs">
                 {discount}
               </span>
             ) : null}
@@ -120,11 +120,11 @@ export default function ProductCard({ product, index = 0 }) {
         <div className="mt-4 flex flex-1 flex-col justify-between space-y-4">
           <div>
             <div className="flex items-center justify-between gap-2 mb-1">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/65">
+              <span className="font-sans text-[11px] font-bold uppercase tracking-wider text-[#17245B]/70">
                 {isTryAll5 ? 'VARIETY SAMPLER BOX' : (product.size || '50G & 100G POUCHES')}
               </span>
               {product.spiceLevel && !isTryAll5 && (
-                <span className="font-mono text-[10px] font-extrabold text-[#A9223A] flex items-center gap-0.5">
+                <span className="font-sans text-[11px] font-extrabold text-[#A9223A] flex items-center gap-0.5">
                   <span>🌶️</span> {product.spiceLevel.replace(/[🌶️🧀🌿]/g, '').trim()}
                 </span>
               )}
@@ -149,14 +149,14 @@ export default function ProductCard({ product, index = 0 }) {
           <div className="pt-3.5 border-t border-[#17245B]/10 space-y-3">
             <div className="flex items-baseline justify-between">
               <div className="flex items-baseline gap-2">
-                <span className="font-mono text-lg font-black text-[#17245B]">{priceFormatted}</span>
+                <span className="font-display text-xl font-black text-[#17245B]">{priceFormatted}</span>
                 {mrpFormatted && (
-                  <span className="font-mono text-xs text-[#17245B]/50 line-through">
+                  <span className="font-sans text-xs text-[#17245B]/50 line-through font-semibold">
                     {mrpFormatted}
                   </span>
                 )}
               </div>
-              <span className="font-mono text-[10px] font-bold text-[#17245B]/70">
+              <span className="font-sans text-[11px] font-bold text-[#17245B]/70 uppercase">
                 {isTryAll5 ? '5 POUCHES' : 'FROM ₹150/POUCH'}
               </span>
             </div>
@@ -166,7 +166,7 @@ export default function ProductCard({ product, index = 0 }) {
                 type="button"
                 onClick={handleAdd}
                 disabled={!isAvailable || isAdding}
-                className={`w-full py-2.5 rounded-full font-mono text-[11px] font-extrabold uppercase tracking-wider transition-all shadow-xs flex items-center justify-center gap-1.5 ${
+                className={`w-full py-2.5 rounded-full font-sans text-[11px] font-black uppercase tracking-wider transition-all shadow-xs flex items-center justify-center gap-1.5 ${
                   !isAvailable
                     ? 'bg-[#17245B]/15 text-[#17245B]/40 cursor-not-allowed'
                     : isAdded
@@ -188,7 +188,7 @@ export default function ProductCard({ product, index = 0 }) {
               </button>
               <Link
                 to={productUrl}
-                className="w-full py-2.5 rounded-full bg-white border border-[#17245B]/20 text-[#17245B] font-mono text-[11px] font-bold uppercase tracking-wider text-center hover:bg-[#17245B] hover:text-[#F5EEDD] transition-colors"
+                className="w-full py-2.5 rounded-full bg-white border border-[#17245B]/20 text-[#17245B] font-sans text-[11px] font-bold uppercase tracking-wider text-center hover:bg-[#17245B] hover:text-[#F5EEDD] transition-colors"
               >
                 CUSTOMIZE
               </Link>
