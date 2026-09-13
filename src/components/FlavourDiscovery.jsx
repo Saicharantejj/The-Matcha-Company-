@@ -75,20 +75,20 @@ export default function FlavourDiscovery() {
   const [activeFlavour, setActiveFlavour] = useState(FLAVOURS[0])
 
   return (
-    <section className="py-20 sm:py-24 bg-white border-b border-[#141416]/10" id="flavours">
+    <section className="py-20 sm:py-24 bg-white border-b border-[#17245B]/15" id="flavours">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-xs font-extrabold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-xs font-extrabold uppercase tracking-widest">
               🔥 KAUNSA CHASKA?
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141416]">
-              CHOOSE YOUR <span className="text-[#FF4D15]">CRUNCH MOOD.</span>
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
+              CHOOSE YOUR <span className="text-[#A9223A]">CRUNCH MOOD.</span>
             </h2>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-[#141416]/70 max-w-sm">
+          <p className="font-sans text-xs sm:text-sm text-[#17245B]/70 max-w-sm font-medium">
             5 signature handcrafted profiles. Roasted slow in small batches for genuine crunch.
           </p>
         </div>
@@ -106,25 +106,25 @@ export default function FlavourDiscovery() {
                 onMouseEnter={() => setActiveFlavour(f)}
                 className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between space-y-4 ${
                   isSelected
-                    ? 'border-[#FF4D15] bg-[#FAF7F2] shadow-sm ring-2 ring-[#FF4D15]/20 -translate-y-1'
-                    : 'border-[#141416]/10 bg-white hover:border-[#141416]/30'
+                    ? 'border-[#17245B] bg-[#FAF6ED] shadow-sm ring-2 ring-[#E2AE35]/40 -translate-y-1'
+                    : 'border-[#17245B]/15 bg-white hover:border-[#17245B]/40'
                 }`}
               >
                 <div>
-                  <span className="font-mono text-[10px] font-bold text-[#FF4D15] uppercase block mb-1">
+                  <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase block mb-1">
                     {f.tag}
                   </span>
-                  <p className="font-display text-base sm:text-lg font-bold text-[#141416] leading-snug">
+                  <p className="font-display text-base sm:text-lg font-bold text-[#17245B] leading-snug">
                     {f.name}
                   </p>
-                  <p className="font-hindi text-xs text-[#141416]/60">
+                  <p className="font-hindi text-xs text-[#17245B]/60">
                     {f.hindi}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-[#141416]/8 flex items-center justify-between font-mono text-[10px] font-bold text-[#141416]/70">
+                <div className="pt-2 border-t border-[#17245B]/10 flex items-center justify-between font-mono text-[10px] font-bold text-[#17245B]/70">
                   <span>{f.spice}</span>
-                  <span className={isSelected ? 'text-[#FF4D15]' : 'text-transparent'}>●</span>
+                  <span className={isSelected ? 'text-[#E2AE35]' : 'text-transparent'}>●</span>
                 </div>
               </button>
             )
@@ -137,36 +137,36 @@ export default function FlavourDiscovery() {
           initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3 }}
-          className="rounded-3xl p-6 sm:p-10 border border-[#141416]/10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xs"
+          className="rounded-3xl p-6 sm:p-10 border border-[#17245B]/15 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xs"
           style={{ backgroundColor: activeFlavour.bg }}
         >
           <div className="space-y-4 max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white font-mono text-xs font-bold text-[#141416] shadow-2xs">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white font-mono text-xs font-bold text-[#17245B] shadow-2xs border border-[#17245B]/10">
               <span>{activeFlavour.mood}</span>
             </div>
             
-            <h3 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#141416] leading-tight">
+            <h3 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#17245B] leading-tight">
               {activeFlavour.name} Makhana
             </h3>
 
-            <p className="font-sans text-sm sm:text-base text-[#141416]/85 leading-relaxed font-medium">
+            <p className="font-sans text-sm sm:text-base text-[#17245B]/85 leading-relaxed font-medium">
               {activeFlavour.personality}
             </p>
 
             <div className="pt-2 flex items-center gap-4">
               <Link
                 to={`/products/${activeFlavour.handle}`}
-                className="btn px-7 py-3.5 text-xs font-bold"
+                className="btn px-7 py-3.5 text-xs font-bold shadow-md"
               >
                 EXPLORE {activeFlavour.name.toUpperCase()} ➔
               </Link>
-              <span className="font-mono text-xs font-bold text-[#141416]/70">
+              <span className="font-mono text-xs font-bold text-[#17245B]/70">
                 Packs from ₹450 (Pack of 3)
               </span>
             </div>
           </div>
 
-          <div className="h-44 w-44 sm:h-56 sm:w-56 shrink-0 rounded-2xl bg-white p-2.5 shadow-sm border border-[#141416]/10 overflow-hidden">
+          <div className="h-44 w-44 sm:h-56 sm:w-56 shrink-0 rounded-2xl bg-white p-2.5 shadow-sm border border-[#17245B]/15 overflow-hidden">
             <img
               src={activeFlavour.image}
               alt={activeFlavour.name}

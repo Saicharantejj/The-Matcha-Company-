@@ -77,7 +77,7 @@ export default function Home() {
   return (
     <PageShell>
       {/* ── 1. PRODUCT CAMPAIGN HERO SECTION ──────────────────────────────── */}
-      <section className="relative bg-[#FAF7F2] px-4 pt-6 pb-14 sm:px-8 sm:pt-10 sm:pb-20 border-b border-[#141416]/10 flex items-center">
+      <section className="relative bg-[#F5EEDD] px-4 pt-6 pb-14 sm:px-8 sm:pt-10 sm:pb-20 border-b border-[#17245B]/15 flex items-center">
         <div className="mx-auto w-full max-w-7xl">
           <div className="grid gap-10 lg:gap-14 lg:grid-cols-12 lg:items-center">
             
@@ -89,20 +89,20 @@ export default function Home() {
               className="lg:col-span-7 space-y-6"
             >
               <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF4D15] text-white font-mono text-xs font-extrabold uppercase tracking-wider shadow-xs">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-black uppercase tracking-wider shadow-xs">
                   🔥 100% SLOW-ROASTED MAKHANA
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#141416] text-[#FAF7F2] font-mono text-xs font-bold uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#17245B] text-[#F5EEDD] font-mono text-xs font-bold uppercase tracking-wider">
                   ⚡ ZERO PALM OIL • GLUTEN FREE
                 </span>
               </div>
 
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight text-[#141416] leading-[0.94] uppercase">
+              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight text-[#17245B] leading-[0.94] uppercase">
                 MAKHANA KO <br />
-                <span className="text-[#FF4D15]">CHASKA</span> LAGA DIYA.
+                <span className="text-[#A9223A]">CHASKA</span> <span className="text-[#E2AE35]">LAGA DIYA.</span>
               </h1>
 
-              <p className="font-sans text-base sm:text-lg leading-relaxed text-[#141416]/80 font-normal max-w-lg">
+              <p className="font-sans text-base sm:text-lg leading-relaxed text-[#17245B]/85 font-medium max-w-lg">
                 Big crunch. Bold flavour. Bas boring nahi. Handpicked Bihar lotus seeds slow-roasted in small batches with chef-crafted seasonings.
               </p>
 
@@ -112,22 +112,22 @@ export default function Home() {
                 </Link>
                 <Link
                   to="/products/chaska-try-all-5"
-                  className="btn-charcoal px-7 py-4 text-xs font-black tracking-wider"
+                  className="btn-indigo px-7 py-4 text-xs font-black tracking-wider shadow-md"
                 >
                   TRY ALL 5 BOX
                 </Link>
               </div>
 
               {/* Micro specs */}
-              <div className="pt-3 flex flex-wrap items-center gap-6 font-mono text-xs text-[#141416]/70">
+              <div className="pt-3 flex flex-wrap items-center gap-6 font-mono text-xs text-[#17245B]/80 font-bold">
                 <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-700 font-bold">✓</span> 5 Signature Flavours
+                  <span className="text-emerald-700 font-extrabold">✓</span> 5 Signature Flavours
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-700 font-bold">✓</span> 100% Roasted, Not Fried
+                  <span className="text-emerald-700 font-extrabold">✓</span> 100% Roasted, Not Fried
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-700 font-bold">✓</span> Free Shipping &gt; ₹499
+                  <span className="text-emerald-700 font-extrabold">✓</span> Free Shipping &gt; ₹499
                 </span>
               </div>
             </motion.div>
@@ -139,18 +139,18 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-5 space-y-3"
             >
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#141416]/10 shadow-card bg-white">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#17245B]/15 shadow-card bg-white">
                 <img
                   src={activeHeroPhoto.src}
                   alt={activeHeroPhoto.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#FF4D15] text-white font-mono text-[10px] font-extrabold uppercase tracking-widest shadow-xs">
+                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#A9223A] text-white font-mono text-[10px] font-extrabold uppercase tracking-widest shadow-xs">
                   {activeHeroPhoto.badge}
                 </div>
-                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-[#141416]/90 text-[#FAF7F2] backdrop-blur-md border border-white/10 flex items-center justify-between shadow-md">
+                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-[#17245B]/90 text-[#F5EEDD] backdrop-blur-md border border-white/10 flex items-center justify-between shadow-md">
                   <div>
-                    <span className="font-mono text-[10px] font-bold text-[#FF4D15] uppercase tracking-wider block">
+                    <span className="font-mono text-[10px] font-bold text-[#E2AE35] uppercase tracking-wider block">
                       {activeHeroPhoto.tag}
                     </span>
                     <p className="font-display font-bold text-sm sm:text-base text-white leading-tight">
@@ -159,7 +159,7 @@ export default function Home() {
                   </div>
                   <Link
                     to="/shop"
-                    className="px-3.5 py-1.5 rounded-full bg-[#FF4D15] text-white font-mono text-xs font-bold hover:bg-[#E63E07] transition-colors shadow-xs"
+                    className="px-3.5 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-black hover:bg-white transition-colors shadow-xs"
                   >
                     SHOP
                   </Link>
@@ -176,8 +176,8 @@ export default function Home() {
                     aria-label={`View ${item.title}`}
                     className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
                       heroPhotoIndex === idx
-                        ? 'border-[#FF4D15] ring-2 ring-[#FF4D15]/30 scale-105 shadow-xs'
-                        : 'border-[#141416]/10 opacity-70 hover:opacity-100'
+                        ? 'border-[#E2AE35] ring-2 ring-[#E2AE35]/40 scale-105 shadow-xs'
+                        : 'border-[#17245B]/15 opacity-70 hover:opacity-100'
                     }`}
                   >
                     <img src={item.src} alt={item.tag} className="w-full h-full object-cover" />
@@ -191,42 +191,150 @@ export default function Home() {
       </section>
 
       {/* ── 2. TICKER RIBBON ───────────────────────────────────────────────── */}
-      <div className="bg-[#141416] text-[#FAF7F2] py-2.5 px-4 font-mono text-xs font-bold uppercase tracking-widest border-b border-[#141416]/10 overflow-hidden shadow-2xs">
+      <div className="bg-[#17245B] text-[#F5EEDD] py-2.5 px-4 font-mono text-xs font-bold uppercase tracking-widest border-b border-[#17245B]/15 overflow-hidden shadow-2xs">
         <div className="flex items-center justify-around gap-6 whitespace-nowrap overflow-x-auto no-scrollbar">
           <span>🍿 100% SLOW ROASTED</span>
-          <span className="text-[#FF4D15]">★</span>
+          <span className="text-[#E2AE35]">★</span>
           <span>🌶️ ZERO PALM OIL</span>
-          <span className="text-[#FF4D15]">★</span>
+          <span className="text-[#E2AE35]">★</span>
           <span>💥 CRACKLING CRUNCH</span>
-          <span className="text-[#FF4D15]">★</span>
+          <span className="text-[#E2AE35]">★</span>
           <span>🇮🇳 BIHAR LOTUS SEEDS</span>
-          <span className="text-[#FF4D15]">★</span>
+          <span className="text-[#E2AE35]">★</span>
           <span>⚡ FREE SHIPPING OVER ₹499</span>
         </div>
       </div>
 
-      {/* ── 3. FLAVOUR DISCOVERY ("KAUNSA CHASKA?") ────────────────────────── */}
+      {/* ── 3. OFFICIAL CAMPAIGN PHOTO SHOWCASE ("THE SIGNATURE CHASKA DROP") ─ */}
+      <section className="py-16 sm:py-20 bg-[#FAF6ED] border-b border-[#17245B]/15">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-10">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="space-y-2">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#A9223A] flex items-center gap-1.5">
+                🔥 OFFICIAL 2026 CAMPAIGN PHOTOS
+              </span>
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
+                THE SIGNATURE <span className="text-[#A9223A]">CHASKA</span> DROP
+              </h2>
+            </div>
+            <Link to="/shop" className="btn-indigo text-xs font-bold shadow-md self-start sm:self-auto">
+              SHOP ALL FLAVOURS ➔
+            </Link>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {/* Card 1: 50g Signature Masala Pouch */}
+            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all flex flex-col justify-between">
+              <div>
+                <div className="aspect-[4/5] overflow-hidden bg-[#17245B]">
+                  <img
+                    src={photos.masalaPouchHero.src}
+                    alt="CHASKA 50g Masala Makhana Pouch"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase tracking-wider">
+                    SIGNATURE POUCH • 50G
+                  </span>
+                  <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+                    MASALA MAKHANA POUCH
+                  </h3>
+                  <p className="font-sans text-xs text-[#17245B]/80 leading-relaxed font-medium">
+                    Slow-roasted Bihar lotus seeds enrobed in signature secret spices. Big crunch, zero frying.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-0">
+                <Link to="/shop" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors inline-flex items-center gap-1">
+                  GRAB THIS PACK ➔
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 2: Fresh Ingredients & Whole Spices (Red Mesh Bag) */}
+            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all flex flex-col justify-between">
+              <div>
+                <div className="aspect-[4/5] overflow-hidden bg-[#A9223A]">
+                  <img
+                    src={photos.meshBagIngredients.src}
+                    alt="CHASKA Real Ingredients in Red Mesh Net Bag"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase tracking-wider">
+                    REAL WHOLE SPICES
+                  </span>
+                  <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+                    FARM FRESH &amp; HONEST
+                  </h3>
+                  <p className="font-sans text-xs text-[#17245B]/80 leading-relaxed font-medium">
+                    Fresh red chillies, sun-dried heirloom tomatoes, and pure rock salt tossed in cold-pressed oil.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-0">
+                <Link to="/about" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors inline-flex items-center gap-1">
+                  OUR SOURCING STORY ➔
+                </Link>
+              </div>
+            </div>
+
+            {/* Card 3: The CHASKA Gazette (Newspaper Edition) */}
+            <div className="group rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-xl transition-all flex flex-col justify-between">
+              <div>
+                <div className="aspect-[4/5] overflow-hidden bg-[#17245B]">
+                  <img
+                    src={photos.newspaperComingSoon.src}
+                    alt="The CHASKA Gazette Edition 2026"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                  />
+                </div>
+                <div className="p-6 space-y-2">
+                  <span className="font-mono text-[10px] font-bold text-[#17245B] uppercase tracking-wider">
+                    THE PRINT EDITION • 2026
+                  </span>
+                  <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+                    GOOD FOOD, GOOD COMPANY
+                  </h3>
+                  <p className="font-sans text-xs text-[#17245B]/80 leading-relaxed font-medium">
+                    Better snacks made for conversation, cocktails, midnight cravings, and desk crunching.
+                  </p>
+                </div>
+              </div>
+              <div className="px-6 pb-6 pt-0">
+                <Link to="/products/chaska-try-all-5" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors inline-flex items-center gap-1">
+                  BUILD YOUR STASH ➔
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── 4. FLAVOUR DISCOVERY ("KAUNSA CHASKA?") ────────────────────────── */}
       <FlavourDiscovery />
 
-      {/* ── 4. CHASKAA TRY ALL 5 (MAJOR CONVERSION FEATURE) ────────────────── */}
+      {/* ── 5. CHASKAA TRY ALL 5 (MAJOR CONVERSION FEATURE) ────────────────── */}
       <TryAll5Feature product={tryAll5Product} />
 
-      {/* ── 5. SINGLE FLAVOUR PACKS CATALOGUE GRID ─────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-white border-b border-[#141416]/10" id="all-products">
+      {/* ── 6. SINGLE FLAVOUR PACKS CATALOGUE GRID ─────────────────────────── */}
+      <section className="py-20 sm:py-24 bg-white border-b border-[#17245B]/15" id="all-products">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-2">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-xs font-extrabold uppercase tracking-widest">
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-xs font-extrabold uppercase tracking-widest">
                 🍿 THE CRUNCH LINEUP
               </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141416]">
-                SIGNATURE <span className="text-[#FF4D15]">FLAVOUR PACKS.</span>
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
+                SIGNATURE <span className="text-[#A9223A]">FLAVOUR PACKS.</span>
               </h2>
             </div>
             <Link
               to="/shop"
-              className="font-mono text-xs font-bold uppercase tracking-wider text-[#141416] hover:text-[#FF4D15] transition-colors"
+              className="font-mono text-xs font-bold uppercase tracking-wider text-[#17245B] hover:text-[#E2AE35] transition-colors"
             >
               VIEW FULL CATALOGUE ➔
             </Link>
@@ -235,7 +343,7 @@ export default function Home() {
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((n) => (
-                <div key={n} className="h-[460px] rounded-3xl bg-[#FAF7F2] border border-[#141416]/10 p-6 animate-pulse" />
+                <div key={n} className="h-[460px] rounded-3xl bg-[#FAF6ED] border border-[#17245B]/10 p-6 animate-pulse" />
               ))}
             </div>
           ) : singleFlavours.length > 0 ? (
@@ -245,12 +353,12 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl bg-[#FAF7F2] border border-dashed border-[#141416]/20 p-12 text-center space-y-3 max-w-md mx-auto">
+            <div className="rounded-3xl bg-[#FAF6ED] border border-dashed border-[#17245B]/20 p-12 text-center space-y-3 max-w-md mx-auto">
               <span className="text-4xl block">🍿</span>
-              <h3 className="font-display text-lg font-bold uppercase text-[#141416]">
+              <h3 className="font-display text-lg font-bold uppercase text-[#17245B]">
                 Flavours Loading From Shopify
               </h3>
-              <p className="font-sans text-xs text-[#141416]/70">
+              <p className="font-sans text-xs text-[#17245B]/70 font-medium">
                 Retrieving live small-batch inventory from store...
               </p>
             </div>
@@ -259,26 +367,26 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 6. WHY THE CRUNCH? (EDITORIAL BENEFITS) ────────────────────────── */}
+      {/* ── 7. WHY THE CRUNCH? (EDITORIAL BENEFITS) ────────────────────────── */}
       <BenefitsGrid />
 
-      {/* ── 7. FOUR FOUNDATIONAL PILLARS ───────────────────────────────────── */}
+      {/* ── 8. FOUR FOUNDATIONAL PILLARS ───────────────────────────────────── */}
       <FourPillars />
 
-      {/* ── 8. BRAND MANIFESTO ─────────────────────────────────────────────── */}
-      <section className="py-24 sm:py-28 bg-[#141416] text-[#FAF7F2] border-b border-[#FAF7F2]/10 relative overflow-hidden" id="why-chaska">
+      {/* ── 9. BRAND MANIFESTO ─────────────────────────────────────────────── */}
+      <section className="py-24 sm:py-28 bg-[#17245B] text-[#F5EEDD] border-b border-[#F5EEDD]/15 relative overflow-hidden" id="why-chaska">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-7 space-y-6">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D15]">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
                 BRAND MANIFESTO
               </span>
               <h2 className="font-display text-4xl sm:text-6xl font-black uppercase leading-tight tracking-tight text-white">
                 MAKHANA KO BORING <br />
-                <span className="text-[#FF4D15]">KISNE BOLA?</span>
+                <span className="text-[#E2AE35]">KISNE BOLA?</span>
               </h2>
-              <p className="text-[#FAF7F2]/80 text-base sm:text-lg leading-relaxed font-sans font-normal max-w-xl">
+              <p className="text-[#F5EEDD]/85 text-base sm:text-lg leading-relaxed font-sans font-medium max-w-xl">
                 Makhana has been around forever. We just thought it deserved a little more chaska. Handpicked in Bihar wetlands, slow-roasted in small batches, and tossed in real spices for an absurdly addictive crunch.
               </p>
               <div className="pt-2 flex items-center gap-4">
@@ -308,10 +416,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 9. LIFESTYLE CAMPAIGN GALLERY ──────────────────────────────────── */}
+      {/* ── 10. LIFESTYLE CAMPAIGN GALLERY ─────────────────────────────────── */}
       <UgcGrid />
 
-      {/* ── 10. COMMUNITY REVIEWS ──────────────────────────────────────────── */}
+      {/* ── 11. COMMUNITY REVIEWS ──────────────────────────────────────────── */}
       <Reviews />
 
     </PageShell>

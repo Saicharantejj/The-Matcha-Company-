@@ -15,14 +15,14 @@ import React from 'react'
 export default function ChaskaLogo({
   className = 'h-8 w-auto',
   color,
-  accentColor = '#FF4D15',
+  accentColor = '#E2AE35',
   inverted = false,
   showTagline = false,
 }) {
   // Brand color lock-up:
-  // On light canvas: Deep Charcoal (#141416) with Chaska Orange accent (#FF4D15)
-  // On dark / inverted surfaces: Crisp Cream (#FAF7F2) with Chaska Orange
-  const defaultMainColor = inverted ? '#FAF7F2' : '#141416'
+  // On light canvas: Midnight Indigo (#17245B) with Saffron accent (#E2AE35)
+  // On dark / inverted surfaces: Rice-Paper Ivory (#F5EEDD) with Saffron
+  const defaultMainColor = inverted ? '#F5EEDD' : '#17245B'
   const mainColor = color || defaultMainColor
 
   return (
@@ -41,7 +41,7 @@ export default function ChaskaLogo({
         />
       </svg>
       {showTagline && (
-        <span className="font-hindi text-[10px] font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-[#FF4D15] text-white shrink-0 shadow-xs">
+        <span className="font-hindi text-[10px] font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-[#E2AE35] text-[#17245B] shrink-0 shadow-xs">
           चस्का
         </span>
       )}

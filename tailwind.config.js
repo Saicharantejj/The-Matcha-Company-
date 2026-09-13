@@ -4,52 +4,55 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── CHASKA 10/10 Premium Brand Palette ────────────────────────────────
-        // Canvas Neutral: Warm Off-White / Cream  #FAF7F2
-        // Brand Signature: Chaska Fiery Orange    #FF4D15
-        // Brand Typography: Deep Charcoal         #141416
-        // Secondary Accent: Toasted Saffron       #F59E0B
-        // Heat Accent: Crimson Fire               #DC2626
-        // Pure Surface: Crisp White               #FFFFFF
+        // ── CHASKA Master Brand Palette (Indigo & Ivory Signature) ───────────────
+        // FOUNDATION (65%):       Midnight Indigo   #17245B
+        // CANVAS NEUTRAL (25%):   Rice-Paper Ivory  #F5EEDD
+        // APPETITE ACCENT (7%):   Toasted Saffron   #E2AE35
+        // HEAT ACCENT (3%):       Chilli Lacquer    #A9223A
+        // PURE SURFACE:           Crisp White       #FFFFFF
         
-        'chaska-orange': '#FF4D15',
-        'chaska-orange-dark': '#E63E07',
-        'chaska-cream': '#FAF7F2',
-        'chaska-cream-dark': '#F0ECE1',
-        'chaska-charcoal': '#141416',
-        'chaska-charcoal-soft': '#242428',
-        'chaska-saffron': '#F59E0B',
-        'chaska-crimson': '#DC2626',
+        'midnight-indigo': '#17245B',
+        'midnight-indigo-dark': '#0F183D',
+        'midnight-indigo-light': '#253578',
+        'rice-paper-ivory': '#F5EEDD',
+        'rice-paper-warm': '#FAF6ED',
+        'toasted-saffron': '#E2AE35',
+        'toasted-saffron-dark': '#C89726',
+        'chilli-lacquer': '#A9223A',
+        'chilli-lacquer-bright': '#D9381E',
+        'chaska-orange': '#E2AE35',
+        'chaska-orange-dark': '#C89726',
+        'chaska-cream': '#F5EEDD',
+        'chaska-cream-dark': '#EADFCA',
+        'chaska-charcoal': '#17245B',
+        'chaska-charcoal-soft': '#253578',
+        'chaska-saffron': '#E2AE35',
+        'chaska-crimson': '#A9223A',
 
-        // Legacy compatibility mappings
-        'midnight-indigo': '#141416',
-        'rice-paper-ivory': '#FAF7F2',
-        'toasted-saffron': '#F59E0B',
-        'chilli-lacquer': '#FF4D15',
-
-        foundation: '#141416',
-        indigo: '#141416',
-        ivory: '#FAF7F2',
-        saffron: '#F59E0B',
-        lacquer: '#FF4D15',
-        chilli: '#DC2626',
-        cream: '#FAF7F2',
+        // Semantic mappings
+        foundation: '#17245B',
+        indigo: '#17245B',
+        ivory: '#F5EEDD',
+        saffron: '#E2AE35',
+        lacquer: '#A9223A',
+        chilli: '#A9223A',
+        cream: '#F5EEDD',
         surface: '#FFFFFF',
-        'surface-warm': '#F6F2EB',
-        charcoal: '#141416',
-        cocoa: '#141416',
-        oxblood: '#DC2626',
-        teal: '#141416',
-        muted: '#8E8D88',
-        accent: '#FF4D15',
-        'accent-heat': '#DC2626',
-        'accent-yellow': '#F59E0B',
+        'surface-warm': '#FAF6ED',
+        charcoal: '#17245B',
+        cocoa: '#17245B',
+        oxblood: '#A9223A',
+        teal: '#17245B',
+        muted: '#8A93AA',
+        accent: '#E2AE35',
+        'accent-heat': '#A9223A',
+        'accent-yellow': '#E2AE35',
 
         // Glass & Surface tokens
-        'glass-ivory': 'rgba(250, 247, 242, 0.92)',
+        'glass-ivory': 'rgba(245, 238, 221, 0.94)',
         'glass-white': 'rgba(255, 255, 255, 0.94)',
-        'glass-dark': 'rgba(20, 20, 22, 0.95)',
-        'glass-border': 'rgba(20, 20, 22, 0.08)',
+        'glass-dark': 'rgba(23, 36, 91, 0.95)',
+        'glass-border': 'rgba(23, 36, 91, 0.12)',
       },
       fontFamily: {
         display: ['"Bricolage Grotesque"', '"Noto Sans Devanagari"', '"Plus Jakarta Sans"', 'sans-serif'],
