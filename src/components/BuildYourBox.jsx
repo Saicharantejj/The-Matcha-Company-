@@ -1,185 +1,211 @@
 import { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
-import { fetchShopifyProducts } from '../lib/shopify/api'
+import { fetchShopifyProductByHandle } from '../lib/shopify/api'
 import { photos } from '../data/photos'
 
 export default function BuildYourBox() {
-  const [flavorPacks, setFlavorPacks] = useState([])
-  const [selectedFlavors, setSelectedFlavors] = useState([])
+  const [product, setProduct] = useState(null)
+  const [selectedSize, setSelectedSize] = useState('50g')
+  const [isAdding, setIsAdding] = useState(false)
+  const [isAdded, setIsAdded] = useState(false)
   const { addItem } = useCart()
   const { addToast } = useToast()
 
   useEffect(() => {
     async function load() {
       try {
-        const live = await fetchShopifyProducts(10)
-        if (live && live.length > 0) {
-          const singles = live.filter((p) => p.category === 'Flavoured Makhana' || !p.name?.toLowerCase().includes('box'))
-          setFlavorPacks(singles)
-          if (singles.length >= 4) {
-            setSelectedFlavors([singles[0], singles[1], singles[2], singles[3]])
-          } else {
-            setSelectedFlavors(singles)
-          }
-        } else {
-          setFlavorPacks([])
-          setSelectedFlavors([])
-        }
+        const p = await fetchShopifyProductByHandle('chaska-try-all-5')
+        if (p) setProduct(p)
       } catch (err) {
         console.warn('[BuildYourBox Shopify Error]', err)
-        setFlavorPacks([])
-        setSelectedFlavors([])
       }
     }
     load()
   }, [])
 
-  const varietyBoxProduct = flavorPacks.find((p) => p.name?.toLowerCase().includes('box') || p.id?.includes('variety')) || flavorPacks[0] || {
-    id: 'chaska-custom-box',
-    name: 'Custom 4-Pack Stash Box',
-    price: 699,
-    displayPrice: '₹699',
+  const variants = product?.variants || []
+  const activeVariant = variants.find((v) => {
+    const sizeOpt = v.selectedOptions?.find((o) => o.name?.toLowerCase() === 'size')?.value
+    return sizeOpt === selectedSize || v.title?.toLowerCase().includes(selectedSize.toLowerCase())
+  }) || variants[0]
+
+  const isAvailable = activeVariant ? Boolean(activeVariant.availableForSale) : Boolean(product?.availableForSale)
+
+  const price = activeVariant ? activeVariant.price : (selectedSize === '50g' ? 710 : 1410)
+  const mrp = activeVariant?.mrp && activeVariant.mrp > price ? activeVariant.mrp : (selectedSize === '50g' ? 900 : 1600)
+  const savings = mrp - price
+
+  const handleAddBoxToCart = async () => {
+    if (!isAvailable || isAdding) return
+
+    setIsAdding(true)
+    try {
+      const selectedVariantId = activeVariant?.id || product?.variantId || product?.id
+      const itemToAdd = {
+        ...product,
+        id: selectedVariantId,
+        variantId: selectedVariantId,
+        availableForSale: isAvailable,
+        price,
+        mrp,
+        size: `${selectedSize} Sampler Box`,
+        packSize: `${selectedSize} Sampler Box`,
+        name: `Chaska Try All 5 (${selectedSize})`,
+        flavor: 'Chaska Try All 5',
+        handle: 'chaska-try-all-5',
+        image: photos.stashBox.src,
+      }
+      await addItem(itemToAdd, 1)
+      setIsAdded(true)
+      addToast(`Chaska Try All 5 (${selectedSize}) added to stash! 📦`, 'success')
+      setTimeout(() => {
+        setIsAdded(false)
+        setIsAdding(false)
+      }, 1400)
+    } catch {
+      setIsAdding(false)
+      addToast('Could not add to cart. Please try again.', 'error')
+    }
   }
 
-  const handleSelectSlot = (index, product) => {
-    const next = [...selectedFlavors]
-    next[index] = product
-    setSelectedFlavors(next)
-  }
-
-  const handleAddBoxToCart = () => {
-    addItem(varietyBoxProduct, 1)
-    addToast('Custom CHASKA Stash Box added to cart! 📦', 'success')
-  }
+  const allFlavours = [
+    { name: 'Peri Peri Makhana', spice: 'High Heat 🌶️', desc: 'Bird\'s eye chilli roast' },
+    { name: 'Chilli Cheese Makhana', spice: 'Medium 🧀🌶️', desc: 'Sharp cheddar & green chili' },
+    { name: 'Chilli Lime Makhana', spice: 'Tangy 🍋🌶️', desc: 'Zesty Mexican key lime' },
+    { name: 'Kashmiri Garlic Chilli', spice: 'Warm 🧄🌶️', desc: 'Aromatic roasted garlic' },
+    { name: 'Pudhina Makhana', spice: 'Zesty 🌿', desc: 'Fresh garden spearmint' },
+  ]
 
   return (
-    <section className="py-24 bg-[#F5EEDD] border-y border-[#17245B]/15 relative overflow-hidden" id="build-your-box">
-      <div className="mx-auto max-w-[96rem] px-6 sm:px-12">
+    <section className="py-20 sm:py-24 bg-[#FAF7F2] border-y border-[#141416]/10 relative overflow-hidden" id="build-your-box">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8">
         
         {/* Section Header */}
-        <div className="max-w-2xl space-y-3 mb-16">
-          <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#A9223A] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
-            🔥 STASH BUILDER • CUSTOM 4-PACK
+        <div className="max-w-2xl space-y-2 mb-12 sm:mb-16">
+          <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-xs font-extrabold uppercase tracking-widest shadow-2xs">
+            ⭐ 5-IN-1 VARIETY BOX
           </span>
-          <h2 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-[#17245B] leading-none flex flex-wrap items-baseline gap-3">
-            <span>BUILD YOUR <span className="text-[#A9223A]">BOX.</span></span>
-            <span className="text-[#E2AE35] font-hindi text-3xl sm:text-5xl font-extrabold">अपना BOX बनाओ</span>
+          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#141416] leading-none">
+            CHASKA <span className="text-[#FF4D15]">TRY ALL 5.</span>
           </h2>
-          <p className="text-[#17245B]/80 text-base font-body leading-relaxed font-medium">
-            Pick your 4 favourite flavours. Mix it up. Make your perfect CHASKA snack stash.
+          <p className="text-[#141416]/75 text-sm sm:text-base leading-relaxed font-normal">
+            Can't pick one? Experience all 5 signature slow-roasted flavours in one complete stash box.
           </p>
         </div>
 
-        {/* Builder Interface */}
+        {/* Box Interface */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
-          {/* Left: 4-Slot Selection Panel */}
-          <div className="lg:col-span-7 bg-white border-2 border-[#17245B]/15 rounded-3xl p-6 sm:p-10 shadow-card">
-            <h3 className="font-display text-lg font-bold text-[#17245B] mb-6 flex items-center justify-between">
-              <span>YOUR 4-PACK SELECTION</span>
-              <span className="px-3 py-1 rounded-full bg-[#17245B] text-white font-mono text-xs font-bold">
-                {selectedFlavors.length} / 4 SLOTS FILLED
+          {/* Left: 5 Included Pouches */}
+          <div className="lg:col-span-7 bg-white border border-[#141416]/10 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
+            <h3 className="font-display text-base sm:text-lg font-bold text-[#141416] uppercase flex items-center justify-between">
+              <span>ALL 5 POUCHES INCLUDED</span>
+              <span className="px-2.5 py-0.5 rounded-full bg-[#141416] text-white font-mono text-xs font-bold">
+                5 / 5 FLAVOURS
               </span>
             </h3>
 
-            {selectedFlavors.length === 0 ? (
-              <div className="py-12 px-6 text-center space-y-3 bg-[#FAF6ED] rounded-2xl border-2 border-dashed border-[#17245B]/15">
-                <span className="text-3xl block">🍿</span>
-                <p className="font-display text-base font-bold text-[#17245B] uppercase">Custom Stash Slots Loading</p>
-                <p className="font-mono text-xs text-[#17245B]/70 max-w-sm mx-auto">
-                  Available small-batch flavors are loading from our store. You can also explore our ready-to-ship collections.
-                </p>
-              </div>
-            ) : (
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                {selectedFlavors.map((item, slotIdx) => (
-                  <div
-                    key={slotIdx}
-                    className="bg-[#FAF6ED] border border-[#17245B]/15 rounded-2xl p-4 flex flex-col justify-between hover:border-[#A9223A]/40 transition-colors"
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase">SLOT 0{slotIdx + 1}</span>
-                      <span className="font-mono text-[10px] text-[#17245B]/70 font-bold uppercase">70G PACK</span>
-                    </div>
-
-                    <div className="my-2 flex items-center gap-3">
-                      <div className="h-14 w-14 shrink-0 rounded-xl bg-white border border-[#17245B]/10 p-1 flex items-center justify-center overflow-hidden">
-                        <img
-                          src={item.image || photos.masalaPouchHero.src}
-                          alt={item.flavor || item.name}
-                          className="h-full w-full object-cover rounded-lg"
-                        />
-                      </div>
-                      <div>
-                        <p className="font-display font-bold text-sm sm:text-base text-[#17245B] line-clamp-1">{item.flavor || item.name}</p>
-                        <p className="font-mono text-[10px] text-[#A9223A] font-bold">{item.spiceLevel || 'Chef Crafted'}</p>
-                      </div>
-                    </div>
-
-                    <select
-                      value={item.id}
-                      onChange={(e) => {
-                        const match = flavorPacks.find((p) => p.id === e.target.value)
-                        if (match) handleSelectSlot(slotIdx, match)
-                      }}
-                      className="mt-3 w-full bg-white border border-[#17245B]/20 rounded-xl px-3 py-2 font-mono text-xs text-[#17245B] font-bold focus:outline-none focus:border-[#A9223A] transition-colors"
-                    >
-                      {flavorPacks.map((fp) => (
-                        <option key={fp.id} value={fp.id}>
-                          {fp.flavor || fp.name}
-                        </option>
-                      ))}
-                    </select>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+              {allFlavours.map((item, idx) => (
+                <div
+                  key={idx}
+                  className="bg-[#FAF7F2] border border-[#141416]/8 rounded-2xl p-3.5 flex items-center justify-between"
+                >
+                  <div>
+                    <span className="font-mono text-[9px] font-bold text-[#FF4D15] uppercase block">
+                      POUCH 0{idx + 1} • {selectedSize}
+                    </span>
+                    <p className="font-display font-bold text-sm text-[#141416]">{item.name}</p>
+                    <p className="font-sans text-[11px] text-[#141416]/60">{item.desc}</p>
                   </div>
-                ))}
-              </div>
-            )}
+                  <span className="font-mono text-[10px] font-bold text-[#141416]/60">
+                    {item.spice}
+                  </span>
+                </div>
+              ))}
+            </div>
+
+            <p className="font-mono text-[11px] text-[#141416]/60 pt-2 border-t border-[#141416]/8">
+              ✓ Every box contains 1 pouch of each of our 5 flavours. No duplicate filler.
+            </p>
           </div>
 
-          {/* Right: Summary Card (Midnight Indigo with Chilli Red Accents) */}
-          <div className="lg:col-span-5 bg-[#17245B] text-[#F5EEDD] rounded-3xl p-8 sm:p-10 shadow-pop flex flex-col justify-between space-y-8 border-2 border-[#17245B]">
-            <div className="space-y-3">
-              <span className="px-3 py-1 rounded-full bg-[#A9223A] text-white font-mono text-[10px] font-extrabold uppercase tracking-widest shadow-xs">
-                🔥 BUNDLE SAVINGS: SAVE ₹97
-              </span>
-              <h3 className="font-display text-3xl font-black uppercase text-white leading-none">
-                4-PACK STASH BOX
-              </h3>
-              <p className="text-[#F5EEDD]/90 text-sm leading-relaxed font-body">
-                Save 10% on your box plus free shipping across India. Packed in our collectible box.
-              </p>
+          {/* Right: Box Summary & Purchase */}
+          <div className="lg:col-span-5 bg-white border border-[#141416]/10 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-6">
+            <div className="space-y-5">
+              <div>
+                <span className="font-mono text-[10px] font-extrabold uppercase tracking-widest text-[#FF4D15]">
+                  STEP 1: SELECT SIZE
+                </span>
+                <div className="grid grid-cols-2 gap-2.5 mt-2">
+                  {['50g', '100g'].map((sz) => (
+                    <button
+                      key={sz}
+                      type="button"
+                      onClick={() => setSelectedSize(sz)}
+                      className={`py-3 rounded-2xl font-mono text-xs font-extrabold uppercase tracking-wider transition-all border-2 text-center ${
+                        selectedSize === sz
+                          ? 'border-[#FF4D15] bg-[#FF4D15] text-white shadow-xs'
+                          : 'border-[#141416]/15 bg-white text-[#141416] hover:border-[#141416]/30'
+                      }`}
+                    >
+                      {sz} Box
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Price Calculation */}
+              <div className="p-4.5 rounded-2xl bg-[#FAF7F2] border border-[#141416]/8 space-y-2">
+                <div className="flex justify-between font-mono text-xs text-[#141416]/70">
+                  <span>5x {selectedSize} Pouches MRP</span>
+                  <span className="line-through">₹{mrp}</span>
+                </div>
+                <div className="flex justify-between font-mono text-xs text-emerald-700 font-bold">
+                  <span>Bundle Saving</span>
+                  <span>-₹{savings}</span>
+                </div>
+                <div className="border-t border-[#141416]/10 pt-2 flex justify-between items-baseline">
+                  <span className="font-display text-base font-bold text-[#141416] uppercase">Box Price</span>
+                  <span className="font-display text-2xl font-black text-[#141416]">₹{price}</span>
+                </div>
+              </div>
+
+              <div className="space-y-1.5 font-mono text-[11px] text-[#141416]/70">
+                <p>✓ Free Pan-India Delivery on this box</p>
+                <p>✓ Fresh nitrogen-flushed pouches</p>
+                <p>✓ 100% slow-roasted, zero palm oil</p>
+              </div>
             </div>
 
-            <div className="space-y-3 pt-6 border-t border-[#F5EEDD]/20">
-              <div className="flex justify-between font-mono text-xs text-[#F5EEDD]/80 font-bold">
-                <span>Individual 4 Packs</span>
-                <span className="line-through">₹796</span>
-              </div>
-              <div className="flex justify-between font-mono text-xs text-[#F5EEDD]/80 font-bold">
-                <span>Bundle Discount</span>
-                <span className="text-[#E2AE35] font-extrabold">-₹97</span>
-              </div>
-              <div className="flex justify-between font-mono text-xs text-[#F5EEDD]/80 font-bold">
-                <span>Shipping</span>
-                <span className="text-[#E2AE35] font-extrabold">FREE</span>
-              </div>
-              <div className="flex justify-between items-baseline font-display text-3xl font-black text-white pt-3 border-t border-[#F5EEDD]/20">
-                <span>TOTAL</span>
-                <span className="text-[#E2AE35]">₹699</span>
-              </div>
+            <div className="space-y-2.5 pt-2">
+              <button
+                type="button"
+                onClick={handleAddBoxToCart}
+                disabled={!isAvailable || isAdding}
+                className={`w-full py-4 rounded-full font-mono text-xs font-black uppercase tracking-widest transition-all shadow-sm ${
+                  !isAvailable
+                    ? 'bg-[#141416]/20 text-[#141416]/40 cursor-not-allowed'
+                    : isAdded
+                    ? 'bg-emerald-600 text-white'
+                    : isAdding
+                    ? 'bg-[#E63E07] text-white'
+                    : 'bg-[#FF4D15] hover:bg-[#E63E07] text-white'
+                }`}
+              >
+                {!isAvailable ? 'SOLD OUT' : isAdded ? 'ADDED TO STASH ✓' : isAdding ? 'ADDING...' : `ADD TRY ALL 5 TO STASH • ₹${price}`}
+              </button>
+
+              <Link
+                to="/products/chaska-try-all-5"
+                className="block text-center font-mono text-xs font-bold text-[#141416]/70 hover:text-[#FF4D15] transition-colors"
+              >
+                View Full Product Details ➔
+              </Link>
             </div>
 
-            <button
-              type="button"
-              disabled={selectedFlavors.length === 0}
-              onClick={handleAddBoxToCart}
-              className={`btn-lacquer w-full py-4 text-center justify-center font-bold text-xs bg-[#A9223A] hover:bg-[#E2AE35] hover:text-[#17245B] transition-colors shadow-xl ${
-                selectedFlavors.length === 0 ? 'opacity-50 cursor-not-allowed' : ''
-              }`}
-            >
-              {selectedFlavors.length === 0 ? 'STASH BOX UNAVAILABLE' : 'ADD STASH BOX TO CART ➔'}
-            </button>
           </div>
 
         </div>
@@ -188,4 +214,3 @@ export default function BuildYourBox() {
     </section>
   )
 }
-

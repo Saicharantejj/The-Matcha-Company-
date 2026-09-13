@@ -7,22 +7,22 @@ const COLLECTION_METADATA = {
   all: {
     title: 'ALL PRODUCTS',
     badge: 'THE FULL CRUNCH CATALOGUE',
-    description: 'Handpicked lotus seeds slow-roasted in small batches by CHASKA. Powered by our official Shopify commerce store.',
+    description: 'Slow-roasted Bihar lotus seeds in chef-crafted small batches. 100% natural spices, zero frying.',
   },
   'best-sellers': {
     title: 'BEST SELLERS',
-    badge: 'MOST LOVED SNACKS ⭐',
-    description: 'The highest rated, most re-ordered flavours that our community can’t get enough of.',
+    badge: 'COMMUNITY FAVOURITES ⭐',
+    description: 'Our most-ordered flavour profiles and variety boxes for instant snacking satisfaction.',
   },
   flavours: {
     title: 'SINGLE FLAVOUR PACKS',
-    badge: 'INDIVIDUAL PACKS • 70G',
-    description: 'Signature roasted makhana pops tossed in real spices, herbs, and seasonings.',
+    badge: 'INDIVIDUAL FLAVOUR PACKS',
+    description: 'Signature roasted makhana packs available in 50g & 100g with Pack of 3, 6, and 10 options.',
   },
   bundles: {
-    title: 'VARIETY BOXES & HAMPERS',
-    badge: 'VALUE BUNDLES • SAVE UP TO 15%',
-    description: 'Multi-flavor stash boxes and limited edition gift hampers for ultimate snacking value.',
+    title: 'VARIETY SAMPLER BOXES',
+    badge: 'ALL 5 FLAVOURS IN ONE BOX',
+    description: 'Chaska Try All 5 Sampler Box. Experience every single flavour in one convenient drop.',
   },
 }
 
@@ -78,18 +78,18 @@ export default function Shop() {
   const currentMeta = COLLECTION_METADATA[activeCategory] || {
     title: activeCategory.replace(/-/g, ' ').toUpperCase(),
     badge: 'CHASKA COLLECTION',
-    description: 'Explore our premium roasted lotus seed packs and hampers.',
+    description: 'Explore our premium roasted lotus seed packs and sampler boxes.',
   }
 
   const filteredProducts = useMemo(() => {
     let list = [...products]
 
     if (activeCategory === 'best-sellers') {
-      list = list.filter((p) => p.badge?.includes('BESTSELLER') || p.id?.includes('peri-peri') || p.id?.includes('cheese') || p.name?.toLowerCase().includes('variety'))
+      list = list.filter((p) => p.handle?.includes('peri-peri') || p.handle?.includes('cheese') || p.handle?.includes('try-all-5'))
     } else if (activeCategory === 'flavours') {
-      list = list.filter((p) => p.category === 'Flavoured Makhana' || !p.category?.includes('Bundle'))
+      list = list.filter((p) => p.handle !== 'chaska-try-all-5')
     } else if (activeCategory === 'bundles') {
-      list = list.filter((p) => p.category === 'Snack Bundles' || p.category === 'Gift Hampers' || p.name?.toLowerCase().includes('box') || p.name?.toLowerCase().includes('hamper'))
+      list = list.filter((p) => p.handle === 'chaska-try-all-5' || p.category?.includes('Bundle') || p.name?.toLowerCase().includes('box'))
     }
 
     if (searchFilter.trim()) {
@@ -112,48 +112,48 @@ export default function Shop() {
   }, [activeCategory, products, searchFilter, sortBy])
 
   return (
-    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
-      <div className="mx-auto max-w-[96rem] space-y-10">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF7F2]">
+      <div className="mx-auto max-w-7xl space-y-10">
         
-        {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-2 font-mono text-xs text-[#17245B]/70 font-bold uppercase tracking-wider">
-          <Link to="/" className="hover:text-[#E2AE35] transition-colors">HOME</Link>
+        {/* Breadcrumb */}
+        <nav className="flex items-center gap-2 font-mono text-xs text-[#141416]/60 font-bold uppercase tracking-wider">
+          <Link to="/" className="hover:text-[#FF4D15] transition-colors">HOME</Link>
           <span>/</span>
-          <Link to="/collections" className="hover:text-[#E2AE35] transition-colors">COLLECTIONS</Link>
+          <Link to="/collections" className="hover:text-[#FF4D15] transition-colors">COLLECTIONS</Link>
           <span>/</span>
-          <span className="text-[#E2AE35]">{currentMeta.title}</span>
+          <span className="text-[#FF4D15]">{currentMeta.title}</span>
         </nav>
 
-        {/* Header Banner (Midnight Indigo) */}
-        <div className="p-8 sm:p-14 rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] space-y-6 shadow-xl relative overflow-hidden">
-          <div className="max-w-2xl space-y-4 relative z-10">
-            <span className="inline-block px-4 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase tracking-widest">
+        {/* Header Banner */}
+        <div className="p-8 sm:p-12 lg:p-14 rounded-[2.5rem] bg-[#141416] text-[#FAF7F2] space-y-6 shadow-md relative overflow-hidden">
+          <div className="max-w-2xl space-y-3.5 relative z-10">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF4D15] text-white font-mono text-xs font-extrabold uppercase tracking-widest shadow-xs">
               {currentMeta.badge}
             </span>
-            <h1 className="font-display text-4xl sm:text-6xl font-black uppercase text-white tracking-tight leading-none">
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none">
               {currentMeta.title}
             </h1>
-            <p className="font-mono text-xs sm:text-sm text-[#F5EEDD]/80 leading-relaxed">
+            <p className="font-sans text-sm sm:text-base text-[#FAF7F2]/80 leading-relaxed font-normal">
               {currentMeta.description}
             </p>
           </div>
 
-          {/* Collection Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-[#F5EEDD]/15 relative z-10">
+          {/* Filter Tabs */}
+          <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-white/10 relative z-10">
             {[
               { id: 'all', label: 'ALL PRODUCTS', to: '/collections/all' },
               { id: 'best-sellers', label: '⭐ BEST SELLERS', to: '/collections/best-sellers' },
               { id: 'flavours', label: 'SINGLE FLAVOURS', to: '/collections/flavours' },
-              { id: 'bundles', label: 'BOXES & BUNDLES', to: '/collections/bundles' },
+              { id: 'bundles', label: 'TRY ALL 5 BOX', to: '/collections/bundles' },
             ].map((cat) => (
               <Link
                 key={cat.id}
                 to={cat.to}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-5 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
+                className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                   activeCategory === cat.id
-                    ? 'bg-[#E2AE35] text-[#17245B] shadow-md scale-105'
-                    : 'bg-white/10 text-[#F5EEDD] border border-[#F5EEDD]/20 hover:bg-white/20'
+                    ? 'bg-[#FF4D15] text-white shadow-xs'
+                    : 'bg-white/10 text-[#FAF7F2]/80 hover:bg-white/20'
                 }`}
               >
                 {cat.label}
@@ -162,36 +162,36 @@ export default function Shop() {
           </div>
         </div>
 
-        {/* Search & Sort Controls Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-[#17245B]/15 shadow-sm">
+        {/* Controls Bar */}
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-[#141416]/10 shadow-xs">
           <div className="relative w-full sm:w-80 flex items-center">
-            <span className="absolute left-3 text-[#17245B]/40 text-sm">🔍</span>
+            <span className="absolute left-3 text-[#141416]/40 text-xs">🔍</span>
             <input
               type="text"
-              placeholder="Search in collection..."
+              placeholder="Search flavours & packs..."
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
-              className="w-full pl-9 pr-4 py-2 bg-[#FAF6ED] rounded-xl border border-[#17245B]/10 font-sans text-xs text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+              className="w-full pl-8 pr-4 py-2 bg-[#FAF7F2] rounded-xl border border-[#141416]/10 font-sans text-xs text-[#141416] focus:outline-none focus:border-[#FF4D15]"
             />
             {searchFilter && (
               <button
                 type="button"
                 onClick={() => setSearchFilter('')}
-                className="absolute right-3 text-xs font-mono text-[#17245B]/50 hover:text-[#17245B]"
+                className="absolute right-3 text-xs font-mono text-[#141416]/50 hover:text-[#141416]"
               >
                 ✕
               </button>
             )}
           </div>
 
-          <div className="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
-            <span className="font-mono text-xs text-[#17245B]/70 font-bold">
-              {filteredProducts.length} {filteredProducts.length === 1 ? 'ITEM' : 'ITEMS'}
+          <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
+            <span className="font-mono text-xs text-[#141416]/60 font-bold">
+              {filteredProducts.length} {filteredProducts.length === 1 ? 'PRODUCT' : 'PRODUCTS'}
             </span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-2 bg-[#FAF6ED] rounded-xl border border-[#17245B]/10 font-mono text-xs font-bold text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+              className="px-3.5 py-2 bg-[#FAF7F2] rounded-xl border border-[#141416]/10 font-mono text-xs font-bold text-[#141416] focus:outline-none focus:border-[#FF4D15]"
             >
               <option value="featured">SORT: FEATURED</option>
               <option value="price-low">PRICE: LOW TO HIGH</option>
@@ -200,92 +200,90 @@ export default function Shop() {
           </div>
         </div>
 
-
         {/* ── PRODUCT CONTENT AREA ────────────────────────────────────────── */}
 
-        {/* 1. Loading State */}
+        {/* Loading State */}
         {isLoading && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <div
                 key={n}
-                className="h-[460px] rounded-3xl bg-white/60 border border-[#17245B]/10 p-6 flex flex-col justify-between animate-pulse"
+                className="h-[460px] rounded-3xl bg-white border border-[#141416]/10 p-6 flex flex-col justify-between animate-pulse"
               >
-                <div className="aspect-[4/3] w-full rounded-2xl bg-[#17245B]/10" />
+                <div className="aspect-[4/3] w-full rounded-2xl bg-[#FAF7F2]" />
                 <div className="space-y-3 mt-4">
-                  <div className="h-4 w-1/3 rounded bg-[#17245B]/15" />
-                  <div className="h-6 w-3/4 rounded bg-[#17245B]/20" />
-                  <div className="h-3 w-full rounded bg-[#17245B]/10" />
+                  <div className="h-4 w-1/3 rounded bg-[#141416]/10" />
+                  <div className="h-6 w-3/4 rounded bg-[#141416]/15" />
+                  <div className="h-3 w-full rounded bg-[#141416]/10" />
                 </div>
-                <div className="h-10 w-full rounded-full bg-[#17245B]/15 mt-4" />
+                <div className="h-10 w-full rounded-full bg-[#141416]/10 mt-4" />
               </div>
             ))}
           </div>
         )}
 
-        {/* 2. Error State */}
+        {/* Error State */}
         {!isLoading && error && (
-          <div className="rounded-3xl bg-white border border-[#E2AE35]/40 p-10 sm:p-14 text-center space-y-5 shadow-card max-w-2xl mx-auto">
-            <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FAF6ED] text-3xl">
-              ⚠️
-            </span>
-            <h3 className="font-display text-2xl font-bold uppercase text-[#17245B]">
-              Unable to load Shopify products
+          <div className="rounded-3xl bg-white border border-[#FF4D15]/30 p-10 text-center space-y-4 shadow-sm max-w-lg mx-auto">
+            <span className="text-3xl block">⚠️</span>
+            <h3 className="font-display text-xl font-bold uppercase text-[#141416]">
+              Unable to load Shopify catalogue
             </h3>
-            <p className="font-mono text-xs text-[#17245B]/80 leading-relaxed max-w-md mx-auto">
+            <p className="font-mono text-xs text-[#141416]/70 leading-relaxed">
               {error}
             </p>
             <div className="pt-2">
               <button
                 type="button"
                 onClick={loadProducts}
-                className="btn bg-[#E2AE35] text-[#17245B] hover:bg-[#17245B] hover:text-[#F5EEDD] px-8 py-3.5 text-xs font-bold shadow-md"
+                className="btn px-6 py-3 text-xs font-bold"
               >
-                RETRY SHOPIFY CONNECTION
+                RELOAD CATALOGUE ➔
               </button>
             </div>
           </div>
         )}
 
-        {/* 3. Empty State */}
+        {/* Empty State */}
         {!isLoading && !error && filteredProducts.length === 0 && (
-          <div className="rounded-3xl bg-white border border-[#17245B]/15 p-12 sm:p-16 text-center space-y-4 shadow-card max-w-xl mx-auto">
-            <span className="inline-flex h-16 w-16 items-center justify-center rounded-full bg-[#FAF6ED] text-3xl">
-              🍿
-            </span>
-            <h3 className="font-display text-2xl font-bold uppercase text-[#17245B]">
+          <div className="rounded-3xl bg-white border border-[#141416]/10 p-12 text-center space-y-3 shadow-sm max-w-md mx-auto">
+            <span className="text-3xl block">🍿</span>
+            <h3 className="font-display text-lg font-bold uppercase text-[#141416]">
               No products found
             </h3>
-            <p className="font-mono text-xs text-[#17245B]/70 max-w-sm mx-auto">
-              No products are currently available in the selected category from Shopify.
+            <p className="font-sans text-xs text-[#141416]/70">
+              Try adjusting your filter or search query.
             </p>
           </div>
         )}
 
-        {/* 4. Populated Product Grid */}
+        {/* Populated Product Grid */}
         {!isLoading && !error && filteredProducts.length > 0 && (
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
             {filteredProducts.map((product, i) => (
               <ProductCard key={product.id || product.handle} product={product} index={i} />
             ))}
           </div>
         )}
 
-        {/* Custom Box Banner (Midnight Indigo) */}
-        <div className="p-8 sm:p-12 rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] flex flex-col md:flex-row items-center justify-between gap-8 shadow-xl">
-          <div className="space-y-3 max-w-xl text-center md:text-left">
-            <span className="px-3 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase">
-              10% BUNDLE SAVINGS
+        {/* Try All 5 Callout Banner */}
+        <div className="p-8 sm:p-10 rounded-[2.5rem] bg-[#141416] text-[#FAF7F2] flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-white/10">
+          <div className="space-y-2 max-w-xl text-center md:text-left">
+            <span className="px-3 py-1 rounded-full bg-[#FF4D15] text-white font-mono text-[10px] font-extrabold uppercase">
+              ALL 5 FLAVOURS IN ONE BOX
             </span>
-            <h2 className="font-display text-3xl font-bold uppercase text-white">
-              BUILD YOUR CUSTOM CHASKA STASH
+            <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-white">
+              CAN'T DECIDE? GET THE TRY ALL 5 BOX
             </h2>
-            <p className="font-mono text-xs text-[#F5EEDD]/80 leading-relaxed">
-              Select your exact ratio of sweet, spicy, and savory flavors in our interactive stash builder.
+            <p className="font-sans text-xs sm:text-sm text-[#FAF7F2]/80 leading-relaxed">
+              1 pouch each of Peri Peri, Chilli Cheese, Chilli Lime, Kashmiri Garlic Chilli, and Pudhina.
             </p>
           </div>
-          <Link to="/build-your-box" className="btn bg-[#E2AE35] text-[#17245B] hover:bg-white px-8 py-4 text-xs font-bold shrink-0">
-            BUILD YOUR BOX &rarr;
+          <Link
+            to="/products/chaska-try-all-5"
+            className="btn px-7 py-3.5 text-xs font-bold shrink-0 shadow-sm"
+          >
+            EXPLORE TRY ALL 5 ➔
           </Link>
         </div>
 
@@ -293,4 +291,3 @@ export default function Shop() {
     </main>
   )
 }
-

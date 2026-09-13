@@ -1,39 +1,44 @@
 import { NavLink } from 'react-router-dom'
+import PageShell from '../components/PageShell'
 
 export default function PrivacyPolicyPage() {
   return (
-    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
-      <div className="mx-auto max-w-3xl space-y-10">
-        <div className="space-y-4 text-center">
-          <span className="inline-block px-4 py-1.5 rounded-full bg-[#17245B] text-[#E2AE35] font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
-            YOUR DATA &amp; PRIVACY
-          </span>
-          <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] tracking-tight">
-            PRIVACY POLICY
-          </h1>
-          <p className="font-mono text-xs text-[#17245B]/80">
-            Last updated: September 2026
-          </p>
-        </div>
+    <PageShell>
+      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#FAF7F2]">
+        <div className="mx-auto max-w-3xl space-y-10">
+          <div className="space-y-4 text-center">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-xs font-bold uppercase tracking-widest">
+              YOUR DATA &amp; PRIVACY
+            </span>
+            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#141416] tracking-tight">
+              PRIVACY POLICY
+            </h1>
+            <p className="font-mono text-xs text-[#141416]/60">
+              Last updated: September 2026
+            </p>
+          </div>
 
-        <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#17245B]/15 space-y-6 shadow-md text-[#17245B] text-sm leading-relaxed">
-          <p>
-            At <strong>CHASKA</strong>, we value your privacy. We collect basic customer information (name, address, phone number, email) solely for fulfilling orders and communicating shipping updates.
-          </p>
-          <h2 className="font-display text-lg font-bold text-[#17245B]">DATA PROTECTION</h2>
-          <p>
-            We do not sell, rent, or lease your personal information to third parties. Payments are processed securely via SSL encrypted payment gateways.
-          </p>
-          <h2 className="font-display text-lg font-bold text-[#17245B]">COOKIES</h2>
-          <p>
-            We use essential local browser cookies to store your shopping cart preferences and stash items so you can resume your session seamlessly.
-          </p>
-        </div>
+          <div className="p-8 sm:p-10 rounded-3xl bg-white border border-[#141416]/10 space-y-6 shadow-sm text-[#141416] text-sm leading-relaxed">
+            <p className="text-[#141416]/80">
+              At <strong>CHASKA</strong>, we respect your privacy. We collect basic customer details (name, shipping address, phone number, and email) solely for the purpose of order processing, courier tracking, and customer support.
+            </p>
+            <h2 className="font-display text-base font-bold text-[#141416] uppercase tracking-wide">1. DATA PROTECTION &amp; SECURITY</h2>
+            <p className="text-[#141416]/80">
+              We never sell, rent, or lease your personal information. Payment transactions are handled directly through encrypted, PCI-DSS compliant Shopify gateways. We do not store sensitive payment card details on our servers.
+            </p>
+            <h2 className="font-display text-base font-bold text-[#141416] uppercase tracking-wide">2. COOKIES &amp; LOCAL SESSIONS</h2>
+            <p className="text-[#141416]/80">
+              We use secure session cookies to remember items in your stash, preserve your active cart across visits, and ensure a smooth checkout experience.
+            </p>
+          </div>
 
-        <div className="text-center">
-          <NavLink to="/" className="btn bg-[#E2AE35] text-[#17245B] font-bold hover:bg-[#17245B] hover:text-[#F5EEDD]">BACK TO HOME</NavLink>
+          <div className="text-center">
+            <NavLink to="/" className="btn bg-[#141416] text-white font-bold uppercase tracking-wider text-xs px-8 py-3.5 rounded-full hover:bg-[#FF4D15] transition-colors">
+              BACK TO HOME ➔
+            </NavLink>
+          </div>
         </div>
-      </div>
-    </main>
+      </main>
+    </PageShell>
   )
 }

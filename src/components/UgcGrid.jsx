@@ -3,77 +3,81 @@ import { photos } from '../data/photos'
 const GALLERY_ITEMS = [
   {
     img: photos.tabletopLifestyle.src,
-    tag: 'GOOD COMPANY',
-    title: 'Tabletop Feast & Cocktail Hour',
-    subtitle: '100g Jar & 50g Pouch with Roasted Lotus Pops',
+    tag: 'TABLETOP RITUAL',
+    title: 'Feast & Cocktail Hour',
+    subtitle: 'Signature Roasted Lotus Seed Pops with Drinks',
   },
   {
     img: photos.newspaperComingSoon.src,
-    tag: 'CHASKA GAZETTE',
-    title: 'Good Food, Good Company, Better Snacks',
-    subtitle: 'The 2026 Print Edition Launch',
+    tag: 'THE PRINT EDITION',
+    title: 'Good Food, Good Company',
+    subtitle: 'The CHASKA Gazette 2026',
   },
   {
     img: photos.meshBagIngredients.src,
-    tag: 'REAL INGREDIENTS',
-    title: 'Whole Spices & Farm Fresh Red Chilies',
-    subtitle: 'Slow-Roasted, Never Fried',
+    tag: 'FARM HONEST',
+    title: 'Whole Spices & Farm Chillies',
+    subtitle: '100% Real Ingredients, Slow-Roasted',
   },
   {
-    img: photos.comingSoonPoster.src,
-    tag: 'STAY TUNED',
-    title: 'Big Crunch, Bold Flavour',
-    subtitle: 'Signature Jars and Pouches',
+    img: photos.yellowBasket.src,
+    tag: 'EXTRA CRUNCH',
+    title: 'Shatteringly Crisp Bites',
+    subtitle: 'Golden Popped Bihar Makhana',
   },
   {
     img: photos.masalaPouchHero.src,
-    tag: 'SIGNATURE PACK',
-    title: '50g Masala Makhana Matte Pouch',
+    tag: 'SIGNATURE POUCH',
+    title: 'Matte Masala Pack',
     subtitle: 'Roasted in Small Artisanal Batches',
   },
   {
-    img: photos.brandPoster.src,
-    tag: 'HERITAGE ART',
-    title: 'Indian Snack Revolution',
-    subtitle: 'Authentic Bihar Lotus Seeds',
+    img: photos.handPour.src,
+    tag: 'TRADITIONAL ROAST',
+    title: 'Handcrafted With Pride',
+    subtitle: 'Authentic Indian Snack Culture',
   },
 ]
 
 export default function UgcGrid() {
   return (
-    <section className="py-24 bg-[#F5EEDD] border-b border-[#17245B]/15">
-      <div className="mx-auto max-w-[96rem] px-6 sm:px-12">
+    <section className="py-20 sm:py-24 bg-[#FAF7F2] border-b border-[#141416]/10">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
-        <div className="max-w-2xl mb-16 space-y-3">
-          <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
-            CAMPAIGN &amp; LIFESTYLE GALLERY
-          </span>
-          <h2 className="font-display text-4xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] leading-none flex flex-wrap items-baseline gap-3">
-            <span>SPOTTED SNACKING.</span>
-            <span className="text-[#E2AE35] font-hindi text-2xl sm:text-4xl font-extrabold">हर जगह CHASKA</span>
-          </h2>
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+          <div className="space-y-2">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-xs font-extrabold uppercase tracking-widest">
+              📷 SPOTTED SNACKING
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141416]">
+              GOOD FOOD. <span className="text-[#FF4D15]">BETTER SNACKS.</span>
+            </h2>
+          </div>
+          <p className="font-sans text-xs sm:text-sm text-[#141416]/70 max-w-sm">
+            From late-night coding sessions to weekend cocktail tables.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
           {GALLERY_ITEMS.map((item, idx) => (
             <div
               key={idx}
-              className="group relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-card hover:shadow-2xl transition-all duration-500"
+              className="group relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#141416]/10 bg-white shadow-xs hover:shadow-md transition-all duration-300"
             >
               <img
                 src={item.img}
                 alt={item.title}
-                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#17245B]/90 via-[#17245B]/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-8 flex flex-col justify-end text-white">
-                <span className="font-mono text-[10px] font-bold text-[#E2AE35] uppercase tracking-widest mb-1">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#141416]/85 via-[#141416]/20 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 sm:p-8 flex flex-col justify-end text-white">
+                <span className="font-mono text-[10px] font-extrabold text-[#FF4D15] uppercase tracking-widest mb-1">
                   {item.tag}
                 </span>
                 <h3 className="font-display text-lg font-bold uppercase leading-snug">
                   {item.title}
                 </h3>
-                <p className="font-sans text-xs text-[#F5EEDD]/80 mt-1">
+                <p className="font-sans text-xs text-[#FAF7F2]/80 mt-0.5">
                   {item.subtitle}
                 </p>
               </div>
@@ -85,4 +89,3 @@ export default function UgcGrid() {
     </section>
   )
 }
-

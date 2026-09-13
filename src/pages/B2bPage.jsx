@@ -23,72 +23,70 @@ export default function B2bPage() {
   const useCases = [
     {
       icon: '🎁',
-      title: 'CORPORATE GIFTING & DIWALI HAMPERS',
-      desc: 'Bespoke gift boxes with custom branding, handwritten notes, and premium variety packs for team appreciation or client festivals.',
+      title: 'CORPORATE GIFTING & FESTIVE HAMPERS',
+      desc: 'Bespoke gift boxes with custom branding, handwritten notes, and premium variety packs for team appreciation or festive client gifting.',
     },
     {
       icon: '☕',
       title: 'CAFES, BARS & BREWERIES',
-      desc: 'The ultimate high-margin bar snack. Salty, smoky, and spicy makhana pops that pair cleanly with craft beers and artisan coffee.',
+      desc: 'The ultimate high-margin bar snack. Salty, smoky, and spicy makhana pops that pair cleanly with craft drinks and specialty coffee.',
     },
     {
       icon: '💻',
       title: 'OFFICE PANTRIES & CO-WORKING',
-      desc: 'Keep teams energized with guilt-free, non-greasy snacking that leaves keyboards clean. Monthly pantry subscriptions available.',
+      desc: 'Keep teams energized with non-greasy snacking that leaves keyboards clean. Monthly recurring pantry replenishment available.',
     },
     {
       icon: '🎉',
       title: 'WEDDINGS, EVENTS & PARTIES',
-      desc: 'Custom mini-pouches and personalized welcome hampers for destination weddings, summits, and VIP event swag bags.',
+      desc: 'Custom mini-pouches and curated welcome hampers for destination weddings, conferences, and event swag bags.',
     },
     {
       icon: '🏪',
       title: 'RETAIL & GOURMET STORES',
-      desc: 'High sell-through FMCG snack displays with eye-catching packaging designed for modern Indian shelf appeal.',
+      desc: 'High sell-through FMCG snack displays with eye-catching branding designed for modern Indian shelf appeal.',
     },
     {
       icon: '📦',
-      title: 'CUSTOM PACK SIZES & BULK ORDERS',
-      desc: 'Direct dispatch from our Bihar roasting facilities in food-grade bulk bags or custom branded packaging.',
+      title: 'BULK ORDERS & CUSTOM STASH',
+      desc: 'Direct dispatch from our Bihar roasting facilities in food-grade bulk bags or custom packaged assortments.',
     },
   ]
 
   return (
     <PageShell>
       {/* ── B2B HERO BANNER ──────────────────────────────────────────────── */}
-      <section className="relative bg-[#17245B] text-[#F5EEDD] px-6 py-20 sm:px-12 sm:py-24 border-b border-[#F5EEDD]/15 overflow-hidden">
-        <div className="mx-auto max-w-[96rem] grid lg:grid-cols-12 gap-12 items-center">
+      <section className="relative bg-[#141416] text-[#FAF7F2] px-4 py-16 sm:px-8 sm:py-24 border-b border-white/10 overflow-hidden">
+        <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 space-y-6">
-            <span className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FF4D15] text-white font-mono text-xs font-extrabold uppercase tracking-widest shadow-xs">
               ⚡ CORPORATE, WHOLESALE &amp; BULK
             </span>
             <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-[0.95]">
               UPGRADE YOUR <br />
-              <span className="text-[#E2AE35]">SNACK OFFERING.</span>
+              <span className="text-[#FF4D15]">SNACK OFFERING.</span>
             </h1>
-            <p className="font-sans text-base sm:text-lg text-[#F5EEDD]/90 leading-relaxed max-w-xl font-medium">
-              From premium festive employee gift boxes to high-margin cafe snack counters and office pantries — bring the addictive crunch of CHASKA to your business.
+            <p className="font-sans text-base sm:text-lg text-[#FAF7F2]/80 leading-relaxed max-w-xl font-normal">
+              From premium festive employee gift boxes to high-margin cafe counters and office pantries — bring the addictive crunch of CHASKA to your workplace.
             </p>
-            <div className="pt-2 flex flex-wrap gap-4">
+            <div className="pt-2 flex flex-wrap gap-3">
               <a
                 href="#b2b-form"
-                className="btn bg-[#E2AE35] text-[#17245B] hover:bg-white text-xs font-bold shadow-md"
+                className="btn px-7 py-3.5 text-xs font-black shadow-md"
               >
                 REQUEST A B2B QUOTE ➔
               </a>
               <a
-                href="https://wa.me/919999999999?text=Hi%20CHASKA%20Team%2C%20I%20am%20interested%20in%20a%20B2B%20%2F%20bulk%20order."
-                target="_blank"
-                rel="noreferrer"
-                className="btn-outline text-[#F5EEDD] border-white/30 hover:bg-white/10 text-xs font-bold"
+                href="mailto:b2b@snackchaska.shop"
+                className="px-6 py-3.5 rounded-full border border-white/20 text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"
               >
-                WHATSAPP B2B DESK
+                EMAIL B2B DESK
               </a>
             </div>
           </div>
 
           <div className="lg:col-span-5">
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-[#F5EEDD]/20 shadow-2xl bg-white/5 p-2">
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/15 shadow-2xl bg-white/5 p-2.5">
               <img
                 src={photos.comingSoonPoster.src}
                 alt="CHASKA B2B Bulk Jars and Pouches"
@@ -100,14 +98,14 @@ export default function B2bPage() {
       </section>
 
       {/* ── USE CASES & TIERS ────────────────────────────────────────────── */}
-      <section className="py-20 bg-[#F5EEDD] border-b border-[#17245B]/15">
-        <div className="mx-auto max-w-[96rem] px-6 sm:px-12 space-y-12">
-          <div className="max-w-2xl space-y-3">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
+      <section className="py-20 sm:py-24 bg-[#FAF7F2] border-b border-[#141416]/10">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
+          <div className="max-w-2xl space-y-2">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D15]">
               WHERE CHASKA SHINES
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
-              TAILORED FOR EVERY BUSINESS NEED
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141416]">
+              TAILORED FOR EVERY OCCASION
             </h2>
           </div>
 
@@ -119,13 +117,13 @@ export default function B2bPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="p-8 rounded-3xl bg-white border border-[#17245B]/12 shadow-sm space-y-3 hover:shadow-md hover:border-[#E2AE35] transition-all"
+                className="p-7 rounded-3xl bg-white border border-[#141416]/10 shadow-xs space-y-3 hover:shadow-md hover:border-[#FF4D15]/40 transition-all"
               >
                 <span className="text-3xl block">{uc.icon}</span>
-                <h3 className="font-display text-base font-bold uppercase text-[#17245B]">
+                <h3 className="font-display text-base font-bold uppercase text-[#141416]">
                   {uc.title}
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-[#17245B]/80 leading-relaxed font-medium">
+                <p className="font-sans text-xs sm:text-sm text-[#141416]/75 leading-relaxed font-normal">
                   {uc.desc}
                 </p>
               </motion.div>
@@ -135,36 +133,36 @@ export default function B2bPage() {
       </section>
 
       {/* ── B2B INQUIRY FORM ─────────────────────────────────────────────── */}
-      <section id="b2b-form" className="py-20 bg-white border-b border-[#17245B]/15">
-        <div className="mx-auto max-w-4xl px-6 sm:px-12">
-          <div className="p-8 sm:p-14 rounded-[2.5rem] bg-[#FAF6ED] border border-[#17245B]/15 shadow-xl space-y-8">
-            <div className="space-y-3 text-center max-w-xl mx-auto">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
+      <section id="b2b-form" className="py-20 bg-white border-b border-[#141416]/10">
+        <div className="mx-auto max-w-4xl px-4 sm:px-8">
+          <div className="p-7 sm:p-12 rounded-[2.5rem] bg-[#FAF7F2] border border-[#141416]/10 shadow-sm space-y-6">
+            <div className="space-y-2 text-center max-w-xl mx-auto">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D15]">
                 GET A FAST B2B PROPOSAL
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#17245B]">
+              <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#141416]">
                 REQUEST A BULK QUOTE
               </h2>
-              <p className="font-sans text-xs sm:text-sm text-[#17245B]/80 font-medium">
-                Our corporate team responds within 4 business hours with custom pricing, samples, and logistics timelines.
+              <p className="font-sans text-xs sm:text-sm text-[#141416]/75">
+                Our team responds within 4 business hours with custom pricing, sample packs, and dispatch timelines.
               </p>
             </div>
 
             {submitted ? (
-              <div className="p-8 rounded-3xl bg-[#17245B] text-[#F5EEDD] text-center space-y-4">
+              <div className="p-8 rounded-3xl bg-[#141416] text-[#FAF7F2] text-center space-y-3">
                 <span className="text-4xl block">🍿</span>
-                <h3 className="font-display text-2xl font-bold uppercase text-[#E2AE35]">
+                <h3 className="font-display text-2xl font-bold uppercase text-[#FF4D15]">
                   Quote Request Received!
                 </h3>
-                <p className="font-sans text-sm text-[#F5EEDD]/90 max-w-md mx-auto">
-                  Thank you, <strong>{formData.name}</strong> from <strong>{formData.company}</strong>. Our business manager will reach out to <strong>{formData.email}</strong> shortly.
+                <p className="font-sans text-sm text-[#FAF7F2]/90 max-w-md mx-auto">
+                  Thank you, <strong>{formData.name}</strong> from <strong>{formData.company}</strong>. Our business team will reach out to <strong>{formData.email}</strong> shortly.
                 </p>
               </div>
             ) : (
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div className="space-y-2">
-                    <label className="font-mono text-xs font-bold uppercase text-[#17245B]">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="font-mono text-[10px] font-bold uppercase text-[#141416]/70">
                       Full Name *
                     </label>
                     <input
@@ -173,41 +171,41 @@ export default function B2bPage() {
                       placeholder="e.g. Priya Sharma"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-white border border-[#17245B]/20 rounded-2xl px-5 py-3.5 text-sm text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+                      className="w-full bg-white border border-[#141416]/10 rounded-xl px-4 py-3 text-xs text-[#141416] focus:outline-none focus:border-[#FF4D15]"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="font-mono text-xs font-bold uppercase text-[#17245B]">
-                      Company / Business Name *
+                  <div className="space-y-1.5">
+                    <label className="font-mono text-[10px] font-bold uppercase text-[#141416]/70">
+                      Company / Organization *
                     </label>
                     <input
                       type="text"
                       required
-                      placeholder="e.g. Acme Tech / Cafe Blue"
+                      placeholder="e.g. Acme Studio / Cafe Blue"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full bg-white border border-[#17245B]/20 rounded-2xl px-5 py-3.5 text-sm text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+                      className="w-full bg-white border border-[#141416]/10 rounded-xl px-4 py-3 text-xs text-[#141416] focus:outline-none focus:border-[#FF4D15]"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="font-mono text-xs font-bold uppercase text-[#17245B]">
+                  <div className="space-y-1.5">
+                    <label className="font-mono text-[10px] font-bold uppercase text-[#141416]/70">
                       Work Email *
                     </label>
                     <input
                       type="email"
                       required
-                      placeholder="name@company.com"
+                      placeholder="e.g. priya@acme.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white border border-[#17245B]/20 rounded-2xl px-5 py-3.5 text-sm text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+                      className="w-full bg-white border border-[#141416]/10 rounded-xl px-4 py-3 text-xs text-[#141416] focus:outline-none focus:border-[#FF4D15]"
                     />
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="font-mono text-xs font-bold uppercase text-[#17245B]">
-                      Phone / WhatsApp Number *
+                  <div className="space-y-1.5">
+                    <label className="font-mono text-[10px] font-bold uppercase text-[#141416]/70">
+                      Phone / WhatsApp *
                     </label>
                     <input
                       type="tel"
@@ -215,66 +213,65 @@ export default function B2bPage() {
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-white border border-[#17245B]/20 rounded-2xl px-5 py-3.5 text-sm text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+                      className="w-full bg-white border border-[#141416]/10 rounded-xl px-4 py-3 text-xs text-[#141416] focus:outline-none focus:border-[#FF4D15]"
                     />
                   </div>
+                </div>
 
-                  <div className="space-y-2">
-                    <label className="font-mono text-xs font-bold uppercase text-[#17245B]">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                  <div className="space-y-1.5">
+                    <label className="font-mono text-[10px] font-bold uppercase text-[#141416]/70">
                       Requirement Category
                     </label>
                     <select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full bg-white border border-[#17245B]/20 rounded-2xl px-5 py-3.5 text-sm text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+                      className="w-full bg-white border border-[#141416]/10 rounded-xl px-4 py-3 font-mono text-xs font-bold text-[#141416] focus:outline-none focus:border-[#FF4D15]"
                     >
-                      <option>Corporate Gifting &amp; Hampers</option>
-                      <option>Cafe / Bar / Brewery Supply</option>
-                      <option>Office Pantry Subscription</option>
-                      <option>Wedding &amp; Event Favors</option>
-                      <option>Retail Store Distribution</option>
-                      <option>Custom Bulk Makhana</option>
+                      <option value="Corporate Gifting">Corporate Gifting &amp; Hampers</option>
+                      <option value="Cafe / Bar Snacking">Cafe / Bar Snack Counter</option>
+                      <option value="Office Pantry Subscription">Office Pantry Recurring Subscription</option>
+                      <option value="Weddings & Events">Weddings &amp; VIP Event Favors</option>
+                      <option value="Wholesale / Retail">Wholesale / Gourmet Retail</option>
                     </select>
                   </div>
 
-                  <div className="space-y-2">
-                    <label className="font-mono text-xs font-bold uppercase text-[#17245B]">
+                  <div className="space-y-1.5">
+                    <label className="font-mono text-[10px] font-bold uppercase text-[#141416]/70">
                       Estimated Quantity
                     </label>
                     <select
                       value={formData.quantity}
                       onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                      className="w-full bg-white border border-[#17245B]/20 rounded-2xl px-5 py-3.5 text-sm text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+                      className="w-full bg-white border border-[#141416]/10 rounded-xl px-4 py-3 font-mono text-xs font-bold text-[#141416] focus:outline-none focus:border-[#FF4D15]"
                     >
-                      <option>50 – 200 units</option>
-                      <option>200 – 500 units</option>
-                      <option>500 – 2,000 units</option>
-                      <option>2,000+ units</option>
+                      <option value="50-200 units">50 – 200 units</option>
+                      <option value="200-500 units">200 – 500 units</option>
+                      <option value="500-1000 units">500 – 1,000 units</option>
+                      <option value="1000+ units">1,000+ units</option>
                     </select>
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <label className="font-mono text-xs font-bold uppercase text-[#17245B]">
-                    Project Details / Specific Flavors or Deadlines
+                <div className="space-y-1.5">
+                  <label className="font-mono text-[10px] font-bold uppercase text-[#141416]/70">
+                    Additional Notes or Customization Requests
                   </label>
                   <textarea
-                    rows={4}
-                    placeholder="Tell us about your event, delivery date, custom branding needs, etc."
+                    rows={3}
+                    placeholder="Tell us about your event dates, custom packaging ideas, or target budget..."
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full bg-white border border-[#17245B]/20 rounded-2xl p-5 text-sm text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+                    className="w-full bg-white border border-[#141416]/10 rounded-xl px-4 py-3 text-xs text-[#141416] focus:outline-none focus:border-[#FF4D15]"
                   />
                 </div>
 
-                <div className="text-center pt-2">
-                  <button
-                    type="submit"
-                    className="btn bg-[#E2AE35] text-[#17245B] hover:bg-[#17245B] hover:text-[#F5EEDD] px-10 py-4 text-xs font-bold uppercase tracking-wider shadow-lg"
-                  >
-                    SUBMIT B2B INQUIRY ➔
-                  </button>
-                </div>
+                <button
+                  type="submit"
+                  className="btn w-full py-4 text-xs font-extrabold uppercase tracking-widest shadow-md"
+                >
+                  SUBMIT B2B INQUIRY ➔
+                </button>
               </form>
             )}
           </div>

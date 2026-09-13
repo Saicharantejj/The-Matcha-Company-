@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    border-color: rgba(23, 36, 91, 0.12);
+    border-color: rgba(20, 20, 22, 0.08);
   }
 
   p {
@@ -38,21 +38,21 @@
   }
 
   body {
-    background-color: #F5EEDD;
-    color: #17245B;
+    background-color: #FAF7F2;
+    color: #141416;
     font-family: "Plus Jakarta Sans", sans-serif;
     -webkit-font-smoothing: antialiased;
     overflow-x: hidden;
   }
 
   :focus-visible {
-    outline: 2px solid #E2AE35;
+    outline: 2px solid #FF4D15;
     outline-offset: 3px;
   }
 
   ::selection {
-    background: #E2AE35;
-    color: #17245B;
+    background: #FF4D15;
+    color: #FFFFFF;
   }
 
   h1, h2, h3, h4, .font-display {
@@ -69,33 +69,33 @@
 @layer components {
   /* ── Hairlines ────────────────────────────────────────────────────────── */
   .rule {
-    border-top: 1px solid rgba(23, 36, 91, 0.12);
+    border-top: 1px solid rgba(20, 20, 22, 0.08);
   }
 
   .rule-heavy {
-    border-top: 2px solid #17245B;
+    border-top: 2px solid #141416;
   }
 
   /* ── Tactile Glassmorphism in Master Brand Palette ─────────────────────── */
   .glass-header {
-    background-color: rgba(245, 238, 221, 0.92);
-    backdrop-filter: blur(16px) saturate(1.3);
-    -webkit-backdrop-filter: blur(16px) saturate(1.3);
-    border-bottom: 1px solid rgba(23, 36, 91, 0.1);
+    background-color: rgba(250, 247, 242, 0.94);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    border-bottom: 1px solid rgba(20, 20, 22, 0.08);
   }
 
   .glass-panel {
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(16px) saturate(1.3);
-    -webkit-backdrop-filter: blur(16px) saturate(1.3);
-    border: 1px solid rgba(23, 36, 91, 0.12);
-    box-shadow: 0 8px 32px rgba(23, 36, 91, 0.05);
+    background-color: rgba(255, 255, 255, 0.94);
+    backdrop-filter: blur(16px) saturate(1.2);
+    -webkit-backdrop-filter: blur(16px) saturate(1.2);
+    border: 1px solid rgba(20, 20, 22, 0.08);
+    box-shadow: 0 8px 32px rgba(20, 20, 22, 0.04);
   }
 
   .glass-card {
     background-color: #FFFFFF;
-    border: 1px solid rgba(23, 36, 91, 0.12);
-    box-shadow: 0 4px 20px rgba(23, 36, 91, 0.05);
+    border: 1px solid rgba(20, 20, 22, 0.08);
+    box-shadow: 0 4px 20px rgba(20, 20, 22, 0.04);
     border-radius: 24px;
     transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
@@ -103,85 +103,73 @@
   }
 
   .glass-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 36px rgba(23, 36, 91, 0.1);
-    border-color: rgba(226, 174, 53, 0.5);
+    transform: translateY(-3px);
+    box-shadow: 0 12px 32px rgba(20, 20, 22, 0.08);
+    border-color: rgba(255, 77, 21, 0.35);
   }
 
   .glass-pill {
-    background-color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(12px);
     -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(23, 36, 91, 0.15);
-    color: #17245B;
+    border: 1px solid rgba(20, 20, 22, 0.1);
+    color: #141416;
   }
 
   /* ── Buttons ─────────────────────────────────────────────────────────── */
-  .btn {
+  /* Primary Action Button: Signature Chaska Orange */
+  .btn, .btn-primary, .btn-orange, .btn-lacquer, .btn-heat {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#E2AE35] px-7 py-3.5 font-mono text-xs font-bold uppercase text-[#17245B] rounded-full tracking-wider;
-    border: 1px solid #E2AE35;
-    box-shadow: 0 4px 16px rgba(226, 174, 53, 0.35);
+           bg-[#FF4D15] px-7 py-3.5 font-mono text-xs font-extrabold uppercase text-white rounded-full tracking-wider;
+    border: 1px solid #FF4D15;
+    box-shadow: 0 4px 16px rgba(255, 77, 21, 0.28);
     transition: transform 0.25s ease,
                 background-color 0.25s ease,
-                color 0.25s ease,
-                box-shadow 0.25s ease;
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
   }
 
-  .btn:hover {
+  .btn:hover, .btn-primary:hover, .btn-orange:hover, .btn-lacquer:hover, .btn-heat:hover {
     transform: translateY(-2px);
-    background-color: #17245B;
-    border-color: #17245B;
-    color: #F5EEDD;
-    box-shadow: 0 8px 24px rgba(23, 36, 91, 0.3);
+    background-color: #E63E07;
+    border-color: #E63E07;
+    box-shadow: 0 8px 24px rgba(255, 77, 21, 0.38);
   }
 
-  .btn:active {
+  .btn:active, .btn-primary:active, .btn-orange:active {
     transform: translateY(0);
   }
 
-  .btn-indigo {
+  /* Secondary Button: Deep Charcoal */
+  .btn-charcoal, .btn-indigo {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#17245B] px-7 py-3.5 font-mono text-xs font-bold uppercase text-[#F5EEDD] rounded-full tracking-wider;
-    border: 1px solid #17245B;
-    box-shadow: 0 4px 16px rgba(23, 36, 91, 0.25);
+           bg-[#141416] px-7 py-3.5 font-mono text-xs font-extrabold uppercase text-[#FAF7F2] rounded-full tracking-wider;
+    border: 1px solid #141416;
+    box-shadow: 0 4px 16px rgba(20, 20, 22, 0.15);
     transition: transform 0.25s ease,
                 background-color 0.25s ease,
                 color 0.25s ease,
-                box-shadow 0.25s ease;
+                box-shadow 0.25s ease,
+                border-color 0.25s ease;
   }
 
-  .btn-indigo:hover {
+  .btn-charcoal:hover, .btn-indigo:hover {
     transform: translateY(-2px);
-    background-color: #E2AE35;
-    border-color: #E2AE35;
-    color: #17245B;
-  }
-
-  .btn-heat, .btn-lacquer {
-    @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#A9223A] px-7 py-3.5 font-mono text-xs font-bold uppercase text-[#F5EEDD] rounded-full tracking-wider;
-    border: 1px solid #A9223A;
-    box-shadow: 0 4px 16px rgba(169, 34, 58, 0.25);
-    transition: transform 0.25s ease,
-                background-color 0.25s ease,
-                box-shadow 0.25s ease;
-  }
-
-  .btn-heat:hover, .btn-lacquer:hover {
-    transform: translateY(-2px);
-    background-color: #17245B;
-    border-color: #17245B;
+    background-color: #FF4D15;
+    border-color: #FF4D15;
+    color: #FFFFFF;
+    box-shadow: 0 8px 24px rgba(255, 77, 21, 0.3);
   }
 
   .btn-green, .btn-teal {
-    @apply btn-indigo;
+    @apply btn-charcoal;
   }
 
+  /* Quiet Outline Button */
   .btn-outline {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-transparent px-7 py-3.5 font-mono text-xs font-bold uppercase text-[#17245B] rounded-full tracking-wider;
-    border: 1.5px solid rgba(23, 36, 91, 0.3);
+           bg-transparent px-7 py-3.5 font-mono text-xs font-bold uppercase text-[#141416] rounded-full tracking-wider;
+    border: 1.5px solid rgba(20, 20, 22, 0.22);
     transition: transform 0.25s ease,
                 background-color 0.25s ease,
                 color 0.25s ease,
@@ -189,9 +177,9 @@
   }
 
   .btn-outline:hover {
-    background-color: #17245B;
-    color: #F5EEDD;
-    border-color: #17245B;
+    background-color: #141416;
+    color: #FAF7F2;
+    border-color: #141416;
     transform: translateY(-2px);
   }
 
@@ -205,8 +193,18 @@
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.12em;
-    color: #17245B;
+    color: #141416;
     font-weight: 500;
+  }
+}
+
+/* Reduced Motion Safety */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 

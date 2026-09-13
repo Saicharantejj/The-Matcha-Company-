@@ -5,72 +5,67 @@ export default function FourPillars() {
   const pillars = [
     {
       icon: '⭐',
-      title: 'SOCIAL PROOF',
-      subtitle: '4.9★ from 10,000+ Desks',
-      description: 'Tested, loved, and restocked by midnight munchers, foodies, and snack enthusiasts across India. 100% genuine reviews.',
+      title: 'COMMUNITY LOVED',
+      subtitle: '4.9★ Across India',
+      description: 'Tested and re-ordered by snack lovers across the country. Handcrafted small batches with authentic roasted crunch.',
       badge: 'COMMUNITY LOVED',
-      badgeColor: 'bg-[#E2AE35] text-[#17245B]',
-      cardBorder: 'border-[#E2AE35]/30 hover:border-[#E2AE35]',
-      cardBg: 'bg-white/5',
+      badgeColor: 'bg-[#FF4D15] text-white',
+      cardBorder: 'border-white/10 hover:border-[#FF4D15]',
       cta: { label: 'READ REVIEWS ➔', to: '/about' },
     },
     {
       icon: '💰',
-      title: 'VALUE FOR MONEY',
-      subtitle: 'Up to 15% Bundle Savings',
-      description: 'Big packs, zero filler. Build your custom 4-pack stash or grab multi-flavor party hampers with maximum crunch per rupee.',
-      badge: 'MAX SAVINGS',
-      badgeColor: 'bg-[#A9223A] text-white',
-      cardBorder: 'border-[#A9223A]/50 hover:border-[#A9223A]',
-      cardBg: 'bg-gradient-to-b from-[#A9223A]/20 to-white/5',
-      cta: { label: 'BUILD YOUR BOX ➔', to: '/build-your-box' },
+      title: 'HONEST VALUE',
+      subtitle: 'Up to 15% Pack Savings',
+      description: 'Jumbo foxnuts, zero filler. Try All 5 Sampler Box or multi-pack savings (Pack of 3, 6, and 10) for maximum crunch per rupee.',
+      badge: 'BEST VALUE',
+      badgeColor: 'bg-[#FF4D15] text-white',
+      cardBorder: 'border-white/10 hover:border-[#FF4D15]',
+      cta: { label: 'TRY ALL 5 ➔', to: '/products/chaska-try-all-5' },
     },
     {
       icon: '🧭',
-      title: 'EASE OF NAVIGATION',
+      title: 'FAST DISCOVERY',
       subtitle: 'Shop by Flavour & Pack',
-      description: 'Discover by spice level, single packs, or variety boxes in seconds. Quick search, 1-click cart, and zero friction to checkout.',
-      badge: 'FAST DISCOVERY',
-      badgeColor: 'bg-[#17245B] text-[#F5EEDD] border border-white/20',
-      cardBorder: 'border-[#F5EEDD]/20 hover:border-[#E2AE35]',
-      cardBg: 'bg-white/5',
-      cta: { label: 'VIEW COLLECTIONS ➔', to: '/collections' },
+      description: 'Pick by spice mood, single packs, or sampler box in seconds. Instant search, clean cart drawer, and frictionless checkout.',
+      badge: '5 SIGNATURE FLAVOURS',
+      badgeColor: 'bg-white/15 text-white',
+      cardBorder: 'border-white/10 hover:border-[#FF4D15]',
+      cta: { label: 'VIEW ALL ➔', to: '/collections' },
     },
     {
       icon: '⚡',
-      title: 'OFFERS & DISCOUNTS',
-      subtitle: 'Free Delivery Over ₹499',
-      description: 'Automatic savings on multi-packs, seasonal drop discounts, and welcome codes delivered straight to your inbox.',
-      badge: 'FLAT 15% OFF',
-      badgeColor: 'bg-[#A9223A] text-white',
-      cardBorder: 'border-[#A9223A]/50 hover:border-[#A9223A]',
-      cardBg: 'bg-gradient-to-b from-[#A9223A]/20 to-white/5',
-      cta: { label: 'EXPLORE OFFERS ➔', to: '/shop' },
+      title: 'FRESH DISPATCH',
+      subtitle: 'Free Shipping Over ₹499',
+      description: 'Direct to your door from our roasting ovens. Fast nationwide dispatch with reliable real-time tracking.',
+      badge: 'FAST DISPATCH',
+      badgeColor: 'bg-[#FF4D15] text-white',
+      cardBorder: 'border-white/10 hover:border-[#FF4D15]',
+      cta: { label: 'EXPLORE SHOP ➔', to: '/shop' },
     },
   ]
 
   return (
-    <section className="py-20 bg-[#17245B] text-[#F5EEDD] border-b border-[#F5EEDD]/15 relative overflow-hidden">
-      {/* Subtle background glow */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#A9223A]/20 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-0 left-1/4 w-96 h-96 bg-[#17245B]/60 rounded-full blur-3xl pointer-events-none" />
+    <section className="py-20 bg-[#141416] text-[#FAF7F2] border-b border-[#FAF7F2]/10 relative overflow-hidden">
+      {/* Subtle background warmth */}
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#FF4D15]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-[96rem] px-6 sm:px-12 relative z-10 space-y-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-          <div className="space-y-3 max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#A9223A] text-white font-mono text-xs font-bold uppercase tracking-widest">
-              🔥 THE CHASKA PROMISE
+          <div className="space-y-2.5 max-w-2xl">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF4D15] text-white font-mono text-xs font-bold uppercase tracking-widest">
+              🔥 THE CHASKA STANDARD
             </span>
             <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
-              BUILT ON FOUR <span className="text-[#A9223A]">CORE PILLARS.</span>
+              BUILT ON FOUR <span className="text-[#FF4D15]">CORE PILLARS.</span>
             </h2>
-            <p className="font-sans text-sm sm:text-base text-[#F5EEDD]/85 leading-relaxed font-medium">
-              Every pack of CHASKA is roasted with integrity, priced with fairness, and delivered with obsession for customer satisfaction.
+            <p className="font-sans text-sm sm:text-base text-[#FAF7F2]/80 leading-relaxed font-medium">
+              Every pouch of CHASKA is roasted with care, priced fairly, and delivered with obsession for crunch.
             </p>
           </div>
           <Link
             to="/shop"
-            className="btn-lacquer shadow-lg text-xs font-bold shrink-0 self-start md:self-auto px-7 py-3.5"
+            className="btn px-7 py-3.5 text-xs font-bold shrink-0 self-start md:self-auto shadow-md"
           >
             SHOP THE DROP ➔
           </Link>
@@ -80,16 +75,16 @@ export default function FourPillars() {
           {pillars.map((pillar, i) => (
             <motion.div
               key={pillar.title}
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: i * 0.1 }}
-              className={`p-8 rounded-3xl ${pillar.cardBg} border-2 ${pillar.cardBorder} transition-all duration-300 flex flex-col justify-between space-y-6 group shadow-lg hover:-translate-y-1`}
+              transition={{ duration: 0.35, delay: i * 0.08 }}
+              className={`p-7 rounded-3xl bg-white/5 border ${pillar.cardBorder} transition-all duration-300 flex flex-col justify-between space-y-6 group shadow-sm hover:-translate-y-1`}
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
                   <span className="text-3xl">{pillar.icon}</span>
-                  <span className={`font-mono text-[9px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full ${pillar.badgeColor} shadow-sm`}>
+                  <span className={`font-mono text-[9px] font-extrabold uppercase tracking-wider px-2.5 py-1 rounded-full ${pillar.badgeColor} shadow-2xs`}>
                     {pillar.badge}
                   </span>
                 </div>
@@ -97,26 +92,27 @@ export default function FourPillars() {
                   <h3 className="font-display text-lg font-bold uppercase text-white tracking-tight">
                     {pillar.title}
                   </h3>
-                  <p className="font-mono text-xs text-[#E2AE35] font-bold mt-0.5">
+                  <p className="font-mono text-xs text-[#FF4D15] font-bold mt-0.5">
                     {pillar.subtitle}
                   </p>
                 </div>
-                <p className="font-sans text-xs text-[#F5EEDD]/80 leading-relaxed font-medium">
+                <p className="font-sans text-xs text-[#FAF7F2]/75 leading-relaxed font-normal">
                   {pillar.description}
                 </p>
               </div>
 
-              <div className="pt-2 border-t border-[#F5EEDD]/10">
+              <div className="pt-4 border-t border-white/10">
                 <Link
                   to={pillar.cta.to}
-                  className="font-mono text-xs font-bold text-[#E2AE35] group-hover:text-[#A9223A] transition-colors inline-flex items-center gap-1"
+                  className="font-mono text-xs font-bold text-white group-hover:text-[#FF4D15] transition-colors flex items-center justify-between"
                 >
-                  {pillar.cta.label}
+                  <span>{pillar.cta.label}</span>
                 </Link>
               </div>
             </motion.div>
           ))}
         </div>
+
       </div>
     </section>
   )

@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useParams, Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
+import { motion, AnimatePresence } from 'framer-motion'
 import { photos } from '../data/photos'
 import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
@@ -11,7 +11,7 @@ import NotFound from './NotFound'
 
 export default function ProductDetail() {
   const { handle } = useParams()
-  const { addItem } = useCart()
+  const { addItem, openCart } = useCart()
   const { addToast } = useToast()
 
   const [qty, setQty] = useState(1)
@@ -22,12 +22,17 @@ export default function ProductDetail() {
   const [error, setError] = useState(null)
   const [selectedSize, setSelectedSize] = useState('50g')
   const [selectedPack, setSelectedPack] = useState('Pack of 3')
+  const [isAdding, setIsAdding] = useState(false)
+  const [isAdded, setIsAdded] = useState(false)
+  const [showStickyBar, setShowStickyBar] = useState(false)
 
+  // 1. Data Fetching
   useEffect(() => {
     async function loadProduct() {
       setIsLoading(true)
       setError(null)
       setSelectedImgIndex(0)
+      setQty(1)
       try {
         const foundProduct = await fetchShopifyProductByHandle(handle)
 
@@ -35,7 +40,7 @@ export default function ProductDetail() {
           setProduct(foundProduct)
           // Load related products from Shopify
           try {
-            const allShopify = await fetchShopifyProducts(6)
+            const allShopify = await fetchShopifyProducts(8)
             if (allShopify && allShopify.length > 0) {
               setRelatedProducts(allShopify.filter((p) => p.handle !== handle).slice(0, 3))
             } else {
@@ -61,15 +66,26 @@ export default function ProductDetail() {
     }
   }, [handle])
 
-  // Fire Meta Pixel ViewContent when product loads
+  // 2. Meta Pixel ViewContent Tracking
   useEffect(() => {
     if (product) {
       trackViewContent(product)
     }
   }, [product])
 
+  // 3. Scroll listener for mobile sticky add-to-cart bar
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show sticky bar when scrolled past 400px
+      setShowStickyBar(window.scrollY > 420)
+    }
+    window.addEventListener('scroll', handleScroll, { passive: true })
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
+
   const isTryAll5 = product?.handle === 'chaska-try-all-5'
 
+  // 4. Exact Shopify Variant Resolution
   const activeVariant = useMemo(() => {
     if (!product?.variants || product.variants.length === 0) return null
 
@@ -98,16 +114,16 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD] flex items-center justify-center">
-        <div className="mx-auto max-w-4xl w-full p-8 rounded-3xl bg-white/60 border border-[#17245B]/10 animate-pulse space-y-8">
+      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF7F2] flex items-center justify-center">
+        <div className="mx-auto max-w-5xl w-full p-8 rounded-3xl bg-white border border-[#141416]/10 animate-pulse space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="aspect-square rounded-2xl bg-[#17245B]/10" />
+            <div className="aspect-square rounded-2xl bg-[#FAF7F2]" />
             <div className="space-y-4">
-              <div className="h-4 w-1/4 rounded bg-[#17245B]/15" />
-              <div className="h-8 w-3/4 rounded bg-[#17245B]/20" />
-              <div className="h-4 w-1/3 rounded bg-[#17245B]/15" />
-              <div className="h-24 w-full rounded bg-[#17245B]/10" />
-              <div className="h-12 w-full rounded-full bg-[#17245B]/20" />
+              <div className="h-4 w-1/4 rounded bg-[#141416]/10" />
+              <div className="h-8 w-3/4 rounded bg-[#141416]/15" />
+              <div className="h-4 w-1/3 rounded bg-[#141416]/10" />
+              <div className="h-24 w-full rounded bg-[#141416]/5" />
+              <div className="h-12 w-full rounded-full bg-[#141416]/15" />
             </div>
           </div>
         </div>
@@ -127,8 +143,8 @@ export default function ProductDetail() {
     : (product?.mrp && product.mrp > currentPrice ? product.mrp : currentPrice)
   const currentDiscount = currentMrp > currentPrice ? `${Math.round(((currentMrp - currentPrice) / currentMrp) * 100)}% OFF` : null
 
-  const handleAddToCart = () => {
-    if (!product) return
+  const handleAddToCart = async () => {
+    if (!product || isAdding) return
     const packLabel = isTryAll5 ? `${selectedSize}` : `${selectedSize} • ${selectedPack}`
     const itemTitle = isTryAll5
       ? `${product.name} (${selectedSize})`
@@ -139,24 +155,35 @@ export default function ProductDetail() {
       return
     }
 
-    const selectedVariantId = activeVariant?.id || product.variantId || product.id
+    setIsAdding(true)
+    try {
+      const selectedVariantId = activeVariant?.id || product.variantId || product.id
 
-    const itemToAdd = {
-      ...product,
-      id: selectedVariantId,
-      variantId: selectedVariantId,
-      availableForSale: isVariantAvailable,
-      price: currentPrice,
-      mrp: currentMrp,
-      packSize: packLabel,
-      size: packLabel,
-      name: itemTitle,
-      flavor: product.name,
-      handle: product.handle,
-      image: activeImage,
+      const itemToAdd = {
+        ...product,
+        id: selectedVariantId,
+        variantId: selectedVariantId,
+        availableForSale: isVariantAvailable,
+        price: currentPrice,
+        mrp: currentMrp,
+        packSize: packLabel,
+        size: packLabel,
+        name: itemTitle,
+        flavor: product.name,
+        handle: product.handle,
+        image: activeImage,
+      }
+      await addItem(itemToAdd, qty)
+      setIsAdded(true)
+      addToast(`${qty}x ${itemTitle} added to stash! 🍿`, 'success')
+      setTimeout(() => {
+        setIsAdded(false)
+        setIsAdding(false)
+      }, 1400)
+    } catch {
+      setIsAdding(false)
+      addToast('Could not add to cart. Please try again.', 'error')
     }
-    addItem(itemToAdd, qty)
-    addToast(`${qty}x ${itemTitle} added to stash!`, 'success')
   }
 
   const handleLower = (product.handle || '').toLowerCase()
@@ -170,7 +197,7 @@ export default function ProductDetail() {
 
   const photoObj = photos[photoKey] || photos.masalaPouchHero
   
-  // Build a comprehensive images list from product data or full campaign gallery
+  // Gallery
   const galleryImages = (product.images && product.images.length > 0)
     ? product.images.map((img) => ({ url: typeof img === 'string' ? img : (img.url || img.src), altText: img.altText || product.name }))
     : [
@@ -182,7 +209,7 @@ export default function ProductDetail() {
 
   const activeImage = galleryImages[selectedImgIndex]?.url || galleryImages[0]?.url || photoObj.src
 
-  // Flavor specific taste tags
+  // Taste tags
   const tasteTags = handleLower.includes('cheese')
     ? ['AGED CHEDDAR DUST', 'GREEN CHILI HEAT', 'ROASTED GARLIC', 'SAVORY & CHEEZY']
     : handleLower.includes('pudhina')
@@ -197,125 +224,129 @@ export default function ProductDetail() {
     ? ['5 SIGNATURE FLAVOURS', 'PERI PERI + CHILLI CHEESE', 'CHILLI LIME + PUDHINA', 'KASHMIRI GARLIC CHILLI']
     : ['ALL-STAR STASH', 'SIGNATURE FLAVOR', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
-  // Occasions
-  const occasions = [
-    { title: 'DESK SNACK', desc: 'No greasy fingers on your keyboard while grinding through emails.', icon: '💻' },
-    { title: 'MOVIE NIGHT', desc: 'Swap heavy buttery popcorn for light, guilt-free makhana crunch.', icon: '🍿' },
-    { title: 'POST-WORKOUT', desc: 'Clean plant-protein & complex carbs to refuel after sweat sessions.', icon: '💪' },
-    { title: 'MIDNIGHT CRAVING', desc: 'Satisfy late-night munchies without feeling bloated the next morning.', icon: '🌙' },
-  ]
-
   return (
-    <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#F5EEDD]">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF7F2]">
       <div className="mx-auto max-w-7xl space-y-16">
         
         {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-2 font-mono text-xs text-[#17245B]/70 font-bold uppercase tracking-wider">
-          <Link to="/" className="hover:text-[#E2AE35] transition-colors">HOME</Link>
+        <nav className="flex items-center gap-2 font-mono text-xs text-[#141416]/60 font-bold uppercase tracking-wider">
+          <Link to="/" className="hover:text-[#FF4D15] transition-colors">HOME</Link>
           <span>/</span>
-          <Link to="/shop" className="hover:text-[#E2AE35] transition-colors">SHOP</Link>
+          <Link to="/shop" className="hover:text-[#FF4D15] transition-colors">SHOP</Link>
           <span>/</span>
-          <span className="text-[#E2AE35] line-clamp-1">{product.name}</span>
+          <span className="text-[#FF4D15] line-clamp-1">{product.name}</span>
         </nav>
 
         {/* ── MAIN PRODUCT HERO (EDITORIAL SPLIT) ─────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
-            {/* Left Column: Product Gallery / Image Stage */}
-            <div className="lg:col-span-6 space-y-4">
-              <motion.div
-                initial={{ opacity: 0, scale: 0.96 }}
-                animate={{ opacity: 1, scale: 1 }}
-                key={activeImage}
-                transition={{ duration: 0.3 }}
-                className="relative aspect-square w-full rounded-[2.5rem] bg-white border border-[#17245B]/15 shadow-xl p-8 flex items-center justify-center overflow-hidden"
-              >
-                {product.badge && (
-                  <span className="absolute top-6 left-6 z-10 px-4 py-1.5 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-bold uppercase tracking-widest shadow-md">
-                    {product.badge}
+          {/* Left Column: Product Gallery / Image Stage */}
+          <div className="lg:col-span-6 space-y-3.5">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.97 }}
+              animate={{ opacity: 1, scale: 1 }}
+              key={activeImage}
+              transition={{ duration: 0.3 }}
+              className="relative aspect-square w-full rounded-[2.5rem] bg-white border border-[#141416]/10 shadow-sm p-6 sm:p-8 flex items-center justify-center overflow-hidden"
+            >
+              {/* Badge */}
+              <div className="absolute top-5 left-5 z-10">
+                {!isVariantAvailable ? (
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#DC2626] text-white font-mono text-xs font-extrabold uppercase tracking-wider shadow-xs">
+                    SOLD OUT
                   </span>
-                )}
+                ) : isTryAll5 ? (
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#141416] text-white font-mono text-xs font-extrabold uppercase tracking-wider shadow-xs">
+                    ⭐ ALL 5 FLAVOURS
+                  </span>
+                ) : currentDiscount ? (
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#FF4D15] text-white font-mono text-xs font-extrabold uppercase tracking-wider shadow-xs">
+                    SAVE {currentDiscount}
+                  </span>
+                ) : null}
+              </div>
 
-                {activeImage ? (
-                  <img
-                    src={activeImage}
-                    alt={product.name}
-                    className="h-full w-full object-contain rounded-2xl"
-                  />
-                ) : (
-                  <span className="font-display text-8xl text-[#17245B]">🍿</span>
-                )}
-              </motion.div>
-
-              {/* Interactive Thumbnail selector */}
-              {galleryImages && galleryImages.length > 1 && (
-                <div className="flex items-center gap-3 overflow-x-auto pb-2">
-                  {galleryImages.map((img, i) => (
-                    <button
-                      key={i}
-                      type="button"
-                      onClick={() => setSelectedImgIndex(i)}
-                      className={`h-20 w-20 shrink-0 rounded-2xl bg-white border-2 p-1.5 overflow-hidden shadow-sm transition-all duration-200 ${
-                        selectedImgIndex === i
-                          ? 'border-[#E2AE35] scale-105 shadow-md ring-2 ring-[#E2AE35]/30'
-                          : 'border-[#17245B]/15 opacity-70 hover:opacity-100 hover:border-[#17245B]/30'
-                      }`}
-                    >
-                      <img src={img.url} alt={img.altText || product.name} className="h-full w-full object-cover rounded-xl" />
-                    </button>
-                  ))}
-                </div>
+              {activeImage ? (
+                <img
+                  src={activeImage}
+                  alt={product.name}
+                  className="h-full w-full object-contain rounded-2xl"
+                />
+              ) : (
+                <span className="font-display text-8xl text-[#141416]">🍿</span>
               )}
-            </div>
+            </motion.div>
+
+            {/* Interactive Thumbnail Selector */}
+            {galleryImages && galleryImages.length > 1 && (
+              <div className="flex items-center gap-2.5 overflow-x-auto pb-1">
+                {galleryImages.map((img, i) => (
+                  <button
+                    key={i}
+                    type="button"
+                    onClick={() => setSelectedImgIndex(i)}
+                    aria-label={`View photo ${i + 1}`}
+                    className={`h-18 w-18 shrink-0 rounded-2xl bg-white border-2 p-1 overflow-hidden transition-all duration-200 ${
+                      selectedImgIndex === i
+                        ? 'border-[#FF4D15] scale-105 shadow-xs ring-2 ring-[#FF4D15]/20'
+                        : 'border-[#141416]/10 opacity-70 hover:opacity-100'
+                    }`}
+                  >
+                    <img src={img.url} alt={img.altText || product.name} className="h-full w-full object-cover rounded-xl" />
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
 
           {/* Right Column: Information, Specs & Add-to-Cart */}
-          <div className="lg:col-span-6 space-y-8">
+          <div className="lg:col-span-6 space-y-7">
             
-            {/* Header */}
+            {/* Header & Badges */}
             <div className="space-y-3">
-              <div className="flex items-center gap-3">
-                <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-bold uppercase tracking-wider">
-                  {isTryAll5 ? `${selectedSize} VARIETY BOX` : `${selectedSize} • ${selectedPack}`}
+              <div className="flex items-center gap-2">
+                <span className="px-3 py-1 rounded-full bg-[#141416]/8 text-[#141416] font-mono text-[10px] font-bold uppercase tracking-wider">
+                  {isTryAll5 ? `${selectedSize} SAMPLER BOX` : `${selectedSize} • ${selectedPack}`}
                 </span>
                 {!isVariantAvailable ? (
                   <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 font-mono text-[10px] font-bold uppercase tracking-wider">
                     SOLD OUT
                   </span>
-                ) : product.spiceLevel ? (
-                  <span className="px-3 py-1 rounded-full bg-[#FAF6ED] text-[#A9223A] font-mono text-[10px] font-bold uppercase tracking-wider">
+                ) : product.spiceLevel && !isTryAll5 ? (
+                  <span className="px-3 py-1 rounded-full bg-[#FAF7F2] text-[#FF4D15] font-mono text-[10px] font-bold uppercase tracking-wider border border-[#FF4D15]/20">
                     {product.spiceLevel}
                   </span>
                 ) : null}
               </div>
 
-              <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] tracking-tight leading-tight">
+              <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#141416] tracking-tight leading-tight">
                 {product.name}
               </h1>
 
               {/* Price & Savings */}
-              <div className="flex items-baseline gap-4 pt-2">
-                <span className="font-display text-3xl sm:text-4xl font-black text-[#17245B]">
+              <div className="flex items-baseline gap-3.5 pt-1">
+                <span className="font-display text-3xl sm:text-4xl font-black text-[#141416]">
                   ₹{Math.round(currentPrice)}
                 </span>
                 {currentMrp && currentMrp > currentPrice && (
                   <>
-                    <span className="font-mono text-lg text-[#17245B]/60 line-through">
+                    <span className="font-mono text-lg text-[#141416]/50 line-through">
                       ₹{Math.round(currentMrp)}
                     </span>
-                    <span className="font-mono text-xs font-bold text-[#A9223A] bg-[#FFF0F2] px-2.5 py-1 rounded-full">
+                    <span className="font-mono text-xs font-extrabold text-[#FF4D15] bg-[#FF4D15]/10 px-2.5 py-0.5 rounded-full">
                       SAVE {currentDiscount}
                     </span>
                   </>
                 )}
               </div>
 
-              {/* Size & Pack Selectors */}
-              <div className="space-y-4 pt-2">
-                {/* Size Options (50g, 100g) */}
+              {/* Selectors */}
+              <div className="space-y-4 pt-3">
+                {/* 1. Size Options (50g, 100g) */}
                 <div className="space-y-2">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
-                    <span>{isTryAll5 ? 'SELECT BOX SIZE' : '1. SELECT POUCH SIZE'}</span>
-                    <span className="text-[#A9223A] font-extrabold">{selectedSize} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#141416]/60 flex items-center justify-between">
+                    <span>{isTryAll5 ? 'SELECT BOX SIZE:' : '1. SELECT POUCH SIZE:'}</span>
+                    <span className="text-[#FF4D15] font-extrabold">{selectedSize} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
                   </span>
                   <div className="grid grid-cols-2 gap-3">
                     {['50g', '100g'].map((sz) => (
@@ -323,10 +354,10 @@ export default function ProductDetail() {
                         key={sz}
                         type="button"
                         onClick={() => setSelectedSize(sz)}
-                        className={`py-3 px-4 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
+                        className={`py-3 px-4 rounded-2xl font-mono text-xs font-extrabold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
                           selectedSize === sz
-                            ? 'border-[#17245B] bg-[#17245B] text-white shadow-md'
-                            : 'border-[#17245B]/20 bg-white text-[#17245B] hover:border-[#17245B]/50'
+                            ? 'border-[#141416] bg-[#141416] text-white shadow-xs'
+                            : 'border-[#141416]/15 bg-white text-[#141416] hover:border-[#141416]/40'
                         }`}
                       >
                         <span>{sz} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
@@ -335,14 +366,14 @@ export default function ProductDetail() {
                   </div>
                 </div>
 
-                {/* Pack Options (Only for single flavour products - Try All 5 has no pack selector) */}
+                {/* 2. Pack Options (Only for single flavour products) */}
                 {!isTryAll5 && (
                   <div className="space-y-2">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
-                      <span>2. SELECT QUANTITY PACK</span>
-                      <span className="text-[#A9223A] font-extrabold">{selectedPack}</span>
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#141416]/60 flex items-center justify-between">
+                      <span>2. SELECT QUANTITY PACK:</span>
+                      <span className="text-[#FF4D15] font-extrabold">{selectedPack}</span>
                     </span>
-                    <div className="grid grid-cols-3 gap-3">
+                    <div className="grid grid-cols-3 gap-2.5">
                       {[
                         { label: 'Pack of 3', tag: 'POPULAR' },
                         { label: 'Pack of 6', tag: 'BEST VALUE' },
@@ -352,15 +383,15 @@ export default function ProductDetail() {
                           key={pk.label}
                           type="button"
                           onClick={() => setSelectedPack(pk.label)}
-                          className={`py-3 px-2 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex flex-col items-center justify-center gap-1 ${
+                          className={`py-3 px-2 rounded-2xl font-mono text-xs font-extrabold uppercase tracking-wider transition-all border-2 text-center flex flex-col items-center justify-center gap-1 ${
                             selectedPack === pk.label
-                              ? 'border-[#A9223A] bg-[#A9223A] text-white shadow-md'
-                              : 'border-[#17245B]/20 bg-white text-[#17245B] hover:border-[#17245B]/50'
+                              ? 'border-[#FF4D15] bg-[#FF4D15] text-white shadow-xs'
+                              : 'border-[#141416]/15 bg-white text-[#141416] hover:border-[#141416]/40'
                           }`}
                         >
                           <span className="text-[11px] leading-tight">{pk.label}</span>
-                          <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-extrabold ${
-                            selectedPack === pk.label ? 'bg-white/20 text-white' : 'bg-[#FAF6ED] text-[#17245B]/70'
+                          <span className={`text-[8px] px-1.5 py-0.2 rounded-full font-bold ${
+                            selectedPack === pk.label ? 'bg-white/20 text-white' : 'bg-[#FAF7F2] text-[#141416]/70'
                           }`}>
                             {pk.tag}
                           </span>
@@ -372,26 +403,26 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            {/* Description */}
-            <div className="p-6 rounded-2xl bg-white border border-[#17245B]/12 space-y-3 shadow-sm">
-              <h3 className="font-mono text-xs font-bold uppercase tracking-widest text-[#17245B]/70">
+            {/* Description Card */}
+            <div className="p-5 sm:p-6 rounded-2xl bg-white border border-[#141416]/10 space-y-2 shadow-2xs">
+              <h3 className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#141416]/60">
                 FLAVOUR PROFILE
               </h3>
-              <p className="font-sans text-sm text-[#17245B]/90 leading-relaxed font-medium">
-                {product.description || product.blurb}
+              <p className="font-sans text-xs sm:text-sm text-[#141416]/85 leading-relaxed font-normal">
+                {product.description || product.blurb || 'Handpicked Bihar lotus seeds slow-roasted in small batches with authentic spices.'}
               </p>
             </div>
 
-            {/* Taste Tags */}
-            <div className="space-y-2">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70">
+            {/* Taste Notes */}
+            <div className="space-y-1.5">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#141416]/60">
                 TASTE NOTES &amp; TEXTURE
               </span>
               <div className="flex flex-wrap gap-2">
                 {tasteTags.map((tag, i) => (
                   <span
                     key={i}
-                    className="px-3.5 py-1.5 rounded-full bg-[#FAF6ED] border border-[#17245B]/15 font-mono text-[10px] font-bold text-[#17245B] uppercase"
+                    className="px-3 py-1 rounded-full bg-white border border-[#141416]/10 font-mono text-[10px] font-bold text-[#141416] uppercase shadow-2xs"
                   >
                     {tag}
                   </span>
@@ -399,41 +430,55 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            {/* Quantity Stepper & Add to Cart Button */}
-            <div className="space-y-4 pt-4 border-t border-[#17245B]/15">
-              <div className="flex items-center gap-4">
-                <div className="flex items-center border border-[#17245B]/20 rounded-full bg-white px-3 py-2 shadow-sm">
+            {/* Quantity Stepper & Add to Stash */}
+            <div className="space-y-3.5 pt-4 border-t border-[#141416]/10">
+              <div className="flex items-center gap-3.5">
+                {/* Stepper */}
+                <div className="flex items-center border border-[#141416]/20 rounded-full bg-white px-2 py-1.5 shadow-2xs">
                   <button
                     type="button"
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
                     disabled={qty <= 1}
-                    className="h-8 w-8 font-mono text-base font-bold text-[#17245B] hover:bg-[#E2AE35] hover:text-[#17245B] rounded-full transition-colors flex items-center justify-center disabled:opacity-30"
+                    aria-label="Decrease quantity"
+                    className="h-8 w-8 font-mono text-base font-bold text-[#141416] hover:bg-[#FF4D15] hover:text-white rounded-full transition-colors flex items-center justify-center disabled:opacity-30"
                   >
                     −
                   </button>
-                  <span className="min-w-[2.5rem] text-center font-mono text-sm font-bold text-[#17245B]">
+                  <span className="min-w-[2.25rem] text-center font-mono text-sm font-extrabold text-[#141416]">
                     {qty}
                   </span>
                   <button
                     type="button"
                     onClick={() => setQty((q) => q + 1)}
-                    className="h-8 w-8 font-mono text-base font-bold text-[#17245B] hover:bg-[#E2AE35] hover:text-[#17245B] rounded-full transition-colors flex items-center justify-center"
+                    aria-label="Increase quantity"
+                    className="h-8 w-8 font-mono text-base font-bold text-[#141416] hover:bg-[#FF4D15] hover:text-white rounded-full transition-colors flex items-center justify-center"
                   >
                     +
                   </button>
                 </div>
 
+                {/* Add to Stash CTA */}
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  disabled={!isVariantAvailable}
-                  className={`flex-1 btn py-4 text-xs font-bold uppercase tracking-wider shadow-lg transition-all ${
-                    isVariantAvailable
-                      ? 'bg-[#E2AE35] hover:bg-[#17245B] hover:text-[#F5EEDD] text-[#17245B]'
-                      : 'bg-[#17245B]/20 text-[#17245B]/50 cursor-not-allowed opacity-60 border border-[#17245B]/10'
+                  disabled={!isVariantAvailable || isAdding}
+                  className={`flex-1 btn py-4 text-xs font-black uppercase tracking-wider shadow-md transition-all ${
+                    !isVariantAvailable
+                      ? 'bg-[#141416]/20 text-[#141416]/40 cursor-not-allowed border-transparent'
+                      : isAdded
+                      ? 'bg-emerald-600 border-emerald-600 text-white'
+                      : isAdding
+                      ? 'bg-[#E63E07] text-white opacity-85'
+                      : 'bg-[#FF4D15] hover:bg-[#E63E07] text-white'
                   }`}
                 >
-                  {isVariantAvailable ? `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}` : 'SOLD OUT'}
+                  {!isVariantAvailable
+                    ? 'SOLD OUT'
+                    : isAdded
+                    ? 'ADDED TO STASH ✓'
+                    : isAdding
+                    ? 'ADDING...'
+                    : `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}`}
                 </button>
               </div>
 
@@ -444,10 +489,11 @@ export default function ProductDetail() {
                 </div>
               )}
 
-              <div className="flex items-center justify-between text-xs font-mono text-[#17245B]/80 pt-2 px-2">
-                <span>⚡ Ships within 24 Hours</span>
-                <span>🍃 100% Roasted Lotus Seeds</span>
-                <span>🇮🇳 Made in India</span>
+              {/* Guarantees */}
+              <div className="flex items-center justify-between text-xs font-mono text-[#141416]/70 pt-1 px-1">
+                <span>⚡ Dispatches in 24h</span>
+                <span>🍿 Slow-Roasted, Not Fried</span>
+                <span>🇮🇳 Authentic Bihar Makhana</span>
               </div>
             </div>
 
@@ -455,45 +501,45 @@ export default function ProductDetail() {
         </div>
 
         {/* ── 2. NUTRITIONAL FACTS & INGREDIENTS ─────────────────────────────── */}
-        <section className="p-8 sm:p-12 rounded-[2.5rem] bg-white border border-[#17245B]/15 shadow-xl space-y-8">
-          <div className="max-w-2xl space-y-2">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
+        <section className="p-6 sm:p-10 rounded-[2.5rem] bg-white border border-[#141416]/10 shadow-xs space-y-6">
+          <div className="space-y-1.5">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D15]">
               CLEAN SNACKING SPECS
             </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#17245B]">
-              WHAT'S INSIDE THE PACK
+            <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#141416]">
+              WHAT'S INSIDE THE POUCH
             </h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             {/* Ingredients */}
-            <div className="space-y-4">
-              <h3 className="font-display text-lg font-bold text-[#17245B] uppercase">
+            <div className="space-y-3">
+              <h3 className="font-display text-base font-bold text-[#141416] uppercase">
                 INGREDIENTS
               </h3>
-              <p className="font-sans text-sm text-[#17245B]/90 leading-relaxed font-medium bg-[#FAF6ED] p-5 rounded-2xl border border-[#17245B]/10">
+              <p className="font-sans text-xs sm:text-sm text-[#141416]/85 leading-relaxed bg-[#FAF7F2] p-4.5 rounded-2xl border border-[#141416]/8">
                 {product.ingredients || 'Jumbo Foxnuts (Makhana), Olive Oil, Natural Spices, Sea Salt.'}
               </p>
-              <div className="flex flex-wrap gap-2 pt-2">
-                <span className="px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-[10px] font-bold">✓ GLUTEN FREE</span>
-                <span className="px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-[10px] font-bold">✓ ZERO TRANS FAT</span>
-                <span className="px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-[10px] font-bold">✓ NOT FRIED</span>
-                <span className="px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-[10px] font-bold">✓ PLANT PROTEIN</span>
+              <div className="flex flex-wrap gap-2 pt-1">
+                <span className="px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-[10px] font-extrabold">✓ GLUTEN FREE</span>
+                <span className="px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-[10px] font-extrabold">✓ ZERO PALM OIL</span>
+                <span className="px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-[10px] font-extrabold">✓ NOT FRIED</span>
+                <span className="px-3 py-1 rounded-full bg-[#FF4D15]/10 text-[#FF4D15] font-mono text-[10px] font-extrabold">✓ PLANT PROTEIN</span>
               </div>
             </div>
 
             {/* Nutrition Grid */}
-            <div className="space-y-4">
-              <h3 className="font-display text-lg font-bold text-[#17245B] uppercase">
-                NUTRITIONAL VALUE (PER 70G PACK)
+            <div className="space-y-3">
+              <h3 className="font-display text-base font-bold text-[#141416] uppercase">
+                NUTRITIONAL ESTIMATE (PER 50G SERVING)
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
                 {Object.entries(product.nutrition || { calories: '132 kcal', protein: '4.2g', carbs: '21g', fat: '3.5g', fiber: '3.6g' }).map(([key, val]) => (
-                  <div key={key} className="p-4 rounded-2xl bg-[#FAF6ED] border border-[#17245B]/10 text-center">
-                    <span className="font-mono text-[10px] font-bold uppercase text-[#17245B]/60 block mb-1">
+                  <div key={key} className="p-3.5 rounded-xl bg-[#FAF7F2] border border-[#141416]/8 text-center">
+                    <span className="font-mono text-[9px] font-bold uppercase text-[#141416]/60 block mb-0.5">
                       {key}
                     </span>
-                    <span className="font-display text-base font-bold text-[#17245B]">
+                    <span className="font-display text-sm font-bold text-[#141416]">
                       {val}
                     </span>
                   </div>
@@ -503,53 +549,24 @@ export default function ProductDetail() {
           </div>
         </section>
 
-        {/* ── 3. PERFECT OCCASIONS ─────────────────────────────────────────── */}
-        <section className="space-y-8">
-          <div className="text-center max-w-2xl mx-auto space-y-2">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
-              SNACK ANYWHERE
-            </span>
-            <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#17245B]">
-              PERFECT CRUNCH OCCASIONS
-            </h2>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {occasions.map((occ, idx) => (
-              <div
-                key={idx}
-                className="p-6 rounded-3xl bg-white border border-[#17245B]/15 shadow-sm space-y-3 hover:shadow-md transition-shadow"
-              >
-                <span className="text-3xl block">{occ.icon}</span>
-                <h3 className="font-display text-base font-bold uppercase text-[#17245B]">
-                  {occ.title}
-                </h3>
-                <p className="font-sans text-xs text-[#17245B]/80 leading-relaxed font-medium">
-                  {occ.desc}
-                </p>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* ── 4. RELATED PRODUCTS ──────────────────────────────────────────── */}
-        {relatedProducts.length > 0 && (
-          <section className="space-y-8 pt-8 border-t border-[#17245B]/15">
+        {/* ── 3. RELATED FLAVOURS ───────────────────────────────────────────── */}
+        {relatedProducts && relatedProducts.length > 0 && (
+          <section className="space-y-8 pt-4">
             <div className="flex items-end justify-between">
-              <div>
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#E2AE35]">
-                  MORE FLAVOURS
+              <div className="space-y-1">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF4D15]">
+                  EXPLORE MORE
                 </span>
-                <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#17245B]">
-                  YOU MIGHT ALSO CRAVE
+                <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#141416]">
+                  YOU MIGHT ALSO CRUNCH
                 </h2>
               </div>
-              <Link to="/shop" className="font-mono text-xs font-bold uppercase text-[#17245B] hover:text-[#E2AE35] transition-colors">
+              <Link to="/shop" className="font-mono text-xs font-bold text-[#FF4D15] hover:underline">
                 VIEW ALL ➔
               </Link>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {relatedProducts.map((p, i) => (
                 <ProductCard key={p.id || p.handle} product={p} index={i} />
               ))}
@@ -558,7 +575,49 @@ export default function ProductDetail() {
         )}
 
       </div>
+
+      {/* ── MOBILE STICKY BOTTOM BAR ───────────────────────────────────────── */}
+      <AnimatePresence>
+        {showStickyBar && (
+          <motion.div
+            initial={{ y: '100%' }}
+            animate={{ y: 0 }}
+            exit={{ y: '100%' }}
+            transition={{ duration: 0.25 }}
+            className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#141416]/10 p-3 sm:hidden shadow-lg"
+          >
+            <div className="flex items-center justify-between gap-3">
+              <div className="min-w-0">
+                <p className="font-display text-sm font-bold text-[#141416] truncate">
+                  {product.name}
+                </p>
+                <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-[#141416]/70">
+                  <span className="text-[#FF4D15]">₹{Math.round(currentPrice * qty)}</span>
+                  <span>•</span>
+                  <span className="truncate">{selectedSize}</span>
+                </div>
+              </div>
+
+              <button
+                type="button"
+                onClick={handleAddToCart}
+                disabled={!isVariantAvailable || isAdding}
+                className={`btn py-3 px-5 text-xs font-extrabold uppercase shrink-0 ${
+                  !isVariantAvailable
+                    ? 'bg-[#141416]/20 text-[#141416]/40 cursor-not-allowed border-transparent'
+                    : isAdded
+                    ? 'bg-emerald-600 text-white'
+                    : isAdding
+                    ? 'bg-[#E63E07] text-white'
+                    : 'bg-[#FF4D15] text-white'
+                }`}
+              >
+                {!isVariantAvailable ? 'SOLD OUT' : isAdded ? 'ADDED ✓' : isAdding ? 'ADDING...' : 'ADD TO STASH'}
+              </button>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </main>
   )
 }
-
