@@ -13,7 +13,7 @@ export default function ProductCard({ product, index = 0 }) {
 
   const name = product.title || product.name || product.flavor || 'CHASKA Makhana'
   const handle = product.handle || product.id
-  const productUrl = `/product/${handle}`
+  const productUrl = `/products/${handle}`
 
   const handleAdd = (e) => {
     e.preventDefault()
@@ -25,31 +25,32 @@ export default function ProductCard({ product, index = 0 }) {
   const priceFormatted = product.displayPrice || (typeof product.price === 'number' ? `₹${Math.round(product.price)}` : `₹${product.price || 199}`)
   const mrpFormatted = product.mrp && product.mrp > product.price ? (product.displayMrp || `₹${Math.round(product.mrp)}`) : null
 
-  const photoKey = product.id?.includes('cheese') || handle?.includes('cheese') ? 'chillyCheesePack'
-    : product.id?.includes('pudhina') || handle?.includes('pudhina') ? 'pudhinaPack'
-    : product.id?.includes('barbeque') || handle?.includes('barbeque') ? 'barbequePack'
-    : product.id?.includes('peri-peri') || handle?.includes('peri-peri') ? 'periPeriPack'
-    : product.id?.includes('black-pepper') || handle?.includes('black-pepper') ? 'blackPepperPack'
-    : product.id?.includes('box') || handle?.includes('box') ? 'stashBox'
-    : 'yellowBasket'
+  const handleLower = (handle || '').toLowerCase()
+  const photoKey = handleLower.includes('cheese') ? 'chillyCheesePack'
+    : handleLower.includes('pudhina') ? 'pudhinaPack'
+    : handleLower.includes('lime') ? 'yellowBasket'
+    : handleLower.includes('garlic') ? 'meshBagIngredients'
+    : handleLower.includes('peri-peri') ? 'periPeriPack'
+    : handleLower.includes('try-all-5') || handleLower.includes('box') ? 'stashBox'
+    : 'masalaPouchHero'
 
   const photoObj = photos[photoKey] || photos.brandPoster
   const displayImage = product.image || (product.images && product.images[0]?.url) || photoObj?.src
 
   // Playful flavor descriptors
-  const playfulTag = handle?.includes('cheese') ? 'Cheezy. Teekha. Dil se.'
-    : handle?.includes('pudhina') ? 'Thanda mint. Kadak chaska.'
-    : handle?.includes('barbeque') ? 'Smoky. Hot. Non-stop crunch.'
-    : handle?.includes('peri-peri') ? 'Teekha hai. Par rukoge nahi.'
-    : handle?.includes('black-pepper') ? 'Pure rock salt. Malabar pepper.'
-    : handle?.includes('box') ? '5 Flavours. Pure chaska.'
+  const playfulTag = handleLower.includes('cheese') ? 'Cheezy. Teekha. Dil se.'
+    : handleLower.includes('pudhina') ? 'Thanda mint. Kadak chaska.'
+    : handleLower.includes('lime') ? 'Zesty lime. Spicy punch.'
+    : handleLower.includes('garlic') ? 'Kashmiri heat. Garlic crunch.'
+    : handleLower.includes('peri-peri') ? 'Teekha hai. Par rukoge nahi.'
+    : handleLower.includes('try-all-5') || handleLower.includes('box') ? 'All 5 Flavours. Pure chaska.'
     : 'Mega stash. Party sorted.'
 
   // Accent badge colors (Master brand system: Blue & Red)
-  const isSpicy = handle?.includes('peri-peri') || handle?.includes('barbeque') || handle?.includes('chilly') || handle?.includes('cheese')
+  const isSpicy = handleLower.includes('peri-peri') || handleLower.includes('garlic') || handleLower.includes('lime') || handleLower.includes('cheese')
   const badgeBg = isSpicy ? '#A9223A' : '#17245B'
   const badgeText = '#F5EEDD'
-  const isAvailable = product.availableForSale !== false
+  const isAvailable = true
 
   return (
     <motion.article

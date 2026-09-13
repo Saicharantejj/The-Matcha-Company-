@@ -196,7 +196,6 @@ export function CartProvider({ children }) {
       })
 
       setLastAddedId(cleanItem.id)
-      trackAddToCart(cleanItem, addQty)
       window.setTimeout(() => setLastAddedId(null), 1500)
 
       // Remote Shopify Storefront Cart Sync
@@ -221,9 +220,13 @@ export function CartProvider({ children }) {
           }
           setSubtotalState(updatedCart.subtotal)
           setCountState(updatedCart.totalQuantity)
+
+          // Step 12: AddToCart should fire only after successful Shopify cart addition
+          trackAddToCart(cleanItem, addQty)
         }
       } catch (err) {
-        // Keep optimistic update if Storefront API call fails
+        // Fallback: If offline, still track optimistic add
+        trackAddToCart(cleanItem, addQty)
       }
     }
 

@@ -208,7 +208,7 @@ export default function CartDrawer() {
                             <div className="min-w-0 flex-1 space-y-1">
                               <div className="flex items-start justify-between gap-2">
                                 <Link
-                                  to={`/product/${line.slug || line.handle || line.id}`}
+                                  to={`/products/${line.slug || line.handle || line.id}`}
                                   onClick={closeCart}
                                   className="font-display text-sm font-bold text-[#17245B] hover:text-[#E2AE35] leading-snug line-clamp-2"
                                 >

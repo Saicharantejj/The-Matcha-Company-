@@ -91,8 +91,19 @@ export default function ProductDetail() {
     return <NotFound />
   }
 
+  const isTryAll5 = product?.handle === 'chaska-try-all-5'
+
   const activeVariant = useMemo(() => {
     if (!product?.variants || product.variants.length === 0) return null
+
+    if (isTryAll5) {
+      const match = product.variants.find((v) => {
+        const sizeOpt = v.selectedOptions?.find((o) => o.name?.toLowerCase() === 'size')?.value
+        return sizeOpt === selectedSize || v.title?.toLowerCase().includes(selectedSize.toLowerCase())
+      })
+      return match || product.variants[0]
+    }
+
     const match = product.variants.find((v) => {
       const options = v.selectedOptions || []
       const sizeOpt = options.find((o) => o.name?.toLowerCase() === 'size')?.value
@@ -100,36 +111,53 @@ export default function ProductDetail() {
       if (sizeOpt && packOpt) {
         return sizeOpt === selectedSize && packOpt === selectedPack
       }
-      return v.title?.includes(selectedSize) && v.title?.includes(selectedPack)
+      return (
+        v.title?.toLowerCase().includes(selectedSize.toLowerCase()) &&
+        v.title?.toLowerCase().includes(selectedPack.toLowerCase())
+      )
     })
     return match || product.variants[0]
-  }, [product, selectedSize, selectedPack])
+  }, [product, isTryAll5, selectedSize, selectedPack])
 
-  const currentPrice = activeVariant ? activeVariant.price : product?.price || 450
-  const currentMrp = activeVariant ? activeVariant.mrp : product?.mrp || 540
+  const currentPrice = activeVariant ? activeVariant.price : (product?.price || 450)
+  const currentMrp = (activeVariant?.mrp && activeVariant.mrp > currentPrice)
+    ? activeVariant.mrp
+    : (product?.mrp && product.mrp > currentPrice ? product.mrp : currentPrice)
   const currentDiscount = currentMrp > currentPrice ? `${Math.round(((currentMrp - currentPrice) / currentMrp) * 100)}% OFF` : null
 
   const handleAddToCart = () => {
+    if (!product) return
+    const selectedVariantId = activeVariant?.id || product.variantId || product.id
+    const packLabel = isTryAll5 ? `${selectedSize}` : `${selectedSize} • ${selectedPack}`
+    const itemTitle = isTryAll5
+      ? `${product.name} (${selectedSize})`
+      : `${product.name} (${selectedSize}, ${selectedPack})`
+
     const itemToAdd = {
       ...product,
-      id: activeVariant?.id || product.id,
-      variantId: activeVariant?.id || product.variantId || product.id,
+      id: selectedVariantId,
+      variantId: selectedVariantId,
       price: currentPrice,
       mrp: currentMrp,
-      packSize: `${selectedSize} • ${selectedPack}`,
-      size: `${selectedSize} • ${selectedPack}`,
-      name: `${product.name} (${selectedSize}, ${selectedPack})`,
+      packSize: packLabel,
+      size: packLabel,
+      name: itemTitle,
+      flavor: product.name,
+      handle: product.handle,
+      image: activeImage,
     }
     addItem(itemToAdd, qty)
-    addToast(`${qty}x ${product.name} (${selectedSize}, ${selectedPack}) added to cart!`, 'success')
+    addToast(`${qty}x ${itemTitle} added to stash!`, 'success')
   }
 
-  const photoKey = product.id?.includes('cheese') ? 'chillyCheesePack'
-    : product.id?.includes('pudhina') ? 'pudhinaPack'
-    : product.id?.includes('barbeque') ? 'barbequePack'
-    : product.id?.includes('peri-peri') ? 'periPeriPack'
-    : product.id?.includes('black-pepper') ? 'blackPepperPack'
-    : 'stashBox'
+  const handleLower = (product.handle || '').toLowerCase()
+  const photoKey = handleLower.includes('cheese') ? 'chillyCheesePack'
+    : handleLower.includes('pudhina') ? 'pudhinaPack'
+    : handleLower.includes('lime') ? 'yellowBasket'
+    : handleLower.includes('garlic') ? 'meshBagIngredients'
+    : handleLower.includes('peri-peri') ? 'periPeriPack'
+    : handleLower.includes('try-all-5') || handleLower.includes('box') ? 'stashBox'
+    : 'masalaPouchHero'
 
   const photoObj = photos[photoKey] || photos.masalaPouchHero
   
@@ -146,16 +174,18 @@ export default function ProductDetail() {
   const activeImage = galleryImages[selectedImgIndex]?.url || galleryImages[0]?.url || photoObj.src
 
   // Flavor specific taste tags
-  const tasteTags = product.id?.includes('cheese')
+  const tasteTags = handleLower.includes('cheese')
     ? ['AGED CHEDDAR DUST', 'GREEN CHILI HEAT', 'ROASTED GARLIC', 'SAVORY & CHEEZY']
-    : product.id?.includes('pudhina')
+    : handleLower.includes('pudhina')
     ? ['FRESH GARDEN MINT', 'TANGY DRY MANGO', 'KALA NAMAK BURST', 'HERBAL & COOL']
-    : product.id?.includes('barbeque')
-    ? ['HICKORY SMOKE GLAZE', 'SMOKED PAPRIKA', 'SWEET TOMATO TANG', 'BOLD & SMOKY']
-    : product.id?.includes('peri-peri')
+    : handleLower.includes('lime')
+    ? ['CRISP KEY LIME ZEST', 'FIERY GREEN CHILLI', 'HIMALAYAN ROCK SALT', 'ZESTY & TANGY']
+    : handleLower.includes('garlic')
+    ? ['KASHMIRI RED CHILLI', 'TOASTED GOLDEN GARLIC', 'SMOKED PAPRIKA', 'BOLD & AROMATIC']
+    : handleLower.includes('peri-peri')
     ? ['FIERY BIRD’S EYE CHILI', 'GARLIC DUST', 'ZINGY LIME TWIST', 'EXTRA CRUNCHY']
-    : product.id?.includes('black-pepper')
-    ? ['HIMALAYAN PINK SALT', 'MALABAR BLACK PEPPER', 'GOLDEN ROASTED', 'LIGHT & PURE']
+    : handleLower.includes('try-all-5')
+    ? ['5 SIGNATURE FLAVOURS', 'PERI PERI + CHILLI CHEESE', 'CHILLI LIME + PUDHINA', 'KASHMIRI GARLIC CHILLI']
     : ['ALL-STAR STASH', 'SIGNATURE FLAVOR', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
   // Occasions
@@ -236,16 +266,11 @@ export default function ProductDetail() {
             <div className="space-y-3">
               <div className="flex items-center gap-3">
                 <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-bold uppercase tracking-wider">
-                  {product.size || '70G PACK'}
+                  {isTryAll5 ? `${selectedSize} VARIETY BOX` : `${selectedSize} • ${selectedPack}`}
                 </span>
                 {product.spiceLevel && (
                   <span className="px-3 py-1 rounded-full bg-[#FAF6ED] text-[#A9223A] font-mono text-[10px] font-bold uppercase tracking-wider">
                     {product.spiceLevel}
-                  </span>
-                )}
-                {product.availableForSale === false && (
-                  <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 font-mono text-[10px] font-bold uppercase tracking-wider">
-                    SOLD OUT
                   </span>
                 )}
               </div>
@@ -272,33 +297,33 @@ export default function ProductDetail() {
               </div>
 
               {/* Size & Pack Selectors */}
-              {product.handle !== 'chaska-buy-4-box' && (
-                <div className="space-y-4 pt-2">
-                  {/* Size Options */}
-                  <div className="space-y-2">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
-                      <span>1. SELECT POUCH SIZE</span>
-                      <span className="text-[#A9223A] font-extrabold">{selectedSize} POUCH</span>
-                    </span>
-                    <div className="grid grid-cols-2 gap-3">
-                      {['50g', '100g'].map((sz) => (
-                        <button
-                          key={sz}
-                          type="button"
-                          onClick={() => setSelectedSize(sz)}
-                          className={`py-3 px-4 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
-                            selectedSize === sz
-                              ? 'border-[#17245B] bg-[#17245B] text-white shadow-md'
-                              : 'border-[#17245B]/20 bg-white text-[#17245B] hover:border-[#17245B]/50'
-                          }`}
-                        >
-                          <span>{sz} POUCH</span>
-                        </button>
-                      ))}
-                    </div>
+              <div className="space-y-4 pt-2">
+                {/* Size Options (50g, 100g) */}
+                <div className="space-y-2">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
+                    <span>{isTryAll5 ? 'SELECT BOX SIZE' : '1. SELECT POUCH SIZE'}</span>
+                    <span className="text-[#A9223A] font-extrabold">{selectedSize} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
+                  </span>
+                  <div className="grid grid-cols-2 gap-3">
+                    {['50g', '100g'].map((sz) => (
+                      <button
+                        key={sz}
+                        type="button"
+                        onClick={() => setSelectedSize(sz)}
+                        className={`py-3 px-4 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
+                          selectedSize === sz
+                            ? 'border-[#17245B] bg-[#17245B] text-white shadow-md'
+                            : 'border-[#17245B]/20 bg-white text-[#17245B] hover:border-[#17245B]/50'
+                        }`}
+                      >
+                        <span>{sz} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
+                      </button>
+                    ))}
                   </div>
+                </div>
 
-                  {/* Pack Options */}
+                {/* Pack Options (Only for single flavour products - Try All 5 has no pack selector) */}
+                {!isTryAll5 && (
                   <div className="space-y-2">
                     <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
                       <span>2. SELECT QUANTITY PACK</span>
@@ -330,8 +355,8 @@ export default function ProductDetail() {
                       ))}
                     </div>
                   </div>
-                </div>
-              )}
+                )}
+              </div>
             </div>
 
             {/* Description */}
@@ -388,10 +413,9 @@ export default function ProductDetail() {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  disabled={product.availableForSale === false}
-                  className="flex-1 btn bg-[#E2AE35] hover:bg-[#17245B] hover:text-[#F5EEDD] text-[#17245B] py-4 text-xs font-bold uppercase tracking-wider shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+                  className="flex-1 btn bg-[#E2AE35] hover:bg-[#17245B] hover:text-[#F5EEDD] text-[#17245B] py-4 text-xs font-bold uppercase tracking-wider shadow-lg transition-all"
                 >
-                  {product.availableForSale === false ? 'SOLD OUT' : `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}`}
+                  ADD TO STASH • ₹{(currentPrice * qty).toFixed(0)}
                 </button>
               </div>
 

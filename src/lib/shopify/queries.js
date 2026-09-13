@@ -128,8 +128,16 @@ export const GET_PRODUCT_BY_HANDLE_QUERY = `
       handle
       description
       availableForSale
+      options {
+        name
+        values
+      }
       priceRange {
         minVariantPrice {
+          amount
+          currencyCode
+        }
+        maxVariantPrice {
           amount
           currencyCode
         }
@@ -139,8 +147,12 @@ export const GET_PRODUCT_BY_HANDLE_QUERY = `
           amount
           currencyCode
         }
+        maxVariantPrice {
+          amount
+          currencyCode
+        }
       }
-      images(first: 5) {
+      images(first: 20) {
         edges {
           node {
             url
@@ -148,11 +160,12 @@ export const GET_PRODUCT_BY_HANDLE_QUERY = `
           }
         }
       }
-      variants(first: 10) {
+      variants(first: 50) {
         edges {
           node {
             id
             title
+            sku
             availableForSale
             price {
               amount
