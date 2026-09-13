@@ -15,9 +15,15 @@ export default function ProductCard({ product, index = 0 }) {
   const handle = product.handle || product.id
   const productUrl = `/products/${handle}`
 
+  const isAvailable = Boolean(product.availableForSale)
+
   const handleAdd = (e) => {
     e.preventDefault()
     e.stopPropagation()
+    if (!isAvailable) {
+      addToast(`${name} is currently sold out.`, 'error')
+      return
+    }
     addItem(product, 1)
     addToast(`${name} added to stash!`, 'success')
   }
@@ -48,9 +54,9 @@ export default function ProductCard({ product, index = 0 }) {
 
   // Accent badge colors (Master brand system: Blue & Red)
   const isSpicy = handleLower.includes('peri-peri') || handleLower.includes('garlic') || handleLower.includes('lime') || handleLower.includes('cheese')
-  const badgeBg = isSpicy ? '#A9223A' : '#17245B'
   const badgeText = '#F5EEDD'
-  const isAvailable = true
+  const badgeBg = !isAvailable ? '#881337' : (isSpicy ? '#A9223A' : '#17245B')
+  const displayBadge = !isAvailable ? 'SOLD OUT' : product.badge
 
   return (
     <motion.article
@@ -64,12 +70,12 @@ export default function ProductCard({ product, index = 0 }) {
         
         {/* Product Image Container (Clickable) */}
         <Link to={productUrl} className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[#FAF6ED] p-4 flex items-center justify-center group-hover:bg-[#F5EEDD] transition-colors border border-[#17245B]/5">
-          {product.badge && (
+          {displayBadge && (
             <span
               className="absolute top-3 left-3 z-10 px-3 py-1 font-mono text-[9px] font-extrabold tracking-widest uppercase rounded-full shadow-md flex items-center gap-1"
               style={{ backgroundColor: badgeBg, color: badgeText }}
             >
-              {isSpicy ? '🔥 ' : '⚡ '}{product.badge}
+              {!isAvailable ? '⚠️ ' : (isSpicy ? '🔥 ' : '⚡ ')}{displayBadge}
             </span>
           )}
 

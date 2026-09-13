@@ -119,6 +119,8 @@ export default function ProductDetail() {
     return <NotFound />
   }
 
+  const isVariantAvailable = activeVariant ? Boolean(activeVariant.availableForSale) : Boolean(product?.availableForSale)
+
   const currentPrice = activeVariant ? activeVariant.price : (product?.price || 450)
   const currentMrp = (activeVariant?.mrp && activeVariant.mrp > currentPrice)
     ? activeVariant.mrp
@@ -127,16 +129,23 @@ export default function ProductDetail() {
 
   const handleAddToCart = () => {
     if (!product) return
-    const selectedVariantId = activeVariant?.id || product.variantId || product.id
     const packLabel = isTryAll5 ? `${selectedSize}` : `${selectedSize} • ${selectedPack}`
     const itemTitle = isTryAll5
       ? `${product.name} (${selectedSize})`
       : `${product.name} (${selectedSize}, ${selectedPack})`
 
+    if (!isVariantAvailable) {
+      addToast(`${itemTitle} is currently sold out.`, 'error')
+      return
+    }
+
+    const selectedVariantId = activeVariant?.id || product.variantId || product.id
+
     const itemToAdd = {
       ...product,
       id: selectedVariantId,
       variantId: selectedVariantId,
+      availableForSale: isVariantAvailable,
       price: currentPrice,
       mrp: currentMrp,
       packSize: packLabel,
@@ -268,11 +277,15 @@ export default function ProductDetail() {
                 <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-bold uppercase tracking-wider">
                   {isTryAll5 ? `${selectedSize} VARIETY BOX` : `${selectedSize} • ${selectedPack}`}
                 </span>
-                {product.spiceLevel && (
+                {!isVariantAvailable ? (
+                  <span className="px-3 py-1 rounded-full bg-red-100 text-red-700 font-mono text-[10px] font-bold uppercase tracking-wider">
+                    SOLD OUT
+                  </span>
+                ) : product.spiceLevel ? (
                   <span className="px-3 py-1 rounded-full bg-[#FAF6ED] text-[#A9223A] font-mono text-[10px] font-bold uppercase tracking-wider">
                     {product.spiceLevel}
                   </span>
-                )}
+                ) : null}
               </div>
 
               <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] tracking-tight leading-tight">
@@ -413,11 +426,23 @@ export default function ProductDetail() {
                 <button
                   type="button"
                   onClick={handleAddToCart}
-                  className="flex-1 btn bg-[#E2AE35] hover:bg-[#17245B] hover:text-[#F5EEDD] text-[#17245B] py-4 text-xs font-bold uppercase tracking-wider shadow-lg transition-all"
+                  disabled={!isVariantAvailable}
+                  className={`flex-1 btn py-4 text-xs font-bold uppercase tracking-wider shadow-lg transition-all ${
+                    isVariantAvailable
+                      ? 'bg-[#E2AE35] hover:bg-[#17245B] hover:text-[#F5EEDD] text-[#17245B]'
+                      : 'bg-[#17245B]/20 text-[#17245B]/50 cursor-not-allowed opacity-60 border border-[#17245B]/10'
+                  }`}
                 >
-                  ADD TO STASH • ₹{(currentPrice * qty).toFixed(0)}
+                  {isVariantAvailable ? `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}` : 'SOLD OUT'}
                 </button>
               </div>
+
+              {!isVariantAvailable && (
+                <div className="p-3.5 rounded-2xl bg-red-50 border border-red-200 text-red-800 text-xs font-mono font-bold flex items-center gap-2">
+                  <span>⚠️</span>
+                  <span>This variant is currently sold out. Please select an alternative size or pack.</span>
+                </div>
+              )}
 
               <div className="flex items-center justify-between text-xs font-mono text-[#17245B]/80 pt-2 px-2">
                 <span>⚡ Ships within 24 Hours</span>

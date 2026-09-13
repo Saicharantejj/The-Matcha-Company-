@@ -36,7 +36,7 @@ export function mapShopifyProduct(node) {
       id: v.id,
       title: v.title,
       sku: v.sku || '',
-      availableForSale: v.availableForSale ?? true,
+      availableForSale: Boolean(v.availableForSale),
       price: parseFloat(v.price?.amount || '0'),
       mrp: parseFloat(v.compareAtPrice?.amount || v.price?.amount || '0'),
       currency: v.price?.currencyCode || 'INR',
@@ -50,13 +50,14 @@ export function mapShopifyProduct(node) {
     price: parseFloat(node.priceRange?.minVariantPrice?.amount || '199'),
     mrp: parseFloat(node.compareAtPriceRange?.minVariantPrice?.amount || '219'),
     currency: node.priceRange?.minVariantPrice?.currencyCode || 'INR',
-    availableForSale: true,
+    availableForSale: Boolean(node.availableForSale),
   }
 
   const price = primaryVariant.price || 199
   const mrp = primaryVariant.mrp && primaryVariant.mrp > price ? primaryVariant.mrp : price
   const discountPercent = mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0
   const discount = discountPercent > 0 ? `${discountPercent}% OFF` : null
+  const isAvailable = Boolean(node.availableForSale)
 
   return {
     id: node.id,
@@ -72,7 +73,7 @@ export function mapShopifyProduct(node) {
     displayPrice: `₹${Math.round(price)}`,
     displayMrp: `₹${Math.round(mrp)}`,
     discount,
-    badge: discount || 'SIGNATURE CRUNCH 🍿',
+    badge: !isAvailable ? 'SOLD OUT' : (discount || 'SIGNATURE CRUNCH 🍿'),
     swatch: node.handle?.includes('cheese') ? 'cheddar' : node.handle?.includes('pudhina') ? 'pudina' : 'chili',
     accentColor: '#E2AE35',
     bgColor: '#F5EEDD',
@@ -88,7 +89,7 @@ export function mapShopifyProduct(node) {
       fat: '3.5g',
       fiber: '3.6g',
     },
-    availableForSale: true,
+    availableForSale: isAvailable,
     options: node.options || [],
     variantId: primaryVariant.id,
     variants,

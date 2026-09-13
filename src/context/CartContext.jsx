@@ -163,6 +163,7 @@ export function CartProvider({ children }) {
     // ── ADD ITEM ─────────────────────────────────────────────────────────────
     const addItem = async (product, quantity = 1) => {
       if (!product || (!product.id && !product.name)) return
+      if (product.availableForSale === false) return
 
       let addQty = 1
       if (typeof quantity === 'number' && !isNaN(quantity) && quantity > 0) {
@@ -221,12 +222,11 @@ export function CartProvider({ children }) {
           setSubtotalState(updatedCart.subtotal)
           setCountState(updatedCart.totalQuantity)
 
-          // Step 12: AddToCart should fire only after successful Shopify cart addition
+          // AddToCart fires ONLY after a successful Shopify cart mutation
           trackAddToCart(cleanItem, addQty)
         }
       } catch (err) {
-        // Fallback: If offline, still track optimistic add
-        trackAddToCart(cleanItem, addQty)
+        console.warn('[Shopify Cart Add Error]', err.message || err)
       }
     }
 
