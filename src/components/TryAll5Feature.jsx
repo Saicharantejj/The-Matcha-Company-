@@ -1,19 +1,18 @@
 import { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { photos } from '../data/photos'
 
 export default function TryAll5Feature({ product }) {
-  const { addItem, openCart } = useCart()
+  const { addItem } = useCart()
   const { addToast } = useToast()
 
   const [selectedSize, setSelectedSize] = useState('50g')
   const [isAdding, setIsAdding] = useState(false)
   const [isAdded, setIsAdded] = useState(false)
 
-  // Find the real Shopify variant based on selected size
+  // Resolve against actual Shopify variant for Try All 5
   const variants = product?.variants || []
   const activeVariant = variants.find((v) => {
     const sizeOpt = v.selectedOptions?.find((o) => o.name?.toLowerCase() === 'size')?.value
@@ -57,7 +56,7 @@ export default function TryAll5Feature({ product }) {
       setTimeout(() => {
         setIsAdded(false)
         setIsAdding(false)
-      }, 1400)
+      }, 1200)
     } catch {
       setIsAdding(false)
       addToast('Could not add to cart. Please try again.', 'error')
@@ -65,66 +64,63 @@ export default function TryAll5Feature({ product }) {
   }
 
   const flavoursIncluded = [
-    { name: 'Peri Peri', emoji: '🌶️', desc: 'Bird\'s eye chili roast' },
-    { name: 'Chilli Cheese', emoji: '🧀', desc: 'Sharp cheddar & green chili' },
-    { name: 'Chilli Lime', emoji: '🍋', desc: 'Zesty key lime & chili dust' },
-    { name: 'Kashmiri Garlic', emoji: '🧄', desc: 'Warm garlic & Kashmiri chili' },
-    { name: 'Pudhina', emoji: '🌿', desc: 'Garden mint & pink rock salt' },
+    { name: 'Peri Peri', tag: 'FIERY BIRD’S EYE CHILI' },
+    { name: 'Chilli Cheese', tag: 'AGED CHEDDAR & GREEN CHILI' },
+    { name: 'Chilli Lime', tag: 'KEY LIME & CRUSHED CHILI' },
+    { name: 'Kashmiri Garlic', tag: 'ROASTED GARLIC & RED CHILI' },
+    { name: 'Pudhina', tag: 'GARDEN MINT & ROCK SALT' },
   ]
 
   return (
-    <section className="py-20 sm:py-24 bg-[#F5EEDD] border-b border-[#17245B]/15 relative overflow-hidden" id="try-all-5">
+    <section className="py-20 sm:py-24 bg-[#FAF8F5] border-b border-black/5 relative overflow-hidden" id="try-all-5">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         
-        {/* Container */}
-        <div className="relative rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] p-8 sm:p-14 lg:p-16 overflow-hidden shadow-xl border border-[#F5EEDD]/15">
+        {/* Luxury Container */}
+        <div className="relative rounded-3xl bg-[#141414] text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-card border border-black/10">
           
-          {/* Subtle background glow */}
-          <div className="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-[#E2AE35]/20 blur-3xl pointer-events-none" />
-
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
             {/* Left Column: Value Proposition & Size Selector */}
             <div className="lg:col-span-7 space-y-6">
               
               <div className="flex flex-wrap items-center gap-2">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-black uppercase tracking-widest shadow-xs">
-                  ⭐ THE OFFICIAL STARTER BOX
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase tracking-widest shadow-2xs">
+                  THE STARTER SAMPLER
                 </span>
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 text-white font-mono text-xs font-bold uppercase tracking-wider border border-white/10">
-                  SAVE ₹40 OVER SINGLES
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 text-white font-mono text-[10px] font-bold uppercase tracking-wider border border-white/10">
+                  ALL 5 FLAVOURS INCLUDED
                 </span>
               </div>
 
               <div className="space-y-2">
-                <p className="font-hindi text-lg sm:text-xl font-bold text-[#E2AE35]">
-                  Can't pick one? Try all five.
-                </p>
-                <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none">
-                  EK BOX. <span className="text-[#E2AE35]">PAANCH</span> CHASKE.
+                <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-extrabold uppercase text-white tracking-tight leading-none">
+                  YOUR CHASKA. <br />
+                  <span className="text-[#FF5400]">YOUR RULES.</span>
                 </h2>
               </div>
 
-              <p className="font-sans text-sm sm:text-base text-[#F5EEDD]/85 leading-relaxed max-w-xl font-normal">
-                Experience the complete CHASKA universe in one sampler box. Contains exactly 1 pouch of each of our 5 signature slow-roasted flavours. No guesswork, no compromises.
+              <p className="font-sans text-sm sm:text-base text-white/75 leading-relaxed max-w-xl font-normal">
+                Can't pick just one? Experience the complete Chaska lineup. Contains 1 pouch of each of our 5 signature slow-roasted flavours. Zero guesswork.
               </p>
 
-              {/* 5 Flavour Pills Breakdown */}
-              <div className="space-y-2 pt-2">
-                <span className="font-mono text-[11px] font-bold uppercase tracking-wider text-[#F5EEDD]/70">
+              {/* 5 Flavour List Breakdown */}
+              <div className="space-y-2 pt-1">
+                <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-white/50">
                   WHAT'S INSIDE EVERY BOX:
                 </span>
-                <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                  {flavoursIncluded.map((flv) => (
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  {flavoursIncluded.map((flv, idx) => (
                     <div
                       key={flv.name}
-                      className="p-2.5 rounded-xl bg-white/10 border border-white/10 flex items-center gap-2"
+                      className="p-3 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between"
                     >
-                      <span className="text-base">{flv.emoji}</span>
-                      <div className="min-w-0">
-                        <p className="font-display text-xs font-bold text-white truncate">{flv.name}</p>
-                        <p className="font-mono text-[9px] text-[#F5EEDD]/60 truncate">{flv.desc}</p>
+                      <div>
+                        <p className="font-display text-xs font-bold text-white">{flv.name}</p>
+                        <p className="font-sans text-[10px] text-white/50">{flv.tag}</p>
                       </div>
+                      <span className="font-mono text-[10px] font-bold text-[#FF5400]">
+                        0{idx + 1}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -136,7 +132,7 @@ export default function TryAll5Feature({ product }) {
                   
                   {/* Size Toggle */}
                   <div className="space-y-1.5">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#F5EEDD]/70">
+                    <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-white/50">
                       CHOOSE BOX SIZE:
                     </span>
                     <div className="inline-flex rounded-full bg-white/10 p-1 border border-white/10">
@@ -145,10 +141,10 @@ export default function TryAll5Feature({ product }) {
                           key={sz}
                           type="button"
                           onClick={() => setSelectedSize(sz)}
-                          className={`px-5 py-2 rounded-full font-mono text-xs font-extrabold uppercase tracking-wider transition-all ${
+                          className={`px-5 py-2 rounded-full font-sans text-xs font-bold uppercase tracking-wider transition-all ${
                             selectedSize === sz
-                              ? 'bg-[#E2AE35] text-[#17245B] shadow-xs'
-                              : 'text-[#F5EEDD]/75 hover:text-white'
+                              ? 'bg-[#FF5400] text-white shadow-xs'
+                              : 'text-white/70 hover:text-white'
                           }`}
                         >
                           {sz} Box
@@ -160,19 +156,19 @@ export default function TryAll5Feature({ product }) {
                   {/* Price Tag */}
                   <div className="space-y-0.5">
                     <div className="flex items-baseline gap-2.5">
-                      <span className="font-display text-3xl sm:text-4xl font-black text-white">
+                      <span className="font-display text-3xl sm:text-4xl font-extrabold text-white">
                         ₹{price}
                       </span>
                       {mrp > price && (
-                        <span className="font-mono text-base text-white/50 line-through">
+                        <span className="font-sans text-base text-white/40 line-through font-medium">
                           ₹{mrp}
                         </span>
                       )}
-                      <span className="font-mono text-xs font-black text-[#17245B] bg-[#E2AE35] px-2 py-0.5 rounded-full">
+                      <span className="font-mono text-xs font-bold text-white bg-[#FF5400] px-2 py-0.5 rounded-full">
                         {discount}% OFF
                       </span>
                     </div>
-                    <p className="font-mono text-[10px] text-[#F5EEDD]/70">
+                    <p className="font-sans text-[11px] text-white/50">
                       Includes 5 individual {selectedSize} pouches
                     </p>
                   </div>
@@ -185,24 +181,24 @@ export default function TryAll5Feature({ product }) {
                     type="button"
                     onClick={handleAddToCart}
                     disabled={!isAvailable || isAdding}
-                    className={`btn px-8 py-4 text-xs font-black tracking-widest shadow-md transition-all ${
+                    className={`btn-orange px-8 py-3.5 text-xs font-bold uppercase tracking-wider shadow-sm transition-all ${
                       !isAvailable
                         ? 'bg-white/20 text-white/40 cursor-not-allowed border-transparent'
                         : isAdded
                         ? 'bg-emerald-600 text-white border-emerald-600'
                         : isAdding
-                        ? 'bg-[#17245B] text-white opacity-85'
-                        : 'bg-[#E2AE35] hover:bg-white text-[#17245B]'
+                        ? 'bg-white text-[#141414] opacity-85'
+                        : 'bg-[#FF5400] hover:bg-white text-white hover:text-[#141414]'
                     }`}
                   >
-                    {!isAvailable ? 'CURRENTLY SOLD OUT' : isAdded ? 'ADDED TO STASH ✓' : isAdding ? 'ADDING...' : `ADD TRY ALL 5 TO STASH • ₹${price}`}
+                    {!isAvailable ? 'SOLD OUT' : isAdded ? 'ADDED TO STASH ✓' : isAdding ? 'ADDING...' : `ADD TRY ALL 5 TO STASH • ₹${price}`}
                   </button>
 
                   <Link
                     to="/products/chaska-try-all-5"
-                    className="px-6 py-4 rounded-full border border-white/25 text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"
+                    className="px-6 py-3.5 rounded-full border border-white/20 text-white font-sans text-xs font-semibold uppercase tracking-wider hover:bg-white/10 transition-colors"
                   >
-                    VIEW DETAILS ➔
+                    DETAILS ➔
                   </Link>
                 </div>
 
@@ -212,18 +208,18 @@ export default function TryAll5Feature({ product }) {
 
             {/* Right Column: Hero Box Imagery */}
             <div className="lg:col-span-5">
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-white/15 bg-white/5 p-3 shadow-2xl group">
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2 shadow-2xl group">
                 <img
                   src={photos.tabletopLifestyle.src}
                   alt="CHASKA Try All 5 Makhana Sampler Box"
-                  className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
+                  className="w-full h-full object-cover rounded-xl group-hover:scale-105 transition-transform duration-700 ease-out"
                 />
-                <div className="absolute top-6 right-6 px-3 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-[10px] font-black uppercase tracking-widest shadow-md">
+                <div className="absolute top-5 right-5 px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase tracking-widest shadow-2xs">
                   5 FULL PACKS
                 </div>
-                <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-[#17245B]/90 backdrop-blur-md border border-white/15 text-xs font-mono text-white flex justify-between items-center">
-                  <span className="font-bold text-[#E2AE35]">ZERO GUESSWORK</span>
-                  <span className="text-[#F5EEDD]/80">5 x {selectedSize} Pouches</span>
+                <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-[#141414]/90 backdrop-blur-md border border-white/10 text-xs font-sans text-white flex justify-between items-center">
+                  <span className="font-semibold text-[#FF5400]">ZERO GUESSWORK</span>
+                  <span className="text-white/70">5 x {selectedSize} Pouches</span>
                 </div>
               </div>
             </div>

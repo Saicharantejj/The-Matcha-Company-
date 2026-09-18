@@ -8,65 +8,65 @@ const FLAVOURS = [
     handle: 'peri-peri-makhana',
     name: 'Peri Peri',
     hindi: 'पेरी पेरी',
-    mood: 'Spicy wala mood? 🌶️',
-    personality: 'African bird\'s eye chilli with a sharp citrus zing. Hot, bold, addictive.',
-    accent: '#FF4D15',
-    bg: '#FFF5F0',
-    border: 'hover:border-[#FF4D15]',
-    tag: 'FIESTA CRUNCH',
-    spice: '🌶️🌶️ High Heat',
+    tagline: 'Thoda teekha. Full chaska.',
+    personality: 'Fiery bird’s eye chili with a sharp lemon zing and roasted garlic dust. Bold, loud, addictive.',
+    accent: '#FF5400',
+    bg: '#FFF6F2',
+    border: 'border-[#FF5400]/20',
+    tag: 'BESTSELLER 🌶️',
+    spice: 'Fiery Heat',
     image: photos.periPeriPack.src,
   },
   {
     handle: 'chilli-cheese-makhana',
     name: 'Chilli Cheese',
     hindi: 'चिली चीज़',
-    mood: 'Cheddar crave? 🧀',
-    personality: 'Creamy sharp cheddar cheese dust with slow green chilli heat. Pure comfort.',
+    tagline: 'Cheesy, spicy, dangerously snackable.',
+    personality: 'Melted sharp cheddar cheese dust blended with slow green chili fire. Pure snack indulgence.',
     accent: '#D97706',
-    bg: '#FFFBEB',
-    border: 'hover:border-[#D97706]',
-    tag: 'CHEEZY CRUNCH',
-    spice: '🌶️ Medium Spice',
+    bg: '#FFFDF5',
+    border: 'border-[#D97706]/20',
+    tag: 'CHEEZY CRUNCH 🧀',
+    spice: 'Medium Heat',
     image: photos.chillyCheesePack.src,
   },
   {
     handle: 'chilli-lime-makhana',
     name: 'Chilli Lime',
     hindi: 'चिली लाइम',
-    mood: 'Thoda tangy? 🍋',
-    personality: 'Zesty key lime paired with smoky crushed chillies and pink salt. Super tart.',
-    accent: '#15803D',
-    bg: '#F0FDF4',
-    border: 'hover:border-[#15803D]',
-    tag: 'ZESTY PUNCH',
-    spice: '🌶️ Tangy Heat',
+    tagline: 'Zesty lime meets slow chili heat.',
+    personality: 'Mexican key lime zest with crushed sun-dried red chilies and pink rock salt. Super tart.',
+    accent: '#16A34A',
+    bg: '#F5FCF7',
+    border: 'border-[#16A34A]/20',
+    tag: 'TART & SPICY 🍋',
+    spice: 'Tangy Heat',
     image: photos.yellowBasket.src,
   },
   {
     handle: 'kashmiri-garlic-chilli-makhana',
     name: 'Kashmiri Garlic Chilli',
     hindi: 'कश्मीरी लहसुन',
-    mood: 'Garlic ka scene? 🧄',
-    personality: 'Slow-roasted garlic cloves infused with mild vibrant Kashmiri red chilies.',
+    tagline: 'Warm garlic with Kashmiri chili warmth.',
+    personality: 'Slow-roasted golden garlic infused with mild, deeply aromatic Kashmiri red chili flakes.',
     accent: '#B91C1C',
-    bg: '#FEF2F2',
-    border: 'hover:border-[#B91C1C]',
-    tag: 'AROMATIC WARMTH',
-    spice: '🌶️ Savoury Warm',
+    bg: '#FEF6F6',
+    border: 'border-[#B91C1C]/20',
+    tag: 'AROMATIC ROAST 🧄',
+    spice: 'Warm Spice',
     image: photos.meshBagIngredients.src,
   },
   {
     handle: 'pudhina-makhana',
     name: 'Pudhina',
     hindi: 'पुदीना',
-    mood: 'Herbal & cool? 🌿',
-    personality: 'Shade-dried garden spearmint with tangy amchur and Kala Namak rock salt.',
+    tagline: 'Crisp garden spearmint & rock salt.',
+    personality: 'Shade-dried garden spearmint crushed with tangy amchur and roasted black rock salt.',
     accent: '#0D9488',
-    bg: '#F0FDFA',
-    border: 'hover:border-[#0D9488]',
-    tag: 'COOL MINT CRUNCH',
-    spice: '🍃 Refreshing Zest',
+    bg: '#F2FCFA',
+    border: 'border-[#0D9488]/20',
+    tag: 'COOLING MINT 🌿',
+    spice: 'Cool & Zesty',
     image: photos.pudhinaPack.src,
   },
 ]
@@ -75,26 +75,26 @@ export default function FlavourDiscovery() {
   const [activeFlavour, setActiveFlavour] = useState(FLAVOURS[0])
 
   return (
-    <section className="py-20 sm:py-24 bg-white border-b border-[#17245B]/15" id="flavours">
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
+    <section className="py-20 sm:py-24 bg-white border-b border-black/5" id="flavours">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-10">
         
         {/* Section Header */}
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-xs font-extrabold uppercase tracking-widest">
-              🔥 KAUNSA CHASKA?
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
+              KAUNSA CHASKA?
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
-              CHOOSE YOUR <span className="text-[#A9223A]">CRUNCH MOOD.</span>
+            <h2 className="font-display text-3xl sm:text-5xl font-extrabold uppercase tracking-tight text-[#141414]">
+              CHOOSE YOUR FLAVOUR.
             </h2>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-[#17245B]/70 max-w-sm font-medium">
-            5 signature handcrafted profiles. Roasted slow in small batches for genuine crunch.
+          <p className="font-sans text-xs sm:text-sm text-[#141414]/65 max-w-sm font-normal">
+            5 signature handcrafted profiles. 100% slow-roasted in small batches.
           </p>
         </div>
 
         {/* Flavour Tabs Grid */}
-        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-4">
+        <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-4">
           {FLAVOURS.map((f) => {
             const isSelected = activeFlavour.handle === f.handle
 
@@ -104,27 +104,27 @@ export default function FlavourDiscovery() {
                 type="button"
                 onClick={() => setActiveFlavour(f)}
                 onMouseEnter={() => setActiveFlavour(f)}
-                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between space-y-4 ${
+                className={`p-4 sm:p-5 rounded-2xl border text-left transition-all duration-200 flex flex-col justify-between space-y-3 ${
                   isSelected
-                    ? 'border-[#17245B] bg-[#FAF6ED] shadow-sm ring-2 ring-[#E2AE35]/40 -translate-y-1'
-                    : 'border-[#17245B]/15 bg-white hover:border-[#17245B]/40'
+                    ? 'border-[#141414] bg-[#FAF8F5] shadow-xs'
+                    : 'border-black/10 bg-white hover:border-black/30'
                 }`}
               >
                 <div>
-                  <span className="font-mono text-[10px] font-bold text-[#A9223A] uppercase block mb-1">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#141414]/50 block mb-1">
                     {f.tag}
                   </span>
-                  <p className="font-display text-base sm:text-lg font-bold text-[#17245B] leading-snug">
+                  <p className="font-display text-base font-bold text-[#141414] leading-snug">
                     {f.name}
                   </p>
-                  <p className="font-hindi text-xs text-[#17245B]/60">
-                    {f.hindi}
+                  <p className="font-sans text-xs text-[#141414]/60 mt-0.5">
+                    {f.tagline}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-[#17245B]/10 flex items-center justify-between font-mono text-[10px] font-bold text-[#17245B]/70">
+                <div className="pt-2 border-t border-black/5 flex items-center justify-between font-sans text-[11px] font-semibold text-[#141414]/60">
                   <span>{f.spice}</span>
-                  <span className={isSelected ? 'text-[#E2AE35]' : 'text-transparent'}>●</span>
+                  <span className={`w-1.5 h-1.5 rounded-full ${isSelected ? 'bg-[#FF5400]' : 'bg-transparent'}`} />
                 </div>
               </button>
             )
@@ -134,39 +134,39 @@ export default function FlavourDiscovery() {
         {/* Active Flavour Stage / Reveal */}
         <motion.div
           key={activeFlavour.handle}
-          initial={{ opacity: 0, y: 8 }}
+          initial={{ opacity: 0, y: 6 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.3 }}
-          className="rounded-3xl p-6 sm:p-10 border border-[#17245B]/15 flex flex-col md:flex-row items-center justify-between gap-8 shadow-xs"
+          transition={{ duration: 0.25 }}
+          className="rounded-3xl p-6 sm:p-10 border border-black/10 flex flex-col md:flex-row items-center justify-between gap-8 shadow-2xs"
           style={{ backgroundColor: activeFlavour.bg }}
         >
-          <div className="space-y-4 max-w-xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white font-mono text-xs font-bold text-[#17245B] shadow-2xs border border-[#17245B]/10">
-              <span>{activeFlavour.mood}</span>
+          <div className="space-y-3.5 max-w-xl">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white font-sans text-xs font-semibold text-[#141414] shadow-2xs border border-black/5">
+              <span>{activeFlavour.tagline}</span>
             </div>
             
-            <h3 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#17245B] leading-tight">
+            <h3 className="font-display text-2xl sm:text-4xl font-extrabold uppercase text-[#141414] leading-tight">
               {activeFlavour.name} Makhana
             </h3>
 
-            <p className="font-sans text-sm sm:text-base text-[#17245B]/85 leading-relaxed font-medium">
+            <p className="font-sans text-sm text-[#141414]/75 leading-relaxed font-normal">
               {activeFlavour.personality}
             </p>
 
             <div className="pt-2 flex items-center gap-4">
               <Link
                 to={`/products/${activeFlavour.handle}`}
-                className="btn px-7 py-3.5 text-xs font-bold shadow-md"
+                className="btn px-7 py-3 text-xs font-bold shadow-xs"
               >
                 EXPLORE {activeFlavour.name.toUpperCase()} ➔
               </Link>
-              <span className="font-mono text-xs font-bold text-[#17245B]/70">
-                Packs from ₹450 (Pack of 3)
+              <span className="font-sans text-xs font-medium text-[#141414]/60">
+                Packs from ₹150/pouch
               </span>
             </div>
           </div>
 
-          <div className="h-44 w-44 sm:h-56 sm:w-56 shrink-0 rounded-2xl bg-white p-2.5 shadow-sm border border-[#17245B]/15 overflow-hidden">
+          <div className="h-44 w-44 sm:h-52 sm:w-52 shrink-0 rounded-2xl bg-white p-2 shadow-2xs border border-black/5 overflow-hidden">
             <img
               src={activeFlavour.image}
               alt={activeFlavour.name}

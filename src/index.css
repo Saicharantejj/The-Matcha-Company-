@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    border-color: rgba(23, 36, 91, 0.12);
+    border-color: rgba(20, 20, 20, 0.08);
   }
 
   p {
@@ -38,8 +38,8 @@
   }
 
   html, body {
-    background-color: #F5EEDD;
-    color: #17245B;
+    background-color: #FAF8F5;
+    color: #141414;
     font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -48,13 +48,13 @@
   }
 
   :focus-visible {
-    outline: 2px solid #E2AE35;
+    outline: 2px solid #FF5400;
     outline-offset: 3px;
   }
 
   ::selection {
-    background: #E2AE35;
-    color: #17245B;
+    background: #FF5400;
+    color: #FFFFFF;
   }
 
   h1, h2, h3, h4, .font-display {
@@ -69,141 +69,130 @@
 }
 
 @layer components {
-  /* ── Hairlines ────────────────────────────────────────────────────────── */
+  /* ── Hairlines & Dividers ─────────────────────────────────────────────── */
   .rule {
-    border-top: 1px solid rgba(23, 36, 91, 0.12);
+    border-top: 1px solid rgba(20, 20, 20, 0.08);
   }
 
-  .rule-heavy {
-    border-top: 2px solid #17245B;
+  .rule-charcoal {
+    border-top: 1px solid #141414;
   }
 
-  /* ── Tactile Glassmorphism in Master Brand Palette ─────────────────────── */
+  /* ── Clean Elevated Cards & Surfaces ─────────────────────────────────── */
   .glass-header {
-    background-color: rgba(245, 238, 221, 0.94);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    border-bottom: 1px solid rgba(23, 36, 91, 0.1);
+    background-color: rgba(250, 248, 245, 0.92);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(20, 20, 20, 0.06);
   }
 
-  .glass-panel {
-    background-color: rgba(255, 255, 255, 0.94);
-    backdrop-filter: blur(16px) saturate(1.2);
-    -webkit-backdrop-filter: blur(16px) saturate(1.2);
-    border: 1px solid rgba(23, 36, 91, 0.12);
-    box-shadow: 0 8px 32px rgba(23, 36, 91, 0.05);
+  .chaska-card {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(20, 20, 20, 0.08);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.02);
+    border-radius: 20px;
+    transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+                border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .chaska-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+    border-color: rgba(255, 84, 0, 0.35);
   }
 
   .glass-card {
-    background-color: #FFFFFF;
-    border: 1px solid rgba(23, 36, 91, 0.12);
-    box-shadow: 0 4px 20px rgba(23, 36, 91, 0.05);
-    border-radius: 24px;
-    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                box-shadow 0.35s cubic-bezier(0.22, 1, 0.36, 1),
-                border-color 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    @apply chaska-card;
   }
 
-  .glass-card:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 12px 32px rgba(23, 36, 91, 0.1);
-    border-color: rgba(226, 174, 53, 0.5);
+  .glass-panel {
+    background-color: #FFFFFF;
+    border: 1px solid rgba(20, 20, 20, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   }
 
   .glass-pill {
-    background-color: rgba(255, 255, 255, 0.92);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(23, 36, 91, 0.12);
-    color: #17245B;
+    background-color: #FFFFFF;
+    border: 1px solid rgba(20, 20, 20, 0.08);
+    color: #141414;
   }
 
-  /* ── Buttons ─────────────────────────────────────────────────────────── */
-  /* Primary Action Button: Signature Saffron Gold */
-  .btn, .btn-primary, .btn-orange {
+  /* ── Buttons (Modern, Confident, Crisp) ──────────────────────────────── */
+  /* Primary Action: Solid Deep Charcoal or Chaska Orange Accent */
+  .btn, .btn-primary {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#E2AE35] px-7 py-3.5 font-sans text-xs font-black uppercase text-[#17245B] rounded-full tracking-wider;
-    border: 1px solid #E2AE35;
-    box-shadow: 0 4px 16px rgba(226, 174, 53, 0.32);
-    transition: transform 0.25s ease,
-                background-color 0.25s ease,
-                color 0.25s ease,
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
+           bg-[#141414] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-white rounded-full;
+    border: 1px solid #141414;
+    box-shadow: 0 2px 10px rgba(20, 20, 20, 0.08);
+    transition: transform 0.2s ease,
+                background-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease,
+                border-color 0.2s ease;
   }
 
-  .btn:hover, .btn-primary:hover, .btn-orange:hover {
-    transform: translateY(-2px);
-    background-color: #17245B;
-    border-color: #17245B;
-    color: #F5EEDD;
-    box-shadow: 0 8px 24px rgba(23, 36, 91, 0.3);
+  .btn:hover, .btn-primary:hover {
+    transform: translateY(-1.5px);
+    background-color: #FF5400;
+    border-color: #FF5400;
+    color: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(255, 84, 0, 0.25);
   }
 
-  .btn:active, .btn-primary:active, .btn-orange:active {
+  .btn:active, .btn-primary:active {
     transform: translateY(0);
   }
 
-  /* Secondary Button: Midnight Indigo Blue */
+  /* Orange Action Button */
+  .btn-orange, .btn-accent {
+    @apply relative isolate inline-flex items-center justify-center gap-2
+           bg-[#FF5400] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-white rounded-full;
+    border: 1px solid #FF5400;
+    box-shadow: 0 2px 12px rgba(255, 84, 0, 0.24);
+    transition: transform 0.2s ease,
+                background-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s ease;
+  }
+
+  .btn-orange:hover, .btn-accent:hover {
+    transform: translateY(-1.5px);
+    background-color: #141414;
+    border-color: #141414;
+    color: #FFFFFF;
+    box-shadow: 0 6px 20px rgba(20, 20, 20, 0.2);
+  }
+
+  /* Secondary / Charcoal Button */
   .btn-indigo, .btn-charcoal {
-    @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#17245B] px-7 py-3.5 font-sans text-xs font-black uppercase text-[#F5EEDD] rounded-full tracking-wider;
-    border: 1px solid #17245B;
-    box-shadow: 0 4px 16px rgba(23, 36, 91, 0.25);
-    transition: transform 0.25s ease,
-                background-color 0.25s ease,
-                color 0.25s ease,
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
+    @apply btn;
   }
 
-  .btn-indigo:hover, .btn-charcoal:hover {
-    transform: translateY(-2px);
-    background-color: #E2AE35;
-    border-color: #E2AE35;
-    color: #17245B;
-    box-shadow: 0 8px 24px rgba(226, 174, 53, 0.35);
-  }
-
-  /* Heat / Chilli Lacquer Button */
   .btn-lacquer, .btn-heat {
-    @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#A9223A] px-7 py-3.5 font-sans text-xs font-black uppercase text-white rounded-full tracking-wider;
-    border: 1px solid #A9223A;
-    box-shadow: 0 4px 16px rgba(169, 34, 58, 0.28);
-    transition: transform 0.25s ease,
-                background-color 0.25s ease,
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
-  }
-
-  .btn-lacquer:hover, .btn-heat:hover {
-    transform: translateY(-2px);
-    background-color: #17245B;
-    border-color: #17245B;
-    color: #F5EEDD;
+    @apply btn-orange;
   }
 
   .btn-green, .btn-teal {
-    @apply btn-indigo;
+    @apply btn;
   }
 
   /* Quiet Outline Button */
   .btn-outline {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-transparent px-7 py-3.5 font-sans text-xs font-bold uppercase text-[#17245B] rounded-full tracking-wider;
-    border: 1.5px solid rgba(23, 36, 91, 0.25);
-    transition: transform 0.25s ease,
-                background-color 0.25s ease,
-                color 0.25s ease,
-                border-color 0.25s ease;
+           bg-transparent px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#141414] rounded-full;
+    border: 1px solid rgba(20, 20, 20, 0.2);
+    transition: transform 0.2s ease,
+                background-color 0.2s ease,
+                color 0.2s ease,
+                border-color 0.2s ease;
   }
 
   .btn-outline:hover {
-    background-color: #17245B;
-    color: #F5EEDD;
-    border-color: #17245B;
-    transform: translateY(-2px);
+    background-color: #141414;
+    color: #FFFFFF;
+    border-color: #141414;
+    transform: translateY(-1.5px);
   }
 
   .btn-outline:active {
@@ -212,11 +201,11 @@
 
   /* ── Specs ───────────────────────────────────────────────────────────── */
   .spec {
-    font-family: "Plus Jakarta Sans", sans-serif;
+    font-family: "Space Grotesk", monospace;
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #17245B;
+    color: #141414;
     font-weight: 700;
   }
 }

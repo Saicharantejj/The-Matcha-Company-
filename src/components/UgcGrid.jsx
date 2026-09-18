@@ -41,19 +41,19 @@ const GALLERY_ITEMS = [
 
 export default function UgcGrid() {
   return (
-    <section className="py-20 sm:py-24 bg-[#FAF6ED] border-b border-[#17245B]/15">
+    <section className="py-20 sm:py-24 bg-[#FAF8F5] border-b border-stone-200/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-xs font-extrabold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               📷 SPOTTED SNACKING
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
-              GOOD FOOD. <span className="text-[#E2AE35]">BETTER SNACKS.</span>
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414]">
+              GOOD FOOD. <span className="text-[#FF5400]">BETTER SNACKS.</span>
             </h2>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-[#17245B]/70 max-w-sm font-medium">
+          <p className="font-sans text-xs sm:text-sm text-stone-500 max-w-sm font-normal">
             From late-night coding sessions to weekend cocktail tables.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function UgcGrid() {
           {GALLERY_ITEMS.map((item, idx) => (
             <div
               key={idx}
-              className="group relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#17245B]/15 bg-white shadow-xs hover:shadow-md transition-all duration-300"
+              className="group relative aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 bg-white shadow-xs hover:shadow-md transition-all duration-300"
             >
               <img
                 src={item.img}
@@ -70,14 +70,14 @@ export default function UgcGrid() {
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="lazy"
               />
-              <div className="absolute inset-0 bg-gradient-to-t from-[#17245B]/90 via-[#17245B]/25 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 sm:p-8 flex flex-col justify-end text-white">
-                <span className="font-mono text-[10px] font-extrabold text-[#E2AE35] uppercase tracking-widest mb-1">
+              <div className="absolute inset-0 bg-gradient-to-t from-[#141414]/90 via-[#141414]/25 to-transparent opacity-90 sm:opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 sm:p-8 flex flex-col justify-end text-white">
+                <span className="font-mono text-[10px] font-bold text-[#FF5400] uppercase tracking-widest mb-1">
                   {item.tag}
                 </span>
                 <h3 className="font-display text-lg font-bold uppercase leading-snug">
                   {item.title}
                 </h3>
-                <p className="font-sans text-xs text-[#F5EEDD]/85 mt-0.5">
+                <p className="font-sans text-xs text-stone-300 mt-0.5 font-normal">
                   {item.subtitle}
                 </p>
               </div>

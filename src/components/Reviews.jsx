@@ -27,19 +27,19 @@ const REVIEWS = [
 
 export default function Reviews() {
   return (
-    <section className="py-20 sm:py-24 bg-white border-b border-[#17245B]/15">
+    <section className="py-20 sm:py-24 bg-white border-b border-stone-200/80">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-xs font-extrabold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               💬 REAL COMMUNITY WORDS
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B]">
-              PEOPLE ARE <span className="text-[#A9223A]">CRUNCHING.</span>
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414]">
+              PEOPLE ARE <span className="text-[#FF5400]">CRUNCHING.</span>
             </h2>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-[#17245B]/70 max-w-sm font-medium">
+          <p className="font-sans text-xs sm:text-sm text-stone-500 max-w-sm font-normal">
             Genuine feedback from snackers who made CHASKA their daily stash.
           </p>
         </div>
@@ -48,28 +48,28 @@ export default function Reviews() {
           {REVIEWS.map((rev, i) => (
             <div
               key={i}
-              className="bg-[#FAF6ED] border border-[#17245B]/15 rounded-3xl p-6 sm:p-8 flex flex-col justify-between shadow-xs hover:shadow-sm transition-shadow"
+              className="bg-[#FAF8F5] border border-stone-200/80 rounded-3xl p-7 flex flex-col justify-between shadow-xs hover:shadow-sm transition-shadow"
             >
               <div className="space-y-4">
-                <div className="flex items-center gap-1 text-[#E2AE35] text-sm">
+                <div className="flex items-center gap-1 text-[#FF5400] text-sm">
                   {'★'.repeat(rev.rating)}
                 </div>
-                <p className="font-sans text-sm sm:text-base text-[#17245B] leading-relaxed font-medium">
+                <p className="font-sans text-sm sm:text-base text-[#141414] leading-relaxed font-normal">
                   "{rev.quote}"
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-[#17245B]/10 flex items-center justify-between font-mono text-xs">
+              <div className="pt-6 border-t border-stone-200/80 flex items-center justify-between font-mono text-xs">
                 <div>
-                  <h4 className="font-bold text-[#17245B] flex items-center gap-1.5">
+                  <h4 className="font-bold text-[#141414] flex items-center gap-1.5">
                     <span>{rev.name}</span>
-                    <span className="text-emerald-700 text-[10px] font-extrabold bg-emerald-50 px-1.5 py-0.2 rounded-full border border-emerald-200">
+                    <span className="text-emerald-700 text-[10px] font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                       ✓ Verified
                     </span>
                   </h4>
-                  <span className="text-[#17245B]/60 text-[11px]">{rev.location}</span>
+                  <span className="text-stone-500 text-[11px]">{rev.location}</span>
                 </div>
-                <span className="text-[#17245B] text-[10px] font-bold uppercase tracking-wider bg-white px-2 py-1 rounded-lg border border-[#17245B]/10 shadow-2xs">
+                <span className="text-stone-700 text-[10px] font-semibold uppercase tracking-wider bg-white px-2.5 py-1 rounded-lg border border-stone-200/80 shadow-2xs">
                   {rev.flavor}
                 </span>
               </div>

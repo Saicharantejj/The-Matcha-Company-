@@ -1,32 +1,22 @@
-import React from 'react'
-
 /**
  * CHASKA Official Stylized Wordmark Logo
- * Features bold custom typography with the signature flame aperture in 'A',
- * notched chamfer in 'C', dynamic lightning/flame slice in 'S',
- * pinched waist in 'K', and stepped leg in 'A'.
- * 
  * Palette:
- * - Foundation / 65%: Midnight Indigo #17245B
- * - Appetite Accent / 7%: Toasted Saffron #E2AE35
- * - Canvas Neutral / 25%: Rice-paper Ivory #F5EEDD
- * - Heat Accent / 3%: Chilli Lacquer #A9223A
+ * - Text (Light surface): Deep Charcoal #141414
+ * - Text (Dark / Inverted): Warm Ivory #FAF8F5 / #FFFFFF
+ * - Brand Appetite Accent: Chaska Orange #FF5400
  */
 export default function ChaskaLogo({
-  className = 'h-8 w-auto',
+  className = 'h-7 w-auto',
   color,
-  accentColor = '#E2AE35',
+  accentColor = '#FF5400',
   inverted = false,
   showTagline = false,
 }) {
-  // Brand color lock-up:
-  // On light canvas: Midnight Indigo (#17245B) with Saffron accent (#E2AE35)
-  // On dark / inverted surfaces: Rice-Paper Ivory (#F5EEDD) with Saffron
-  const defaultMainColor = inverted ? '#F5EEDD' : '#17245B'
+  const defaultMainColor = inverted ? '#FAF8F5' : '#141414'
   const mainColor = color || defaultMainColor
 
   return (
-    <div className={`inline-flex items-center gap-2.5 ${className}`}>
+    <div className={`inline-flex items-center gap-2 ${className}`}>
       <svg
         viewBox="0 0 762 237"
         fill={mainColor}
@@ -41,7 +31,7 @@ export default function ChaskaLogo({
         />
       </svg>
       {showTagline && (
-        <span className="font-hindi text-[10px] font-extrabold tracking-wider px-2 py-0.5 rounded-full bg-[#E2AE35] text-[#17245B] shrink-0 shadow-xs">
+        <span className="font-hindi text-[10px] font-bold tracking-wider px-2 py-0.5 rounded-full bg-[#FF5400] text-white shrink-0 shadow-2xs">
           चस्का
         </span>
       )}

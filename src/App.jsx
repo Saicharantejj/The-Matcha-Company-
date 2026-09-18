@@ -74,7 +74,7 @@ export default function App() {
   return (
     <CartProvider>
       <ToastProvider>
-        <div className="flex min-h-screen flex-col bg-[#F5EEDD] text-[#17245B] selection:bg-[#17245B] selection:text-[#F5EEDD]">
+        <div className="flex min-h-screen flex-col bg-[#FAF8F5] text-[#141414] selection:bg-[#FF5400] selection:text-white">
           <ScrollToTop />
           <MetaPixelTracker />
           <Header onOpenSearch={() => setIsSearchOpen(true)} />

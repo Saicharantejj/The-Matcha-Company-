@@ -85,46 +85,46 @@ export default function SearchModal({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-[#17245B]/50 backdrop-blur-xs"
+            className="fixed inset-0 bg-black/40 backdrop-blur-xs"
           />
 
           {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.96, y: -16 }}
+            initial={{ opacity: 0, scale: 0.97, y: -12 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.96, y: -16 }}
+            exit={{ opacity: 0, scale: 0.97, y: -12 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-2xl rounded-3xl bg-[#F5EEDD] border border-[#17245B]/15 shadow-2xl overflow-hidden z-10 flex flex-col max-h-[80vh]"
+            className="relative w-full max-w-2xl rounded-3xl bg-[#FAF8F5] border border-black/10 shadow-2xl overflow-hidden z-10 flex flex-col max-h-[80vh]"
           >
             {/* Search Input Bar */}
-            <div className="relative p-4 sm:p-5 border-b border-[#17245B]/15 bg-white flex items-center gap-3">
-              <span className="text-base text-[#17245B]/50">🔍</span>
+            <div className="relative p-4 sm:p-5 border-b border-black/5 bg-white flex items-center gap-3">
+              <span className="text-base text-[#141414]/40">🔍</span>
               <input
                 ref={inputRef}
                 type="text"
-                placeholder="Search flavours, ingredients, or sampler box..."
+                placeholder="Search flavours, packs, or starter boxes..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full bg-transparent font-sans text-sm sm:text-base text-[#17245B] placeholder-[#17245B]/40 focus:outline-none"
+                className="w-full bg-transparent font-sans text-sm sm:text-base text-[#141414] placeholder-[#141414]/40 focus:outline-none"
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="font-mono text-xs text-[#17245B]/50 hover:text-[#17245B] p-1"
+                  className="font-mono text-xs text-[#141414]/50 hover:text-[#141414] p-1"
                 >
                   ✕
                 </button>
               )}
-              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded bg-[#FAF6ED] text-[10px] font-mono text-[#17245B]/70 border border-[#17245B]/15 shadow-2xs">
+              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded bg-[#FAF8F5] text-[10px] font-mono text-[#141414]/60 border border-black/10">
                 ESC
               </kbd>
             </div>
 
             {/* Quick Filter Tags */}
             {!query.trim() && (
-              <div className="p-5 sm:p-6 space-y-4">
-                <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/65">
+              <div className="p-5 sm:p-6 space-y-3">
+                <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-[#141414]/50">
                   POPULAR SEARCHES
                 </span>
                 <div className="flex flex-wrap gap-2">
@@ -133,7 +133,7 @@ export default function SearchModal({ isOpen, onClose }) {
                       key={tag}
                       type="button"
                       onClick={() => setQuery(tag)}
-                      className="px-3.5 py-1.5 rounded-full bg-white border border-[#17245B]/15 font-mono text-xs font-bold text-[#17245B] hover:border-[#E2AE35] hover:text-[#E2AE35] transition-all shadow-2xs"
+                      className="px-3.5 py-1.5 rounded-full bg-white border border-black/10 font-sans text-xs font-semibold text-[#141414] hover:border-[#FF5400] hover:text-[#FF5400] transition-all shadow-2xs"
                     >
                       {tag}
                     </button>
@@ -148,10 +148,10 @@ export default function SearchModal({ isOpen, onClose }) {
                 {filtered.length === 0 ? (
                   <div className="text-center py-10 space-y-2">
                     <span className="text-3xl block">🍿</span>
-                    <p className="font-display text-base font-bold text-[#17245B] uppercase">
+                    <p className="font-display text-base font-bold text-[#141414] uppercase">
                       No matching snacks found
                     </p>
-                    <p className="font-mono text-xs text-[#17245B]/60">
+                    <p className="font-sans text-xs text-[#141414]/60">
                       Try searching for "Peri Peri", "Chilli Cheese", or "Try All 5".
                     </p>
                   </div>
@@ -161,10 +161,10 @@ export default function SearchModal({ isOpen, onClose }) {
                       key={item.id}
                       type="button"
                       onClick={() => handleSelectProduct(item.handle)}
-                      className="w-full p-3 rounded-2xl bg-white border border-[#17245B]/10 hover:border-[#E2AE35]/60 hover:shadow-xs transition-all flex items-center justify-between text-left group"
+                      className="w-full p-3 rounded-2xl bg-white border border-black/5 hover:border-[#FF5400]/40 hover:shadow-2xs transition-all flex items-center justify-between text-left group"
                     >
                       <div className="flex items-center gap-3.5">
-                        <div className="h-12 w-12 rounded-xl bg-[#FAF6ED] border border-[#17245B]/10 p-1 flex items-center justify-center shrink-0">
+                        <div className="h-12 w-12 rounded-xl bg-[#FAF8F5] border border-black/5 p-1 flex items-center justify-center shrink-0">
                           {item.image ? (
                             <img src={item.image} alt={item.name} className="h-full w-full object-cover rounded-lg" />
                           ) : (
@@ -172,15 +172,15 @@ export default function SearchModal({ isOpen, onClose }) {
                           )}
                         </div>
                         <div>
-                          <p className="font-display text-sm font-bold text-[#17245B] group-hover:text-[#E2AE35] transition-colors">
+                          <p className="font-display text-sm font-bold text-[#141414] group-hover:text-[#FF5400] transition-colors">
                             {item.name}
                           </p>
-                          <p className="font-mono text-[10px] text-[#17245B]/65 font-semibold">
+                          <p className="font-sans text-[11px] text-[#141414]/50 font-medium">
                             {item.size || '50g & 100g Packs'} • ₹{Math.round(item.price)}
                           </p>
                         </div>
                       </div>
-                      <span className="font-mono text-xs text-[#17245B] font-bold group-hover:text-[#E2AE35] group-hover:translate-x-1 transition-all">
+                      <span className="font-sans text-xs text-[#141414]/40 group-hover:text-[#FF5400] group-hover:translate-x-1 transition-all">
                         ➔
                       </span>
                     </button>

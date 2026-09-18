@@ -11,7 +11,7 @@ import NotFound from './NotFound'
 
 export default function ProductDetail() {
   const { handle } = useParams()
-  const { addItem, openCart } = useCart()
+  const { addItem } = useCart()
   const { addToast } = useToast()
 
   const [qty, setQty] = useState(1)
@@ -76,7 +76,6 @@ export default function ProductDetail() {
   // 3. Scroll listener for mobile sticky add-to-cart bar
   useEffect(() => {
     const handleScroll = () => {
-      // Show sticky bar when scrolled past 400px
       setShowStickyBar(window.scrollY > 420)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -114,16 +113,16 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#F5EEDD] flex items-center justify-center">
-        <div className="mx-auto max-w-5xl w-full p-8 rounded-3xl bg-[#FAF6ED] border border-[#17245B]/15 animate-pulse space-y-8">
+      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] flex items-center justify-center">
+        <div className="mx-auto max-w-5xl w-full p-8 rounded-3xl bg-white border border-stone-200/80 animate-pulse space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-            <div className="aspect-square rounded-2xl bg-[#F5EEDD]" />
+            <div className="aspect-square rounded-2xl bg-stone-100" />
             <div className="space-y-4">
-              <div className="h-4 w-1/4 rounded bg-[#17245B]/10" />
-              <div className="h-8 w-3/4 rounded bg-[#17245B]/15" />
-              <div className="h-4 w-1/3 rounded bg-[#17245B]/10" />
-              <div className="h-24 w-full rounded bg-[#17245B]/5" />
-              <div className="h-12 w-full rounded-full bg-[#17245B]/15" />
+              <div className="h-4 w-1/4 rounded bg-stone-100" />
+              <div className="h-8 w-3/4 rounded bg-stone-100" />
+              <div className="h-4 w-1/3 rounded bg-stone-100" />
+              <div className="h-24 w-full rounded bg-stone-100" />
+              <div className="h-12 w-full rounded-full bg-stone-200" />
             </div>
           </div>
         </div>
@@ -225,42 +224,42 @@ export default function ProductDetail() {
     : ['ALL-STAR STASH', 'SIGNATURE FLAVOR', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#F5EEDD]">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5]">
       <div className="mx-auto max-w-7xl space-y-16">
         
         {/* Breadcrumb Navigation */}
-        <nav className="flex items-center gap-2 font-mono text-xs text-[#17245B]/70 font-bold uppercase tracking-wider">
-          <Link to="/" className="hover:text-[#E2AE35] transition-colors">HOME</Link>
+        <nav className="flex items-center gap-2 font-mono text-xs text-stone-500 font-semibold uppercase tracking-wider">
+          <Link to="/" className="hover:text-[#FF5400] transition-colors">HOME</Link>
           <span>/</span>
-          <Link to="/shop" className="hover:text-[#E2AE35] transition-colors">SHOP</Link>
+          <Link to="/shop" className="hover:text-[#FF5400] transition-colors">SHOP</Link>
           <span>/</span>
-          <span className="text-[#17245B] font-extrabold line-clamp-1">{product.name}</span>
+          <span className="text-[#141414] font-bold line-clamp-1">{product.name}</span>
         </nav>
 
         {/* ── MAIN PRODUCT HERO (EDITORIAL SPLIT) ─────────────────────────── */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-start">
           
           {/* Left Column: Product Gallery / Image Stage */}
-          <div className="lg:col-span-6 space-y-3.5">
+          <div className="lg:col-span-6 space-y-4">
             <motion.div
-              initial={{ opacity: 0, scale: 0.97 }}
+              initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               key={activeImage}
               transition={{ duration: 0.3 }}
-              className="relative aspect-square w-full rounded-[2.5rem] bg-[#FAF6ED] border border-[#17245B]/15 shadow-sm p-6 sm:p-8 flex items-center justify-center overflow-hidden"
+              className="relative aspect-square w-full rounded-3xl bg-white border border-stone-200/80 shadow-sm p-6 sm:p-10 flex items-center justify-center overflow-hidden"
             >
               {/* Badge */}
               <div className="absolute top-5 left-5 z-10">
                 {!isVariantAvailable ? (
-                  <span className="px-3.5 py-1.5 rounded-full bg-[#A9223A] text-white font-mono text-xs font-extrabold uppercase tracking-wider shadow-xs">
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#141414] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
                     SOLD OUT
                   </span>
                 ) : isTryAll5 ? (
-                  <span className="px-3.5 py-1.5 rounded-full bg-[#17245B] text-[#E2AE35] font-mono text-xs font-extrabold uppercase tracking-wider shadow-xs border border-[#E2AE35]/40">
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
                     ⭐ ALL 5 FLAVOURS
                   </span>
                 ) : currentDiscount ? (
-                  <span className="px-3.5 py-1.5 rounded-full bg-[#17245B] text-[#E2AE35] font-mono text-xs font-extrabold uppercase tracking-wider shadow-xs border border-[#E2AE35]/40">
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#141414] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
                     SAVE {currentDiscount}
                   </span>
                 ) : null}
@@ -273,7 +272,7 @@ export default function ProductDetail() {
                   className="h-full w-full object-contain rounded-2xl"
                 />
               ) : (
-                <span className="font-display text-8xl text-[#17245B]">🍿</span>
+                <span className="font-display text-8xl text-[#141414]">🍿</span>
               )}
             </motion.div>
 
@@ -286,10 +285,10 @@ export default function ProductDetail() {
                     type="button"
                     onClick={() => setSelectedImgIndex(i)}
                     aria-label={`View photo ${i + 1}`}
-                    className={`h-18 w-18 shrink-0 rounded-2xl bg-[#FAF6ED] border-2 p-1 overflow-hidden transition-all duration-200 ${
+                    className={`h-20 w-20 shrink-0 rounded-2xl bg-white border-2 p-1 overflow-hidden transition-all duration-200 ${
                       selectedImgIndex === i
-                        ? 'border-[#17245B] scale-105 shadow-xs ring-2 ring-[#E2AE35]'
-                        : 'border-[#17245B]/15 opacity-70 hover:opacity-100'
+                        ? 'border-[#FF5400] scale-105 shadow-sm ring-2 ring-[#FF5400]/30'
+                        : 'border-stone-200/80 opacity-70 hover:opacity-100'
                     }`}
                   >
                     <img src={img.url} alt={img.altText || product.name} className="h-full w-full object-cover rounded-xl" />
@@ -305,7 +304,7 @@ export default function ProductDetail() {
             {/* Header & Badges */}
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-bold uppercase tracking-wider">
+                <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-800 font-mono text-[10px] font-bold uppercase tracking-wider">
                   {isTryAll5 ? `${selectedSize} SAMPLER BOX` : `${selectedSize} • ${selectedPack}`}
                 </span>
                 {!isVariantAvailable ? (
@@ -313,27 +312,27 @@ export default function ProductDetail() {
                     SOLD OUT
                   </span>
                 ) : product.spiceLevel && !isTryAll5 ? (
-                  <span className="px-3 py-1 rounded-full bg-[#FAF6ED] text-[#17245B] font-mono text-[10px] font-bold uppercase tracking-wider border border-[#17245B]/20">
+                  <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 font-mono text-[10px] font-bold uppercase tracking-wider border border-stone-200">
                     {product.spiceLevel}
                   </span>
                 ) : null}
               </div>
 
-              <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#17245B] tracking-tight leading-tight">
+              <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#141414] tracking-tight leading-tight">
                 {product.name}
               </h1>
 
               {/* Price & Savings */}
               <div className="flex items-baseline gap-3.5 pt-1">
-                <span className="font-display text-3xl sm:text-4xl font-black text-[#17245B]">
+                <span className="font-display text-3xl sm:text-4xl font-black text-[#141414]">
                   ₹{Math.round(currentPrice)}
                 </span>
                 {currentMrp && currentMrp > currentPrice && (
                   <>
-                    <span className="font-mono text-lg text-[#17245B]/50 line-through">
+                    <span className="font-mono text-lg text-stone-400 line-through">
                       ₹{Math.round(currentMrp)}
                     </span>
-                    <span className="font-mono text-xs font-extrabold text-[#17245B] bg-[#E2AE35]/30 px-2.5 py-0.5 rounded-full border border-[#E2AE35]">
+                    <span className="font-mono text-xs font-bold text-emerald-800 bg-emerald-50 px-2.5 py-0.5 rounded-full border border-emerald-200">
                       SAVE {currentDiscount}
                     </span>
                   </>
@@ -344,9 +343,9 @@ export default function ProductDetail() {
               <div className="space-y-4 pt-3">
                 {/* 1. Size Options (50g, 100g) */}
                 <div className="space-y-2">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
+                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 flex items-center justify-between">
                     <span>{isTryAll5 ? 'SELECT BOX SIZE:' : '1. SELECT POUCH SIZE:'}</span>
-                    <span className="text-[#17245B] font-extrabold">{selectedSize} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
+                    <span className="text-[#141414] font-bold">{selectedSize} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
                   </span>
                   <div className="grid grid-cols-2 gap-3">
                     {['50g', '100g'].map((sz) => (
@@ -354,10 +353,10 @@ export default function ProductDetail() {
                         key={sz}
                         type="button"
                         onClick={() => setSelectedSize(sz)}
-                        className={`py-3 px-4 rounded-2xl font-mono text-xs font-extrabold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
+                        className={`py-3 px-4 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
                           selectedSize === sz
-                            ? 'border-[#17245B] bg-[#17245B] text-[#F5EEDD] shadow-xs'
-                            : 'border-[#17245B]/20 bg-[#FAF6ED] text-[#17245B] hover:border-[#17245B]/60'
+                            ? 'border-[#141414] bg-[#141414] text-white shadow-sm'
+                            : 'border-stone-200 bg-white text-stone-800 hover:border-stone-400'
                         }`}
                       >
                         <span>{sz} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
@@ -369,9 +368,9 @@ export default function ProductDetail() {
                 {/* 2. Pack Options (Only for single flavour products) */}
                 {!isTryAll5 && (
                   <div className="space-y-2">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70 flex items-center justify-between">
+                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 flex items-center justify-between">
                       <span>2. SELECT QUANTITY PACK:</span>
-                      <span className="text-[#17245B] font-extrabold">{selectedPack}</span>
+                      <span className="text-[#141414] font-bold">{selectedPack}</span>
                     </span>
                     <div className="grid grid-cols-3 gap-2.5">
                       {[
@@ -383,15 +382,15 @@ export default function ProductDetail() {
                           key={pk.label}
                           type="button"
                           onClick={() => setSelectedPack(pk.label)}
-                          className={`py-3 px-2 rounded-2xl font-mono text-xs font-extrabold uppercase tracking-wider transition-all border-2 text-center flex flex-col items-center justify-center gap-1 ${
+                          className={`py-3 px-2 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex flex-col items-center justify-center gap-1 ${
                             selectedPack === pk.label
-                              ? 'border-[#17245B] bg-[#17245B] text-[#F5EEDD] shadow-xs'
-                              : 'border-[#17245B]/20 bg-[#FAF6ED] text-[#17245B] hover:border-[#17245B]/60'
+                              ? 'border-[#141414] bg-[#141414] text-white shadow-sm'
+                              : 'border-stone-200 bg-white text-stone-800 hover:border-stone-400'
                           }`}
                         >
                           <span className="text-[11px] leading-tight">{pk.label}</span>
                           <span className={`text-[8px] px-1.5 py-0.2 rounded-full font-bold ${
-                            selectedPack === pk.label ? 'bg-[#E2AE35] text-[#17245B]' : 'bg-[#17245B]/10 text-[#17245B]/80'
+                            selectedPack === pk.label ? 'bg-[#FF5400] text-white' : 'bg-stone-100 text-stone-600'
                           }`}>
                             {pk.tag}
                           </span>
@@ -404,25 +403,25 @@ export default function ProductDetail() {
             </div>
 
             {/* Description Card */}
-            <div className="p-5 sm:p-6 rounded-2xl bg-[#FAF6ED] border border-[#17245B]/15 space-y-2 shadow-2xs">
-              <h3 className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#17245B]/70">
+            <div className="p-6 rounded-2xl bg-white border border-stone-200/80 space-y-2 shadow-2xs">
+              <h3 className="font-mono text-[10px] font-bold uppercase tracking-widest text-stone-400">
                 FLAVOUR PROFILE
               </h3>
-              <p className="font-sans text-xs sm:text-sm text-[#17245B]/90 leading-relaxed font-normal">
+              <p className="font-sans text-xs sm:text-sm text-stone-700 leading-relaxed font-normal">
                 {product.description || product.blurb || 'Handpicked Bihar lotus seeds slow-roasted in small batches with authentic spices.'}
               </p>
             </div>
 
             {/* Taste Notes */}
-            <div className="space-y-1.5">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-[#17245B]/70">
+            <div className="space-y-2">
+              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500">
                 TASTE NOTES &amp; TEXTURE
               </span>
               <div className="flex flex-wrap gap-2">
                 {tasteTags.map((tag, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1 rounded-full bg-[#FAF6ED] border border-[#17245B]/15 font-mono text-[10px] font-bold text-[#17245B] uppercase shadow-2xs"
+                    className="px-3 py-1 rounded-full bg-stone-100 font-mono text-[10px] font-bold text-stone-700 uppercase"
                   >
                     {tag}
                   </span>
@@ -431,27 +430,27 @@ export default function ProductDetail() {
             </div>
 
             {/* Quantity Stepper & Add to Stash */}
-            <div className="space-y-3.5 pt-4 border-t border-[#17245B]/15">
+            <div className="space-y-3.5 pt-4 border-t border-stone-200/80">
               <div className="flex items-center gap-3.5">
                 {/* Stepper */}
-                <div className="flex items-center border border-[#17245B]/25 rounded-full bg-[#FAF6ED] px-2 py-1.5 shadow-2xs">
+                <div className="flex items-center border border-stone-200 rounded-full bg-white px-2 py-1.5 shadow-2xs">
                   <button
                     type="button"
                     onClick={() => setQty((q) => Math.max(1, q - 1))}
                     disabled={qty <= 1}
                     aria-label="Decrease quantity"
-                    className="h-8 w-8 font-mono text-base font-bold text-[#17245B] hover:bg-[#17245B] hover:text-[#F5EEDD] rounded-full transition-colors flex items-center justify-center disabled:opacity-30"
+                    className="h-8 w-8 font-mono text-base font-bold text-stone-700 hover:bg-stone-100 rounded-full transition-colors flex items-center justify-center disabled:opacity-30"
                   >
                     −
                   </button>
-                  <span className="min-w-[2.25rem] text-center font-mono text-sm font-extrabold text-[#17245B]">
+                  <span className="min-w-[2.25rem] text-center font-mono text-sm font-bold text-[#141414]">
                     {qty}
                   </span>
                   <button
                     type="button"
                     onClick={() => setQty((q) => q + 1)}
                     aria-label="Increase quantity"
-                    className="h-8 w-8 font-mono text-base font-bold text-[#17245B] hover:bg-[#17245B] hover:text-[#F5EEDD] rounded-full transition-colors flex items-center justify-center"
+                    className="h-8 w-8 font-mono text-base font-bold text-stone-700 hover:bg-stone-100 rounded-full transition-colors flex items-center justify-center"
                   >
                     +
                   </button>
@@ -462,14 +461,14 @@ export default function ProductDetail() {
                   type="button"
                   onClick={handleAddToCart}
                   disabled={!isVariantAvailable || isAdding}
-                  className={`flex-1 btn py-4 text-xs font-black uppercase tracking-wider shadow-md transition-all ${
+                  className={`flex-1 btn py-4 text-xs font-bold uppercase tracking-wider shadow-sm transition-all ${
                     !isVariantAvailable
-                      ? 'bg-[#17245B]/20 text-[#17245B]/40 cursor-not-allowed border-transparent'
+                      ? 'bg-stone-200 text-stone-400 cursor-not-allowed border-transparent'
                       : isAdded
-                      ? 'bg-emerald-700 border-emerald-700 text-white'
+                      ? 'bg-emerald-600 border-emerald-600 text-white'
                       : isAdding
-                      ? 'bg-[#17245B] text-[#E2AE35] opacity-85'
-                      : 'bg-[#17245B] hover:bg-[#17245B]/90 text-[#F5EEDD]'
+                      ? 'bg-[#FF5400] text-white opacity-85'
+                      : 'bg-[#FF5400] hover:bg-[#E04800] text-white'
                   }`}
                 >
                   {!isVariantAvailable
@@ -490,7 +489,7 @@ export default function ProductDetail() {
               )}
 
               {/* Guarantees */}
-              <div className="flex items-center justify-between text-xs font-mono text-[#17245B]/75 pt-1 px-1">
+              <div className="flex items-center justify-between text-xs font-mono text-stone-500 pt-1 px-1">
                 <span>⚡ Dispatches in 24h</span>
                 <span>🍿 Slow-Roasted, Not Fried</span>
                 <span>🇮🇳 Authentic Bihar Makhana</span>
@@ -501,12 +500,12 @@ export default function ProductDetail() {
         </div>
 
         {/* ── 2. NUTRITIONAL FACTS & INGREDIENTS ─────────────────────────────── */}
-        <section className="p-6 sm:p-10 rounded-[2.5rem] bg-[#FAF6ED] border border-[#17245B]/15 shadow-xs space-y-6">
+        <section className="p-6 sm:p-10 rounded-3xl bg-white border border-stone-200/80 shadow-xs space-y-6">
           <div className="space-y-1.5">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#17245B]">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
               CLEAN SNACKING SPECS
             </span>
-            <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#17245B]">
+            <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#141414]">
               WHAT'S INSIDE THE POUCH
             </h2>
           </div>
@@ -514,32 +513,32 @@ export default function ProductDetail() {
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-start">
             {/* Ingredients */}
             <div className="space-y-3">
-              <h3 className="font-display text-base font-bold text-[#17245B] uppercase">
+              <h3 className="font-display text-base font-bold text-[#141414] uppercase">
                 INGREDIENTS
               </h3>
-              <p className="font-sans text-xs sm:text-sm text-[#17245B]/90 leading-relaxed bg-[#F5EEDD] p-4.5 rounded-2xl border border-[#17245B]/10">
+              <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed bg-[#FAF8F5] p-5 rounded-2xl border border-stone-200/80 font-normal">
                 {product.ingredients || 'Jumbo Foxnuts (Makhana), Olive Oil, Natural Spices, Sea Salt.'}
               </p>
               <div className="flex flex-wrap gap-2 pt-1">
-                <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-extrabold">✓ GLUTEN FREE</span>
-                <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-extrabold">✓ ZERO PALM OIL</span>
-                <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-extrabold">✓ NOT FRIED</span>
-                <span className="px-3 py-1 rounded-full bg-[#17245B]/10 text-[#17245B] font-mono text-[10px] font-extrabold">✓ PLANT PROTEIN</span>
+                <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 font-mono text-[10px] font-bold">✓ GLUTEN FREE</span>
+                <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 font-mono text-[10px] font-bold">✓ ZERO PALM OIL</span>
+                <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 font-mono text-[10px] font-bold">✓ NOT FRIED</span>
+                <span className="px-3 py-1 rounded-full bg-stone-100 text-stone-700 font-mono text-[10px] font-bold">✓ PLANT PROTEIN</span>
               </div>
             </div>
 
             {/* Nutrition Grid */}
             <div className="space-y-3">
-              <h3 className="font-display text-base font-bold text-[#17245B] uppercase">
+              <h3 className="font-display text-base font-bold text-[#141414] uppercase">
                 NUTRITIONAL ESTIMATE (PER 50G SERVING)
               </h3>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5">
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {Object.entries(product.nutrition || { calories: '132 kcal', protein: '4.2g', carbs: '21g', fat: '3.5g', fiber: '3.6g' }).map(([key, val]) => (
-                  <div key={key} className="p-3.5 rounded-xl bg-[#F5EEDD] border border-[#17245B]/10 text-center">
-                    <span className="font-mono text-[9px] font-bold uppercase text-[#17245B]/70 block mb-0.5">
+                  <div key={key} className="p-4 rounded-xl bg-[#FAF8F5] border border-stone-200/80 text-center">
+                    <span className="font-mono text-[9px] font-bold uppercase text-stone-500 block mb-0.5">
                       {key}
                     </span>
-                    <span className="font-display text-sm font-bold text-[#17245B]">
+                    <span className="font-display text-sm font-bold text-[#141414]">
                       {val}
                     </span>
                   </div>
@@ -554,14 +553,14 @@ export default function ProductDetail() {
           <section className="space-y-8 pt-4">
             <div className="flex items-end justify-between">
               <div className="space-y-1">
-                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#17245B]">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
                   EXPLORE MORE
                 </span>
-                <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#17245B]">
+                <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#141414]">
                   YOU MIGHT ALSO CRUNCH
                 </h2>
               </div>
-              <Link to="/shop" className="font-mono text-xs font-bold text-[#17245B] hover:text-[#E2AE35] transition-colors">
+              <Link to="/shop" className="font-mono text-xs font-bold text-stone-700 hover:text-[#FF5400] transition-colors">
                 VIEW ALL ➔
               </Link>
             </div>
@@ -584,15 +583,15 @@ export default function ProductDetail() {
             animate={{ y: 0 }}
             exit={{ y: '100%' }}
             transition={{ duration: 0.25 }}
-            className="fixed bottom-0 inset-x-0 z-40 bg-[#FAF6ED]/95 backdrop-blur-md border-t border-[#17245B]/15 p-3 sm:hidden shadow-lg"
+            className="fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-stone-200 p-3.5 sm:hidden shadow-lg"
           >
             <div className="flex items-center justify-between gap-3">
               <div className="min-w-0">
-                <p className="font-display text-sm font-bold text-[#17245B] truncate">
+                <p className="font-display text-sm font-bold text-[#141414] truncate">
                   {product.name}
                 </p>
-                <div className="flex items-center gap-1.5 font-mono text-xs font-bold text-[#17245B]/70">
-                  <span className="text-[#17245B] font-extrabold">₹{Math.round(currentPrice * qty)}</span>
+                <div className="flex items-center gap-1.5 font-mono text-xs text-stone-500">
+                  <span className="text-[#141414] font-bold">₹{Math.round(currentPrice * qty)}</span>
                   <span>•</span>
                   <span className="truncate">{selectedSize}</span>
                 </div>
@@ -602,14 +601,14 @@ export default function ProductDetail() {
                 type="button"
                 onClick={handleAddToCart}
                 disabled={!isVariantAvailable || isAdding}
-                className={`btn py-3 px-5 text-xs font-extrabold uppercase shrink-0 ${
+                className={`btn py-3 px-5 text-xs font-bold uppercase shrink-0 ${
                   !isVariantAvailable
-                    ? 'bg-[#17245B]/20 text-[#17245B]/40 cursor-not-allowed border-transparent'
+                    ? 'bg-stone-200 text-stone-400 cursor-not-allowed border-transparent'
                     : isAdded
-                    ? 'bg-emerald-700 text-white'
+                    ? 'bg-emerald-600 text-white'
                     : isAdding
-                    ? 'bg-[#17245B] text-[#E2AE35]'
-                    : 'bg-[#17245B] text-[#F5EEDD]'
+                    ? 'bg-[#FF5400] text-white opacity-80'
+                    : 'bg-[#FF5400] text-white'
                 }`}
               >
                 {!isVariantAvailable ? 'SOLD OUT' : isAdded ? 'ADDED ✓' : isAdding ? 'ADDING...' : 'ADD TO STASH'}
@@ -621,4 +620,3 @@ export default function ProductDetail() {
     </main>
   )
 }
-

@@ -4,55 +4,59 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── CHASKA Master Brand Palette (Indigo & Ivory Signature) ───────────────
-        // FOUNDATION (65%):       Midnight Indigo   #17245B
-        // CANVAS NEUTRAL (25%):   Rice-Paper Ivory  #F5EEDD
-        // APPETITE ACCENT (7%):   Toasted Saffron   #E2AE35
-        // HEAT ACCENT (3%):       Chilli Lacquer    #A9223A
-        // PURE SURFACE:           Crisp White       #FFFFFF
+        // ── CHASKA Master Brand Palette (Refined Editorial D2C) ──────────────
+        // Canvas Background (Warm Ivory): #FAF8F5
+        // Canvas Warm Surface:             #F5F2EB
+        // Pure Surface Card:               #FFFFFF
+        // Text Charcoal (Near Black):      #141414
+        // Text Charcoal Muted:             #555555
+        // Brand Appetite Accent (Orange):  #FF5400
         
-        'midnight-indigo': '#17245B',
-        'midnight-indigo-dark': '#0F183D',
-        'midnight-indigo-light': '#253578',
-        'rice-paper-ivory': '#F5EEDD',
-        'rice-paper-warm': '#FAF6ED',
-        'toasted-saffron': '#E2AE35',
-        'toasted-saffron-dark': '#C89726',
-        'chilli-lacquer': '#A9223A',
-        'chilli-lacquer-bright': '#D9381E',
-        'chaska-orange': '#E2AE35',
-        'chaska-orange-dark': '#C89726',
-        'chaska-cream': '#F5EEDD',
-        'chaska-cream-dark': '#EADFCA',
-        'chaska-charcoal': '#17245B',
-        'chaska-charcoal-soft': '#253578',
-        'chaska-saffron': '#E2AE35',
-        'chaska-crimson': '#A9223A',
+        'chaska-bg': '#FAF8F5',
+        'chaska-bg-warm': '#F5F2EB',
+        'chaska-surface': '#FFFFFF',
+        'chaska-charcoal': '#141414',
+        'chaska-charcoal-muted': '#555555',
+        'chaska-charcoal-soft': '#7E7E7E',
+        'chaska-orange': '#FF5400',
+        'chaska-orange-dark': '#E04800',
+        'chaska-orange-light': '#FFF3EB',
 
-        // Semantic mappings
-        foundation: '#17245B',
-        indigo: '#17245B',
-        ivory: '#F5EEDD',
-        saffron: '#E2AE35',
-        lacquer: '#A9223A',
-        chilli: '#A9223A',
-        cream: '#F5EEDD',
+        // Semantic tokens
+        canvas: '#FAF8F5',
+        'canvas-warm': '#F5F2EB',
         surface: '#FFFFFF',
-        'surface-warm': '#FAF6ED',
-        charcoal: '#17245B',
-        cocoa: '#17245B',
-        oxblood: '#A9223A',
-        teal: '#17245B',
-        muted: '#8A93AA',
-        accent: '#E2AE35',
-        'accent-heat': '#A9223A',
-        'accent-yellow': '#E2AE35',
+        charcoal: '#141414',
+        'charcoal-muted': '#555555',
+        accent: '#FF5400',
+        'accent-dark': '#E04800',
+        'accent-light': '#FFF3EB',
 
-        // Glass & Surface tokens
-        'glass-ivory': 'rgba(245, 238, 221, 0.94)',
-        'glass-white': 'rgba(255, 255, 255, 0.94)',
-        'glass-dark': 'rgba(23, 36, 91, 0.95)',
-        'glass-border': 'rgba(23, 36, 91, 0.12)',
+        // Backward compatibility tokens
+        'rice-paper-ivory': '#FAF8F5',
+        'rice-paper-warm': '#F5F2EB',
+        'midnight-indigo': '#141414',
+        'midnight-indigo-dark': '#0A0A0A',
+        'midnight-indigo-light': '#242424',
+        'toasted-saffron': '#FF5400',
+        'toasted-saffron-dark': '#E04800',
+        'chilli-lacquer': '#E63946',
+        'chaska-cream': '#FAF8F5',
+        'chaska-cream-dark': '#F0ECE1',
+        foundation: '#141414',
+        indigo: '#141414',
+        ivory: '#FAF8F5',
+        saffron: '#FF5400',
+        cream: '#FAF8F5',
+
+        // Flavour Badges & Accents
+        flavour: {
+          peri: { text: '#E63946', bg: '#FFF1F2', border: '#FECDD3' },
+          cheese: { text: '#D97706', bg: '#FFFBEB', border: '#FDE68A' },
+          lime: { text: '#16A34A', bg: '#F0FDF4', border: '#BBF7D0' },
+          garlic: { text: '#B91C1C', bg: '#FEF2F2', border: '#FECACA' },
+          pudhina: { text: '#0D9488', bg: '#F0FDFA', border: '#99F6E4' },
+        },
       },
       fontFamily: {
         sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
@@ -63,26 +67,29 @@ export default {
       },
       borderRadius: {
         none: '0px',
+        xs: '6px',
         sm: '8px',
-        DEFAULT: '16px',
-        md: '20px',
-        lg: '24px',
-        xl: '32px',
-        '2xl': '40px',
+        DEFAULT: '12px',
+        md: '16px',
+        lg: '20px',
+        xl: '24px',
+        '2xl': '32px',
         full: '9999px',
       },
       boxShadow: {
-        'subtle': '0 4px 20px rgba(23, 36, 91, 0.04)',
-        'card': '0 8px 30px rgba(23, 36, 91, 0.06)',
-        'pop': '0 20px 40px rgba(23, 36, 91, 0.12)',
-        'glass': '0 8px 32px rgba(23, 36, 91, 0.06)',
+        '2xs': '0 1px 2px rgba(0, 0, 0, 0.03)',
+        'xs': '0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02)',
+        'subtle': '0 2px 10px rgba(0, 0, 0, 0.03)',
+        'card': '0 4px 20px rgba(0, 0, 0, 0.03)',
+        'float': '0 12px 36px rgba(0, 0, 0, 0.06)',
+        'pop': '0 20px 48px rgba(0, 0, 0, 0.08)',
       },
       fontSize: {
-        mega: ['clamp(3.5rem, 8.5vw, 7.5rem)', { lineHeight: '0.9', letterSpacing: '-0.04em' }],
-        major: ['clamp(2.5rem, 5vw, 4.5rem)', { lineHeight: '0.95', letterSpacing: '-0.03em' }],
-        minor: ['clamp(1.75rem, 3vw, 2.5rem)', { lineHeight: '1.05', letterSpacing: '-0.02em' }],
-        lede: ['clamp(1.1rem, 1.5vw, 1.35rem)', { lineHeight: '1.6', letterSpacing: '-0.01em' }],
-        spec: ['0.75rem', { lineHeight: '1.2', letterSpacing: '0.12em' }],
+        hero: ['clamp(2.75rem, 6.5vw, 5.5rem)', { lineHeight: '0.94', letterSpacing: '-0.035em' }],
+        display: ['clamp(2rem, 4vw, 3.75rem)', { lineHeight: '0.98', letterSpacing: '-0.03em' }],
+        title: ['clamp(1.5rem, 2.5vw, 2.25rem)', { lineHeight: '1.1', letterSpacing: '-0.02em' }],
+        lede: ['clamp(1rem, 1.25vw, 1.15rem)', { lineHeight: '1.6', letterSpacing: '-0.01em' }],
+        spec: ['0.72rem', { lineHeight: '1.2', letterSpacing: '0.1em' }],
       },
     },
   },

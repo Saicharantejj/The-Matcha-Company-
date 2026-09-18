@@ -81,7 +81,7 @@ export default function BuildYourBox() {
   return (
     <section className="py-20 sm:py-24 bg-[#FAF6ED] border-y border-[#17245B]/15 relative overflow-hidden" id="build-your-box">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
-        
+
         {/* Section Header */}
         <div className="max-w-2xl space-y-2 mb-12 sm:mb-16">
           <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#E2AE35]/20 text-[#17245B] font-mono text-xs font-extrabold uppercase tracking-widest shadow-2xs">
@@ -97,7 +97,7 @@ export default function BuildYourBox() {
 
         {/* Box Interface */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
+
           {/* Left: 5 Included Pouches */}
           <div className="lg:col-span-7 bg-white border border-[#17245B]/15 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
             <h3 className="font-display text-base sm:text-lg font-bold text-[#17245B] uppercase flex items-center justify-between">
@@ -145,11 +145,10 @@ export default function BuildYourBox() {
                       key={sz}
                       type="button"
                       onClick={() => setSelectedSize(sz)}
-                      className={`py-3 rounded-2xl font-mono text-xs font-extrabold uppercase tracking-wider transition-all border-2 text-center ${
-                        selectedSize === sz
+                      className={`py-3 rounded-2xl font-mono text-xs font-extrabold uppercase tracking-wider transition-all border-2 text-center ${selectedSize === sz
                           ? 'border-[#17245B] bg-[#17245B] text-[#F5EEDD] shadow-xs'
                           : 'border-[#17245B]/20 bg-white text-[#17245B] hover:border-[#17245B]/40'
-                      }`}
+                        }`}
                     >
                       {sz} Box
                     </button>
@@ -185,15 +184,14 @@ export default function BuildYourBox() {
                 type="button"
                 onClick={handleAddBoxToCart}
                 disabled={!isAvailable || isAdding}
-                className={`w-full py-4 rounded-full font-mono text-xs font-black uppercase tracking-widest transition-all shadow-sm ${
-                  !isAvailable
+                className={`w-full py-4 rounded-full font-mono text-xs font-black uppercase tracking-widest transition-all shadow-sm ${!isAvailable
                     ? 'bg-[#17245B]/20 text-[#17245B]/40 cursor-not-allowed'
                     : isAdded
-                    ? 'bg-emerald-600 text-white'
-                    : isAdding
-                    ? 'bg-[#17245B] text-[#F5EEDD]'
-                    : 'bg-[#E2AE35] hover:bg-[#17245B] text-[#17245B] hover:text-[#F5EEDD]'
-                }`}
+                      ? 'bg-emerald-600 text-white'
+                      : isAdding
+                        ? 'bg-[#17245B] text-[#F5EEDD]'
+                        : 'bg-[#E2AE35] hover:bg-[#17245B] text-[#17245B] hover:text-[#F5EEDD]'
+                  }`}
               >
                 {!isAvailable ? 'SOLD OUT' : isAdded ? 'ADDED TO STASH ✓' : isAdding ? 'ADDING...' : `ADD TRY ALL 5 TO STASH • ₹${price}`}
               </button>

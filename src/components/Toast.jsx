@@ -1,6 +1,6 @@
 import { createContext, useCallback, useContext, useMemo, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { Check, ShoppingBag } from 'lucide-react'
+import { Check, ShoppingBag, AlertCircle } from 'lucide-react'
 
 const ToastContext = createContext(null)
 
@@ -14,20 +14,32 @@ export function ToastProvider({ children }) {
   }, [])
 
   const notify = useCallback(
-    (message, { action, onAction } = {}) => {
+    (message, options = {}) => {
       const id = ++nextId
-      setToasts((prev) => [...prev.slice(-2), { id, message, action, onAction }])
-      window.setTimeout(() => dismiss(id), 3200)
+      const action = options?.action
+      const onAction = options?.onAction
+      const type = typeof options === 'string' ? options : (options?.type || 'success')
+
+      setToasts((prev) => [...prev.slice(-2), { id, message, action, onAction, type }])
+      window.setTimeout(() => dismiss(id), 3000)
     },
     [dismiss],
   )
 
-  const value = useMemo(() => ({ notify }), [notify])
+  // Provide addToast as an alias for notify(message, type)
+  const addToast = useCallback(
+    (message, type = 'success') => {
+      notify(message, { type })
+    },
+    [notify],
+  )
+
+  const value = useMemo(() => ({ notify, addToast }), [notify, addToast])
 
   return (
     <ToastContext.Provider value={value}>
       {children}
-      {/* Bottom-left so it never collides with the cart drawer on the right. */}
+      {/* Bottom-left notification stage */}
       <div
         aria-live="polite"
         className="pointer-events-none fixed bottom-5 left-5 z-[90] flex flex-col gap-2"
@@ -37,16 +49,22 @@ export function ToastProvider({ children }) {
             <motion.div
               key={t.id}
               layout
-              initial={{ opacity: 0, x: -28, scale: 0.94 }}
+              initial={{ opacity: 0, x: -24, scale: 0.95 }}
               animate={{ opacity: 1, x: 0, scale: 1 }}
-              exit={{ opacity: 0, x: -20, scale: 0.96 }}
-              transition={{ type: 'spring', stiffness: 380, damping: 28 }}
-              className="pointer-events-auto flex items-center gap-3 border-2 border-[#17245B] bg-[#F5EEDD] px-4 py-3 rounded-2xl shadow-lg"
+              exit={{ opacity: 0, x: -20, scale: 0.95 }}
+              transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+              className="pointer-events-auto flex items-center gap-3 border border-black/10 bg-white px-4 py-3 rounded-2xl shadow-float"
             >
-              <span className="flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full bg-[#E2AE35] text-[#17245B]">
-                <Check size={12} strokeWidth={3} aria-hidden="true" />
+              <span className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full ${
+                t.type === 'error' ? 'bg-red-500 text-white' : 'bg-[#FF5400] text-white'
+              }`}>
+                {t.type === 'error' ? (
+                  <AlertCircle size={13} strokeWidth={2.5} aria-hidden="true" />
+                ) : (
+                  <Check size={13} strokeWidth={3} aria-hidden="true" />
+                )}
               </span>
-              <span className="font-mono text-[11px] uppercase tracking-widest text-[#17245B] font-bold">
+              <span className="font-sans text-xs font-semibold text-[#141414]">
                 {t.message}
               </span>
               {t.action && (
@@ -56,9 +74,9 @@ export function ToastProvider({ children }) {
                     t.onAction?.()
                     dismiss(t.id)
                   }}
-                  className="flex items-center gap-1 border-l-2 border-[#17245B]/20 pl-3 font-mono text-[10px] uppercase tracking-widest text-[#17245B] underline underline-offset-4 hover:text-[#E2AE35]"
+                  className="flex items-center gap-1 border-l border-black/10 pl-3 font-sans text-xs font-bold text-[#FF5400] hover:underline"
                 >
-                  <ShoppingBag size={11} strokeWidth={2.5} aria-hidden="true" />
+                  <ShoppingBag size={12} strokeWidth={2.5} aria-hidden="true" />
                   {t.action}
                 </button>
               )}
@@ -72,7 +90,5 @@ export function ToastProvider({ children }) {
 
 export function useToast() {
   const ctx = useContext(ToastContext)
-  // Falling back to a no-op keeps a component usable outside the provider
-  // (e.g. in isolation) instead of throwing.
-  return ctx ?? { notify: () => {} }
+  return ctx ?? { notify: () => {}, addToast: () => {} }
 }

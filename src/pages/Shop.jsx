@@ -112,34 +112,34 @@ export default function Shop() {
   }, [activeCategory, products, searchFilter, sortBy])
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#F5EEDD]">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5]">
       <div className="mx-auto max-w-7xl space-y-10">
         
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 font-mono text-xs text-[#17245B]/60 font-bold uppercase tracking-wider">
-          <Link to="/" className="hover:text-[#E2AE35] transition-colors">HOME</Link>
+        <nav className="flex items-center gap-2 font-mono text-xs text-stone-500 font-semibold uppercase tracking-wider">
+          <Link to="/" className="hover:text-[#FF5400] transition-colors">HOME</Link>
           <span>/</span>
-          <Link to="/collections" className="hover:text-[#E2AE35] transition-colors">COLLECTIONS</Link>
+          <Link to="/collections" className="hover:text-[#FF5400] transition-colors">COLLECTIONS</Link>
           <span>/</span>
-          <span className="text-[#17245B]">{currentMeta.title}</span>
+          <span className="text-[#141414] font-bold">{currentMeta.title}</span>
         </nav>
 
         {/* Header Banner */}
-        <div className="p-8 sm:p-12 lg:p-14 rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] space-y-6 shadow-md relative overflow-hidden">
+        <div className="p-8 sm:p-12 lg:p-14 rounded-3xl bg-[#141414] text-white space-y-6 shadow-md relative overflow-hidden">
           <div className="max-w-2xl space-y-3.5 relative z-10">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-xs font-black uppercase tracking-widest shadow-xs">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
               {currentMeta.badge}
             </span>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none">
               {currentMeta.title}
             </h1>
-            <p className="font-sans text-sm sm:text-base text-[#F5EEDD]/85 leading-relaxed font-medium">
+            <p className="font-sans text-sm sm:text-base text-stone-300 leading-relaxed font-normal">
               {currentMeta.description}
             </p>
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-white/10 relative z-10">
+          <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-stone-800 relative z-10">
             {[
               { id: 'all', label: 'ALL PRODUCTS', to: '/collections/all' },
               { id: 'best-sellers', label: '⭐ BEST SELLERS', to: '/collections/best-sellers' },
@@ -152,8 +152,8 @@ export default function Shop() {
                 onClick={() => setActiveCategory(cat.id)}
                 className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                   activeCategory === cat.id
-                    ? 'bg-[#E2AE35] text-[#17245B] shadow-xs font-black'
-                    : 'bg-white/10 text-[#F5EEDD]/85 hover:bg-white/20'
+                    ? 'bg-[#FF5400] text-white shadow-xs'
+                    : 'bg-stone-800/80 text-stone-300 hover:bg-stone-700'
                 }`}
               >
                 {cat.label}
@@ -163,21 +163,21 @@ export default function Shop() {
         </div>
 
         {/* Controls Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-3.5 sm:p-4 rounded-2xl bg-white border border-[#17245B]/15 shadow-xs">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-stone-200/80 shadow-xs">
           <div className="relative w-full sm:w-80 flex items-center">
-            <span className="absolute left-3 text-[#17245B]/40 text-xs">🔍</span>
+            <span className="absolute left-3 text-stone-400 text-xs">🔍</span>
             <input
               type="text"
               placeholder="Search flavours & packs..."
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
-              className="w-full pl-8 pr-4 py-2 bg-[#FAF6ED] rounded-xl border border-[#17245B]/10 font-sans text-xs text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+              className="w-full pl-8 pr-4 py-2 bg-[#FAF8F5] rounded-xl border border-stone-200/80 font-sans text-xs text-[#141414] focus:outline-none focus:border-[#FF5400]"
             />
             {searchFilter && (
               <button
                 type="button"
                 onClick={() => setSearchFilter('')}
-                className="absolute right-3 text-xs font-mono text-[#17245B]/50 hover:text-[#17245B]"
+                className="absolute right-3 text-xs font-mono text-stone-400 hover:text-[#141414]"
               >
                 ✕
               </button>
@@ -185,13 +185,13 @@ export default function Shop() {
           </div>
 
           <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-            <span className="font-mono text-xs text-[#17245B]/70 font-bold">
+            <span className="font-mono text-xs text-stone-500 font-semibold">
               {filteredProducts.length} {filteredProducts.length === 1 ? 'PRODUCT' : 'PRODUCTS'}
             </span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3.5 py-2 bg-[#FAF6ED] rounded-xl border border-[#17245B]/10 font-mono text-xs font-bold text-[#17245B] focus:outline-none focus:border-[#E2AE35]"
+              className="px-3.5 py-2 bg-[#FAF8F5] rounded-xl border border-stone-200/80 font-mono text-xs font-bold text-stone-700 focus:outline-none focus:border-[#FF5400]"
             >
               <option value="featured">SORT: FEATURED</option>
               <option value="price-low">PRICE: LOW TO HIGH</option>
@@ -208,15 +208,15 @@ export default function Shop() {
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <div
                 key={n}
-                className="h-[460px] rounded-3xl bg-white border border-[#17245B]/10 p-6 flex flex-col justify-between animate-pulse"
+                className="h-[460px] rounded-3xl bg-white border border-stone-200/80 p-6 flex flex-col justify-between animate-pulse"
               >
-                <div className="aspect-[4/3] w-full rounded-2xl bg-[#FAF6ED]" />
+                <div className="aspect-[4/3] w-full rounded-2xl bg-stone-100" />
                 <div className="space-y-3 mt-4">
-                  <div className="h-4 w-1/3 rounded bg-[#17245B]/10" />
-                  <div className="h-6 w-3/4 rounded bg-[#17245B]/15" />
-                  <div className="h-3 w-full rounded bg-[#17245B]/10" />
+                  <div className="h-4 w-1/3 rounded bg-stone-100" />
+                  <div className="h-6 w-3/4 rounded bg-stone-100" />
+                  <div className="h-3 w-full rounded bg-stone-100" />
                 </div>
-                <div className="h-10 w-full rounded-full bg-[#17245B]/10 mt-4" />
+                <div className="h-10 w-full rounded-full bg-stone-200 mt-4" />
               </div>
             ))}
           </div>
@@ -224,19 +224,19 @@ export default function Shop() {
 
         {/* Error State */}
         {!isLoading && error && (
-          <div className="rounded-3xl bg-white border border-[#A9223A]/30 p-10 text-center space-y-4 shadow-sm max-w-lg mx-auto">
+          <div className="rounded-3xl bg-white border border-red-200 p-10 text-center space-y-4 shadow-sm max-w-lg mx-auto">
             <span className="text-3xl block">⚠️</span>
-            <h3 className="font-display text-xl font-bold uppercase text-[#17245B]">
+            <h3 className="font-display text-xl font-bold uppercase text-[#141414]">
               Unable to load Shopify catalogue
             </h3>
-            <p className="font-mono text-xs text-[#17245B]/70 leading-relaxed">
+            <p className="font-mono text-xs text-stone-500 leading-relaxed">
               {error}
             </p>
             <div className="pt-2">
               <button
                 type="button"
                 onClick={loadProducts}
-                className="btn px-6 py-3 text-xs font-bold shadow-md"
+                className="btn px-6 py-3 text-xs font-bold shadow-sm"
               >
                 RELOAD CATALOGUE ➔
               </button>
@@ -246,12 +246,12 @@ export default function Shop() {
 
         {/* Empty State */}
         {!isLoading && !error && filteredProducts.length === 0 && (
-          <div className="rounded-3xl bg-white border border-[#17245B]/15 p-12 text-center space-y-3 shadow-sm max-w-md mx-auto">
+          <div className="rounded-3xl bg-white border border-stone-200/80 p-12 text-center space-y-3 shadow-xs max-w-md mx-auto">
             <span className="text-3xl block">🍿</span>
-            <h3 className="font-display text-lg font-bold uppercase text-[#17245B]">
+            <h3 className="font-display text-lg font-bold uppercase text-[#141414]">
               No products found
             </h3>
-            <p className="font-sans text-xs text-[#17245B]/70">
+            <p className="font-sans text-xs text-stone-500 font-normal">
               Try adjusting your filter or search query.
             </p>
           </div>
@@ -267,15 +267,15 @@ export default function Shop() {
         )}
 
         {/* Try All 5 Callout Banner */}
-        <div className="p-8 sm:p-10 rounded-[2.5rem] bg-[#17245B] text-[#F5EEDD] flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-white/10">
+        <div className="p-8 sm:p-10 rounded-3xl bg-[#141414] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-stone-800">
           <div className="space-y-2 max-w-xl text-center md:text-left">
-            <span className="px-3 py-1 rounded-full bg-[#E2AE35] text-[#17245B] font-mono text-[10px] font-black uppercase">
+            <span className="px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase">
               ALL 5 FLAVOURS IN ONE BOX
             </span>
             <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-white">
               CAN'T DECIDE? GET THE TRY ALL 5 BOX
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-[#F5EEDD]/85 leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed font-normal">
               1 pouch each of Peri Peri, Chilli Cheese, Chilli Lime, Kashmiri Garlic Chilli, and Pudhina.
             </p>
           </div>
