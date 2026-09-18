@@ -72,11 +72,11 @@ export default function TryAll5Feature({ product }) {
   ]
 
   return (
-    <section className="py-20 sm:py-24 bg-[#FAF8F5] border-b border-black/5 relative overflow-hidden" id="try-all-5">
+    <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C0C0C] border-b border-stone-200/80 dark:border-stone-800 relative overflow-hidden transition-colors" id="try-all-5">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         
         {/* Luxury Container */}
-        <div className="relative rounded-3xl bg-[#141414] text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-card border border-black/10">
+        <div className="relative rounded-3xl bg-[#141414] dark:bg-[#121212] text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-card border border-stone-800">
           
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
@@ -99,13 +99,13 @@ export default function TryAll5Feature({ product }) {
                 </h2>
               </div>
 
-              <p className="font-sans text-sm sm:text-base text-white/75 leading-relaxed max-w-xl font-normal">
+              <p className="font-sans text-sm sm:text-base text-stone-300 leading-relaxed max-w-xl font-normal">
                 Can't pick just one? Experience the complete Chaska lineup. Contains 1 pouch of each of our 5 signature slow-roasted flavours. Zero guesswork.
               </p>
 
               {/* 5 Flavour List Breakdown */}
               <div className="space-y-2 pt-1">
-                <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-white/50">
+                <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                   WHAT'S INSIDE EVERY BOX:
                 </span>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
@@ -116,7 +116,7 @@ export default function TryAll5Feature({ product }) {
                     >
                       <div>
                         <p className="font-display text-xs font-bold text-white">{flv.name}</p>
-                        <p className="font-sans text-[10px] text-white/50">{flv.tag}</p>
+                        <p className="font-sans text-[10px] text-stone-400">{flv.tag}</p>
                       </div>
                       <span className="font-mono text-[10px] font-bold text-[#FF5400]">
                         0{idx + 1}
@@ -127,12 +127,12 @@ export default function TryAll5Feature({ product }) {
               </div>
 
               {/* Size Selector + Pricing */}
-              <div className="pt-4 border-t border-white/10 space-y-4">
+              <div className="pt-4 border-t border-stone-800 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   
                   {/* Size Toggle */}
                   <div className="space-y-1.5">
-                    <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-white/50">
+                    <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-stone-400">
                       CHOOSE BOX SIZE:
                     </span>
                     <div className="inline-flex rounded-full bg-white/10 p-1 border border-white/10">
@@ -144,7 +144,7 @@ export default function TryAll5Feature({ product }) {
                           className={`px-5 py-2 rounded-full font-sans text-xs font-bold uppercase tracking-wider transition-all ${
                             selectedSize === sz
                               ? 'bg-[#FF5400] text-white shadow-xs'
-                              : 'text-white/70 hover:text-white'
+                              : 'text-stone-300 hover:text-white'
                           }`}
                         >
                           {sz} Box
@@ -160,7 +160,7 @@ export default function TryAll5Feature({ product }) {
                         ₹{price}
                       </span>
                       {mrp > price && (
-                        <span className="font-sans text-base text-white/40 line-through font-medium">
+                        <span className="font-sans text-base text-stone-400 line-through font-medium">
                           ₹{mrp}
                         </span>
                       )}
@@ -168,7 +168,7 @@ export default function TryAll5Feature({ product }) {
                         {discount}% OFF
                       </span>
                     </div>
-                    <p className="font-sans text-[11px] text-white/50">
+                    <p className="font-sans text-[11px] text-stone-400">
                       Includes 5 individual {selectedSize} pouches
                     </p>
                   </div>
@@ -208,7 +208,7 @@ export default function TryAll5Feature({ product }) {
 
             {/* Right Column: Hero Box Imagery */}
             <div className="lg:col-span-5">
-              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-white/10 bg-white/5 p-2 shadow-2xl group">
+              <div className="relative aspect-[4/5] rounded-2xl overflow-hidden border border-stone-800 bg-white/5 p-2 shadow-2xl group">
                 <img
                   src={photos.tabletopLifestyle.src}
                   alt="CHASKA Try All 5 Makhana Sampler Box"
@@ -219,7 +219,7 @@ export default function TryAll5Feature({ product }) {
                 </div>
                 <div className="absolute bottom-5 left-5 right-5 p-3.5 rounded-xl bg-[#141414]/90 backdrop-blur-md border border-white/10 text-xs font-sans text-white flex justify-between items-center">
                   <span className="font-semibold text-[#FF5400]">ZERO GUESSWORK</span>
-                  <span className="text-white/70">5 x {selectedSize} Pouches</span>
+                  <span className="text-stone-300">5 x {selectedSize} Pouches</span>
                 </div>
               </div>
             </div>

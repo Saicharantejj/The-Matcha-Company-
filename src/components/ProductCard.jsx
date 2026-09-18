@@ -66,14 +66,14 @@ export default function ProductCard({ product, index = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay: index * 0.04 }}
-      className="group relative flex flex-col h-full w-full rounded-2xl bg-white border border-black/8 shadow-2xs hover:shadow-card hover:border-[#FF5400]/30 transition-all duration-300 overflow-hidden"
+      className="group relative flex flex-col h-full w-full rounded-2xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 shadow-2xs hover:shadow-card hover:border-[#FF5400]/40 transition-all duration-300 overflow-hidden"
     >
       <div className="flex flex-col h-full p-4 sm:p-5">
         
         {/* Clickable Image Canvas */}
         <Link
           to={productUrl}
-          className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#FAF8F5] p-3 flex items-center justify-center group-hover:bg-[#F5F2EB] transition-colors border border-black/4"
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-xl bg-[#FAF8F5] dark:bg-[#1C1C1C] p-3 flex items-center justify-center group-hover:bg-[#F5F2EB] dark:group-hover:bg-[#222222] transition-colors border border-stone-200/40 dark:border-stone-700/40"
         >
           {/* Badge */}
           <div className="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start">
@@ -82,7 +82,7 @@ export default function ProductCard({ product, index = 0 }) {
                 SOLD OUT
               </span>
             ) : isTryAll5 ? (
-              <span className="px-2.5 py-1 font-sans text-[10px] font-bold tracking-wider uppercase rounded-full bg-[#141414] text-white shadow-2xs">
+              <span className="px-2.5 py-1 font-sans text-[10px] font-bold tracking-wider uppercase rounded-full bg-[#141414] dark:bg-stone-800 text-white shadow-2xs">
                 ⭐ ALL 5 FLAVOURS
               </span>
             ) : discount ? (
@@ -100,7 +100,7 @@ export default function ProductCard({ product, index = 0 }) {
               loading="lazy"
             />
           ) : (
-            <div className="h-full w-full flex items-center justify-center font-display text-4xl text-[#141414]">
+            <div className="h-full w-full flex items-center justify-center font-display text-4xl text-[#141414] dark:text-white">
               🍿
             </div>
           )}
@@ -110,7 +110,7 @@ export default function ProductCard({ product, index = 0 }) {
         <div className="mt-4 flex flex-1 flex-col justify-between space-y-3.5">
           <div>
             <div className="flex items-center justify-between gap-2 mb-1">
-              <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-[#141414]/50">
+              <span className="font-sans text-[11px] font-semibold uppercase tracking-wider text-stone-500 dark:text-stone-400">
                 {isTryAll5 ? '5-IN-1 STARTER BOX' : (product.size || '50G & 100G POUCHES')}
               </span>
               {product.spiceLevel && !isTryAll5 && (
@@ -121,28 +121,28 @@ export default function ProductCard({ product, index = 0 }) {
             </div>
 
             <Link to={productUrl} className="block group/title">
-              <h3 className="font-display text-base sm:text-lg font-bold text-[#141414] group-hover/title:text-[#FF5400] transition-colors leading-snug">
+              <h3 className="font-display text-base sm:text-lg font-bold text-[#141414] dark:text-white group-hover/title:text-[#FF5400] transition-colors leading-snug">
                 {name}
               </h3>
             </Link>
 
-            <p className="mt-1 font-sans text-xs leading-relaxed text-[#141414]/65 line-clamp-2">
+            <p className="mt-1 font-sans text-xs leading-relaxed text-stone-600 dark:text-stone-400 line-clamp-2">
               {product.description || product.blurb || 'Handpicked Bihar lotus seeds slow-roasted with authentic spices.'}
             </p>
           </div>
 
           {/* Pricing & CTA */}
-          <div className="pt-3 border-t border-black/5 space-y-2.5">
+          <div className="pt-3 border-t border-stone-100 dark:border-stone-800 space-y-2.5">
             <div className="flex items-baseline justify-between">
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-lg font-extrabold text-[#141414]">{priceFormatted}</span>
+                <span className="font-display text-lg font-extrabold text-[#141414] dark:text-white">{priceFormatted}</span>
                 {mrpFormatted && (
-                  <span className="font-sans text-xs text-[#141414]/40 line-through font-medium">
+                  <span className="font-sans text-xs text-stone-400 dark:text-stone-500 line-through font-medium">
                     {mrpFormatted}
                   </span>
                 )}
               </div>
-              <span className="font-sans text-[11px] font-medium text-[#141414]/50 uppercase">
+              <span className="font-sans text-[11px] font-medium text-stone-500 dark:text-stone-400 uppercase">
                 {isTryAll5 ? '5 POUCHES' : 'FROM ₹150/POUCH'}
               </span>
             </div>
@@ -154,12 +154,12 @@ export default function ProductCard({ product, index = 0 }) {
                 disabled={!isAvailable || isAdding}
                 className={`w-full py-2.5 rounded-full font-sans text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1 ${
                   !isAvailable
-                    ? 'bg-black/10 text-black/40 cursor-not-allowed'
+                    ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed'
                     : isAdded
                     ? 'bg-emerald-600 text-white'
                     : isAdding
-                    ? 'bg-[#141414] text-white opacity-85'
-                    : 'bg-[#141414] hover:bg-[#FF5400] text-white'
+                    ? 'bg-[#141414] dark:bg-stone-100 text-white dark:text-[#141414] opacity-85'
+                    : 'bg-[#141414] dark:bg-stone-100 hover:bg-[#FF5400] dark:hover:bg-[#FF5400] text-white dark:text-[#141414] dark:hover:text-white'
                 }`}
               >
                 {!isAvailable ? (
@@ -174,7 +174,7 @@ export default function ProductCard({ product, index = 0 }) {
               </button>
               <Link
                 to={productUrl}
-                className="w-full py-2.5 rounded-full bg-white border border-black/15 text-[#141414] font-sans text-[11px] font-semibold uppercase tracking-wider text-center hover:bg-[#141414] hover:text-white hover:border-[#141414] transition-colors"
+                className="w-full py-2.5 rounded-full bg-white dark:bg-[#1A1A1A] border border-stone-200 dark:border-stone-700 text-[#141414] dark:text-stone-200 font-sans text-[11px] font-semibold uppercase tracking-wider text-center hover:bg-[#141414] dark:hover:bg-white hover:text-white dark:hover:text-[#141414] hover:border-[#141414] dark:hover:border-white transition-colors"
               >
                 VIEW PACK
               </Link>

@@ -77,7 +77,7 @@ export default function Home() {
   return (
     <PageShell>
       {/* ── 1. PRODUCT CAMPAIGN HERO SECTION ──────────────────────────────── */}
-      <section className="relative bg-[#FAF8F5] px-4 pt-8 pb-16 sm:px-8 sm:pt-14 sm:pb-24 border-b border-stone-200/80 flex items-center">
+      <section className="relative bg-[#FAF8F5] dark:bg-[#0C0C0C] px-4 pt-8 pb-16 sm:px-8 sm:pt-14 sm:pb-24 border-b border-stone-200/80 dark:border-stone-800 flex items-center transition-colors">
         <div className="mx-auto w-full max-w-7xl">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-12 lg:items-center">
             
@@ -89,20 +89,20 @@ export default function Home() {
               className="lg:col-span-7 space-y-7"
             >
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-[11px] font-bold uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-[11px] font-bold uppercase tracking-wider">
                   🔥 100% SLOW-ROASTED MAKHANA
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 text-stone-800 font-mono text-[11px] font-semibold uppercase tracking-wider">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 dark:bg-stone-800 text-stone-800 dark:text-stone-200 font-mono text-[11px] font-semibold uppercase tracking-wider">
                   ZERO PALM OIL • GLUTEN FREE
                 </span>
               </div>
 
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight text-[#141414] leading-[0.96] uppercase">
+              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight text-[#141414] dark:text-white leading-[0.96] uppercase">
                 MAKHANA KO <br />
                 <span className="text-[#FF5400]">CHASKA</span> <span>LAGA DIYA.</span>
               </h1>
 
-              <p className="font-sans text-base sm:text-lg leading-relaxed text-stone-600 font-normal max-w-xl">
+              <p className="font-sans text-base sm:text-lg leading-relaxed text-stone-600 dark:text-stone-300 font-normal max-w-xl">
                 Big crunch. Bold flavour. Bas boring nahi. Handpicked Bihar lotus seeds slow-roasted in small batches with chef-crafted seasonings.
               </p>
 
@@ -112,22 +112,22 @@ export default function Home() {
                 </Link>
                 <Link
                   to="/products/chaska-try-all-5"
-                  className="btn-dark px-7 py-4 text-xs font-bold tracking-wider shadow-sm"
+                  className="btn-dark dark:bg-white dark:text-[#141414] dark:hover:bg-stone-200 px-7 py-4 text-xs font-bold tracking-wider shadow-sm"
                 >
                   TRY ALL 5 BOX
                 </Link>
               </div>
 
               {/* Micro specs */}
-              <div className="pt-2 flex flex-wrap items-center gap-6 font-mono text-xs text-stone-600">
+              <div className="pt-2 flex flex-wrap items-center gap-6 font-mono text-xs text-stone-600 dark:text-stone-400">
                 <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-600 font-bold">✓</span> 5 Signature Flavours
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 5 Signature Flavours
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-600 font-bold">✓</span> 100% Roasted, Not Fried
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 100% Roasted, Not Fried
                 </span>
                 <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-600 font-bold">✓</span> Free Shipping &gt; ₹499
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> Free Shipping &gt; ₹499
                 </span>
               </div>
             </motion.div>
@@ -139,7 +139,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-5 space-y-3.5"
             >
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 shadow-md bg-white">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-stone-800 shadow-md bg-white dark:bg-[#141414]">
                 <img
                   src={activeHeroPhoto.src}
                   alt={activeHeroPhoto.title}
@@ -177,7 +177,7 @@ export default function Home() {
                     className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
                       heroPhotoIndex === idx
                         ? 'border-[#FF5400] ring-2 ring-[#FF5400]/30 scale-105 shadow-sm'
-                        : 'border-stone-200/80 opacity-70 hover:opacity-100'
+                        : 'border-stone-200/80 dark:border-stone-800 opacity-70 hover:opacity-100'
                     }`}
                   >
                     <img src={item.src} alt={item.tag} className="w-full h-full object-cover" />
@@ -191,7 +191,7 @@ export default function Home() {
       </section>
 
       {/* ── 2. TICKER RIBBON ───────────────────────────────────────────────── */}
-      <div className="bg-[#141414] text-[#FAF8F5] py-3 px-4 font-mono text-xs font-bold uppercase tracking-widest border-b border-stone-800 overflow-hidden">
+      <div className="bg-[#141414] dark:bg-black text-[#FAF8F5] py-3 px-4 font-mono text-xs font-bold uppercase tracking-widest border-b border-stone-800 overflow-hidden">
         <div className="flex items-center justify-around gap-8 whitespace-nowrap overflow-x-auto no-scrollbar">
           <span>🍿 100% SLOW ROASTED</span>
           <span className="text-[#FF5400]">★</span>
@@ -206,27 +206,27 @@ export default function Home() {
       </div>
 
       {/* ── 3. OFFICIAL CAMPAIGN PHOTO SHOWCASE ("THE SIGNATURE CHASKA DROP") ─ */}
-      <section className="py-20 sm:py-24 bg-white border-b border-stone-200/80">
+      <section className="py-20 sm:py-24 bg-white dark:bg-[#0C0C0C] border-b border-stone-200/80 dark:border-stone-800 transition-colors">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-2">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400] flex items-center gap-1.5">
                 🔥 OFFICIAL 2026 CAMPAIGN PHOTOS
               </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414]">
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414] dark:text-white">
                 THE SIGNATURE <span className="text-[#FF5400]">CHASKA</span> DROP
               </h2>
             </div>
-            <Link to="/shop" className="btn-outline text-xs font-bold shadow-xs self-start sm:self-auto">
+            <Link to="/shop" className="btn-outline dark:border-stone-700 dark:text-stone-200 dark:hover:border-white text-xs font-bold shadow-xs self-start sm:self-auto">
               SHOP ALL FLAVOURS ➔
             </Link>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1: 50g Signature Masala Pouch */}
-            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 bg-[#FAF8F5] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-stone-800 bg-[#FAF8F5] dark:bg-[#141414] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-100">
+                <div className="aspect-[4/5] overflow-hidden bg-stone-100 dark:bg-stone-900">
                   <img
                     src={photos.masalaPouchHero.src}
                     alt="CHASKA 50g Masala Makhana Pouch"
@@ -237,25 +237,25 @@ export default function Home() {
                   <span className="font-mono text-[10px] font-bold text-[#FF5400] uppercase tracking-wider">
                     SIGNATURE POUCH • 50G
                   </span>
-                  <h3 className="font-display text-xl font-bold uppercase text-[#141414]">
+                  <h3 className="font-display text-xl font-bold uppercase text-[#141414] dark:text-white">
                     MASALA MAKHANA POUCH
                   </h3>
-                  <p className="font-sans text-xs text-stone-600 leading-relaxed font-normal">
+                  <p className="font-sans text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
                     Slow-roasted Bihar lotus seeds enrobed in signature secret spices. Big crunch, zero frying.
                   </p>
                 </div>
               </div>
               <div className="px-7 pb-7 pt-0">
-                <Link to="/shop" className="font-mono text-xs font-bold text-[#141414] hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
+                <Link to="/shop" className="font-mono text-xs font-bold text-[#141414] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
                   GRAB THIS PACK ➔
                 </Link>
               </div>
             </div>
 
             {/* Card 2: Fresh Ingredients & Whole Spices (Red Mesh Bag) */}
-            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 bg-[#FAF8F5] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-stone-800 bg-[#FAF8F5] dark:bg-[#141414] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-100">
+                <div className="aspect-[4/5] overflow-hidden bg-stone-100 dark:bg-stone-900">
                   <img
                     src={photos.meshBagIngredients.src}
                     alt="CHASKA Real Ingredients in Red Mesh Net Bag"
@@ -266,25 +266,25 @@ export default function Home() {
                   <span className="font-mono text-[10px] font-bold text-[#FF5400] uppercase tracking-wider">
                     REAL WHOLE SPICES
                   </span>
-                  <h3 className="font-display text-xl font-bold uppercase text-[#141414]">
+                  <h3 className="font-display text-xl font-bold uppercase text-[#141414] dark:text-white">
                     FARM FRESH &amp; HONEST
                   </h3>
-                  <p className="font-sans text-xs text-stone-600 leading-relaxed font-normal">
+                  <p className="font-sans text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
                     Fresh red chillies, sun-dried heirloom tomatoes, and pure rock salt tossed in cold-pressed oil.
                   </p>
                 </div>
               </div>
               <div className="px-7 pb-7 pt-0">
-                <Link to="/about" className="font-mono text-xs font-bold text-[#141414] hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
+                <Link to="/about" className="font-mono text-xs font-bold text-[#141414] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
                   OUR SOURCING STORY ➔
                 </Link>
               </div>
             </div>
 
             {/* Card 3: The CHASKA Gazette (Newspaper Edition) */}
-            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 bg-[#FAF8F5] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-stone-800 bg-[#FAF8F5] dark:bg-[#141414] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-100">
+                <div className="aspect-[4/5] overflow-hidden bg-stone-100 dark:bg-stone-900">
                   <img
                     src={photos.newspaperComingSoon.src}
                     alt="The CHASKA Gazette Edition 2026"
@@ -292,19 +292,19 @@ export default function Home() {
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
-                  <span className="font-mono text-[10px] font-bold text-stone-600 uppercase tracking-wider">
+                  <span className="font-mono text-[10px] font-bold text-stone-600 dark:text-stone-400 uppercase tracking-wider">
                     THE PRINT EDITION • 2026
                   </span>
-                  <h3 className="font-display text-xl font-bold uppercase text-[#141414]">
+                  <h3 className="font-display text-xl font-bold uppercase text-[#141414] dark:text-white">
                     GOOD FOOD, GOOD COMPANY
                   </h3>
-                  <p className="font-sans text-xs text-stone-600 leading-relaxed font-normal">
+                  <p className="font-sans text-xs text-stone-600 dark:text-stone-400 leading-relaxed font-normal">
                     Better snacks made for conversation, cocktails, midnight cravings, and desk crunching.
                   </p>
                 </div>
               </div>
               <div className="px-7 pb-7 pt-0">
-                <Link to="/products/chaska-try-all-5" className="font-mono text-xs font-bold text-[#141414] hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
+                <Link to="/products/chaska-try-all-5" className="font-mono text-xs font-bold text-[#141414] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
                   BUILD YOUR STASH ➔
                 </Link>
               </div>
@@ -320,21 +320,21 @@ export default function Home() {
       <TryAll5Feature product={tryAll5Product} />
 
       {/* ── 6. SINGLE FLAVOUR PACKS CATALOGUE GRID ─────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-white border-b border-stone-200/80" id="all-products">
+      <section className="py-20 sm:py-24 bg-white dark:bg-[#0C0C0C] border-b border-stone-200/80 dark:border-stone-800 transition-colors" id="all-products">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
           
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-2">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
+              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
                 🍿 THE CRUNCH LINEUP
               </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414]">
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414] dark:text-white">
                 SIGNATURE <span className="text-[#FF5400]">FLAVOUR PACKS.</span>
               </h2>
             </div>
             <Link
               to="/shop"
-              className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700 hover:text-[#FF5400] transition-colors"
+              className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors"
             >
               VIEW FULL CATALOGUE ➔
             </Link>
@@ -343,7 +343,7 @@ export default function Home() {
           {isLoading ? (
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
               {[1, 2, 3].map((n) => (
-                <div key={n} className="h-[460px] rounded-3xl bg-[#FAF8F5] border border-stone-200/80 p-6 animate-pulse" />
+                <div key={n} className="h-[460px] rounded-3xl bg-[#FAF8F5] dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 p-6 animate-pulse" />
               ))}
             </div>
           ) : singleFlavours.length > 0 ? (
@@ -353,12 +353,12 @@ export default function Home() {
               ))}
             </div>
           ) : (
-            <div className="rounded-3xl bg-[#FAF8F5] border border-dashed border-stone-300 p-12 text-center space-y-3 max-w-md mx-auto">
+            <div className="rounded-3xl bg-[#FAF8F5] dark:bg-[#141414] border border-dashed border-stone-300 dark:border-stone-700 p-12 text-center space-y-3 max-w-md mx-auto">
               <span className="text-4xl block">🍿</span>
-              <h3 className="font-display text-lg font-bold uppercase text-[#141414]">
+              <h3 className="font-display text-lg font-bold uppercase text-[#141414] dark:text-white">
                 Flavours Loading From Shopify
               </h3>
-              <p className="font-sans text-xs text-stone-500 font-normal">
+              <p className="font-sans text-xs text-stone-500 dark:text-stone-400 font-normal">
                 Retrieving live small-batch inventory from store...
               </p>
             </div>
@@ -374,7 +374,7 @@ export default function Home() {
       <FourPillars />
 
       {/* ── 9. BRAND MANIFESTO ─────────────────────────────────────────────── */}
-      <section className="py-24 sm:py-28 bg-[#141414] text-[#FAF8F5] border-b border-stone-800 relative overflow-hidden" id="why-chaska">
+      <section className="py-24 sm:py-28 bg-[#141414] dark:bg-black text-[#FAF8F5] border-b border-stone-800 relative overflow-hidden" id="why-chaska">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             

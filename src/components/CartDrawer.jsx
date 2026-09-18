@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useCart } from '../context/CartContext'
-import { useToast } from './Toast'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
 import { trackInitiateCheckout } from '../lib/metaPixel'
 import { SHOPIFY_DOMAIN } from '../lib/shopify/client'
@@ -13,18 +12,18 @@ function QtyStepper({ quantity, onDecrement, onIncrement, name }) {
   const displayQty = typeof quantity === 'number' && !isNaN(quantity) && quantity > 0 ? quantity : 1
 
   return (
-    <div className="inline-flex items-center border border-black/10 rounded-full bg-white overflow-hidden shadow-2xs">
+    <div className="inline-flex items-center border border-stone-200 dark:border-stone-700 rounded-full bg-white dark:bg-[#242424] overflow-hidden shadow-2xs">
       <button
         type="button"
         onClick={onDecrement}
         aria-label={`Decrease quantity of ${name}`}
-        className="flex h-7 w-7 items-center justify-center font-mono text-xs text-[#141414] font-bold transition-colors hover:bg-[#141414] hover:text-white"
+        className="flex h-7 w-7 items-center justify-center font-mono text-xs text-[#141414] dark:text-white font-bold transition-colors hover:bg-[#141414] hover:text-white dark:hover:bg-white dark:hover:text-black"
       >
         −
       </button>
       <span
         aria-live="polite"
-        className="min-w-[1.75rem] px-1 text-center font-mono text-xs tabular-nums text-[#141414] font-bold select-none"
+        className="min-w-[1.75rem] px-1 text-center font-mono text-xs tabular-nums text-[#141414] dark:text-white font-bold select-none"
       >
         {displayQty}
       </span>
@@ -32,7 +31,7 @@ function QtyStepper({ quantity, onDecrement, onIncrement, name }) {
         type="button"
         onClick={onIncrement}
         aria-label={`Increase quantity of ${name}`}
-        className="flex h-7 w-7 items-center justify-center font-mono text-xs text-[#141414] font-bold transition-colors hover:bg-[#141414] hover:text-white"
+        className="flex h-7 w-7 items-center justify-center font-mono text-xs text-[#141414] dark:text-white font-bold transition-colors hover:bg-[#141414] hover:text-white dark:hover:bg-white dark:hover:text-black"
       >
         +
       </button>
@@ -90,7 +89,7 @@ export default function CartDrawer() {
             exit={{ opacity: 0 }}
             transition={{ duration: 0.25 }}
             onClick={closeCart}
-            className="absolute inset-0 bg-black/40 backdrop-blur-xs"
+            className="absolute inset-0 bg-black/50 backdrop-blur-xs"
           />
 
           {/* Drawer Panel */}
@@ -99,12 +98,12 @@ export default function CartDrawer() {
             animate={{ x: 0 }}
             exit={{ x: '100%' }}
             transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute right-0 top-0 flex h-full w-full max-w-full sm:w-[440px] flex-col bg-[#FAF8F5] shadow-2xl sm:rounded-l-3xl overflow-hidden border-l border-black/10"
+            className="absolute right-0 top-0 flex h-full w-full max-w-full sm:w-[440px] flex-col bg-[#FAF8F5] dark:bg-[#121212] text-[#141414] dark:text-[#F5F5F4] shadow-2xl sm:rounded-l-3xl overflow-hidden border-l border-stone-200/80 dark:border-stone-800 transition-colors"
           >
             {/* ── TOP HEADER ──────────────────────────────────────────────── */}
-            <header className="flex items-center justify-between border-b border-black/5 px-6 py-4.5 bg-white">
+            <header className="flex items-center justify-between border-b border-stone-200/80 dark:border-stone-800 px-6 py-4.5 bg-white dark:bg-[#161616]">
               <div className="flex items-center gap-2.5">
-                <span className="font-display text-lg font-bold uppercase tracking-tight text-[#141414]">
+                <span className="font-display text-lg font-bold uppercase tracking-tight text-[#141414] dark:text-white">
                   YOUR CHASKA STASH
                 </span>
                 {count > 0 && (
@@ -117,27 +116,27 @@ export default function CartDrawer() {
                 type="button"
                 onClick={closeCart}
                 aria-label="Close cart"
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-black/10 bg-white font-mono text-xs text-[#141414] hover:bg-[#141414] hover:text-white transition-colors"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-stone-200 dark:border-stone-700 bg-white dark:bg-[#222222] font-mono text-xs text-[#141414] dark:text-stone-300 hover:bg-[#141414] hover:text-white dark:hover:bg-white dark:hover:text-black transition-colors"
               >
                 ✕
               </button>
             </header>
 
             {/* ── FREE SHIPPING PROGRESS BAR ──────────────────────────────── */}
-            <div className="px-6 py-3 bg-[#F5F2EB] border-b border-black/5">
+            <div className="px-6 py-3 bg-[#F5F2EB] dark:bg-[#1A1A1A] border-b border-stone-200/60 dark:border-stone-800">
               <div className="flex justify-between items-center text-xs font-sans mb-1.5 font-semibold">
                 {remainingForFreeShipping > 0 ? (
-                  <span className="text-[#141414]/75">
+                  <span className="text-stone-600 dark:text-stone-300">
                     Add <strong className="text-[#FF5400]">₹{remainingForFreeShipping}</strong> for FREE Shipping
                   </span>
                 ) : (
-                  <span className="text-emerald-700 flex items-center gap-1 font-bold">
+                  <span className="text-emerald-700 dark:text-emerald-400 flex items-center gap-1 font-bold">
                     <span>✓</span> FREE NATIONWIDE SHIPPING UNLOCKED
                   </span>
                 )}
-                <span className="text-[#141414] font-bold text-[11px]">{progressPercent}%</span>
+                <span className="text-[#141414] dark:text-white font-bold text-[11px]">{progressPercent}%</span>
               </div>
-              <div className="w-full bg-black/10 h-1.5 rounded-full overflow-hidden">
+              <div className="w-full bg-stone-200 dark:bg-stone-800 h-1.5 rounded-full overflow-hidden">
                 <div
                   className="bg-[#FF5400] h-full rounded-full transition-all duration-300 ease-out"
                   style={{ width: `${progressPercent}%` }}
@@ -149,14 +148,14 @@ export default function CartDrawer() {
             <div className="flex-1 overflow-y-auto px-6 py-4 space-y-3">
               {lines.length === 0 ? (
                 <div className="h-full flex flex-col items-center justify-center text-center py-16 space-y-4">
-                  <div className="h-14 w-14 rounded-full bg-white border border-black/10 flex items-center justify-center text-2xl shadow-2xs">
+                  <div className="h-14 w-14 rounded-full bg-white dark:bg-[#1A1A1A] border border-stone-200 dark:border-stone-800 flex items-center justify-center text-2xl shadow-2xs">
                     🍿
                   </div>
                   <div className="space-y-1">
-                    <p className="font-display text-base font-bold text-[#141414] uppercase">
+                    <p className="font-display text-base font-bold text-[#141414] dark:text-white uppercase">
                       YOUR STASH IS EMPTY
                     </p>
-                    <p className="font-sans text-xs text-[#141414]/60 max-w-xs font-normal">
+                    <p className="font-sans text-xs text-stone-500 dark:text-stone-400 max-w-xs font-normal">
                       Big crunch. Bold flavours. Ek packet se kaam nahi chalega.
                     </p>
                   </div>
@@ -183,10 +182,10 @@ export default function CartDrawer() {
                         initial={{ opacity: 0, y: 8 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, scale: 0.95 }}
-                        className="p-3.5 rounded-2xl bg-white border border-black/8 shadow-2xs flex gap-3.5 items-center justify-between"
+                        className="p-3.5 rounded-2xl bg-white dark:bg-[#1A1A1A] border border-stone-200/80 dark:border-stone-800 shadow-2xs flex gap-3.5 items-center justify-between"
                       >
                         {/* Image Thumbnail */}
-                        <div className="h-16 w-16 shrink-0 rounded-xl bg-[#FAF8F5] border border-black/5 p-1 flex items-center justify-center overflow-hidden">
+                        <div className="h-16 w-16 shrink-0 rounded-xl bg-[#FAF8F5] dark:bg-[#242424] border border-stone-200/60 dark:border-stone-700/60 p-1 flex items-center justify-center overflow-hidden">
                           {item.image ? (
                             <img src={item.image} alt={itemTitle} className="h-full w-full object-cover rounded-lg" />
                           ) : (
@@ -196,10 +195,10 @@ export default function CartDrawer() {
 
                         {/* Middle: Details & Stepper */}
                         <div className="flex-1 min-w-0 space-y-1">
-                          <p className="font-display text-sm font-bold text-[#141414] truncate">
+                          <p className="font-display text-sm font-bold text-[#141414] dark:text-white truncate">
                             {itemTitle}
                           </p>
-                          <p className="font-sans text-[11px] text-[#141414]/50 font-medium truncate">
+                          <p className="font-sans text-[11px] text-stone-500 dark:text-stone-400 font-medium truncate">
                             {variantLabel}
                           </p>
 
@@ -213,7 +212,7 @@ export default function CartDrawer() {
                             <button
                               type="button"
                               onClick={() => removeItem(item.id || item.variantId)}
-                              className="font-sans text-[11px] text-[#141414]/40 hover:text-red-600 transition-colors"
+                              className="font-sans text-[11px] text-stone-400 dark:text-stone-500 hover:text-red-600 transition-colors"
                             >
                               Remove
                             </button>
@@ -222,11 +221,11 @@ export default function CartDrawer() {
 
                         {/* Right: Price */}
                         <div className="text-right shrink-0">
-                          <span className="font-display text-sm font-bold text-[#141414] block">
+                          <span className="font-display text-sm font-bold text-[#141414] dark:text-white block">
                             ₹{itemTotal}
                           </span>
                           {item.quantity > 1 && (
-                            <span className="font-mono text-[10px] text-[#141414]/40 block">
+                            <span className="font-mono text-[10px] text-stone-400 dark:text-stone-500 block">
                               ₹{itemPrice}/ea
                             </span>
                           )}
@@ -240,21 +239,21 @@ export default function CartDrawer() {
 
             {/* ── BOTTOM SUMMARY & CHECKOUT CTA ───────────────────────────── */}
             {lines.length > 0 && (
-              <footer className="border-t border-black/10 bg-white p-6 space-y-4">
+              <footer className="border-t border-stone-200/80 dark:border-stone-800 bg-white dark:bg-[#161616] p-6 space-y-4">
                 <div className="space-y-2 font-sans text-xs">
-                  <div className="flex justify-between text-[#141414]/70">
+                  <div className="flex justify-between text-stone-600 dark:text-stone-400">
                     <span>Subtotal</span>
-                    <span className="font-bold text-[#141414]">₹{Math.round(safeSubtotal)}</span>
+                    <span className="font-bold text-[#141414] dark:text-white">₹{Math.round(safeSubtotal)}</span>
                   </div>
-                  <div className="flex justify-between text-[#141414]/70">
+                  <div className="flex justify-between text-stone-600 dark:text-stone-400">
                     <span>Estimated Shipping</span>
-                    <span className="font-semibold text-emerald-700">
+                    <span className="font-semibold text-emerald-700 dark:text-emerald-400">
                       {remainingForFreeShipping === 0 ? 'FREE' : '₹50'}
                     </span>
                   </div>
-                  <div className="border-t border-black/5 pt-2 flex justify-between items-baseline">
-                    <span className="font-display text-base font-bold text-[#141414] uppercase">Total</span>
-                    <span className="font-display text-2xl font-black text-[#141414]">
+                  <div className="border-t border-stone-200/60 dark:border-stone-800 pt-2 flex justify-between items-baseline">
+                    <span className="font-display text-base font-bold text-[#141414] dark:text-white uppercase">Total</span>
+                    <span className="font-display text-2xl font-black text-[#141414] dark:text-white">
                       ₹{Math.round(safeSubtotal + (remainingForFreeShipping === 0 ? 0 : 50))}
                     </span>
                   </div>
@@ -270,7 +269,7 @@ export default function CartDrawer() {
                 </button>
 
                 <div className="text-center">
-                  <p className="font-sans text-[11px] text-[#141414]/50 flex items-center justify-center gap-1.5">
+                  <p className="font-sans text-[11px] text-stone-500 dark:text-stone-400 flex items-center justify-center gap-1.5">
                     <span>🔒</span>
                     <span>Official Shopify Checkout • UPI, Cards &amp; NetBanking</span>
                   </p>

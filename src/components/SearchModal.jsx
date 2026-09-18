@@ -85,7 +85,7 @@ export default function SearchModal({ isOpen, onClose }) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             onClick={onClose}
-            className="fixed inset-0 bg-black/40 backdrop-blur-xs"
+            className="fixed inset-0 bg-black/50 backdrop-blur-xs"
           />
 
           {/* Modal Container */}
@@ -94,29 +94,29 @@ export default function SearchModal({ isOpen, onClose }) {
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.97, y: -12 }}
             transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-            className="relative w-full max-w-2xl rounded-3xl bg-[#FAF8F5] border border-black/10 shadow-2xl overflow-hidden z-10 flex flex-col max-h-[80vh]"
+            className="relative w-full max-w-2xl rounded-3xl bg-[#FAF8F5] dark:bg-[#141414] text-[#141414] dark:text-[#F5F5F4] border border-stone-200/80 dark:border-stone-800 shadow-2xl overflow-hidden z-10 flex flex-col max-h-[80vh] transition-colors"
           >
             {/* Search Input Bar */}
-            <div className="relative p-4 sm:p-5 border-b border-black/5 bg-white flex items-center gap-3">
-              <span className="text-base text-[#141414]/40">🔍</span>
+            <div className="relative p-4 sm:p-5 border-b border-stone-200/80 dark:border-stone-800 bg-white dark:bg-[#181818] flex items-center gap-3">
+              <span className="text-base text-stone-400">🔍</span>
               <input
                 ref={inputRef}
                 type="text"
                 placeholder="Search flavours, packs, or starter boxes..."
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
-                className="w-full bg-transparent font-sans text-sm sm:text-base text-[#141414] placeholder-[#141414]/40 focus:outline-none"
+                className="w-full bg-transparent font-sans text-sm sm:text-base text-[#141414] dark:text-white placeholder-stone-400 focus:outline-none"
               />
               {query && (
                 <button
                   type="button"
                   onClick={() => setQuery('')}
-                  className="font-mono text-xs text-[#141414]/50 hover:text-[#141414] p-1"
+                  className="font-mono text-xs text-stone-400 hover:text-[#141414] dark:hover:text-white p-1"
                 >
                   ✕
                 </button>
               )}
-              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded bg-[#FAF8F5] text-[10px] font-mono text-[#141414]/60 border border-black/10">
+              <kbd className="hidden sm:inline-block px-2 py-0.5 rounded bg-stone-100 dark:bg-[#242424] text-[10px] font-mono text-stone-500 dark:text-stone-400 border border-stone-200 dark:border-stone-700">
                 ESC
               </kbd>
             </div>
@@ -124,7 +124,7 @@ export default function SearchModal({ isOpen, onClose }) {
             {/* Quick Filter Tags */}
             {!query.trim() && (
               <div className="p-5 sm:p-6 space-y-3">
-                <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-[#141414]/50">
+                <span className="font-sans text-[10px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
                   POPULAR SEARCHES
                 </span>
                 <div className="flex flex-wrap gap-2">
@@ -133,7 +133,7 @@ export default function SearchModal({ isOpen, onClose }) {
                       key={tag}
                       type="button"
                       onClick={() => setQuery(tag)}
-                      className="px-3.5 py-1.5 rounded-full bg-white border border-black/10 font-sans text-xs font-semibold text-[#141414] hover:border-[#FF5400] hover:text-[#FF5400] transition-all shadow-2xs"
+                      className="px-3.5 py-1.5 rounded-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 font-sans text-xs font-semibold text-[#141414] dark:text-stone-200 hover:border-[#FF5400] hover:text-[#FF5400] transition-all shadow-2xs"
                     >
                       {tag}
                     </button>
@@ -148,10 +148,10 @@ export default function SearchModal({ isOpen, onClose }) {
                 {filtered.length === 0 ? (
                   <div className="text-center py-10 space-y-2">
                     <span className="text-3xl block">🍿</span>
-                    <p className="font-display text-base font-bold text-[#141414] uppercase">
+                    <p className="font-display text-base font-bold text-[#141414] dark:text-white uppercase">
                       No matching snacks found
                     </p>
-                    <p className="font-sans text-xs text-[#141414]/60">
+                    <p className="font-sans text-xs text-stone-500 dark:text-stone-400">
                       Try searching for "Peri Peri", "Chilli Cheese", or "Try All 5".
                     </p>
                   </div>
@@ -161,10 +161,10 @@ export default function SearchModal({ isOpen, onClose }) {
                       key={item.id}
                       type="button"
                       onClick={() => handleSelectProduct(item.handle)}
-                      className="w-full p-3 rounded-2xl bg-white border border-black/5 hover:border-[#FF5400]/40 hover:shadow-2xs transition-all flex items-center justify-between text-left group"
+                      className="w-full p-3 rounded-2xl bg-white dark:bg-[#1C1C1C] border border-stone-200/60 dark:border-stone-800 hover:border-[#FF5400]/40 hover:shadow-2xs transition-all flex items-center justify-between text-left group"
                     >
                       <div className="flex items-center gap-3.5">
-                        <div className="h-12 w-12 rounded-xl bg-[#FAF8F5] border border-black/5 p-1 flex items-center justify-center shrink-0">
+                        <div className="h-12 w-12 rounded-xl bg-[#FAF8F5] dark:bg-[#282828] border border-stone-200/60 dark:border-stone-700/60 p-1 flex items-center justify-center shrink-0">
                           {item.image ? (
                             <img src={item.image} alt={item.name} className="h-full w-full object-cover rounded-lg" />
                           ) : (
@@ -172,15 +172,15 @@ export default function SearchModal({ isOpen, onClose }) {
                           )}
                         </div>
                         <div>
-                          <p className="font-display text-sm font-bold text-[#141414] group-hover:text-[#FF5400] transition-colors">
+                          <p className="font-display text-sm font-bold text-[#141414] dark:text-white group-hover:text-[#FF5400] transition-colors">
                             {item.name}
                           </p>
-                          <p className="font-sans text-[11px] text-[#141414]/50 font-medium">
+                          <p className="font-sans text-[11px] text-stone-500 dark:text-stone-400 font-medium">
                             {item.size || '50g & 100g Packs'} • ₹{Math.round(item.price)}
                           </p>
                         </div>
                       </div>
-                      <span className="font-sans text-xs text-[#141414]/40 group-hover:text-[#FF5400] group-hover:translate-x-1 transition-all">
+                      <span className="font-sans text-xs text-stone-400 group-hover:text-[#FF5400] group-hover:translate-x-1 transition-all">
                         ➔
                       </span>
                     </button>

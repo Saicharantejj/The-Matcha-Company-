@@ -62,17 +62,17 @@ export default function FaqPage() {
 
   return (
     <PageShell>
-      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5]">
+      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C0C0C] transition-colors">
         <div className="mx-auto max-w-4xl space-y-12">
           {/* Header */}
           <div className="text-center space-y-3">
-            <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
+            <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               GOT QUESTIONS?
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#141414] tracking-tight">
+            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#141414] dark:text-white tracking-tight">
               FREQUENTLY ASKED QUESTIONS
             </h1>
-            <p className="font-sans text-sm text-stone-600 max-w-lg mx-auto font-normal">
+            <p className="font-sans text-sm text-stone-600 dark:text-stone-300 max-w-lg mx-auto font-normal">
               Everything you need to know about our roasted makhana, sourcing, shelf life, and shipping.
             </p>
           </div>
@@ -81,7 +81,7 @@ export default function FaqPage() {
           <div className="space-y-10">
             {FAQ_DATA.map((cat, catIdx) => (
               <div key={cat.category} className="space-y-3.5">
-                <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 px-1">
+                <h2 className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400 px-1">
                   // {cat.category}
                 </h2>
 
@@ -93,18 +93,18 @@ export default function FaqPage() {
                     return (
                       <div
                         key={item.q}
-                        className="bg-white border border-stone-200/80 rounded-2xl overflow-hidden transition-all duration-200 shadow-2xs"
+                        className="bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 rounded-2xl overflow-hidden transition-all duration-200 shadow-2xs"
                       >
                         <button
                           type="button"
                           onClick={() => toggleAccordion(id)}
                           className="w-full px-6 py-5 flex items-center justify-between text-left focus:outline-none"
                         >
-                          <span className="font-display text-base font-bold text-[#141414] pr-4">
+                          <span className="font-display text-base font-bold text-[#141414] dark:text-white pr-4">
                             {item.q}
                           </span>
                           <span
-                            className={`font-mono text-lg font-bold text-stone-400 transition-transform duration-200 shrink-0 ${
+                            className={`font-mono text-lg font-bold text-stone-400 dark:text-stone-500 transition-transform duration-200 shrink-0 ${
                               isOpen ? 'rotate-45 text-[#FF5400]' : ''
                             }`}
                           >
@@ -120,8 +120,8 @@ export default function FaqPage() {
                               exit={{ height: 0, opacity: 0 }}
                               transition={{ duration: 0.2 }}
                             >
-                              <div className="px-6 pb-6 pt-1 border-t border-stone-100">
-                                <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                              <div className="px-6 pb-6 pt-1 border-t border-stone-100 dark:border-stone-800">
+                                <p className="font-sans text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
                                   {item.a}
                                 </p>
                               </div>
@@ -137,7 +137,7 @@ export default function FaqPage() {
           </div>
 
           {/* Contact Banner */}
-          <div className="p-8 sm:p-10 rounded-3xl bg-[#141414] text-white text-center space-y-4 shadow-md border border-stone-800">
+          <div className="p-8 sm:p-10 rounded-3xl bg-[#141414] dark:bg-[#121212] text-white text-center space-y-4 shadow-md border border-stone-800">
             <h3 className="font-display text-2xl sm:text-3xl font-bold uppercase text-white">
               Still Have Questions?
             </h3>

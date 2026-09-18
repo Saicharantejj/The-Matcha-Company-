@@ -4,47 +4,47 @@ import PageShell from '../components/PageShell'
 export default function ReturnsPage() {
   return (
     <PageShell>
-      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#FAF8F5]">
+      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#FAF8F5] dark:bg-[#0C0C0C] transition-colors duration-300">
         <div className="mx-auto max-w-3xl space-y-10">
           <div className="space-y-4 text-center">
             <span className="inline-block px-4 py-1.5 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               100% CRUNCH GUARANTEE
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#141414] tracking-tight">
+            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#141414] dark:text-white tracking-tight">
               RETURNS &amp; REFUNDS
             </h1>
-            <p className="font-mono text-xs text-stone-500">
+            <p className="font-mono text-xs text-stone-500 dark:text-stone-400">
               Last updated: September 2026
             </p>
           </div>
 
-          <div className="p-8 sm:p-10 rounded-3xl bg-white border border-stone-200/80 space-y-8 shadow-xs text-[#141414] leading-relaxed">
+          <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 space-y-8 shadow-xs text-[#141414] dark:text-stone-100 leading-relaxed transition-colors duration-300">
             <section className="space-y-3">
-              <h2 className="font-display text-lg font-bold uppercase text-[#141414] flex items-center gap-2">
+              <h2 className="font-display text-lg font-bold uppercase text-[#141414] dark:text-white flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#FF5400]" />
                 1. OUR GUARANTEE
               </h2>
-              <p className="text-sm text-stone-600 leading-relaxed pl-4 font-normal">
+              <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed pl-4 font-normal">
                 We stand 100% behind the freshness, crunch, and bold spice seasoning of every pouch we ship. Because roasted makhana is a consumable food item, we cannot accept returns of opened packages for safety and hygiene reasons. However, if your order arrives damaged, unsealed, or incorrect, we will replace it immediately without hassle.
               </p>
             </section>
 
             <section className="space-y-3">
-              <h2 className="font-display text-lg font-bold uppercase text-[#141414] flex items-center gap-2">
+              <h2 className="font-display text-lg font-bold uppercase text-[#141414] dark:text-white flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#FF5400]" />
                 2. DAMAGED OR INCORRECT SHIPMENTS
               </h2>
-              <p className="text-sm text-stone-600 leading-relaxed pl-4 font-normal">
+              <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed pl-4 font-normal">
                 If you receive an unsealed or damaged package, please email us at <strong>snackchaska@gmail.com</strong> within 48 hours of delivery with a photo. We will immediately dispatch a free replacement box or refund your original payment method.
               </p>
             </section>
 
             <section className="space-y-3">
-              <h2 className="font-display text-lg font-bold uppercase text-[#141414] flex items-center gap-2">
+              <h2 className="font-display text-lg font-bold uppercase text-[#141414] dark:text-white flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#FF5400]" />
                 3. REFUND TIMELINES
               </h2>
-              <p className="text-sm text-stone-600 leading-relaxed pl-4 font-normal">
+              <p className="text-sm text-stone-600 dark:text-stone-300 leading-relaxed pl-4 font-normal">
                 Approved refunds are initiated within 24–48 hours. Depending on your bank or UPI provider, the credited amount will reflect in your account within 3 to 5 business days.
               </p>
             </section>

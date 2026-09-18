@@ -41,19 +41,19 @@ const GALLERY_ITEMS = [
 
 export default function UgcGrid() {
   return (
-    <section className="py-20 sm:py-24 bg-[#FAF8F5] border-b border-stone-200/80">
+    <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C0C0C] border-b border-stone-200/80 dark:border-stone-800 transition-colors">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               📷 SPOTTED SNACKING
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414]">
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414] dark:text-white">
               GOOD FOOD. <span className="text-[#FF5400]">BETTER SNACKS.</span>
             </h2>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-stone-500 max-w-sm font-normal">
+          <p className="font-sans text-xs sm:text-sm text-stone-500 dark:text-stone-400 max-w-sm font-normal">
             From late-night coding sessions to weekend cocktail tables.
           </p>
         </div>
@@ -62,7 +62,7 @@ export default function UgcGrid() {
           {GALLERY_ITEMS.map((item, idx) => (
             <div
               key={idx}
-              className="group relative aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 bg-white shadow-xs hover:shadow-md transition-all duration-300"
+              className="group relative aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-stone-800 bg-white dark:bg-[#141414] shadow-xs hover:shadow-md transition-all duration-300"
             >
               <img
                 src={item.img}

@@ -12,16 +12,13 @@ export default function ChaskaLogo({
   inverted = false,
   showTagline = false,
 }) {
-  const defaultMainColor = inverted ? '#FAF8F5' : '#141414'
-  const mainColor = color || defaultMainColor
-
   return (
     <div className={`inline-flex items-center gap-2 ${className}`}>
       <svg
         viewBox="0 0 762 237"
-        fill={mainColor}
+        fill={color || (inverted ? '#FAF8F5' : 'currentColor')}
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-auto max-h-full"
+        className="h-full w-auto max-h-full text-[#141414] dark:text-[#FAF8F5] transition-colors"
         aria-label="CHASKA Logo"
       >
         <path

@@ -1,20 +1,26 @@
 /** @type {import('tailwindcss').Config} */
 export default {
   content: ['./index.html', './src/**/*.{js,jsx}'],
+  darkMode: 'class',
   theme: {
     extend: {
       colors: {
         // ── CHASKA Master Brand Palette (Refined Editorial D2C) ──────────────
         // Canvas Background (Warm Ivory): #FAF8F5
+        // Dark Canvas Background:         #0C0C0C
         // Canvas Warm Surface:             #F5F2EB
         // Pure Surface Card:               #FFFFFF
+        // Dark Surface Card:               #141414
         // Text Charcoal (Near Black):      #141414
         // Text Charcoal Muted:             #555555
         // Brand Appetite Accent (Orange):  #FF5400
         
         'chaska-bg': '#FAF8F5',
+        'chaska-bg-dark': '#0C0C0C',
         'chaska-bg-warm': '#F5F2EB',
         'chaska-surface': '#FFFFFF',
+        'chaska-surface-dark': '#141414',
+        'chaska-surface-dark-elevated': '#1A1A1A',
         'chaska-charcoal': '#141414',
         'chaska-charcoal-muted': '#555555',
         'chaska-charcoal-soft': '#7E7E7E',
@@ -24,8 +30,10 @@ export default {
 
         // Semantic tokens
         canvas: '#FAF8F5',
+        'canvas-dark': '#0C0C0C',
         'canvas-warm': '#F5F2EB',
         surface: '#FFFFFF',
+        'surface-dark': '#141414',
         charcoal: '#141414',
         'charcoal-muted': '#555555',
         accent: '#FF5400',

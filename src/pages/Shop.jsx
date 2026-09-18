@@ -112,20 +112,20 @@ export default function Shop() {
   }, [activeCategory, products, searchFilter, sortBy])
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5]">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C0C0C] transition-colors">
       <div className="mx-auto max-w-7xl space-y-10">
         
         {/* Breadcrumb */}
-        <nav className="flex items-center gap-2 font-mono text-xs text-stone-500 font-semibold uppercase tracking-wider">
+        <nav className="flex items-center gap-2 font-mono text-xs text-stone-500 dark:text-stone-400 font-semibold uppercase tracking-wider">
           <Link to="/" className="hover:text-[#FF5400] transition-colors">HOME</Link>
           <span>/</span>
           <Link to="/collections" className="hover:text-[#FF5400] transition-colors">COLLECTIONS</Link>
           <span>/</span>
-          <span className="text-[#141414] font-bold">{currentMeta.title}</span>
+          <span className="text-[#141414] dark:text-white font-bold">{currentMeta.title}</span>
         </nav>
 
         {/* Header Banner */}
-        <div className="p-8 sm:p-12 lg:p-14 rounded-3xl bg-[#141414] text-white space-y-6 shadow-md relative overflow-hidden">
+        <div className="p-8 sm:p-12 lg:p-14 rounded-3xl bg-[#141414] dark:bg-[#121212] text-white space-y-6 shadow-md relative overflow-hidden border border-stone-800">
           <div className="max-w-2xl space-y-3.5 relative z-10">
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
               {currentMeta.badge}
@@ -163,7 +163,7 @@ export default function Shop() {
         </div>
 
         {/* Controls Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white border border-stone-200/80 shadow-xs">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 shadow-xs">
           <div className="relative w-full sm:w-80 flex items-center">
             <span className="absolute left-3 text-stone-400 text-xs">🔍</span>
             <input
@@ -171,13 +171,13 @@ export default function Shop() {
               placeholder="Search flavours & packs..."
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
-              className="w-full pl-8 pr-4 py-2 bg-[#FAF8F5] rounded-xl border border-stone-200/80 font-sans text-xs text-[#141414] focus:outline-none focus:border-[#FF5400]"
+              className="w-full pl-8 pr-4 py-2 bg-[#FAF8F5] dark:bg-[#1E1E1E] rounded-xl border border-stone-200/80 dark:border-stone-700 font-sans text-xs text-[#141414] dark:text-white placeholder-stone-400 focus:outline-none focus:border-[#FF5400]"
             />
             {searchFilter && (
               <button
                 type="button"
                 onClick={() => setSearchFilter('')}
-                className="absolute right-3 text-xs font-mono text-stone-400 hover:text-[#141414]"
+                className="absolute right-3 text-xs font-mono text-stone-400 hover:text-[#141414] dark:hover:text-white"
               >
                 ✕
               </button>
@@ -185,13 +185,13 @@ export default function Shop() {
           </div>
 
           <div className="flex items-center gap-4 w-full sm:w-auto justify-between sm:justify-end">
-            <span className="font-mono text-xs text-stone-500 font-semibold">
+            <span className="font-mono text-xs text-stone-500 dark:text-stone-400 font-semibold">
               {filteredProducts.length} {filteredProducts.length === 1 ? 'PRODUCT' : 'PRODUCTS'}
             </span>
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3.5 py-2 bg-[#FAF8F5] rounded-xl border border-stone-200/80 font-mono text-xs font-bold text-stone-700 focus:outline-none focus:border-[#FF5400]"
+              className="px-3.5 py-2 bg-[#FAF8F5] dark:bg-[#1E1E1E] rounded-xl border border-stone-200/80 dark:border-stone-700 font-mono text-xs font-bold text-stone-700 dark:text-stone-200 focus:outline-none focus:border-[#FF5400]"
             >
               <option value="featured">SORT: FEATURED</option>
               <option value="price-low">PRICE: LOW TO HIGH</option>
@@ -208,15 +208,15 @@ export default function Shop() {
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <div
                 key={n}
-                className="h-[460px] rounded-3xl bg-white border border-stone-200/80 p-6 flex flex-col justify-between animate-pulse"
+                className="h-[460px] rounded-3xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 p-6 flex flex-col justify-between animate-pulse"
               >
-                <div className="aspect-[4/3] w-full rounded-2xl bg-stone-100" />
+                <div className="aspect-[4/3] w-full rounded-2xl bg-stone-100 dark:bg-stone-800" />
                 <div className="space-y-3 mt-4">
-                  <div className="h-4 w-1/3 rounded bg-stone-100" />
-                  <div className="h-6 w-3/4 rounded bg-stone-100" />
-                  <div className="h-3 w-full rounded bg-stone-100" />
+                  <div className="h-4 w-1/3 rounded bg-stone-100 dark:bg-stone-800" />
+                  <div className="h-6 w-3/4 rounded bg-stone-100 dark:bg-stone-800" />
+                  <div className="h-3 w-full rounded bg-stone-100 dark:bg-stone-800" />
                 </div>
-                <div className="h-10 w-full rounded-full bg-stone-200 mt-4" />
+                <div className="h-10 w-full rounded-full bg-stone-200 dark:bg-stone-800 mt-4" />
               </div>
             ))}
           </div>
@@ -224,12 +224,12 @@ export default function Shop() {
 
         {/* Error State */}
         {!isLoading && error && (
-          <div className="rounded-3xl bg-white border border-red-200 p-10 text-center space-y-4 shadow-sm max-w-lg mx-auto">
+          <div className="rounded-3xl bg-white dark:bg-[#141414] border border-red-200 dark:border-red-900/60 p-10 text-center space-y-4 shadow-sm max-w-lg mx-auto">
             <span className="text-3xl block">⚠️</span>
-            <h3 className="font-display text-xl font-bold uppercase text-[#141414]">
+            <h3 className="font-display text-xl font-bold uppercase text-[#141414] dark:text-white">
               Unable to load Shopify catalogue
             </h3>
-            <p className="font-mono text-xs text-stone-500 leading-relaxed">
+            <p className="font-mono text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
               {error}
             </p>
             <div className="pt-2">
@@ -246,12 +246,12 @@ export default function Shop() {
 
         {/* Empty State */}
         {!isLoading && !error && filteredProducts.length === 0 && (
-          <div className="rounded-3xl bg-white border border-stone-200/80 p-12 text-center space-y-3 shadow-xs max-w-md mx-auto">
+          <div className="rounded-3xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 p-12 text-center space-y-3 shadow-xs max-w-md mx-auto">
             <span className="text-3xl block">🍿</span>
-            <h3 className="font-display text-lg font-bold uppercase text-[#141414]">
+            <h3 className="font-display text-lg font-bold uppercase text-[#141414] dark:text-white">
               No products found
             </h3>
-            <p className="font-sans text-xs text-stone-500 font-normal">
+            <p className="font-sans text-xs text-stone-500 dark:text-stone-400 font-normal">
               Try adjusting your filter or search query.
             </p>
           </div>
@@ -267,7 +267,7 @@ export default function Shop() {
         )}
 
         {/* Try All 5 Callout Banner */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-[#141414] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-stone-800">
+        <div className="p-8 sm:p-10 rounded-3xl bg-[#141414] dark:bg-[#121212] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-stone-800">
           <div className="space-y-2 max-w-xl text-center md:text-left">
             <span className="px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase">
               ALL 5 FLAVOURS IN ONE BOX

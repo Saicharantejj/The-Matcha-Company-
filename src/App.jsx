@@ -8,6 +8,7 @@ import GrainOverlay from './components/GrainOverlay'
 import SearchModal from './components/SearchModal'
 import { initSmoothScroll, scrollToTopImmediately } from './lib/smoothScroll'
 import { CartProvider } from './context/CartContext'
+import { ThemeProvider } from './context/ThemeContext'
 import { ToastProvider } from './components/Toast'
 import { initMetaPixel, trackPageView } from './lib/metaPixel'
 
@@ -72,59 +73,61 @@ export default function App() {
   }, [])
 
   return (
-    <CartProvider>
-      <ToastProvider>
-        <div className="flex min-h-screen flex-col bg-[#FAF8F5] text-[#141414] selection:bg-[#FF5400] selection:text-white">
-          <ScrollToTop />
-          <MetaPixelTracker />
-          <Header onOpenSearch={() => setIsSearchOpen(true)} />
+    <ThemeProvider>
+      <CartProvider>
+        <ToastProvider>
+          <div className="flex min-h-screen flex-col bg-[#FAF8F5] dark:bg-[#0C0C0C] text-[#141414] dark:text-[#F5F5F4] selection:bg-[#FF5400] selection:text-white transition-colors duration-300">
+            <ScrollToTop />
+            <MetaPixelTracker />
+            <Header onOpenSearch={() => setIsSearchOpen(true)} />
 
-          <AnimatePresence mode="wait" initial={false}>
-            <Routes location={location} key={location.pathname}>
-              {/* Primary Routes */}
-              <Route path="/" element={<Home />} />
-              <Route path="/shop" element={<Shop />} />
-              <Route path="/collections" element={<Shop />} />
-              <Route path="/collections/:handle" element={<Shop />} />
-              <Route path="/product/:handle" element={<ProductDetail />} />
-              <Route path="/products/:handle" element={<ProductDetail />} />
-              <Route path="/build-your-box" element={<BuildYourBoxPage />} />
-              <Route path="/build-box" element={<BuildYourBoxPage />} />
-              <Route path="/about" element={<OurStory />} />
-              <Route path="/our-story" element={<OurStory />} />
+            <AnimatePresence mode="wait" initial={false}>
+              <Routes location={location} key={location.pathname}>
+                {/* Primary Routes */}
+                <Route path="/" element={<Home />} />
+                <Route path="/shop" element={<Shop />} />
+                <Route path="/collections" element={<Shop />} />
+                <Route path="/collections/:handle" element={<Shop />} />
+                <Route path="/product/:handle" element={<ProductDetail />} />
+                <Route path="/products/:handle" element={<ProductDetail />} />
+                <Route path="/build-your-box" element={<BuildYourBoxPage />} />
+                <Route path="/build-box" element={<BuildYourBoxPage />} />
+                <Route path="/about" element={<OurStory />} />
+                <Route path="/our-story" element={<OurStory />} />
 
-              {/* B2B / Corporate Gifting */}
-              <Route path="/b2b" element={<B2bPage />} />
+                {/* B2B / Corporate Gifting */}
+                <Route path="/b2b" element={<B2bPage />} />
 
-              {/* Secondary Routes */}
-              <Route path="/faq" element={<FaqPage />} />
-              <Route path="/contact" element={<ContactPage />} />
+                {/* Secondary Routes */}
+                <Route path="/faq" element={<FaqPage />} />
+                <Route path="/contact" element={<ContactPage />} />
 
-              {/* Policies & Aliases */}
-              <Route path="/shipping" element={<ShippingPage />} />
-              <Route path="/policies/shipping" element={<ShippingPage />} />
-              <Route path="/returns" element={<ReturnsPage />} />
-              <Route path="/policies/returns" element={<ReturnsPage />} />
-              <Route path="/privacy" element={<PrivacyPolicyPage />} />
-              <Route path="/policies/privacy" element={<PrivacyPolicyPage />} />
-              <Route path="/terms" element={<TermsPage />} />
-              <Route path="/policies/terms" element={<TermsPage />} />
+                {/* Policies & Aliases */}
+                <Route path="/shipping" element={<ShippingPage />} />
+                <Route path="/policies/shipping" element={<ShippingPage />} />
+                <Route path="/returns" element={<ReturnsPage />} />
+                <Route path="/policies/returns" element={<ReturnsPage />} />
+                <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                <Route path="/policies/privacy" element={<PrivacyPolicyPage />} />
+                <Route path="/terms" element={<TermsPage />} />
+                <Route path="/policies/terms" element={<TermsPage />} />
 
-              {/* Additional Aliases */}
-              <Route path="/gift-hampers" element={<Shop />} />
-              <Route path="/diy-kits" element={<Shop />} />
+                {/* Additional Aliases */}
+                <Route path="/gift-hampers" element={<Shop />} />
+                <Route path="/diy-kits" element={<Shop />} />
 
-              {/* 404 Route */}
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </AnimatePresence>
+                {/* 404 Route */}
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </AnimatePresence>
 
-          <Footer />
-          <CartDrawer />
-          <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
-          <GrainOverlay />
-        </div>
-      </ToastProvider>
-    </CartProvider>
+            <Footer />
+            <CartDrawer />
+            <SearchModal isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+            <GrainOverlay />
+          </div>
+        </ToastProvider>
+      </CartProvider>
+    </ThemeProvider>
   )
 }

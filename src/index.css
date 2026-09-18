@@ -45,6 +45,13 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  html.dark,
+  html.dark body {
+    background-color: #0C0C0C;
+    color: #F5F5F4;
   }
 
   :focus-visible {
@@ -74,8 +81,16 @@
     border-top: 1px solid rgba(20, 20, 20, 0.08);
   }
 
+  .dark .rule {
+    border-top-color: rgba(255, 255, 255, 0.08);
+  }
+
   .rule-charcoal {
     border-top: 1px solid #141414;
+  }
+
+  .dark .rule-charcoal {
+    border-top-color: #262626;
   }
 
   /* ── Clean Elevated Cards & Surfaces ─────────────────────────────────── */
@@ -84,6 +99,11 @@
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     border-bottom: 1px solid rgba(20, 20, 20, 0.06);
+  }
+
+  .dark .glass-header {
+    background-color: rgba(12, 12, 12, 0.94);
+    border-bottom-color: rgba(255, 255, 255, 0.06);
   }
 
   .chaska-card {
@@ -102,6 +122,17 @@
     border-color: rgba(255, 84, 0, 0.35);
   }
 
+  .dark .chaska-card {
+    background-color: #141414;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+  }
+
+  .dark .chaska-card:hover {
+    border-color: rgba(255, 84, 0, 0.45);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.55);
+  }
+
   .glass-card {
     @apply chaska-card;
   }
@@ -112,10 +143,22 @@
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
   }
 
+  .dark .glass-panel {
+    background-color: #141414;
+    border-color: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  }
+
   .glass-pill {
     background-color: #FFFFFF;
     border: 1px solid rgba(20, 20, 20, 0.08);
     color: #141414;
+  }
+
+  .dark .glass-pill {
+    background-color: #181818;
+    border-color: rgba(255, 255, 255, 0.1);
+    color: #F5F5F4;
   }
 
   /* ── Buttons (Modern, Confident, Crisp) ──────────────────────────────── */
@@ -144,6 +187,20 @@
     transform: translateY(0);
   }
 
+  .dark .btn, .dark .btn-primary {
+    background-color: #FAF8F5;
+    color: #141414;
+    border-color: #FAF8F5;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.4);
+  }
+
+  .dark .btn:hover, .dark .btn-primary:hover {
+    background-color: #FF5400;
+    border-color: #FF5400;
+    color: #FFFFFF;
+    box-shadow: 0 6px 18px rgba(255, 84, 0, 0.35);
+  }
+
   /* Orange Action Button */
   .btn-orange, .btn-accent {
     @apply relative isolate inline-flex items-center justify-center gap-2
@@ -162,6 +219,12 @@
     border-color: #141414;
     color: #FFFFFF;
     box-shadow: 0 6px 20px rgba(20, 20, 20, 0.2);
+  }
+
+  .dark .btn-orange:hover, .dark .btn-accent:hover {
+    background-color: #FFFFFF;
+    border-color: #FFFFFF;
+    color: #141414;
   }
 
   /* Secondary / Charcoal Button */
@@ -199,6 +262,17 @@
     transform: translateY(0);
   }
 
+  .dark .btn-outline {
+    color: #F5F5F4;
+    border-color: rgba(255, 255, 255, 0.2);
+  }
+
+  .dark .btn-outline:hover {
+    background-color: #FAF8F5;
+    color: #141414;
+    border-color: #FAF8F5;
+  }
+
   /* ── Specs ───────────────────────────────────────────────────────────── */
   .spec {
     font-family: "Space Grotesk", monospace;
@@ -207,6 +281,10 @@
     letter-spacing: 0.08em;
     color: #141414;
     font-weight: 700;
+  }
+
+  .dark .spec {
+    color: #F5F5F4;
   }
 }
 

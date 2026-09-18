@@ -56,7 +56,7 @@ export default function B2bPage() {
   return (
     <PageShell>
       {/* ── B2B HERO BANNER ──────────────────────────────────────────────── */}
-      <section className="relative bg-[#141414] text-white px-4 py-16 sm:px-8 sm:py-24 border-b border-stone-800 overflow-hidden">
+      <section className="relative bg-[#141414] dark:bg-black text-white px-4 py-16 sm:px-8 sm:py-24 border-b border-stone-800 overflow-hidden transition-colors">
         <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-10 items-center">
           <div className="lg:col-span-7 space-y-6">
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
@@ -98,13 +98,13 @@ export default function B2bPage() {
       </section>
 
       {/* ── USE CASES & TIERS ────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#FAF8F5] border-b border-stone-200/80">
+      <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C0C0C] border-b border-stone-200/80 dark:border-stone-800 transition-colors">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
           <div className="max-w-2xl space-y-2">
-            <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400">
               WHERE CHASKA SHINES
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414]">
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#141414] dark:text-white">
               TAILORED FOR EVERY OCCASION
             </h2>
           </div>
@@ -117,13 +117,13 @@ export default function B2bPage() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.3, delay: i * 0.05 }}
-                className="p-8 rounded-3xl bg-white border border-stone-200/80 shadow-xs space-y-3 hover:shadow-md transition-all"
+                className="p-8 rounded-3xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 shadow-xs space-y-3 hover:shadow-md transition-all"
               >
                 <span className="text-3xl block">{uc.icon}</span>
-                <h3 className="font-display text-base font-bold uppercase text-[#141414]">
+                <h3 className="font-display text-base font-bold uppercase text-[#141414] dark:text-white">
                   {uc.title}
                 </h3>
-                <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed font-normal">
+                <p className="font-sans text-xs sm:text-sm text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
                   {uc.desc}
                 </p>
               </motion.div>
@@ -133,23 +133,23 @@ export default function B2bPage() {
       </section>
 
       {/* ── B2B INQUIRY FORM ─────────────────────────────────────────────── */}
-      <section id="b2b-form" className="py-20 bg-white border-b border-stone-200/80">
+      <section id="b2b-form" className="py-20 bg-white dark:bg-[#0C0C0C] border-b border-stone-200/80 dark:border-stone-800 transition-colors">
         <div className="mx-auto max-w-4xl px-4 sm:px-8">
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#FAF8F5] border border-stone-200/80 shadow-xs space-y-8">
+          <div className="p-8 sm:p-12 rounded-3xl bg-[#FAF8F5] dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 shadow-xs space-y-8">
             <div className="space-y-2 text-center max-w-xl mx-auto">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
                 GET A FAST B2B PROPOSAL
               </span>
-              <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#141414]">
+              <h2 className="font-display text-3xl sm:text-4xl font-black uppercase text-[#141414] dark:text-white">
                 REQUEST A BULK QUOTE
               </h2>
-              <p className="font-sans text-xs sm:text-sm text-stone-600 font-normal">
+              <p className="font-sans text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-normal">
                 Our team responds within 4 business hours with custom pricing, sample packs, and dispatch timelines.
               </p>
             </div>
 
             {submitted ? (
-              <div className="p-8 rounded-3xl bg-[#141414] text-white text-center space-y-3">
+              <div className="p-8 rounded-3xl bg-[#141414] dark:bg-[#1E1E1E] text-white text-center space-y-3">
                 <span className="text-4xl block">🍿</span>
                 <h3 className="font-display text-2xl font-bold uppercase text-[#FF5400]">
                   Quote Request Received!
@@ -162,7 +162,7 @@ export default function B2bPage() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500">
+                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500 dark:text-stone-400">
                       Full Name *
                     </label>
                     <input
@@ -171,12 +171,12 @@ export default function B2bPage() {
                       placeholder="e.g. Priya Sharma"
                       value={formData.name}
                       onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      className="w-full bg-white border border-stone-200/80 rounded-xl px-4 py-3 text-xs text-[#141414] focus:outline-none focus:border-[#FF5400]"
+                      className="w-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 rounded-xl px-4 py-3 text-xs text-[#141414] dark:text-white focus:outline-none focus:border-[#FF5400]"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500">
+                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500 dark:text-stone-400">
                       Company / Organization *
                     </label>
                     <input
@@ -185,12 +185,12 @@ export default function B2bPage() {
                       placeholder="e.g. Acme Studio / Cafe Blue"
                       value={formData.company}
                       onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                      className="w-full bg-white border border-stone-200/80 rounded-xl px-4 py-3 text-xs text-[#141414] focus:outline-none focus:border-[#FF5400]"
+                      className="w-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 rounded-xl px-4 py-3 text-xs text-[#141414] dark:text-white focus:outline-none focus:border-[#FF5400]"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500">
+                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500 dark:text-stone-400">
                       Work Email *
                     </label>
                     <input
@@ -199,12 +199,12 @@ export default function B2bPage() {
                       placeholder="e.g. priya@acme.com"
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full bg-white border border-stone-200/80 rounded-xl px-4 py-3 text-xs text-[#141414] focus:outline-none focus:border-[#FF5400]"
+                      className="w-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 rounded-xl px-4 py-3 text-xs text-[#141414] dark:text-white focus:outline-none focus:border-[#FF5400]"
                     />
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500">
+                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500 dark:text-stone-400">
                       Phone / WhatsApp *
                     </label>
                     <input
@@ -213,20 +213,20 @@ export default function B2bPage() {
                       placeholder="+91 98765 43210"
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full bg-white border border-stone-200/80 rounded-xl px-4 py-3 text-xs text-[#141414] focus:outline-none focus:border-[#FF5400]"
+                      className="w-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 rounded-xl px-4 py-3 text-xs text-[#141414] dark:text-white focus:outline-none focus:border-[#FF5400]"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500">
+                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500 dark:text-stone-400">
                       Requirement Category
                     </label>
                     <select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                      className="w-full bg-white border border-stone-200/80 rounded-xl px-4 py-3 font-mono text-xs font-bold text-[#141414] focus:outline-none focus:border-[#FF5400]"
+                      className="w-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 rounded-xl px-4 py-3 font-mono text-xs font-bold text-[#141414] dark:text-white focus:outline-none focus:border-[#FF5400]"
                     >
                       <option value="Corporate Gifting">Corporate Gifting &amp; Hampers</option>
                       <option value="Cafe / Bar Snacking">Cafe / Bar Snack Counter</option>
@@ -237,13 +237,13 @@ export default function B2bPage() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500">
+                    <label className="font-mono text-[10px] font-bold uppercase text-stone-500 dark:text-stone-400">
                       Estimated Quantity
                     </label>
                     <select
                       value={formData.quantity}
                       onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                      className="w-full bg-white border border-stone-200/80 rounded-xl px-4 py-3 font-mono text-xs font-bold text-[#141414] focus:outline-none focus:border-[#FF5400]"
+                      className="w-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 rounded-xl px-4 py-3 font-mono text-xs font-bold text-[#141414] dark:text-white focus:outline-none focus:border-[#FF5400]"
                     >
                       <option value="50-200 units">50 – 200 units</option>
                       <option value="200-500 units">200 – 500 units</option>
@@ -254,7 +254,7 @@ export default function B2bPage() {
                 </div>
 
                 <div className="space-y-1.5">
-                  <label className="font-mono text-[10px] font-bold uppercase text-stone-500">
+                  <label className="font-mono text-[10px] font-bold uppercase text-stone-500 dark:text-stone-400">
                     Additional Notes or Customization Requests
                   </label>
                   <textarea
@@ -262,7 +262,7 @@ export default function B2bPage() {
                     placeholder="Tell us about your event dates, custom packaging ideas, or target budget..."
                     value={formData.notes}
                     onChange={(e) => setFormData({ ...formData, notes: e.target.value })}
-                    className="w-full bg-white border border-stone-200/80 rounded-xl px-4 py-3 text-xs text-[#141414] focus:outline-none focus:border-[#FF5400]"
+                    className="w-full bg-white dark:bg-[#1E1E1E] border border-stone-200/80 dark:border-stone-700 rounded-xl px-4 py-3 text-xs text-[#141414] dark:text-white focus:outline-none focus:border-[#FF5400]"
                   />
                 </div>
 
