@@ -8,13 +8,13 @@ export default function OurStory() {
   return (
     <PageShell>
       {/* Header */}
-      <section className="bg-[#FAF8F5] dark:bg-[#0C0C0C] px-4 py-16 sm:px-8 sm:py-24 border-b border-stone-200/80 dark:border-stone-800 transition-colors">
+      <section className="bg-[#FAF8F5] dark:bg-[#0C122C] px-4 py-16 sm:px-8 sm:py-24 border-b border-stone-200/80 dark:border-[#243373] transition-colors">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-4xl space-y-4">
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               OUR STORY
             </span>
-            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#141414] dark:text-white leading-[0.96]">
+            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#17245B] dark:text-white leading-[0.96]">
               MAKHANA HAS BEEN AROUND FOREVER. WE GAVE IT A <span className="text-[#FF5400]">CHASKA.</span>
             </h1>
             <p className="font-sans text-base sm:text-xl text-stone-600 dark:text-stone-300 leading-relaxed max-w-2xl font-normal">
@@ -25,7 +25,7 @@ export default function OurStory() {
       </section>
 
       {/* Narrative Section 1: Philosophy & The Print Edition */}
-      <section className="bg-white dark:bg-[#0C0C0C] py-20 sm:py-24 px-4 sm:px-8 border-b border-stone-200/80 dark:border-stone-800 transition-colors">
+      <section className="bg-white dark:bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-stone-200/80 dark:border-[#243373] transition-colors">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -33,7 +33,7 @@ export default function OurStory() {
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400">
                 // THE CHASKA PHILOSOPHY
               </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#141414] dark:text-white leading-tight">
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white leading-tight">
                 SLOW-ROASTED. BIG CRUNCH. <span className="text-[#FF5400]">PURE ADDICTION.</span>
               </h2>
               <p className="font-sans text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
@@ -48,7 +48,7 @@ export default function OurStory() {
                 </Link>
                 <Link
                   to="/products/chaska-try-all-5"
-                  className="btn-outline dark:border-stone-700 dark:text-stone-200 dark:hover:border-white px-7 py-3.5 text-xs font-bold"
+                  className="btn-outline dark:border-[#243373] dark:text-stone-200 dark:hover:border-white px-7 py-3.5 text-xs font-bold"
                 >
                   TRY ALL 5 BOX
                 </Link>
@@ -56,7 +56,7 @@ export default function OurStory() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-stone-800 shadow-md bg-[#FAF8F5] dark:bg-[#141414] p-2.5">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] shadow-md bg-[#FAF8F5] dark:bg-[#131D4A] p-2.5">
                 <img
                   src={photos.newspaperComingSoon.src}
                   alt="CHASKA Newspaper Edition"
@@ -70,12 +70,12 @@ export default function OurStory() {
       </section>
 
       {/* Narrative Section 2: Real Ingredients */}
-      <section className="bg-[#FAF8F5] dark:bg-[#0C0C0C] py-20 sm:py-24 px-4 sm:px-8 border-b border-stone-200/80 dark:border-stone-800 transition-colors">
+      <section className="bg-[#FAF8F5] dark:bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-stone-200/80 dark:border-[#243373] transition-colors">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             <div className="lg:col-span-5 order-2 lg:order-1">
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-stone-800 shadow-md bg-white dark:bg-[#141414] p-2.5">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] shadow-md bg-white dark:bg-[#131D4A] p-2.5">
                 <img
                   src={photos.meshBagIngredients.src}
                   alt="CHASKA Fresh Ingredients in Mesh Bag"
@@ -88,7 +88,7 @@ export default function OurStory() {
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400">
                 // SOURCING &amp; HONEST DISCIPLINE
               </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#141414] dark:text-white leading-tight">
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white leading-tight">
                 REAL SPICES. <span className="text-[#FF5400]">ZERO SHORTCUTS.</span>
               </h2>
               <p className="font-sans text-sm sm:text-base text-stone-600 dark:text-stone-300 leading-relaxed font-normal">

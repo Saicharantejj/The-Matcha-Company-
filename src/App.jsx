@@ -76,7 +76,7 @@ export default function App() {
     <ThemeProvider>
       <CartProvider>
         <ToastProvider>
-          <div className="flex min-h-screen flex-col bg-[#FAF8F5] dark:bg-[#0C0C0C] text-[#141414] dark:text-[#F5F5F4] selection:bg-[#FF5400] selection:text-white transition-colors duration-300">
+          <div className="flex min-h-screen flex-col bg-[#FAF8F5] dark:bg-[#0C122C] text-[#17245B] dark:text-[#FAF8F5] selection:bg-[#FF5400] selection:text-white transition-colors duration-300">
             <ScrollToTop />
             <MetaPixelTracker />
             <Header onOpenSearch={() => setIsSearchOpen(true)} />

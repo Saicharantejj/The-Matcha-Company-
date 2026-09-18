@@ -5,56 +5,61 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── CHASKA Master Brand Palette (Refined Editorial D2C) ──────────────
-        // Canvas Background (Warm Ivory): #FAF8F5
-        // Dark Canvas Background:         #0C0C0C
-        // Canvas Warm Surface:             #F5F2EB
-        // Pure Surface Card:               #FFFFFF
-        // Dark Surface Card:               #141414
-        // Text Charcoal (Near Black):      #141414
-        // Text Charcoal Muted:             #555555
-        // Brand Appetite Accent (Orange):  #FF5400
+        // ── CHASKA Master Brand Palette (Midnight Indigo & Ivory) ───────────
+        // Canvas Ground (Light):          Warm Ivory       #FAF8F5
+        // Canvas Ground (Dark):           Deep Midnight    #0C122C
+        // Brand Foundation / Primary:     Midnight Indigo  #17245B
+        // Brand Dark Surface:             Midnight Surface #131D4A / #17245B
+        // Brand Dark Elevated:            Indigo Elevated  #1C2A6B
+        // Brand Signature Accent:         Chaska Orange    #FF5400
+        // Secondary Accent:               Toasted Saffron  #E2AE35
         
         'chaska-bg': '#FAF8F5',
-        'chaska-bg-dark': '#0C0C0C',
+        'chaska-bg-dark': '#0C122C',
         'chaska-bg-warm': '#F5F2EB',
         'chaska-surface': '#FFFFFF',
-        'chaska-surface-dark': '#141414',
-        'chaska-surface-dark-elevated': '#1A1A1A',
-        'chaska-charcoal': '#141414',
-        'chaska-charcoal-muted': '#555555',
-        'chaska-charcoal-soft': '#7E7E7E',
+        'chaska-surface-dark': '#131D4A',
+        'chaska-surface-dark-elevated': '#1C2A6B',
+        'chaska-indigo': '#17245B',
+        'chaska-indigo-dark': '#0C122C',
+        'chaska-indigo-surface': '#131D4A',
+        'chaska-indigo-light': '#1C2A6B',
+        'chaska-charcoal': '#17245B',
+        'chaska-charcoal-muted': '#556080',
+        'chaska-charcoal-soft': '#7E8BA8',
         'chaska-orange': '#FF5400',
         'chaska-orange-dark': '#E04800',
         'chaska-orange-light': '#FFF3EB',
 
         // Semantic tokens
         canvas: '#FAF8F5',
-        'canvas-dark': '#0C0C0C',
+        'canvas-dark': '#0C122C',
         'canvas-warm': '#F5F2EB',
         surface: '#FFFFFF',
-        'surface-dark': '#141414',
-        charcoal: '#141414',
-        'charcoal-muted': '#555555',
+        'surface-dark': '#131D4A',
+        charcoal: '#17245B',
+        'charcoal-muted': '#556080',
         accent: '#FF5400',
         'accent-dark': '#E04800',
         'accent-light': '#FFF3EB',
 
-        // Backward compatibility tokens
+        // Brand Foundation tokens
+        'midnight-indigo': '#17245B',
+        'midnight-indigo-dark': '#0C122C',
+        'midnight-indigo-surface': '#131D4A',
+        'midnight-indigo-light': '#1C2A6B',
+        'midnight-indigo-border': '#243373',
         'rice-paper-ivory': '#FAF8F5',
         'rice-paper-warm': '#F5F2EB',
-        'midnight-indigo': '#141414',
-        'midnight-indigo-dark': '#0A0A0A',
-        'midnight-indigo-light': '#242424',
-        'toasted-saffron': '#FF5400',
-        'toasted-saffron-dark': '#E04800',
+        'toasted-saffron': '#E2AE35',
+        'toasted-saffron-dark': '#C69420',
         'chilli-lacquer': '#E63946',
         'chaska-cream': '#FAF8F5',
         'chaska-cream-dark': '#F0ECE1',
-        foundation: '#141414',
-        indigo: '#141414',
+        foundation: '#17245B',
+        indigo: '#17245B',
         ivory: '#FAF8F5',
-        saffron: '#FF5400',
+        saffron: '#E2AE35',
         cream: '#FAF8F5',
 
         // Flavour Badges & Accents

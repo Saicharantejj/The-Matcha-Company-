@@ -112,7 +112,7 @@ export default function Shop() {
   }, [activeCategory, products, searchFilter, sortBy])
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C0C0C] transition-colors">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C122C] transition-colors">
       <div className="mx-auto max-w-7xl space-y-10">
         
         {/* Breadcrumb */}
@@ -121,11 +121,11 @@ export default function Shop() {
           <span>/</span>
           <Link to="/collections" className="hover:text-[#FF5400] transition-colors">COLLECTIONS</Link>
           <span>/</span>
-          <span className="text-[#141414] dark:text-white font-bold">{currentMeta.title}</span>
+          <span className="text-[#17245B] dark:text-white font-bold">{currentMeta.title}</span>
         </nav>
 
         {/* Header Banner */}
-        <div className="p-8 sm:p-12 lg:p-14 rounded-3xl bg-[#141414] dark:bg-[#121212] text-white space-y-6 shadow-md relative overflow-hidden border border-stone-800">
+        <div className="p-8 sm:p-12 lg:p-14 rounded-3xl bg-[#17245B] dark:bg-[#131D4A] text-white space-y-6 shadow-md relative overflow-hidden border border-white/10 dark:border-[#243373]">
           <div className="max-w-2xl space-y-3.5 relative z-10">
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
               {currentMeta.badge}
@@ -139,7 +139,7 @@ export default function Shop() {
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-stone-800 relative z-10">
+          <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-white/10 dark:border-[#243373] relative z-10">
             {[
               { id: 'all', label: 'ALL PRODUCTS', to: '/collections/all' },
               { id: 'best-sellers', label: '⭐ BEST SELLERS', to: '/collections/best-sellers' },
@@ -153,7 +153,7 @@ export default function Shop() {
                 className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
                   activeCategory === cat.id
                     ? 'bg-[#FF5400] text-white shadow-xs'
-                    : 'bg-stone-800/80 text-stone-300 hover:bg-stone-700'
+                    : 'bg-white/10 dark:bg-[#1C2A6B] text-stone-200 hover:bg-white/20'
                 }`}
               >
                 {cat.label}
@@ -163,7 +163,7 @@ export default function Shop() {
         </div>
 
         {/* Controls Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 shadow-xs">
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] shadow-xs">
           <div className="relative w-full sm:w-80 flex items-center">
             <span className="absolute left-3 text-stone-400 text-xs">🔍</span>
             <input
@@ -171,13 +171,13 @@ export default function Shop() {
               placeholder="Search flavours & packs..."
               value={searchFilter}
               onChange={(e) => setSearchFilter(e.target.value)}
-              className="w-full pl-8 pr-4 py-2 bg-[#FAF8F5] dark:bg-[#1E1E1E] rounded-xl border border-stone-200/80 dark:border-stone-700 font-sans text-xs text-[#141414] dark:text-white placeholder-stone-400 focus:outline-none focus:border-[#FF5400]"
+              className="w-full pl-8 pr-4 py-2 bg-[#FAF8F5] dark:bg-[#1C2A6B] rounded-xl border border-stone-200/80 dark:border-[#243373] font-sans text-xs text-[#17245B] dark:text-white placeholder-stone-400 focus:outline-none focus:border-[#FF5400]"
             />
             {searchFilter && (
               <button
                 type="button"
                 onClick={() => setSearchFilter('')}
-                className="absolute right-3 text-xs font-mono text-stone-400 hover:text-[#141414] dark:hover:text-white"
+                className="absolute right-3 text-xs font-mono text-stone-400 hover:text-[#17245B] dark:hover:text-white"
               >
                 ✕
               </button>
@@ -191,7 +191,7 @@ export default function Shop() {
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value)}
-              className="px-3.5 py-2 bg-[#FAF8F5] dark:bg-[#1E1E1E] rounded-xl border border-stone-200/80 dark:border-stone-700 font-mono text-xs font-bold text-stone-700 dark:text-stone-200 focus:outline-none focus:border-[#FF5400]"
+              className="px-3.5 py-2 bg-[#FAF8F5] dark:bg-[#1C2A6B] rounded-xl border border-stone-200/80 dark:border-[#243373] font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 focus:outline-none focus:border-[#FF5400]"
             >
               <option value="featured">SORT: FEATURED</option>
               <option value="price-low">PRICE: LOW TO HIGH</option>
@@ -208,15 +208,15 @@ export default function Shop() {
             {[1, 2, 3, 4, 5, 6].map((n) => (
               <div
                 key={n}
-                className="h-[460px] rounded-3xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 p-6 flex flex-col justify-between animate-pulse"
+                className="h-[460px] rounded-3xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] p-6 flex flex-col justify-between animate-pulse"
               >
-                <div className="aspect-[4/3] w-full rounded-2xl bg-stone-100 dark:bg-stone-800" />
+                <div className="aspect-[4/3] w-full rounded-2xl bg-stone-100 dark:bg-[#1C2A6B]" />
                 <div className="space-y-3 mt-4">
-                  <div className="h-4 w-1/3 rounded bg-stone-100 dark:bg-stone-800" />
-                  <div className="h-6 w-3/4 rounded bg-stone-100 dark:bg-stone-800" />
-                  <div className="h-3 w-full rounded bg-stone-100 dark:bg-stone-800" />
+                  <div className="h-4 w-1/3 rounded bg-stone-100 dark:bg-[#1C2A6B]" />
+                  <div className="h-6 w-3/4 rounded bg-stone-100 dark:bg-[#1C2A6B]" />
+                  <div className="h-3 w-full rounded bg-stone-100 dark:bg-[#1C2A6B]" />
                 </div>
-                <div className="h-10 w-full rounded-full bg-stone-200 dark:bg-stone-800 mt-4" />
+                <div className="h-10 w-full rounded-full bg-stone-200 dark:bg-[#1C2A6B] mt-4" />
               </div>
             ))}
           </div>
@@ -224,9 +224,9 @@ export default function Shop() {
 
         {/* Error State */}
         {!isLoading && error && (
-          <div className="rounded-3xl bg-white dark:bg-[#141414] border border-red-200 dark:border-red-900/60 p-10 text-center space-y-4 shadow-sm max-w-lg mx-auto">
+          <div className="rounded-3xl bg-white dark:bg-[#131D4A] border border-red-200 dark:border-red-900/60 p-10 text-center space-y-4 shadow-sm max-w-lg mx-auto">
             <span className="text-3xl block">⚠️</span>
-            <h3 className="font-display text-xl font-bold uppercase text-[#141414] dark:text-white">
+            <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
               Unable to load Shopify catalogue
             </h3>
             <p className="font-mono text-xs text-stone-500 dark:text-stone-400 leading-relaxed">
@@ -246,9 +246,9 @@ export default function Shop() {
 
         {/* Empty State */}
         {!isLoading && !error && filteredProducts.length === 0 && (
-          <div className="rounded-3xl bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 p-12 text-center space-y-3 shadow-xs max-w-md mx-auto">
+          <div className="rounded-3xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] p-12 text-center space-y-3 shadow-xs max-w-md mx-auto">
             <span className="text-3xl block">🍿</span>
-            <h3 className="font-display text-lg font-bold uppercase text-[#141414] dark:text-white">
+            <h3 className="font-display text-lg font-bold uppercase text-[#17245B] dark:text-white">
               No products found
             </h3>
             <p className="font-sans text-xs text-stone-500 dark:text-stone-400 font-normal">
@@ -267,7 +267,7 @@ export default function Shop() {
         )}
 
         {/* Try All 5 Callout Banner */}
-        <div className="p-8 sm:p-10 rounded-3xl bg-[#141414] dark:bg-[#121212] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-stone-800">
+        <div className="p-8 sm:p-10 rounded-3xl bg-[#17245B] dark:bg-[#131D4A] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-white/10 dark:border-[#243373]">
           <div className="space-y-2 max-w-xl text-center md:text-left">
             <span className="px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase">
               ALL 5 FLAVOURS IN ONE BOX

@@ -53,7 +53,7 @@ export function ToastProvider({ children }) {
               animate={{ opacity: 1, x: 0, scale: 1 }}
               exit={{ opacity: 0, x: -20, scale: 0.95 }}
               transition={{ type: 'spring', stiffness: 400, damping: 30 }}
-              className="pointer-events-auto flex items-center gap-3 border border-stone-200/80 dark:border-stone-700 bg-white dark:bg-[#1C1C1C] px-4 py-3 rounded-2xl shadow-float"
+              className="pointer-events-auto flex items-center gap-3 border border-stone-200/80 dark:border-[#243373] bg-white dark:bg-[#131D4A] px-4 py-3 rounded-2xl shadow-float"
             >
               <span className={`flex h-6 w-6 flex-shrink-0 items-center justify-center rounded-full ${
                 t.type === 'error' ? 'bg-red-500 text-white' : 'bg-[#FF5400] text-white'
@@ -64,7 +64,7 @@ export function ToastProvider({ children }) {
                   <Check size={13} strokeWidth={3} aria-hidden="true" />
                 )}
               </span>
-              <span className="font-sans text-xs font-semibold text-[#141414] dark:text-stone-100">
+              <span className="font-sans text-xs font-semibold text-[#17245B] dark:text-stone-100">
                 {t.message}
               </span>
               {t.action && (

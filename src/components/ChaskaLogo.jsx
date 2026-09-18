@@ -1,7 +1,7 @@
 /**
  * CHASKA Official Stylized Wordmark Logo
  * Palette:
- * - Text (Light surface): Deep Charcoal #141414
+ * - Text (Light surface): Midnight Indigo #17245B
  * - Text (Dark / Inverted): Warm Ivory #FAF8F5 / #FFFFFF
  * - Brand Appetite Accent: Chaska Orange #FF5400
  */
@@ -18,7 +18,7 @@ export default function ChaskaLogo({
         viewBox="0 0 762 237"
         fill={color || (inverted ? '#FAF8F5' : 'currentColor')}
         xmlns="http://www.w3.org/2000/svg"
-        className="h-full w-auto max-h-full text-[#141414] dark:text-[#FAF8F5] transition-colors"
+        className="h-full w-auto max-h-full text-[#17245B] dark:text-[#FAF8F5] transition-colors"
         aria-label="CHASKA Logo"
       >
         <path

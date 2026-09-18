@@ -15,11 +15,11 @@ export default function Footer() {
   }
 
   return (
-    <footer className="bg-[#141414] dark:bg-black text-[#FAF8F5] pt-16 sm:pt-20 pb-12 border-t border-stone-800 overflow-hidden transition-colors">
+    <footer className="bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] pt-16 sm:pt-20 pb-12 border-t border-[#243373] overflow-hidden transition-colors">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         
         {/* Top Newsletter / Brand Statement */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-14 border-b border-stone-800">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 pb-14 border-b border-white/10">
           <div className="lg:col-span-6 space-y-2.5">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-2xs">
               GET THE CHASKA DROP
@@ -27,14 +27,14 @@ export default function Footer() {
             <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-white uppercase">
               MAKHANA KO CHASKA LAGA DIYA.
             </h2>
-            <p className="font-sans text-xs sm:text-sm text-stone-400 max-w-md font-normal leading-relaxed">
+            <p className="font-sans text-xs sm:text-sm text-stone-300 max-w-md font-normal leading-relaxed">
               Get secret flavour drops, early tasting invites &amp; 15% off your first stash order.
             </p>
           </div>
 
           <div className="lg:col-span-6 flex items-center">
             {submitted ? (
-              <div className="p-4 bg-white/5 border border-white/15 rounded-2xl w-full text-center">
+              <div className="p-4 bg-white/10 border border-white/20 rounded-2xl w-full text-center">
                 <p className="font-sans text-xs text-[#FF5400] font-semibold">
                   ✓ Welcome to the stash club! Check your inbox for your 15% code.
                 </p>
@@ -47,7 +47,7 @@ export default function Footer() {
                   placeholder="Enter your email address"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="flex-1 bg-white/5 border border-white/15 rounded-full px-5 py-3.5 text-xs text-white placeholder-stone-500 focus:outline-none focus:border-[#FF5400] transition-colors font-sans"
+                  className="flex-1 bg-white/10 border border-white/20 rounded-full px-5 py-3.5 text-xs text-white placeholder-stone-300 focus:outline-none focus:border-[#FF5400] transition-colors font-sans"
                 />
                 <button
                   type="submit"
@@ -61,7 +61,7 @@ export default function Footer() {
         </div>
 
         {/* Navigation Columns */}
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 py-12 border-b border-stone-800 text-xs font-sans text-stone-400">
+        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 py-12 border-b border-white/10 text-xs font-sans text-stone-300">
           {/* 1. SHOP */}
           <div className="space-y-3">
             <p className="font-bold uppercase tracking-wider text-white">SHOP</p>
@@ -120,14 +120,14 @@ export default function Footer() {
         </div>
 
         {/* Minimal Wordmark Footer Banner */}
-        <div className="py-10 border-b border-stone-800 text-center flex items-center justify-center">
+        <div className="py-10 border-b border-white/10 text-center flex items-center justify-center">
           <NavLink to="/" className="inline-block group max-w-lg w-full px-4">
-            <ChaskaLogo className="w-full h-auto max-h-16 opacity-80 group-hover:opacity-100 transition-opacity" inverted color="#FAF8F5" accentColor="#FF5400" />
+            <ChaskaLogo className="w-full h-auto max-h-16 opacity-85 group-hover:opacity-100 transition-opacity" inverted color="#FAF8F5" accentColor="#FF5400" />
           </NavLink>
         </div>
 
         {/* Legal Bottom Bar */}
-        <div className="flex flex-col sm:flex-row items-center justify-between pt-6 text-xs font-sans text-stone-500 gap-3">
+        <div className="flex flex-col sm:flex-row items-center justify-between pt-6 text-xs font-sans text-stone-400 gap-3">
           <p>© {new Date().getFullYear()} CHASKA SNACKS. All rights reserved.</p>
           <div className="flex gap-4">
             <NavLink to="/policies/privacy" className="hover:text-white transition-colors">Privacy</NavLink>

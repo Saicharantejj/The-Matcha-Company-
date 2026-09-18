@@ -42,26 +42,26 @@ export default function FourPillars() {
   ]
 
   return (
-    <section className="py-24 bg-[#141414] text-[#FAF8F5] border-b border-stone-800 relative overflow-hidden">
+    <section className="py-24 bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden transition-colors">
       {/* Subtle ambient warmth */}
-      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#FF5400]/5 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute top-0 right-1/4 w-96 h-96 bg-[#FF5400]/10 rounded-full blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-12">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <div className="space-y-3 max-w-2xl">
-            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/15 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest border border-[#FF5400]/30">
               🔥 THE CHASKA STANDARD
             </span>
             <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
               BUILT ON FOUR <span className="text-[#FF5400]">CORE PILLARS.</span>
             </h2>
-            <p className="font-sans text-sm sm:text-base text-stone-400 leading-relaxed font-normal">
+            <p className="font-sans text-sm sm:text-base text-stone-300 leading-relaxed font-normal">
               Every pouch of CHASKA is roasted with care, priced fairly, and delivered with obsession for crunch.
             </p>
           </div>
           <Link
             to="/shop"
-            className="btn px-7 py-3.5 text-xs font-bold shrink-0 self-start md:self-auto shadow-sm"
+            className="btn-orange px-7 py-3.5 text-xs font-bold shrink-0 self-start md:self-auto shadow-sm"
           >
             SHOP THE DROP ➔
           </Link>
@@ -75,7 +75,7 @@ export default function FourPillars() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.35, delay: i * 0.08 }}
-              className="p-7 rounded-3xl bg-stone-900/60 border border-stone-800/90 hover:border-stone-700 transition-all duration-300 flex flex-col justify-between space-y-6 group shadow-sm hover:-translate-y-1"
+              className="p-7 rounded-3xl bg-[#131D4A]/90 dark:bg-[#131D4A] border border-[#243373] hover:border-indigo-400/60 transition-all duration-300 flex flex-col justify-between space-y-6 group shadow-sm hover:-translate-y-1"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
@@ -92,15 +92,15 @@ export default function FourPillars() {
                     {pillar.subtitle}
                   </p>
                 </div>
-                <p className="font-sans text-xs text-stone-400 leading-relaxed font-normal">
+                <p className="font-sans text-xs text-stone-300 leading-relaxed font-normal">
                   {pillar.description}
                 </p>
               </div>
 
-              <div className="pt-4 border-t border-stone-800">
+              <div className="pt-4 border-t border-[#243373]">
                 <Link
                   to={pillar.cta.to}
-                  className="font-mono text-xs font-bold text-stone-300 group-hover:text-[#FF5400] transition-colors flex items-center justify-between"
+                  className="font-mono text-xs font-bold text-stone-200 group-hover:text-[#FF5400] transition-colors flex items-center justify-between"
                 >
                   <span>{pillar.cta.label}</span>
                 </Link>

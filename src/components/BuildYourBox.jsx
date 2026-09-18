@@ -79,7 +79,7 @@ export default function BuildYourBox() {
   ]
 
   return (
-    <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C0C0C] border-y border-stone-200/80 dark:border-stone-800 relative overflow-hidden transition-colors" id="build-your-box">
+    <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C122C] border-y border-stone-200/80 dark:border-[#243373] relative overflow-hidden transition-colors" id="build-your-box">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         
         {/* Section Header */}
@@ -87,10 +87,10 @@ export default function BuildYourBox() {
           <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
             ⭐ 5-IN-1 VARIETY BOX
           </span>
-          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#141414] dark:text-white leading-tight">
+          <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#17245B] dark:text-white leading-tight">
             CHASKA <span className="text-[#FF5400]">TRY ALL 5.</span>
           </h2>
-          <p className="text-stone-600 dark:text-stone-400 text-sm sm:text-base leading-relaxed font-normal">
+          <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed font-normal">
             Can't pick one? Experience all 5 signature slow-roasted flavours in one complete stash box.
           </p>
         </div>
@@ -99,10 +99,10 @@ export default function BuildYourBox() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
           
           {/* Left: 5 Included Pouches */}
-          <div className="lg:col-span-7 bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
-            <h3 className="font-display text-base sm:text-lg font-bold text-[#141414] dark:text-white uppercase flex items-center justify-between">
+          <div className="lg:col-span-7 bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] rounded-3xl p-6 sm:p-8 shadow-xs space-y-5">
+            <h3 className="font-display text-base sm:text-lg font-bold text-[#17245B] dark:text-white uppercase flex items-center justify-between">
               <span>ALL 5 POUCHES INCLUDED</span>
-              <span className="px-3 py-1 rounded-full bg-[#141414] dark:bg-stone-800 text-white font-mono text-xs font-bold">
+              <span className="px-3 py-1 rounded-full bg-[#17245B] dark:bg-[#1C2A6B] text-white font-mono text-xs font-bold">
                 5 / 5 FLAVOURS
               </span>
             </h3>
@@ -111,29 +111,29 @@ export default function BuildYourBox() {
               {allFlavours.map((item, idx) => (
                 <div
                   key={idx}
-                  className="bg-[#FAF8F5] dark:bg-[#1C1C1C] border border-stone-200/80 dark:border-stone-700/60 rounded-2xl p-4 flex items-center justify-between"
+                  className="bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200/80 dark:border-[#243373] rounded-2xl p-4 flex items-center justify-between"
                 >
                   <div>
                     <span className="font-mono text-[9px] font-bold text-[#FF5400] uppercase block">
                       POUCH 0{idx + 1} • {selectedSize}
                     </span>
-                    <p className="font-display font-bold text-sm text-[#141414] dark:text-white mt-0.5">{item.name}</p>
-                    <p className="font-sans text-[11px] text-stone-500 dark:text-stone-400 font-normal">{item.desc}</p>
+                    <p className="font-display font-bold text-sm text-[#17245B] dark:text-white mt-0.5">{item.name}</p>
+                    <p className="font-sans text-[11px] text-stone-500 dark:text-stone-300 font-normal">{item.desc}</p>
                   </div>
-                  <span className="font-mono text-[10px] font-bold text-stone-600 dark:text-stone-400">
+                  <span className="font-mono text-[10px] font-bold text-stone-600 dark:text-stone-300">
                     {item.spice}
                   </span>
                 </div>
               ))}
             </div>
 
-            <p className="font-mono text-[11px] text-stone-500 dark:text-stone-400 pt-3 border-t border-stone-200/80 dark:border-stone-800">
+            <p className="font-mono text-[11px] text-stone-500 dark:text-stone-400 pt-3 border-t border-stone-200/80 dark:border-[#243373]">
               ✓ Every box contains 1 pouch of each of our 5 flavours. No duplicate filler.
             </p>
           </div>
 
           {/* Right: Box Summary & Purchase */}
-          <div className="lg:col-span-5 bg-white dark:bg-[#141414] border border-stone-200/80 dark:border-stone-800 rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-6">
+          <div className="lg:col-span-5 bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col justify-between space-y-6">
             <div className="space-y-5">
               <div>
                 <span className="font-mono text-[10px] font-bold uppercase tracking-widest text-[#FF5400]">
@@ -147,8 +147,8 @@ export default function BuildYourBox() {
                       onClick={() => setSelectedSize(sz)}
                       className={`py-3 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center ${
                         selectedSize === sz
-                          ? 'border-[#141414] dark:border-[#FF5400] bg-[#141414] dark:bg-[#FF5400] text-white shadow-sm'
-                          : 'border-stone-200 dark:border-stone-700 bg-white dark:bg-[#1C1C1C] text-stone-800 dark:text-stone-200 hover:border-stone-400 dark:hover:border-stone-500'
+                          ? 'border-[#17245B] dark:border-[#FF5400] bg-[#17245B] dark:bg-[#FF5400] text-white shadow-sm'
+                          : 'border-stone-200 dark:border-[#243373] bg-white dark:bg-[#0C122C] text-stone-800 dark:text-stone-200 hover:border-stone-400 dark:hover:border-indigo-400'
                       }`}
                     >
                       {sz} Box
@@ -158,8 +158,8 @@ export default function BuildYourBox() {
               </div>
 
               {/* Price Calculation */}
-              <div className="p-5 rounded-2xl bg-[#FAF8F5] dark:bg-[#1C1C1C] border border-stone-200/80 dark:border-stone-700/60 space-y-2">
-                <div className="flex justify-between font-mono text-xs text-stone-500 dark:text-stone-400">
+              <div className="p-5 rounded-2xl bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200/80 dark:border-[#243373] space-y-2">
+                <div className="flex justify-between font-mono text-xs text-stone-500 dark:text-stone-300">
                   <span>5x {selectedSize} Pouches MRP</span>
                   <span className="line-through">₹{mrp}</span>
                 </div>
@@ -167,13 +167,13 @@ export default function BuildYourBox() {
                   <span>Bundle Saving</span>
                   <span>-₹{savings}</span>
                 </div>
-                <div className="border-t border-stone-200/80 dark:border-stone-700/60 pt-2 flex justify-between items-baseline">
-                  <span className="font-display text-base font-bold text-[#141414] dark:text-white uppercase">Box Price</span>
-                  <span className="font-display text-2xl font-black text-[#141414] dark:text-white">₹{price}</span>
+                <div className="border-t border-stone-200/80 dark:border-[#243373] pt-2 flex justify-between items-baseline">
+                  <span className="font-display text-base font-bold text-[#17245B] dark:text-white uppercase">Box Price</span>
+                  <span className="font-display text-2xl font-black text-[#17245B] dark:text-white">₹{price}</span>
                 </div>
               </div>
 
-              <div className="space-y-1.5 font-mono text-[11px] text-stone-500 dark:text-stone-400">
+              <div className="space-y-1.5 font-mono text-[11px] text-stone-500 dark:text-stone-300">
                 <p>✓ Free Pan-India Delivery on this box</p>
                 <p>✓ Fresh nitrogen-flushed pouches</p>
                 <p>✓ 100% slow-roasted, zero palm oil</p>
@@ -200,7 +200,7 @@ export default function BuildYourBox() {
 
               <Link
                 to="/products/chaska-try-all-5"
-                className="block text-center font-mono text-xs font-bold text-stone-600 dark:text-stone-400 hover:text-[#FF5400] transition-colors"
+                className="block text-center font-mono text-xs font-bold text-stone-600 dark:text-stone-300 hover:text-[#FF5400] transition-colors"
               >
                 View Full Product Details ➔
               </Link>
