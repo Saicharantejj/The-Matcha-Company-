@@ -16,6 +16,7 @@ import {
   CART_LINES_UPDATE_MUTATION,
   CART_LINES_REMOVE_MUTATION,
 } from './mutations'
+import { PRODUCTS_CATALOGUE } from '../../data/products'
 
 /**
  * Maps a raw Shopify GraphQL Product Node into the CHASKA product model
@@ -151,27 +152,139 @@ export function mapShopifyCart(cart) {
 // ── SHOPIFY API SERVICE METHODS ──────────────────────────────────────────────
 
 /**
- * Fetches all products from Shopify Storefront API
+ * Fetches products from Shopify Storefront API merged with the official Drop 01 Launch Lineup
+ * Drop 01: Chocolate Makhana, Cheese and Herbs Makhana, Jalapeno Makhana, and The Launch Trio Box (all for sale)
+ * Drop 02: Peri Peri, Kashmiri Garlic Chilli, Pudhina (Coming Soon / locked)
  */
 export async function fetchShopifyProducts(first = 20) {
-  const data = await shopifyFetch({
-    query: GET_PRODUCTS_QUERY,
-    variables: { first },
-  })
-  const edges = data?.products?.edges || []
-  return edges.map((edge) => mapShopifyProduct(edge.node)).filter(Boolean)
+  try {
+    const data = await shopifyFetch({
+      query: GET_PRODUCTS_QUERY,
+      variables: { first },
+    })
+    const edges = data?.products?.edges || []
+    const shopifyMap = new Map()
+    edges.forEach((edge) => {
+      if (edge.node?.handle) {
+        shopifyMap.set(edge.node.handle, mapShopifyProduct(edge.node))
+      }
+    })
+
+    return PRODUCTS_CATALOGUE.map((catalogItem) => {
+      let live = null
+      if (catalogItem.handle === 'chocolate-makhana') {
+        live = shopifyMap.get('peri-peri-makhana') || shopifyMap.get('chocolate-makhana')
+      } else if (catalogItem.handle === 'cheese-and-herbs-makhana') {
+        live = shopifyMap.get('chilli-cheese-makhana') || shopifyMap.get('cheese-and-herbs-makhana')
+      } else if (catalogItem.handle === 'jalapeno-makhana') {
+        live = shopifyMap.get('chilli-lime-makhana') || shopifyMap.get('jalapeno-makhana')
+      } else if (catalogItem.handle === 'chaska-try-all-5' || catalogItem.handle === 'chaska-launch-trio') {
+        live = shopifyMap.get('chaska-try-all-5') || shopifyMap.get('chaska-launch-trio')
+      } else {
+        live = shopifyMap.get(catalogItem.handle)
+      }
+
+      if (catalogItem.isComingSoon) {
+        return {
+          ...catalogItem,
+          availableForSale: false,
+          badge: '🔒 DROP 02 • COMING SOON',
+          variantId: null,
+          variants: [],
+        }
+      }
+
+      const variants = live?.variants && live.variants.length > 0 ? live.variants : [
+        {
+          id: live?.variantId || 'variant-drop01',
+          title: '50g Pack',
+          price: catalogItem.price,
+          mrp: catalogItem.mrp,
+          availableForSale: true,
+        },
+      ]
+
+      return {
+        ...catalogItem,
+        shopifyId: live?.shopifyId || catalogItem.shopifyId,
+        variantId: variants[0]?.id || live?.variantId || catalogItem.variantId,
+        variants,
+        availableForSale: true,
+      }
+    })
+  } catch (err) {
+    if (import.meta.env?.DEV) {
+      console.warn('[Shopify Products Fetch Fallback]', err)
+    }
+    return PRODUCTS_CATALOGUE
+  }
 }
 
 /**
- * Fetches a single product by handle from Shopify Storefront API
+ * Fetches a single product by handle, resolving launch flavours to active Shopify inventory
  */
 export async function fetchShopifyProductByHandle(handle) {
   if (!handle) return null
-  const data = await shopifyFetch({
-    query: GET_PRODUCT_BY_HANDLE_QUERY,
-    variables: { handle },
-  })
-  return mapShopifyProduct(data?.product)
+  const handleLower = handle.toLowerCase()
+
+  const catalogItem = PRODUCTS_CATALOGUE.find(
+    (p) =>
+      p.handle === handleLower ||
+      p.aliasHandle === handleLower ||
+      (handleLower === 'chilli-cheese-makhana' && p.handle === 'cheese-and-herbs-makhana') ||
+      (handleLower === 'chilli-lime-makhana' && p.handle === 'jalapeno-makhana') ||
+      (handleLower === 'peri-peri-makhana' && p.isComingSoon && p.handle === 'peri-peri-makhana')
+  )
+
+  let shopifyHandleToFetch = handleLower
+  if (handleLower === 'chocolate-makhana') shopifyHandleToFetch = 'peri-peri-makhana'
+  else if (handleLower === 'cheese-and-herbs-makhana') shopifyHandleToFetch = 'chilli-cheese-makhana'
+  else if (handleLower === 'jalapeno-makhana') shopifyHandleToFetch = 'chilli-lime-makhana'
+  else if (handleLower === 'chaska-launch-trio') shopifyHandleToFetch = 'chaska-try-all-5'
+
+  let liveProduct = null
+  try {
+    const data = await shopifyFetch({
+      query: GET_PRODUCT_BY_HANDLE_QUERY,
+      variables: { handle: shopifyHandleToFetch },
+    })
+    liveProduct = mapShopifyProduct(data?.product)
+  } catch (err) {
+    if (import.meta.env?.DEV) {
+      console.warn('[Shopify Product Handle Fetch Error]', err)
+    }
+  }
+
+  if (catalogItem) {
+    if (catalogItem.isComingSoon) {
+      return {
+        ...catalogItem,
+        availableForSale: false,
+        badge: '🔒 DROP 02 • COMING SOON',
+        variants: [],
+      }
+    }
+
+    const variants = liveProduct?.variants && liveProduct.variants.length > 0 ? liveProduct.variants : [
+      {
+        id: liveProduct?.variantId || 'variant-drop01',
+        title: '50g Pack',
+        price: catalogItem.price,
+        mrp: catalogItem.mrp,
+        availableForSale: true,
+      },
+    ]
+
+    return {
+      ...catalogItem,
+      shopifyId: liveProduct?.shopifyId || catalogItem.shopifyId,
+      variantId: variants[0]?.id || liveProduct?.variantId || catalogItem.variantId,
+      variants,
+      availableForSale: true,
+    }
+  }
+
+  return liveProduct
 }
 
 /**

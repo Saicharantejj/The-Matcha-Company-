@@ -185,16 +185,25 @@ export default function ProductDetail() {
     }
   }
 
+  const isComingSoon = Boolean(product.isComingSoon)
+
+  const handleNotifyMe = () => {
+    addToast(`You're on the VIP waitlist for ${product.name}! We'll alert you the second Drop 02 goes live. 🚀`, 'success')
+  }
+
   const handleLower = (product.handle || '').toLowerCase()
-  const photoKey = handleLower.includes('cheese') ? 'chillyCheesePack'
+  const photoKey = handleLower.includes('chocolate') ? 'chocolateMakhanaPack'
+    : handleLower.includes('cheese-and-herbs') || (handleLower.includes('cheese') && !handleLower.includes('chilli-cheese')) ? 'cheeseAndHerbsMakhanaPack'
+    : handleLower.includes('jalapeno') ? 'jalapenoMakhanaPack'
+    : handleLower.includes('cheese') ? 'cheeseAndHerbsMakhanaPack'
     : handleLower.includes('pudhina') ? 'pudhinaPack'
     : handleLower.includes('lime') ? 'yellowBasket'
     : handleLower.includes('garlic') ? 'meshBagIngredients'
     : handleLower.includes('peri-peri') ? 'periPeriPack'
-    : handleLower.includes('try-all-5') || handleLower.includes('box') ? 'stashBox'
-    : 'masalaPouchHero'
+    : handleLower.includes('try-all-5') || handleLower.includes('trio') || handleLower.includes('box') ? 'tabletopLifestyle'
+    : 'chocolateMakhanaPack'
 
-  const photoObj = photos[photoKey] || photos.masalaPouchHero
+  const photoObj = photos[photoKey] || photos.chocolateMakhanaPack
   
   // Gallery
   const galleryImages = (product.images && product.images.length > 0)
@@ -209,18 +218,20 @@ export default function ProductDetail() {
   const activeImage = galleryImages[selectedImgIndex]?.url || galleryImages[0]?.url || photoObj.src
 
   // Taste tags
-  const tasteTags = handleLower.includes('cheese')
-    ? ['AGED CHEDDAR DUST', 'GREEN CHILI HEAT', 'ROASTED GARLIC', 'SAVORY & CHEEZY']
+  const tasteTags = handleLower.includes('chocolate')
+    ? ['DARK COCOA GLAZE', 'CARAMELIZED RAW SUGAR', 'HIMALAYAN SEA SALT', 'SWEET & SALTY INDULGENCE']
+    : handleLower.includes('cheese-and-herbs') || handleLower.includes('cheese')
+    ? ['AGED SHARP CHEDDAR', 'WILD MOUNTAIN OREGANO', 'RUBBED THYME', 'ROASTED GARLIC BUTTER']
+    : handleLower.includes('jalapeno')
+    ? ['SUN-DRIED GREEN JALAPENO', 'MEXICAN KEY LIME ZEST', 'SMOKED PAPRIKA', 'FIERY ELECTRIC CRUNCH']
     : handleLower.includes('pudhina')
     ? ['FRESH GARDEN MINT', 'TANGY DRY MANGO', 'KALA NAMAK BURST', 'HERBAL & COOL']
-    : handleLower.includes('lime')
-    ? ['CRISP KEY LIME ZEST', 'FIERY GREEN CHILLI', 'HIMALAYAN ROCK SALT', 'ZESTY & TANGY']
     : handleLower.includes('garlic')
     ? ['KASHMIRI RED CHILLI', 'TOASTED GOLDEN GARLIC', 'SMOKED PAPRIKA', 'BOLD & AROMATIC']
     : handleLower.includes('peri-peri')
     ? ['FIERY BIRD’S EYE CHILI', 'GARLIC DUST', 'ZINGY LIME TWIST', 'EXTRA CRUNCHY']
-    : handleLower.includes('try-all-5')
-    ? ['5 SIGNATURE FLAVOURS', 'PERI PERI + CHILLI CHEESE', 'CHILLI LIME + PUDHINA', 'KASHMIRI GARLIC CHILLI']
+    : handleLower.includes('try-all-5') || handleLower.includes('trio')
+    ? ['3 OFFICIAL LAUNCH FLAVOURS', 'CHOCOLATE MAKHANA (50G)', 'CHEESE & HERBS (50G)', 'JALAPENO MAKHANA (50G)']
     : ['ALL-STAR STASH', 'SIGNATURE FLAVOR', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
   return (
@@ -250,19 +261,27 @@ export default function ProductDetail() {
             >
               {/* Badge */}
               <div className="absolute top-5 left-5 z-10">
-                {!isVariantAvailable ? (
+                {isComingSoon ? (
+                  <span className="px-3.5 py-1.5 rounded-full bg-stone-900/90 border border-[#FF5400]/40 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-wider shadow-xs backdrop-blur-xs">
+                    🔒 DROP 02 • COMING SOON
+                  </span>
+                ) : !isVariantAvailable ? (
                   <span className="px-3.5 py-1.5 rounded-full bg-red-600 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
                     SOLD OUT
                   </span>
                 ) : isTryAll5 ? (
                   <span className="px-3.5 py-1.5 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
-                    ⭐ ALL 5 FLAVOURS
+                    ⭐ 3-IN-1 LAUNCH BOX
                   </span>
                 ) : currentDiscount ? (
                   <span className="px-3.5 py-1.5 rounded-full bg-[#17245B] dark:bg-[#1C2A6B] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
                     SAVE {currentDiscount}
                   </span>
-                ) : null}
+                ) : (
+                  <span className="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+                    🔥 DROP 01
+                  </span>
+                )}
               </div>
 
               {activeImage ? (
@@ -304,18 +323,30 @@ export default function ProductDetail() {
             {/* Header & Badges */}
             <div className="space-y-3">
               <div className="flex items-center gap-2">
-                <span className="px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] text-stone-800 dark:text-stone-200 font-mono text-[10px] font-bold uppercase tracking-wider">
-                  {isTryAll5 ? `${selectedSize} SAMPLER BOX` : `${selectedSize} • ${selectedPack}`}
-                </span>
-                {!isVariantAvailable ? (
+                {isComingSoon ? (
+                  <span className="px-3 py-1 rounded-full bg-stone-900 border border-[#FF5400]/40 text-[#FF5400] font-mono text-[10px] font-bold uppercase tracking-wider">
+                    🧪 DROP 02 • IN THE LAB
+                  </span>
+                ) : (
+                  <>
+                    <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-mono text-[10px] font-bold uppercase tracking-wider">
+                      🔥 DROP 01 LAUNCH
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] text-stone-800 dark:text-stone-200 font-mono text-[10px] font-bold uppercase tracking-wider">
+                      {isTryAll5 ? '3-PACK SAMPLER BOX' : '50G OFFICIAL POUCH'}
+                    </span>
+                  </>
+                )}
+                {!isComingSoon && !isVariantAvailable && (
                   <span className="px-3 py-1 rounded-full bg-red-100 dark:bg-red-950/50 text-red-700 dark:text-red-400 font-mono text-[10px] font-bold uppercase tracking-wider">
                     SOLD OUT
                   </span>
-                ) : product.spiceLevel && !isTryAll5 ? (
+                )}
+                {product.spiceLevel && !isTryAll5 && (
                   <span className="px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] text-stone-700 dark:text-stone-300 font-mono text-[10px] font-bold uppercase tracking-wider border border-stone-200 dark:border-[#243373]">
                     {product.spiceLevel}
                   </span>
-                ) : null}
+                )}
               </div>
 
               <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white tracking-tight leading-tight">
@@ -323,83 +354,44 @@ export default function ProductDetail() {
               </h1>
 
               {/* Price & Savings */}
-              <div className="flex items-baseline gap-3.5 pt-1">
-                <span className="font-display text-3xl sm:text-4xl font-black text-[#17245B] dark:text-white">
-                  ₹{Math.round(currentPrice)}
-                </span>
-                {currentMrp && currentMrp > currentPrice && (
-                  <>
-                    <span className="font-mono text-lg text-stone-400 dark:text-stone-500 line-through">
-                      ₹{Math.round(currentMrp)}
-                    </span>
-                    <span className="font-mono text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                      SAVE {currentDiscount}
-                    </span>
-                  </>
-                )}
-              </div>
-
-              {/* Selectors */}
-              <div className="space-y-4 pt-3">
-                {/* 1. Size Options (50g, 100g) */}
-                <div className="space-y-2">
-                  <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center justify-between">
-                    <span>{isTryAll5 ? 'SELECT BOX SIZE:' : '1. SELECT POUCH SIZE:'}</span>
-                    <span className="text-[#17245B] dark:text-white font-bold">{selectedSize} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
+              {isComingSoon ? (
+                <div className="pt-1">
+                  <span className="font-mono text-xl sm:text-2xl font-bold text-[#FF5400] uppercase">
+                    DROP 02 • COMING SOON
                   </span>
-                  <div className="grid grid-cols-2 gap-3">
-                    {['50g', '100g'].map((sz) => (
-                      <button
-                        key={sz}
-                        type="button"
-                        onClick={() => setSelectedSize(sz)}
-                        className={`py-3 px-4 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex items-center justify-center gap-2 ${
-                          selectedSize === sz
-                            ? 'border-[#17245B] dark:border-[#FF5400] bg-[#17245B] dark:bg-[#FF5400] text-white shadow-sm'
-                            : 'border-stone-200 dark:border-[#243373] bg-white dark:bg-[#131D4A] text-stone-800 dark:text-stone-200 hover:border-stone-400 dark:hover:border-stone-500'
-                        }`}
-                      >
-                        <span>{sz} {isTryAll5 ? 'BOX' : 'POUCH'}</span>
-                      </button>
-                    ))}
-                  </div>
+                  <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-0.5">
+                    Expected ₹199 (50g Pouch) • Small batch Bihar roastery release
+                  </p>
                 </div>
+              ) : (
+                <div className="flex items-baseline gap-3.5 pt-1">
+                  <span className="font-display text-3xl sm:text-4xl font-black text-[#17245B] dark:text-white">
+                    ₹{Math.round(currentPrice)}
+                  </span>
+                  {currentMrp && currentMrp > currentPrice && (
+                    <>
+                      <span className="font-mono text-lg text-stone-400 dark:text-stone-500 line-through">
+                        ₹{Math.round(currentMrp)}
+                      </span>
+                      <span className="font-mono text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                        SAVE {currentDiscount}
+                      </span>
+                    </>
+                  )}
+                </div>
+              )}
 
-                {/* 2. Pack Options (Only for single flavour products) */}
-                {!isTryAll5 && (
-                  <div className="space-y-2">
-                    <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400 flex items-center justify-between">
-                      <span>2. SELECT QUANTITY PACK:</span>
-                      <span className="text-[#17245B] dark:text-white font-bold">{selectedPack}</span>
-                    </span>
-                    <div className="grid grid-cols-3 gap-2.5">
-                      {[
-                        { label: 'Pack of 3', tag: 'POPULAR' },
-                        { label: 'Pack of 6', tag: 'BEST VALUE' },
-                        { label: 'Pack of 10', tag: 'PARTY PACK' },
-                      ].map((pk) => (
-                        <button
-                          key={pk.label}
-                          type="button"
-                          onClick={() => setSelectedPack(pk.label)}
-                          className={`py-3 px-2 rounded-2xl font-mono text-xs font-bold uppercase tracking-wider transition-all border-2 text-center flex flex-col items-center justify-center gap-1 ${
-                            selectedPack === pk.label
-                              ? 'border-[#17245B] dark:border-[#FF5400] bg-[#17245B] dark:bg-[#FF5400] text-white shadow-sm'
-                              : 'border-stone-200 dark:border-[#243373] bg-white dark:bg-[#131D4A] text-stone-800 dark:text-stone-200 hover:border-stone-400 dark:hover:border-stone-500'
-                          }`}
-                        >
-                          <span className="text-[11px] leading-tight">{pk.label}</span>
-                          <span className={`text-[8px] px-1.5 py-0.2 rounded-full font-bold ${
-                            selectedPack === pk.label ? 'bg-[#FF5400] text-white' : 'bg-stone-100 dark:bg-[#1C2A6B] text-stone-600 dark:text-stone-300'
-                          }`}>
-                            {pk.tag}
-                          </span>
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
+              {/* Official Pouch Callout */}
+              {!isComingSoon && !isTryAll5 && (
+                <div className="flex items-center gap-2 pt-1 font-mono text-xs font-bold text-stone-600 dark:text-stone-300">
+                  <span className="px-2.5 py-1 rounded-lg bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200 dark:border-[#243373]">
+                    ✓ ROASTED NOT FRIED
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200 dark:border-[#243373]">
+                    ✓ 50 g PACK
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Description Card */}
@@ -429,72 +421,98 @@ export default function ProductDetail() {
               </div>
             </div>
 
-            {/* Quantity Stepper & Add to Stash */}
-            <div className="space-y-3.5 pt-4 border-t border-stone-200/80 dark:border-[#243373]">
-              <div className="flex items-center gap-3.5">
-                {/* Stepper */}
-                <div className="flex items-center border border-stone-200 dark:border-[#243373] rounded-full bg-white dark:bg-[#1C2A6B] px-2 py-1.5 shadow-2xs">
-                  <button
-                    type="button"
-                    onClick={() => setQty((q) => Math.max(1, q - 1))}
-                    disabled={qty <= 1}
-                    aria-label="Decrease quantity"
-                    className="h-8 w-8 font-mono text-base font-bold text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-[#131D4A] rounded-full transition-colors flex items-center justify-center disabled:opacity-30"
-                  >
-                    −
-                  </button>
-                  <span className="min-w-[2.25rem] text-center font-mono text-sm font-bold text-[#17245B] dark:text-white">
-                    {qty}
-                  </span>
-                  <button
-                    type="button"
-                    onClick={() => setQty((q) => q + 1)}
-                    aria-label="Increase quantity"
-                    className="h-8 w-8 font-mono text-base font-bold text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-[#131D4A] rounded-full transition-colors flex items-center justify-center"
-                  >
-                    +
-                  </button>
+            {/* Coming Soon VIP State VS Live Checkout Action */}
+            {isComingSoon ? (
+              <div className="p-6 rounded-3xl bg-stone-900 text-white border border-[#FF5400]/40 space-y-4 shadow-md mt-6">
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">🧪</span>
+                  <div>
+                    <h4 className="font-display text-base font-bold uppercase text-white">
+                      IN THE EXPERIMENTAL LAB
+                    </h4>
+                    <p className="font-mono text-xs text-[#FF5400]">
+                      Drop 02 VIP Early Access
+                    </p>
+                  </div>
                 </div>
-
-                {/* Add to Stash CTA */}
+                <p className="font-sans text-xs text-stone-300 leading-relaxed font-normal">
+                  This recipe is currently simmering in our small-batch Bihar roasting facility. It is not open for purchase yet. Join the Drop 02 VIP list to receive priority notification the minute it launches.
+                </p>
                 <button
                   type="button"
-                  onClick={handleAddToCart}
-                  disabled={!isVariantAvailable || isAdding}
-                  className={`flex-1 btn py-4 text-xs font-bold uppercase tracking-wider shadow-sm transition-all ${
-                    !isVariantAvailable
-                      ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed border-transparent'
-                      : isAdded
-                      ? 'bg-emerald-600 text-white'
-                      : isAdding
-                      ? 'bg-[#FF5400] text-white opacity-85'
-                      : 'bg-[#FF5400] hover:bg-[#E04800] text-white'
-                  }`}
+                  onClick={handleNotifyMe}
+                  className="w-full btn py-4 text-xs font-bold uppercase tracking-wider bg-[#FF5400] hover:bg-[#E04800] text-white shadow-sm cursor-pointer"
                 >
-                  {!isVariantAvailable
-                    ? 'SOLD OUT'
-                    : isAdded
-                    ? 'ADDED TO STASH ✓'
-                    : isAdding
-                    ? 'ADDING...'
-                    : `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}`}
+                  🔔 GET VIP DROP 02 NOTIFICATION
                 </button>
               </div>
+            ) : (
+              <div className="space-y-3.5 pt-4 border-t border-stone-200/80 dark:border-[#243373]">
+                <div className="flex items-center gap-3.5">
+                  {/* Stepper */}
+                  <div className="flex items-center border border-stone-200 dark:border-[#243373] rounded-full bg-white dark:bg-[#1C2A6B] px-2 py-1.5 shadow-2xs">
+                    <button
+                      type="button"
+                      onClick={() => setQty((q) => Math.max(1, q - 1))}
+                      disabled={qty <= 1}
+                      aria-label="Decrease quantity"
+                      className="h-8 w-8 font-mono text-base font-bold text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-[#131D4A] rounded-full transition-colors flex items-center justify-center disabled:opacity-30"
+                    >
+                      −
+                    </button>
+                    <span className="min-w-[2.25rem] text-center font-mono text-sm font-bold text-[#17245B] dark:text-white">
+                      {qty}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={() => setQty((q) => q + 1)}
+                      aria-label="Increase quantity"
+                      className="h-8 w-8 font-mono text-base font-bold text-stone-700 dark:text-stone-300 hover:bg-stone-100 dark:hover:bg-[#131D4A] rounded-full transition-colors flex items-center justify-center"
+                    >
+                      +
+                    </button>
+                  </div>
 
-              {!isVariantAvailable && (
-                <div className="p-3.5 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-800 dark:text-red-300 text-xs font-mono font-bold flex items-center gap-2">
-                  <span>⚠️</span>
-                  <span>This variant is currently sold out. Please select an alternative size or pack.</span>
+                  {/* Add to Stash CTA */}
+                  <button
+                    type="button"
+                    onClick={handleAddToCart}
+                    disabled={!isVariantAvailable || isAdding}
+                    className={`flex-1 btn py-4 text-xs font-bold uppercase tracking-wider shadow-sm transition-all ${
+                      !isVariantAvailable
+                        ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed border-transparent'
+                        : isAdded
+                        ? 'bg-emerald-600 text-white'
+                        : isAdding
+                        ? 'bg-[#FF5400] text-white opacity-85'
+                        : 'bg-[#FF5400] hover:bg-[#E04800] text-white'
+                    }`}
+                  >
+                    {!isVariantAvailable
+                      ? 'SOLD OUT'
+                      : isAdded
+                      ? 'ADDED TO STASH ✓'
+                      : isAdding
+                      ? 'ADDING...'
+                      : `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}`}
+                  </button>
                 </div>
-              )}
 
-              {/* Guarantees */}
-              <div className="flex items-center justify-between text-xs font-mono text-stone-500 dark:text-stone-400 pt-1 px-1">
-                <span>⚡ Dispatches in 24h</span>
-                <span>🍿 Slow-Roasted, Not Fried</span>
-                <span>🇮🇳 Authentic Bihar Makhana</span>
+                {!isVariantAvailable && (
+                  <div className="p-3.5 rounded-2xl bg-red-50 dark:bg-red-950/40 border border-red-200 dark:border-red-900/60 text-red-800 dark:text-red-300 text-xs font-mono font-bold flex items-center gap-2">
+                    <span>⚠️</span>
+                    <span>This pouch is currently sold out.</span>
+                  </div>
+                )}
+
+                {/* Guarantees */}
+                <div className="flex items-center justify-between text-xs font-mono text-stone-500 dark:text-stone-400 pt-1 px-1">
+                  <span>⚡ Dispatches in 24h</span>
+                  <span>🍿 100% Roasted Not Fried</span>
+                  <span>🇮🇳 50g Official Pouch</span>
+                </div>
               </div>
-            </div>
+            )}
 
           </div>
         </div>
@@ -591,28 +609,40 @@ export default function ProductDetail() {
                   {product.name}
                 </p>
                 <div className="flex items-center gap-1.5 font-mono text-xs text-stone-500 dark:text-stone-400">
-                  <span className="text-[#17245B] dark:text-white font-bold">₹{Math.round(currentPrice * qty)}</span>
+                  <span className="text-[#17245B] dark:text-white font-bold">
+                    {isComingSoon ? 'DROP 02' : `₹${Math.round(currentPrice * qty)}`}
+                  </span>
                   <span>•</span>
-                  <span className="truncate">{selectedSize}</span>
+                  <span className="truncate">{isComingSoon ? 'COMING SOON' : selectedSize}</span>
                 </div>
               </div>
 
-              <button
-                type="button"
-                onClick={handleAddToCart}
-                disabled={!isVariantAvailable || isAdding}
-                className={`btn py-3 px-5 text-xs font-bold uppercase shrink-0 ${
-                  !isVariantAvailable
-                    ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed border-transparent'
-                    : isAdded
-                    ? 'bg-emerald-600 text-white'
-                    : isAdding
-                    ? 'bg-[#FF5400] text-white opacity-80'
-                    : 'bg-[#FF5400] text-white'
-                }`}
-              >
-                {!isVariantAvailable ? 'SOLD OUT' : isAdded ? 'ADDED ✓' : isAdding ? 'ADDING...' : 'ADD TO STASH'}
-              </button>
+              {isComingSoon ? (
+                <button
+                  type="button"
+                  onClick={handleNotifyMe}
+                  className="btn py-3 px-5 text-xs font-bold uppercase shrink-0 bg-[#FF5400] text-white cursor-pointer"
+                >
+                  🔔 NOTIFY ME
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleAddToCart}
+                  disabled={!isVariantAvailable || isAdding}
+                  className={`btn py-3 px-5 text-xs font-bold uppercase shrink-0 ${
+                    !isVariantAvailable
+                      ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed border-transparent'
+                      : isAdded
+                      ? 'bg-emerald-600 text-white'
+                      : isAdding
+                      ? 'bg-[#FF5400] text-white opacity-80'
+                      : 'bg-[#FF5400] text-white'
+                  }`}
+                >
+                  {!isVariantAvailable ? 'SOLD OUT' : isAdded ? 'ADDED ✓' : isAdding ? 'ADDING...' : 'ADD TO STASH'}
+                </button>
+              )}
             </div>
           </motion.div>
         )}

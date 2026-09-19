@@ -19,32 +19,32 @@ export default function Home() {
 
   const heroPhotos = [
     {
-      src: photos.masalaPouchHero.src,
-      tag: 'SIGNATURE 50G POUCH',
-      badge: 'OFFICIAL PACK',
-      title: 'Masala Makhana Pouch',
-      caption: 'Slow-roasted Bihar lotus seeds in chef-crafted masala',
+      src: photos.chocolateMakhanaPack.src,
+      tag: 'OFFICIAL DROP 01',
+      badge: 'CHOCOLATE MAKHANA',
+      title: 'Chocolate Makhana 50g',
+      caption: 'Roasted Not Fried • Indian Flavours Real Ingredients',
+    },
+    {
+      src: photos.cheeseAndHerbsMakhanaPack.src,
+      tag: 'OFFICIAL DROP 01',
+      badge: 'CHEESE & HERBS',
+      title: 'Cheese & Herbs Makhana 50g',
+      caption: 'Aged Cheddar • Wild Mountain Herbs • 50g Pouch',
+    },
+    {
+      src: photos.jalapenoMakhanaPack.src,
+      tag: 'OFFICIAL DROP 01',
+      badge: 'JALAPENO MAKHANA',
+      title: 'Jalapeno Makhana 50g',
+      caption: 'Sun-Dried Green Jalapeno • Zesty Citrus Lime Crunch',
     },
     {
       src: photos.tabletopLifestyle.src,
-      tag: 'TABLETOP RITUAL',
-      badge: 'BETTER SNACKS',
-      title: 'Feast & Cocktail Hour',
-      caption: 'Crisp lotus pops served in traditional brass bowl',
-    },
-    {
-      src: photos.meshBagIngredients.src,
-      tag: 'REAL INGREDIENTS',
-      badge: 'FARM FRESH',
-      title: 'Whole Spices & Farm Red Chilies',
-      caption: '100% real pantry ingredients, zero artificial colors',
-    },
-    {
-      src: photos.newspaperComingSoon.src,
-      tag: 'CHASKA GAZETTE',
-      badge: 'PRINT EDITION',
-      title: 'Good Food, Good Company',
-      caption: 'Better snacks for modern everyday cravings',
+      tag: 'THE LAUNCH TRIO',
+      badge: '3-PACK SAMPLER',
+      title: 'The Launch Trio Box',
+      caption: 'All 3 Official Launch Flavours in 1 Box (150g)',
     },
   ]
 
@@ -73,6 +73,8 @@ export default function Home() {
   // Separate Try All 5 from single flavours
   const tryAll5Product = products.find((p) => p.handle === 'chaska-try-all-5') || null
   const singleFlavours = products.filter((p) => p.handle !== 'chaska-try-all-5')
+  const drop01Flavours = singleFlavours.filter((p) => !p.isComingSoon)
+  const drop02Flavours = singleFlavours.filter((p) => p.isComingSoon)
 
   return (
     <PageShell>
@@ -90,10 +92,10 @@ export default function Home() {
             >
               <div className="flex flex-wrap items-center gap-2.5">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-[11px] font-bold uppercase tracking-wider">
-                  🔥 100% SLOW-ROASTED MAKHANA
+                  🔥 100% ROASTED NOT FRIED
                 </span>
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] text-[#17245B] dark:text-stone-200 font-mono text-[11px] font-semibold uppercase tracking-wider border border-transparent dark:border-[#243373]">
-                  ZERO PALM OIL • GLUTEN FREE
+                  INDIAN FLAVOURS REAL INGREDIENTS
                 </span>
               </div>
 
@@ -108,20 +110,20 @@ export default function Home() {
 
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link to="/shop" className="btn px-8 py-4 text-xs font-bold tracking-wider shadow-sm">
-                  SHOP CHASKA ➔
+                  SHOP DROP 01 ➔
                 </Link>
                 <Link
                   to="/products/chaska-try-all-5"
                   className="px-7 py-4 text-xs font-bold tracking-wider rounded-full bg-[#17245B] dark:bg-white text-white dark:text-[#17245B] hover:bg-[#FF5400] dark:hover:bg-[#FF5400] dark:hover:text-white transition-colors shadow-sm"
                 >
-                  TRY ALL 5 BOX
+                  LAUNCH TRIO BOX
                 </Link>
               </div>
 
               {/* Micro specs */}
               <div className="pt-2 flex flex-wrap items-center gap-6 font-mono text-xs text-stone-600 dark:text-stone-300">
                 <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 5 Signature Flavours
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 3 Official Launch Flavours
                 </span>
                 <span className="flex items-center gap-1.5">
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 100% Roasted, Not Fried
@@ -223,90 +225,93 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1: 50g Signature Masala Pouch */}
+            {/* Card 1: Chocolate Makhana */}
             <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] bg-[#FAF8F5] dark:bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-100 dark:bg-[#1C2A6B]">
+                <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
-                    src={photos.masalaPouchHero.src}
-                    alt="CHASKA 50g Masala Makhana Pouch"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    src={photos.chocolateMakhanaPack.src}
+                    alt="CHASKA 50g Chocolate Makhana Pouch"
+                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
-                  <span className="font-mono text-[10px] font-bold text-[#FF5400] uppercase tracking-wider">
-                    SIGNATURE POUCH • 50G
+                  <span className="font-mono text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider">
+                    ROASTED NOT FRIED • 50G POUCH
                   </span>
                   <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
-                    MASALA MAKHANA POUCH
+                    CHOCOLATE MAKHANA
                   </h3>
                   <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-                    Slow-roasted Bihar lotus seeds enrobed in signature secret spices. Big crunch, zero frying.
+                    Dark cocoa glaze, caramelized raw sugar, and Himalayan rock salt. Decadent sweet &amp; salty crunch without frying.
                   </p>
                 </div>
               </div>
-              <div className="px-7 pb-7 pt-0">
-                <Link to="/shop" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
-                  GRAB THIS PACK ➔
+              <div className="px-7 pb-7 pt-0 flex items-center justify-between">
+                <Link to="/products/chocolate-makhana" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
+                  SHOP CHOCOLATE ➔
                 </Link>
+                <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">₹199</span>
               </div>
             </div>
 
-            {/* Card 2: Fresh Ingredients & Whole Spices (Red Mesh Bag) */}
+            {/* Card 2: Cheese and Herbs Makhana */}
             <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] bg-[#FAF8F5] dark:bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-100 dark:bg-[#1C2A6B]">
+                <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
-                    src={photos.meshBagIngredients.src}
-                    alt="CHASKA Real Ingredients in Red Mesh Net Bag"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    src={photos.cheeseAndHerbsMakhanaPack.src}
+                    alt="CHASKA 50g Cheese and Herbs Makhana Pouch"
+                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
-                  <span className="font-mono text-[10px] font-bold text-[#FF5400] uppercase tracking-wider">
-                    REAL WHOLE SPICES
+                  <span className="font-mono text-[10px] font-bold text-[#10B981] uppercase tracking-wider">
+                    INDIAN FLAVOURS REAL INGREDIENTS • 50G
                   </span>
                   <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
-                    FARM FRESH &amp; HONEST
+                    CHEESE AND HERBS MAKHANA
                   </h3>
                   <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-                    Fresh red chillies, sun-dried heirloom tomatoes, and pure rock salt tossed in cold-pressed oil.
+                    Sharp aged cheddar cheese dust blended with wild mountain oregano, rubbed thyme, and roasted garlic butter.
                   </p>
                 </div>
               </div>
-              <div className="px-7 pb-7 pt-0">
-                <Link to="/about" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
-                  OUR SOURCING STORY ➔
+              <div className="px-7 pb-7 pt-0 flex items-center justify-between">
+                <Link to="/products/cheese-and-herbs-makhana" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
+                  SHOP CHEESE &amp; HERBS ➔
                 </Link>
+                <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">₹199</span>
               </div>
             </div>
 
-            {/* Card 3: The CHASKA Gazette (Newspaper Edition) */}
+            {/* Card 3: Jalapeno Makhana */}
             <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] bg-[#FAF8F5] dark:bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-100 dark:bg-[#1C2A6B]">
+                <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
-                    src={photos.newspaperComingSoon.src}
-                    alt="The CHASKA Gazette Edition 2026"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                    src={photos.jalapenoMakhanaPack.src}
+                    alt="CHASKA 50g Jalapeno Makhana Pouch"
+                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
-                  <span className="font-mono text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase tracking-wider">
-                    THE PRINT EDITION • 2026
+                  <span className="font-mono text-[10px] font-bold text-[#EF4444] uppercase tracking-wider">
+                    ROASTED NOT FRIED • 50G POUCH
                   </span>
                   <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
-                    GOOD FOOD, GOOD COMPANY
+                    JALAPENO MAKHANA
                   </h3>
                   <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-                    Better snacks made for conversation, cocktails, midnight cravings, and desk crunching.
+                    Smoky green jalapeno chili, tangy Mexican lime zest, and pink rock salt for an immediate surge of crunchy heat.
                   </p>
                 </div>
               </div>
-              <div className="px-7 pb-7 pt-0">
-                <Link to="/products/chaska-try-all-5" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
-                  BUILD YOUR STASH ➔
+              <div className="px-7 pb-7 pt-0 flex items-center justify-between">
+                <Link to="/products/jalapeno-makhana" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
+                  SHOP JALAPENO ➔
                 </Link>
+                <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">₹199</span>
               </div>
             </div>
           </div>
@@ -321,46 +326,71 @@ export default function Home() {
 
       {/* ── 6. SINGLE FLAVOUR PACKS CATALOGUE GRID ─────────────────────────── */}
       <section className="py-20 sm:py-24 bg-white dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors" id="all-products">
-        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-16">
           
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-2">
-              <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
-                🍿 THE CRUNCH LINEUP
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
-                SIGNATURE <span className="text-[#FF5400]">FLAVOUR PACKS.</span>
-              </h2>
+          {/* Drop 01 Section */}
+          <div className="space-y-8">
+            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+              <div className="space-y-2">
+                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-bold uppercase tracking-widest">
+                  🔥 DROP 01: AVAILABLE NOW
+                </span>
+                <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
+                  OFFICIAL <span className="text-[#FF5400]">LAUNCH FLAVOURS.</span>
+                </h2>
+              </div>
+              <Link
+                to="/shop"
+                className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors"
+              >
+                VIEW FULL CATALOGUE ➔
+              </Link>
             </div>
-            <Link
-              to="/shop"
-              className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors"
-            >
-              VIEW FULL CATALOGUE ➔
-            </Link>
+
+            {isLoading ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {[1, 2, 3].map((n) => (
+                  <div key={n} className="h-[460px] rounded-3xl bg-[#FAF8F5] dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] p-6 animate-pulse" />
+                ))}
+              </div>
+            ) : drop01Flavours.length > 0 ? (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {drop01Flavours.map((product, i) => (
+                  <ProductCard key={product.id || product.handle} product={product} index={i} />
+                ))}
+              </div>
+            ) : (
+              <div className="rounded-3xl bg-[#FAF8F5] dark:bg-[#131D4A] border border-dashed border-stone-300 dark:border-[#243373] p-12 text-center space-y-3 max-w-md mx-auto">
+                <span className="text-4xl block">🍿</span>
+                <h3 className="font-display text-lg font-bold uppercase text-[#17245B] dark:text-white">
+                  Loading Official Launch Flavours
+                </h3>
+              </div>
+            )}
           </div>
 
-          {isLoading ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {[1, 2, 3].map((n) => (
-                <div key={n} className="h-[460px] rounded-3xl bg-[#FAF8F5] dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] p-6 animate-pulse" />
-              ))}
-            </div>
-          ) : singleFlavours.length > 0 ? (
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-              {singleFlavours.map((product, i) => (
-                <ProductCard key={product.id || product.handle} product={product} index={i} />
-              ))}
-            </div>
-          ) : (
-            <div className="rounded-3xl bg-[#FAF8F5] dark:bg-[#131D4A] border border-dashed border-stone-300 dark:border-[#243373] p-12 text-center space-y-3 max-w-md mx-auto">
-              <span className="text-4xl block">🍿</span>
-              <h3 className="font-display text-lg font-bold uppercase text-[#17245B] dark:text-white">
-                Flavours Loading From Shopify
-              </h3>
-              <p className="font-sans text-xs text-stone-500 dark:text-stone-400 font-normal">
-                Retrieving live small-batch inventory from store...
-              </p>
+          {/* Drop 02 Section */}
+          {drop02Flavours.length > 0 && (
+            <div className="space-y-8 pt-8 border-t border-stone-200/80 dark:border-[#243373]">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+                <div className="space-y-2">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-200 dark:bg-[#1C2A6B] text-[#17245B] dark:text-stone-200 font-mono text-xs font-bold uppercase tracking-widest">
+                    🔒 DROP 02: IN THE EXPERIMENTAL LAB
+                  </span>
+                  <h3 className="font-display text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
+                    COMING SOON <span className="text-[#FF5400]">(NOT FOR SALE YET)</span>
+                  </h3>
+                  <p className="font-sans text-xs sm:text-sm text-stone-500 dark:text-stone-400">
+                    Get VIP notifications the moment these experimental recipes drop.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                {drop02Flavours.map((product, i) => (
+                  <ProductCard key={product.id || product.handle} product={product} index={i} />
+                ))}
+              </div>
             </div>
           )}
 

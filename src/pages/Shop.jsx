@@ -5,24 +5,24 @@ import { fetchShopifyProducts, fetchShopifyCollectionByHandle } from '../lib/sho
 
 const COLLECTION_METADATA = {
   all: {
-    title: 'ALL PRODUCTS',
-    badge: 'THE FULL CRUNCH CATALOGUE',
-    description: 'Slow-roasted Bihar lotus seeds in chef-crafted small batches. 100% natural spices, zero frying.',
+    title: 'OFFICIAL CATALOGUE',
+    badge: 'DROP 01 LAUNCH + DROP 02 LAB',
+    description: 'Explore the 3 official launch flavours available now, plus experimental batches roasting in the lab.',
   },
   'best-sellers': {
-    title: 'BEST SELLERS',
-    badge: 'COMMUNITY FAVOURITES ⭐',
-    description: 'Our most-ordered flavour profiles and variety boxes for instant snacking satisfaction.',
+    title: 'DROP 01 LAUNCH',
+    badge: '🔥 AVAILABLE NOW',
+    description: 'Our 3 official signature launch recipes printed on the packets: Chocolate, Cheese & Herbs, and Jalapeno.',
   },
   flavours: {
-    title: 'SINGLE FLAVOUR PACKS',
-    badge: 'INDIVIDUAL FLAVOUR PACKS',
-    description: 'Signature roasted makhana packs available in 50g & 100g with Pack of 3, 6, and 10 options.',
+    title: 'LAUNCH POUCHES',
+    badge: '50G OFFICIAL POUCHES',
+    description: '100% roasted not fried lotus pops tossed in real spices and authentic Indian flavour profiles.',
   },
   bundles: {
-    title: 'VARIETY SAMPLER BOXES',
-    badge: 'ALL 5 FLAVOURS IN ONE BOX',
-    description: 'Chaska Try All 5 Sampler Box. Experience every single flavour in one convenient drop.',
+    title: 'THE LAUNCH TRIO',
+    badge: '3-IN-1 LAUNCH SAMPLER',
+    description: 'Experience all 3 official launch flavours in one convenient 150g stash box.',
   },
 }
 
@@ -85,11 +85,13 @@ export default function Shop() {
     let list = [...products]
 
     if (activeCategory === 'best-sellers') {
-      list = list.filter((p) => p.handle?.includes('peri-peri') || p.handle?.includes('cheese') || p.handle?.includes('try-all-5'))
+      list = list.filter((p) => !p.isComingSoon && p.category === 'Flavoured Makhana')
     } else if (activeCategory === 'flavours') {
-      list = list.filter((p) => p.handle !== 'chaska-try-all-5')
+      list = list.filter((p) => !p.isComingSoon && p.category === 'Flavoured Makhana')
     } else if (activeCategory === 'bundles') {
-      list = list.filter((p) => p.handle === 'chaska-try-all-5' || p.category?.includes('Bundle') || p.name?.toLowerCase().includes('box'))
+      list = list.filter((p) => p.handle === 'chaska-try-all-5' || p.category?.includes('Bundle') || p.name?.toLowerCase().includes('trio') || p.name?.toLowerCase().includes('box'))
+    } else if (activeCategory === 'coming-soon') {
+      list = list.filter((p) => p.isComingSoon)
     }
 
     if (searchFilter.trim()) {
@@ -142,9 +144,9 @@ export default function Shop() {
           <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-white/10 dark:border-[#243373] relative z-10">
             {[
               { id: 'all', label: 'ALL PRODUCTS', to: '/collections/all' },
-              { id: 'best-sellers', label: '⭐ BEST SELLERS', to: '/collections/best-sellers' },
-              { id: 'flavours', label: 'SINGLE FLAVOURS', to: '/collections/flavours' },
-              { id: 'bundles', label: 'TRY ALL 5 BOX', to: '/collections/bundles' },
+              { id: 'best-sellers', label: '🔥 DROP 01 LAUNCH (3 FLAVOURS)', to: '/collections/best-sellers' },
+              { id: 'bundles', label: '⭐ LAUNCH TRIO BOX', to: '/collections/bundles' },
+              { id: 'coming-soon', label: '🔒 DROP 02 (IN THE LAB)', to: '/collections/coming-soon' },
             ].map((cat) => (
               <Link
                 key={cat.id}
@@ -266,24 +268,24 @@ export default function Shop() {
           </div>
         )}
 
-        {/* Try All 5 Callout Banner */}
+        {/* Launch Trio Callout Banner */}
         <div className="p-8 sm:p-10 rounded-3xl bg-[#17245B] dark:bg-[#131D4A] text-white flex flex-col md:flex-row items-center justify-between gap-6 shadow-md border border-white/10 dark:border-[#243373]">
           <div className="space-y-2 max-w-xl text-center md:text-left">
-            <span className="px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase">
-              ALL 5 FLAVOURS IN ONE BOX
+            <span className="px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase tracking-wider">
+              ALL 3 LAUNCH FLAVOURS IN ONE BOX
             </span>
             <h2 className="font-display text-2xl sm:text-3xl font-black uppercase text-white">
-              CAN'T DECIDE? GET THE TRY ALL 5 BOX
+              CAN'T DECIDE? GET THE LAUNCH TRIO
             </h2>
             <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed font-normal">
-              1 pouch each of Peri Peri, Chilli Cheese, Chilli Lime, Kashmiri Garlic Chilli, and Pudhina.
+              1 official 50g pouch each of Chocolate Makhana, Cheese and Herbs Makhana, and Jalapeno Makhana. Total 150g for ₹499.
             </p>
           </div>
           <Link
             to="/products/chaska-try-all-5"
             className="btn px-7 py-3.5 text-xs font-bold shrink-0 shadow-sm"
           >
-            EXPLORE TRY ALL 5 ➔
+            EXPLORE LAUNCH TRIO ➔
           </Link>
         </div>
 

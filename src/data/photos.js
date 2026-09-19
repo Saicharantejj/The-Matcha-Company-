@@ -75,6 +75,30 @@ export const photos = {
   },
 
   // ── FLAVOUR SPECIFIC PRODUCT PACK MAPPINGS ─────────────────────────────────
+  // 3 Official Launch Flavours (Drop 01)
+  chocolateMakhanaPack: {
+    src: '/images/chaska-chocolate-makhana.jpg',
+    width: 1080,
+    height: 1620,
+    alt: 'CHASKA Chocolate Makhana 50g Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
+    title: 'Chocolate Makhana 50g Pouch',
+  },
+  cheeseAndHerbsMakhanaPack: {
+    src: '/images/chaska-cheese-and-herbs-makhana.jpg',
+    width: 1080,
+    height: 1620,
+    alt: 'CHASKA Cheese and Herbs Makhana 50g Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
+    title: 'Cheese and Herbs Makhana 50g Pouch',
+  },
+  jalapenoMakhanaPack: {
+    src: '/images/chaska-jalapeno-makhana.jpg',
+    width: 1080,
+    height: 1620,
+    alt: 'CHASKA Jalapeno Makhana 50g Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
+    title: 'Jalapeno Makhana 50g Pouch',
+  },
+
+  // Legacy & Coming Soon assets
   masalaPack: {
     src: '/images/chaska-masala-pouch-blue.jpg',
     width: 687,
@@ -88,10 +112,10 @@ export const photos = {
     alt: 'Fiery Peri Peri Makhana Pack',
   },
   chillyCheesePack: {
-    src: '/images/chaska-newspaper-coming-soon.jpg',
+    src: '/images/chaska-cheese-and-herbs-makhana.jpg',
     width: 1080,
-    height: 1350,
-    alt: 'Chilly Cheese Makhana Pack - Cheezy Spice Crunch',
+    height: 1620,
+    alt: 'Cheese and Herbs Makhana Pack - Cheezy Herb Crunch',
   },
   pudhinaPack: {
     src: '/images/chaska-mesh-bag-ingredients.jpg',
