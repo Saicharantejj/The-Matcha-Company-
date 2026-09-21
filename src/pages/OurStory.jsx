@@ -8,7 +8,7 @@ export default function OurStory() {
   return (
     <PageShell>
       {/* Header */}
-      <section className="bg-[#FAF8F5] dark:bg-[#0C122C] px-4 py-16 sm:px-8 sm:py-24 border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+      <section className="bg-[#0C122C] px-4 py-16 sm:px-8 sm:py-24 border-b border-[#243373]">
         <div className="mx-auto max-w-7xl">
           <div className="max-w-4xl space-y-4">
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
@@ -25,7 +25,7 @@ export default function OurStory() {
       </section>
 
       {/* Narrative Section 1: Philosophy & The Print Edition */}
-      <section className="bg-white dark:bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+      <section className="bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-[#243373]">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -56,7 +56,7 @@ export default function OurStory() {
             </div>
 
             <div className="lg:col-span-5">
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] shadow-md bg-[#FAF8F5] dark:bg-[#131D4A] p-2.5">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-[#243373] shadow-md bg-[#131D4A] p-2.5">
                 <img
                   src={photos.newspaperComingSoon.src}
                   alt="CHASKA Newspaper Edition"
@@ -70,12 +70,12 @@ export default function OurStory() {
       </section>
 
       {/* Narrative Section 2: Real Ingredients */}
-      <section className="bg-[#FAF8F5] dark:bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+      <section className="bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-[#243373]">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
             <div className="lg:col-span-5 order-2 lg:order-1">
-              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] shadow-md bg-white dark:bg-[#131D4A] p-2.5">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-[#243373] shadow-md bg-[#131D4A] p-2.5">
                 <img
                   src={photos.meshBagIngredients.src}
                   alt="CHASKA Fresh Ingredients in Mesh Bag"

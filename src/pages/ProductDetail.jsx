@@ -113,8 +113,8 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C122C] flex items-center justify-center transition-colors">
-        <div className="mx-auto max-w-5xl w-full p-8 rounded-3xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] animate-pulse space-y-8">
+      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C] flex items-center justify-center">
+        <div className="mx-auto max-w-5xl w-full p-8 rounded-3xl bg-[#131D4A] border border-[#243373] animate-pulse space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="aspect-square rounded-2xl bg-stone-100 dark:bg-[#1C2A6B]" />
             <div className="space-y-4">
@@ -235,7 +235,7 @@ export default function ProductDetail() {
     : ['ALL-STAR STASH', 'SIGNATURE FLAVOR', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C122C] transition-colors">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C]">
       <div className="mx-auto max-w-7xl space-y-16">
         
         {/* Breadcrumb Navigation */}

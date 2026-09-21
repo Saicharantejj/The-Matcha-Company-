@@ -41,7 +41,7 @@ const GALLERY_ITEMS = [
 
 export default function UgcGrid() {
   return (
-    <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+    <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
         <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">

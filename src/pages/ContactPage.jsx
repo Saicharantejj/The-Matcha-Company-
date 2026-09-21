@@ -22,7 +22,7 @@ export default function ContactPage() {
 
   return (
     <PageShell>
-      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C122C] transition-colors">
+      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C]">
         <div className="mx-auto max-w-5xl space-y-12">
           {/* Page Header */}
           <div className="text-center space-y-3">

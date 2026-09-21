@@ -4,7 +4,7 @@
 
 @layer base {
   * {
-    border-color: rgba(23, 36, 91, 0.08);
+    border-color: rgba(255, 255, 255, 0.08);
   }
 
   p {
@@ -37,15 +37,19 @@
     pointer-events: none;
   }
 
+  :root {
+    color-scheme: dark;
+  }
+
   html, body {
-    background-color: #FAF8F5;
-    color: #17245B;
+    background-color: #0C122C;
+    color: #FAF8F5;
+    color-scheme: dark;
     font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
-    transition: background-color 0.3s ease, color 0.3s ease;
   }
 
   html.dark,
@@ -78,7 +82,7 @@
 @layer components {
   /* ── Hairlines & Dividers ─────────────────────────────────────────────── */
   .rule {
-    border-top: 1px solid rgba(23, 36, 91, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .dark .rule {
@@ -86,7 +90,7 @@
   }
 
   .rule-charcoal {
-    border-top: 1px solid #17245B;
+    border-top: 1px solid #243373;
   }
 
   .dark .rule-charcoal {
@@ -95,10 +99,10 @@
 
   /* ── Clean Elevated Cards & Surfaces ─────────────────────────────────── */
   .glass-header {
-    background-color: rgba(250, 248, 245, 0.92);
+    background-color: rgba(12, 18, 44, 0.94);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border-bottom: 1px solid rgba(23, 36, 91, 0.06);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
   }
 
   .dark .glass-header {
@@ -107,9 +111,9 @@
   }
 
   .chaska-card {
-    background-color: #FFFFFF;
-    border: 1px solid rgba(23, 36, 91, 0.08);
-    box-shadow: 0 2px 12px rgba(23, 36, 91, 0.02);
+    background-color: #131D4A;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 2px 16px rgba(12, 18, 44, 0.5);
     border-radius: 20px;
     transition: transform 0.25s cubic-bezier(0.22, 1, 0.36, 1),
                 box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1),
@@ -118,8 +122,8 @@
 
   .chaska-card:hover {
     transform: translateY(-2px);
-    box-shadow: 0 8px 24px rgba(23, 36, 91, 0.06);
-    border-color: rgba(255, 84, 0, 0.35);
+    border-color: rgba(255, 84, 0, 0.5);
+    box-shadow: 0 8px 28px rgba(12, 18, 44, 0.7);
   }
 
   .dark .chaska-card {
@@ -138,9 +142,9 @@
   }
 
   .glass-panel {
-    background-color: #FFFFFF;
-    border: 1px solid rgba(23, 36, 91, 0.08);
-    box-shadow: 0 4px 20px rgba(23, 36, 91, 0.03);
+    background-color: #131D4A;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 4px 20px rgba(12, 18, 44, 0.5);
   }
 
   .dark .glass-panel {
@@ -150,9 +154,9 @@
   }
 
   .glass-pill {
-    background-color: #FFFFFF;
-    border: 1px solid rgba(23, 36, 91, 0.08);
-    color: #17245B;
+    background-color: #17245B;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: #FAF8F5;
   }
 
   .dark .glass-pill {
@@ -162,12 +166,12 @@
   }
 
   /* ── Buttons (Modern, Confident, Crisp) ──────────────────────────────── */
-  /* Primary Action: Solid Midnight Indigo or Chaska Orange Accent */
+  /* Primary Action: Crisp Ivory on Dark Canvas */
   .btn, .btn-primary {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#17245B] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-white rounded-full;
-    border: 1px solid #17245B;
-    box-shadow: 0 2px 12px rgba(23, 36, 91, 0.18);
+           bg-[#FAF8F5] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#17245B] rounded-full;
+    border: 1px solid #FAF8F5;
+    box-shadow: 0 2px 12px rgba(12, 18, 44, 0.5);
     transition: transform 0.2s ease,
                 background-color 0.2s ease,
                 color 0.2s ease,
@@ -180,7 +184,7 @@
     background-color: #FF5400;
     border-color: #FF5400;
     color: #FFFFFF;
-    box-shadow: 0 6px 18px rgba(255, 84, 0, 0.28);
+    box-shadow: 0 6px 18px rgba(255, 84, 0, 0.35);
   }
 
   .btn:active, .btn-primary:active {
@@ -215,10 +219,10 @@
 
   .btn-orange:hover, .btn-accent:hover {
     transform: translateY(-1.5px);
-    background-color: #17245B;
-    border-color: #17245B;
-    color: #FFFFFF;
-    box-shadow: 0 6px 20px rgba(23, 36, 91, 0.28);
+    background-color: #FAF8F5;
+    border-color: #FAF8F5;
+    color: #17245B;
+    box-shadow: 0 6px 20px rgba(12, 18, 44, 0.5);
   }
 
   .dark .btn-orange:hover, .dark .btn-accent:hover {
@@ -243,8 +247,8 @@
   /* Quiet Outline Button */
   .btn-outline {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-transparent px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#17245B] rounded-full;
-    border: 1px solid rgba(23, 36, 91, 0.25);
+           bg-transparent px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#FAF8F5] rounded-full;
+    border: 1px solid rgba(255, 255, 255, 0.25);
     transition: transform 0.2s ease,
                 background-color 0.2s ease,
                 color 0.2s ease,
@@ -252,9 +256,9 @@
   }
 
   .btn-outline:hover {
-    background-color: #17245B;
-    color: #FFFFFF;
-    border-color: #17245B;
+    background-color: #FAF8F5;
+    color: #17245B;
+    border-color: #FAF8F5;
     transform: translateY(-1.5px);
   }
 
@@ -279,7 +283,7 @@
     font-size: 0.72rem;
     text-transform: uppercase;
     letter-spacing: 0.08em;
-    color: #17245B;
+    color: #FAF8F5;
     font-weight: 700;
   }
 

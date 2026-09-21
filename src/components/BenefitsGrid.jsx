@@ -2,7 +2,7 @@ import { photos } from '../data/photos'
 
 export default function BenefitsGrid() {
   return (
-    <section className="py-24 sm:py-28 bg-[#FAF8F5] dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors" id="benefits">
+    <section className="py-24 sm:py-28 bg-[#0C122C] border-b border-[#243373]" id="benefits">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         
         {/* Editorial Section Header */}

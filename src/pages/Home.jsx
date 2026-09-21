@@ -79,7 +79,7 @@ export default function Home() {
   return (
     <PageShell>
       {/* ── 1. PRODUCT CAMPAIGN HERO SECTION ──────────────────────────────── */}
-      <section className="relative bg-[#FAF8F5] dark:bg-[#0C122C] px-4 pt-8 pb-16 sm:px-8 sm:pt-14 sm:pb-24 border-b border-stone-200/80 dark:border-[#243373] flex items-center transition-colors">
+      <section className="relative bg-[#0C122C] px-4 pt-8 pb-16 sm:px-8 sm:pt-14 sm:pb-24 border-b border-[#243373] flex items-center">
         <div className="mx-auto w-full max-w-7xl">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-12 lg:items-center">
             
@@ -141,7 +141,7 @@ export default function Home() {
               transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-5 space-y-3.5"
             >
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] shadow-md bg-white dark:bg-[#131D4A]">
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#243373] shadow-md bg-[#131D4A]">
                 <img
                   src={activeHeroPhoto.src}
                   alt={activeHeroPhoto.title}
@@ -208,7 +208,7 @@ export default function Home() {
       </div>
 
       {/* ── 3. OFFICIAL CAMPAIGN PHOTO SHOWCASE ("THE SIGNATURE CHASKA DROP") ─ */}
-      <section className="py-20 sm:py-24 bg-white dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+      <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
             <div className="space-y-2">
@@ -226,7 +226,7 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1: Chocolate Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] bg-[#FAF8F5] dark:bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
@@ -256,7 +256,7 @@ export default function Home() {
             </div>
 
             {/* Card 2: Cheese and Herbs Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] bg-[#FAF8F5] dark:bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
@@ -286,7 +286,7 @@ export default function Home() {
             </div>
 
             {/* Card 3: Jalapeno Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] bg-[#FAF8F5] dark:bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
               <div>
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
@@ -325,7 +325,7 @@ export default function Home() {
       <TryAll5Feature product={tryAll5Product} />
 
       {/* ── 6. SINGLE FLAVOUR PACKS CATALOGUE GRID ─────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-white dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors" id="all-products">
+      <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]" id="all-products">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-16">
           
           {/* Drop 01 Section */}
@@ -350,7 +350,7 @@ export default function Home() {
             {isLoading ? (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
                 {[1, 2, 3].map((n) => (
-                  <div key={n} className="h-[460px] rounded-3xl bg-[#FAF8F5] dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] p-6 animate-pulse" />
+                  <div key={n} className="h-[460px] rounded-3xl bg-[#131D4A] border border-[#243373] p-6 animate-pulse" />
                 ))}
               </div>
             ) : drop01Flavours.length > 0 ? (
@@ -360,7 +360,7 @@ export default function Home() {
                 ))}
               </div>
             ) : (
-              <div className="rounded-3xl bg-[#FAF8F5] dark:bg-[#131D4A] border border-dashed border-stone-300 dark:border-[#243373] p-12 text-center space-y-3 max-w-md mx-auto">
+              <div className="rounded-3xl bg-[#131D4A] border border-dashed border-[#243373] p-12 text-center space-y-3 max-w-md mx-auto">
                 <span className="text-4xl block">🍿</span>
                 <h3 className="font-display text-lg font-bold uppercase text-[#17245B] dark:text-white">
                   Loading Official Launch Flavours

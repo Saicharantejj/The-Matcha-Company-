@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react'
 import { NavLink, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
-import { useTheme } from '../context/ThemeContext'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
 import ChaskaLogo from './ChaskaLogo'
 
@@ -25,7 +24,6 @@ export default function Header({ onOpenSearch }) {
   const [menuOpen, setMenuOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const { count: cartCount, openCart, lastAddedId } = useCart()
-  const { isDark, toggleTheme } = useTheme()
   const reduceMotion = useReducedMotion()
   const { pathname } = useLocation()
 
@@ -61,8 +59,8 @@ export default function Header({ onOpenSearch }) {
       <header
         className={`sticky top-0 z-50 transition-all duration-300 ${
           scrolled || menuOpen
-            ? 'bg-[#FAF8F5]/95 dark:bg-[#0C122C]/95 backdrop-blur-md py-3 sm:py-3.5 border-b border-stone-200/80 dark:border-[#243373] shadow-2xs'
-            : 'bg-[#FAF8F5] dark:bg-[#0C122C] py-4 sm:py-4.5 border-b border-stone-200/60 dark:border-[#243373]/60'
+            ? 'bg-[#0C122C]/95 backdrop-blur-md py-3 sm:py-3.5 border-b border-[#243373] shadow-2xs'
+            : 'bg-[#0C122C] py-4 sm:py-4.5 border-b border-[#243373]/60'
         }`}
       >
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 sm:px-8">
@@ -96,20 +94,8 @@ export default function Header({ onOpenSearch }) {
             ))}
           </nav>
 
-          {/* Actions: Theme Toggle + Search + Stash Cart + Mobile Hamburger */}
+          {/* Actions: Search + Stash Cart + Mobile Hamburger */}
           <div className="relative z-10 flex items-center gap-2 sm:gap-3">
-            {/* Theme Toggle Button */}
-            <button
-              type="button"
-              onClick={toggleTheme}
-              aria-label={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-              title={isDark ? 'Switch to light mode' : 'Switch to dark mode'}
-              className="inline-flex items-center justify-center h-9 w-9 rounded-full border border-stone-200/80 dark:border-[#243373] bg-white dark:bg-[#131D4A] text-[#17245B] dark:text-stone-200 hover:border-stone-400 dark:hover:border-indigo-400 transition-all shadow-2xs"
-            >
-              <span className="text-sm select-none">
-                {isDark ? '☀️' : '🌙'}
-              </span>
-            </button>
 
             {/* Search Trigger */}
             <button
@@ -164,34 +150,25 @@ export default function Header({ onOpenSearch }) {
               animate={{ opacity: 1, height: 'auto' }}
               exit={{ opacity: 0, height: 0 }}
               transition={{ duration: 0.25 }}
-              className="fixed inset-x-0 top-[84px] z-40 bg-[#FAF8F5] dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] shadow-xl lg:hidden rounded-b-3xl overflow-hidden max-h-[85vh] overflow-y-auto"
+              className="fixed inset-x-0 top-[84px] z-40 bg-[#0C122C] border-b border-[#243373] shadow-xl lg:hidden rounded-b-3xl overflow-hidden max-h-[85vh] overflow-y-auto"
             >
               <nav aria-label="Mobile navigation" className="flex flex-col px-6 py-6 space-y-6">
                 
-                {/* Mobile Search Button & Theme Switch */}
-                <div className="flex items-center gap-2">
+                {/* Mobile Search Button */}
+                <div>
                   <button
                     type="button"
                     onClick={() => {
                       setMenuOpen(false)
                       if (onOpenSearch) onOpenSearch()
                     }}
-                    className="flex-1 flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] text-[#17245B] dark:text-stone-200 font-sans text-xs font-semibold shadow-2xs"
+                    className="w-full flex items-center justify-between p-3.5 rounded-2xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] text-[#17245B] dark:text-stone-200 font-sans text-xs font-semibold shadow-2xs hover:border-stone-400 dark:hover:border-indigo-400 transition-colors"
                   >
                     <span className="flex items-center gap-2">
                       <span>🔍</span>
                       <span>SEARCH FLAVOURS &amp; BOXES</span>
                     </span>
                     <span className="text-[#FF5400] font-bold">➔</span>
-                  </button>
-
-                  <button
-                    type="button"
-                    onClick={toggleTheme}
-                    className="flex items-center justify-center p-3.5 rounded-2xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] text-[#17245B] dark:text-stone-200 font-sans text-xs font-semibold shadow-2xs shrink-0"
-                    aria-label="Toggle dark mode"
-                  >
-                    <span>{isDark ? '☀️ Light' : '🌙 Dark'}</span>
                   </button>
                 </div>
 

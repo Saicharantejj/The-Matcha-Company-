@@ -5,7 +5,7 @@ import { MakhanaSymbol } from '../components/MakhanaGraphic'
 export default function NotFound() {
   return (
     <PageShell>
-      <section className="bg-[#FAF8F5] dark:bg-[#0C122C] px-6 py-28 sm:px-12 text-center flex flex-col items-center justify-center min-h-[70vh] transition-colors duration-300">
+      <section className="bg-[#0C122C] px-6 py-28 sm:px-12 text-center flex flex-col items-center justify-center min-h-[70vh]">
         <MakhanaSymbol className="w-16 h-16 mb-6 text-[#17245B] dark:text-stone-300" color="currentColor" />
         <span className="font-mono text-xs font-bold text-[#FF5400] uppercase tracking-widest bg-[#FF5400]/10 px-3.5 py-1 rounded-full">
           404 &middot; PAGE NOT FOUND

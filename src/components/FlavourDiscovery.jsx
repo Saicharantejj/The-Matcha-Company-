@@ -85,7 +85,7 @@ export default function FlavourDiscovery() {
   }
 
   return (
-    <section className="py-20 sm:py-24 bg-white dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors" id="flavours">
+    <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]" id="flavours">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
         {/* Section Header */}

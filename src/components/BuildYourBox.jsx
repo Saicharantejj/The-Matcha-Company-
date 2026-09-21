@@ -108,7 +108,7 @@ export default function BuildYourBox() {
   ]
 
   return (
-    <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C122C] border-y border-stone-200/80 dark:border-[#243373] relative overflow-hidden transition-colors" id="build-your-box">
+    <section className="py-20 sm:py-24 bg-[#0C122C] border-y border-[#243373] relative overflow-hidden" id="build-your-box">
       <div className="mx-auto max-w-7xl px-4 sm:px-8">
         
         {/* Section Header */}

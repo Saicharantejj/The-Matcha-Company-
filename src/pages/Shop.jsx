@@ -114,7 +114,7 @@ export default function Shop() {
   }, [activeCategory, products, searchFilter, sortBy])
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#FAF8F5] dark:bg-[#0C122C] transition-colors">
+    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C]">
       <div className="mx-auto max-w-7xl space-y-10">
         
         {/* Breadcrumb */}

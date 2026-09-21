@@ -98,7 +98,7 @@ export default function B2bPage() {
       </section>
 
       {/* ── USE CASES & TIERS ────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#FAF8F5] dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+      <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
           <div className="max-w-2xl space-y-2">
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400">
@@ -133,9 +133,9 @@ export default function B2bPage() {
       </section>
 
       {/* ── B2B INQUIRY FORM ─────────────────────────────────────────────── */}
-      <section id="b2b-form" className="py-20 bg-white dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+      <section id="b2b-form" className="py-20 bg-[#0C122C] border-b border-[#243373]">
         <div className="mx-auto max-w-4xl px-4 sm:px-8">
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#FAF8F5] dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] shadow-xs space-y-8">
+          <div className="p-8 sm:p-12 rounded-3xl bg-[#131D4A] border border-[#243373] shadow-xs space-y-8">
             <div className="space-y-2 text-center max-w-xl mx-auto">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
                 GET A FAST B2B PROPOSAL

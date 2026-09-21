@@ -4,7 +4,7 @@ import PageShell from '../components/PageShell'
 export default function ShippingPage() {
   return (
     <PageShell>
-      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#FAF8F5] dark:bg-[#0C122C] transition-colors duration-300">
+      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#0C122C]">
         <div className="mx-auto max-w-3xl space-y-10">
           <div className="space-y-4 text-center">
             <span className="inline-block px-4 py-1.5 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
@@ -18,7 +18,7 @@ export default function ShippingPage() {
             </p>
           </div>
 
-          <div className="p-8 sm:p-10 rounded-3xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] space-y-8 shadow-xs text-[#17245B] dark:text-stone-100 leading-relaxed transition-colors duration-300">
+          <div className="p-8 sm:p-10 rounded-3xl bg-[#131D4A] border border-[#243373] space-y-8 shadow-xs text-stone-100 leading-relaxed">
             <section className="space-y-3">
               <h2 className="font-display text-lg font-bold uppercase text-[#17245B] dark:text-white flex items-center gap-2">
                 <span className="w-2 h-2 rounded-full bg-[#FF5400]" />
