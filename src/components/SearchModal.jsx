@@ -176,7 +176,7 @@ export default function SearchModal({ isOpen, onClose }) {
                             {item.name}
                           </p>
                           <p className="font-sans text-[11px] text-stone-500 dark:text-stone-400 font-medium">
-                            {item.size || '50g & 100g Packs'} • ₹{Math.round(item.price)}
+                            {item.size || '70g & 30g Packs'} • ₹{Math.round(item.price)}
                           </p>
                         </div>
                       </div>

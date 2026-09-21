@@ -137,7 +137,7 @@ export default function ProductCard({ product, index = 0 }) {
           {!isComingSoon && !isLaunchBox && (
             <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-xs text-[9px] font-mono text-white font-semibold">
               <span>ROASTED NOT FRIED</span>
-              <span className="text-amber-400">50g</span>
+              <span className="text-amber-400">70g / 30g</span>
             </div>
           )}
         </Link>
@@ -150,8 +150,8 @@ export default function ProductCard({ product, index = 0 }) {
                 {isComingSoon
                   ? 'EXPERIMENTAL LAB • DROP 02'
                   : isLaunchBox
-                  ? '3 POUCH SAMPLER (150G)'
-                  : '50G OFFICIAL POUCH'}
+                  ? '3 POUCH SAMPLER (210G)'
+                  : '70G / 30G POUCH'}
               </span>
               {product.spiceLevel && !isLaunchBox && (
                 <span className="font-mono text-[10px] font-bold text-[#FF5400]">
@@ -185,7 +185,7 @@ export default function ProductCard({ product, index = 0 }) {
                 )}
               </div>
               <span className="font-mono text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase">
-                {isComingSoon ? '🔒 LOCKED' : isLaunchBox ? 'ALL 3 FLAVOURS' : '50G PACK'}
+                {isComingSoon ? '🔒 LOCKED' : isLaunchBox ? 'ALL 3 FLAVOURS' : '70G / 30G'}
               </span>
             </div>
 

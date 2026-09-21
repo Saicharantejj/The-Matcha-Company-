@@ -16,13 +16,13 @@ const COLLECTION_METADATA = {
   },
   flavours: {
     title: 'LAUNCH POUCHES',
-    badge: '50G OFFICIAL POUCHES',
+    badge: '70G & 30G OFFICIAL POUCHES',
     description: '100% roasted not fried lotus pops tossed in real spices and authentic Indian flavour profiles.',
   },
   bundles: {
     title: 'THE LAUNCH TRIO',
     badge: '3-IN-1 LAUNCH SAMPLER',
-    description: 'Experience all 3 official launch flavours in one convenient 150g stash box.',
+    description: 'Experience all 3 official launch flavours in one convenient 210g stash box.',
   },
 }
 
@@ -278,7 +278,7 @@ export default function Shop() {
               CAN'T DECIDE? GET THE LAUNCH TRIO
             </h2>
             <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed font-normal">
-              1 official 50g pouch each of Chocolate Makhana, Cheese and Herbs Makhana, and Jalapeno Makhana. Total 150g for ₹499.
+              1 official 70g pouch each of Chocolate Makhana, Cheese and Herbs Makhana, and Jalapeno Makhana. Total 210g for ₹499.
             </p>
           </div>
           <Link

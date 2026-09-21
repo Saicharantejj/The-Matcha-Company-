@@ -6,6 +6,7 @@ import { useCart } from '../context/CartContext'
 import { useToast } from '../components/Toast'
 import { trackViewContent } from '../lib/metaPixel'
 import { fetchShopifyProductByHandle, fetchShopifyProducts } from '../lib/shopify/api'
+import { OFFICIAL_WEIGHTS, PACK_OPTIONS, getPricing, getTotalWeightGrams } from '../data/pricing'
 import ProductCard from '../components/ProductCard'
 import NotFound from './NotFound'
 
@@ -20,8 +21,8 @@ export default function ProductDetail() {
   const [relatedProducts, setRelatedProducts] = useState([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [selectedSize, setSelectedSize] = useState('50g')
-  const [selectedPack, setSelectedPack] = useState('Pack of 3')
+  const [selectedSize, setSelectedSize] = useState('70g')
+  const [selectedPack, setSelectedPack] = useState('3 Pack')
   const [isAdding, setIsAdding] = useState(false)
   const [isAdded, setIsAdded] = useState(false)
   const [showStickyBar, setShowStickyBar] = useState(false)
@@ -82,7 +83,7 @@ export default function ProductDetail() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const isTryAll5 = product?.handle === 'chaska-try-all-5'
+  const isTryAll5 = product?.handle === 'chaska-try-all-5' || product?.handle === 'chaska-launch-trio'
 
   // 4. Exact Shopify Variant Resolution
   const activeVariant = useMemo(() => {
@@ -101,11 +102,14 @@ export default function ProductDetail() {
       const sizeOpt = options.find((o) => o.name?.toLowerCase() === 'size')?.value
       const packOpt = options.find((o) => o.name?.toLowerCase() === 'pack')?.value
       if (sizeOpt && packOpt) {
-        return sizeOpt === selectedSize && packOpt === selectedPack
+        return (
+          sizeOpt.toLowerCase().includes(selectedSize.toLowerCase()) &&
+          (packOpt.toLowerCase().includes(selectedPack.toLowerCase()) || packOpt.includes(selectedPack.replace(/\D/g, '')))
+        )
       }
       return (
         v.title?.toLowerCase().includes(selectedSize.toLowerCase()) &&
-        v.title?.toLowerCase().includes(selectedPack.toLowerCase())
+        (v.title?.toLowerCase().includes(selectedPack.toLowerCase()) || v.title?.includes(selectedPack.replace(/\D/g, '')))
       )
     })
     return match || product.variants[0]
@@ -136,17 +140,29 @@ export default function ProductDetail() {
 
   const isVariantAvailable = activeVariant ? Boolean(activeVariant.availableForSale) : Boolean(product?.availableForSale)
 
-  const currentPrice = activeVariant ? activeVariant.price : (product?.price || 450)
-  const currentMrp = (activeVariant?.mrp && activeVariant.mrp > currentPrice)
-    ? activeVariant.mrp
-    : (product?.mrp && product.mrp > currentPrice ? product.mrp : currentPrice)
-  const currentDiscount = currentMrp > currentPrice ? `${Math.round(((currentMrp - currentPrice) / currentMrp) * 100)}% OFF` : null
+  // Pricing calculation according to official matrix
+  const currentPricing = isTryAll5
+    ? {
+        price: product?.price || 499,
+        mrp: product?.mrp || 599,
+        discount: '17% OFF',
+        perPack: 166,
+        packCount: 3,
+        savings: 100,
+        badge: '3-IN-1 BOX',
+      }
+    : getPricing(selectedSize, selectedPack)
+
+  const currentPrice = currentPricing.price
+  const currentMrp = currentPricing.mrp
+  const currentDiscount = currentPricing.discount
+  const netWeightGrams = isTryAll5 ? 210 : getTotalWeightGrams(selectedSize, selectedPack)
 
   const handleAddToCart = async () => {
     if (!product || isAdding) return
-    const packLabel = isTryAll5 ? `${selectedSize}` : `${selectedSize} • ${selectedPack}`
+    const packLabel = isTryAll5 ? '3 Packs (210g)' : `${selectedSize} • ${selectedPack}`
     const itemTitle = isTryAll5
-      ? `${product.name} (${selectedSize})`
+      ? `${product.name} (3x 70g Pouches, 210g)`
       : `${product.name} (${selectedSize}, ${selectedPack})`
 
     if (!isVariantAvailable) {
@@ -157,10 +173,13 @@ export default function ProductDetail() {
     setIsAdding(true)
     try {
       const selectedVariantId = activeVariant?.id || product.variantId || product.id
+      const uniqueItemId = isTryAll5
+        ? `${product.handle || 'chaska-trio'}`
+        : `${product.handle || product.id}-${selectedSize}-${selectedPack.replace(/\s+/g, '')}`
 
       const itemToAdd = {
         ...product,
-        id: selectedVariantId,
+        id: uniqueItemId,
         variantId: selectedVariantId,
         availableForSale: isVariantAvailable,
         price: currentPrice,
@@ -184,6 +203,7 @@ export default function ProductDetail() {
       addToast('Could not add to cart. Please try again.', 'error')
     }
   }
+
 
   const isComingSoon = Boolean(product.isComingSoon)
 
@@ -231,7 +251,7 @@ export default function ProductDetail() {
     : handleLower.includes('peri-peri')
     ? ['FIERY BIRD’S EYE CHILI', 'GARLIC DUST', 'ZINGY LIME TWIST', 'EXTRA CRUNCHY']
     : handleLower.includes('try-all-5') || handleLower.includes('trio')
-    ? ['3 OFFICIAL LAUNCH FLAVOURS', 'CHOCOLATE MAKHANA (50G)', 'CHEESE & HERBS (50G)', 'JALAPENO MAKHANA (50G)']
+    ? ['3 OFFICIAL LAUNCH FLAVOURS', 'CHOCOLATE MAKHANA (70G)', 'CHEESE & HERBS (70G)', 'JALAPENO MAKHANA (70G)']
     : ['ALL-STAR STASH', 'SIGNATURE FLAVOR', 'PERFECT GIFT', 'MAXIMUM VALUE']
 
   return (
@@ -271,11 +291,11 @@ export default function ProductDetail() {
                   </span>
                 ) : isTryAll5 ? (
                   <span className="px-3.5 py-1.5 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
-                    ⭐ 3-IN-1 LAUNCH BOX
+                    ⭐ 3-IN-1 LAUNCH BOX (210G)
                   </span>
                 ) : currentDiscount ? (
-                  <span className="px-3.5 py-1.5 rounded-full bg-[#17245B] dark:bg-[#1C2A6B] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
-                    SAVE {currentDiscount}
+                  <span className="px-3.5 py-1.5 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
+                    {currentDiscount}
                   </span>
                 ) : (
                   <span className="px-3.5 py-1.5 rounded-full bg-emerald-600 text-white font-mono text-xs font-bold uppercase tracking-wider shadow-xs">
@@ -304,7 +324,7 @@ export default function ProductDetail() {
                     type="button"
                     onClick={() => setSelectedImgIndex(i)}
                     aria-label={`View photo ${i + 1}`}
-                    className={`h-20 w-20 shrink-0 rounded-2xl bg-white dark:bg-[#131D4A] border-2 p-1 overflow-hidden transition-all duration-200 ${
+                    className={`h-20 w-20 shrink-0 rounded-2xl bg-white dark:bg-[#131D4A] border-2 p-1 overflow-hidden transition-all duration-200 cursor-pointer ${
                       selectedImgIndex === i
                         ? 'border-[#FF5400] scale-105 shadow-sm ring-2 ring-[#FF5400]/30'
                         : 'border-stone-200/80 dark:border-[#243373] opacity-70 hover:opacity-100'
@@ -318,11 +338,11 @@ export default function ProductDetail() {
           </div>
 
           {/* Right Column: Information, Specs & Add-to-Cart */}
-          <div className="lg:col-span-6 space-y-7">
+          <div className="lg:col-span-6 space-y-6">
             
             {/* Header & Badges */}
             <div className="space-y-3">
-              <div className="flex items-center gap-2">
+              <div className="flex flex-wrap items-center gap-2">
                 {isComingSoon ? (
                   <span className="px-3 py-1 rounded-full bg-stone-900 border border-[#FF5400]/40 text-[#FF5400] font-mono text-[10px] font-bold uppercase tracking-wider">
                     🧪 DROP 02 • IN THE LAB
@@ -332,8 +352,11 @@ export default function ProductDetail() {
                     <span className="px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-mono text-[10px] font-bold uppercase tracking-wider">
                       🔥 DROP 01 LAUNCH
                     </span>
-                    <span className="px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] text-stone-800 dark:text-stone-200 font-mono text-[10px] font-bold uppercase tracking-wider">
-                      {isTryAll5 ? '3-PACK SAMPLER BOX' : '50G OFFICIAL POUCH'}
+                    <span className="px-3 py-1 rounded-full bg-[#1C2A6B] text-stone-200 font-mono text-[10px] font-bold uppercase tracking-wider">
+                      {isTryAll5 ? '3-PACK SAMPLER BOX (210G)' : `${selectedSize.toUpperCase()} OFFICIAL POUCH`}
+                    </span>
+                    <span className="px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase tracking-wider">
+                      {isTryAll5 ? 'ALL 3 FLAVOURS' : selectedPack === '3 Pack' ? 'PACK OF 3 (DEFAULT)' : selectedPack.toUpperCase()}
                     </span>
                   </>
                 )}
@@ -353,6 +376,36 @@ export default function ProductDetail() {
                 {product.name}
               </h1>
 
+              {/* Mention Pack of 3 Prominent Banner */}
+              {!isComingSoon && !isTryAll5 && (
+                <div className={`p-3.5 rounded-2xl border transition-all ${
+                  selectedPack === '3 Pack'
+                    ? 'bg-[#FF5400]/10 border-[#FF5400]/40 text-[#FF5400]'
+                    : 'bg-[#131D4A] border-[#243373] text-stone-300'
+                }`}>
+                  <div className="flex items-center justify-between gap-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-base">{selectedPack === '3 Pack' ? '⭐' : '🍿'}</span>
+                      <span className="font-mono text-xs font-bold uppercase tracking-wide">
+                        {selectedPack === '3 Pack'
+                          ? `PACK OF 3 (${selectedSize === '70g' ? '3 × 70g = 210g' : '3 × 30g = 90g'})`
+                          : `${selectedPack} (${netWeightGrams}g Total Weight)`}
+                      </span>
+                    </div>
+                    {selectedPack === '3 Pack' && (
+                      <span className="px-2 py-0.5 rounded-full bg-[#FF5400] text-white font-mono text-[9px] font-bold uppercase tracking-wider">
+                        DEFAULT • BESTSELLER
+                      </span>
+                    )}
+                  </div>
+                  <p className="font-sans text-xs text-stone-300 mt-1 font-normal leading-relaxed">
+                    {selectedPack === '3 Pack'
+                      ? `Default selection is the Pack of 3! Includes 3 sealed ${selectedSize} pouches. Save ₹${currentPricing.savings} vs MRP.`
+                      : `Contains ${currentPricing.packCount} sealed ${selectedSize} pouches (${netWeightGrams}g total).`}
+                  </p>
+                </div>
+              )}
+
               {/* Price & Savings */}
               {isComingSoon ? (
                 <div className="pt-1">
@@ -360,11 +413,11 @@ export default function ProductDetail() {
                     DROP 02 • COMING SOON
                   </span>
                   <p className="font-sans text-xs text-stone-500 dark:text-stone-400 mt-0.5">
-                    Expected ₹199 (50g Pouch) • Small batch Bihar roastery release
+                    Expected ₹199 (70g Pouch) • Small batch Bihar roastery release
                   </p>
                 </div>
               ) : (
-                <div className="flex items-baseline gap-3.5 pt-1">
+                <div className="flex flex-wrap items-baseline gap-3.5 pt-1">
                   <span className="font-display text-3xl sm:text-4xl font-black text-[#17245B] dark:text-white">
                     ₹{Math.round(currentPrice)}
                   </span>
@@ -374,25 +427,140 @@ export default function ProductDetail() {
                         ₹{Math.round(currentMrp)}
                       </span>
                       <span className="font-mono text-xs font-bold text-emerald-800 dark:text-emerald-300 bg-emerald-50 dark:bg-emerald-950/40 px-2.5 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
-                        SAVE {currentDiscount}
+                        {currentDiscount}
                       </span>
                     </>
+                  )}
+                  {currentPricing.packCount > 1 && (
+                    <span className="font-mono text-xs font-bold text-[#FF5400] bg-[#FF5400]/10 px-2.5 py-1 rounded-full border border-[#FF5400]/20">
+                      ₹{currentPricing.perPack} / pouch
+                    </span>
                   )}
                 </div>
               )}
 
               {/* Official Pouch Callout */}
               {!isComingSoon && !isTryAll5 && (
-                <div className="flex items-center gap-2 pt-1 font-mono text-xs font-bold text-stone-600 dark:text-stone-300">
+                <div className="flex flex-wrap items-center gap-2 pt-1 font-mono text-xs font-bold text-stone-300">
                   <span className="px-2.5 py-1 rounded-lg bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200 dark:border-[#243373]">
                     ✓ ROASTED NOT FRIED
                   </span>
                   <span className="px-2.5 py-1 rounded-lg bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200 dark:border-[#243373]">
-                    ✓ 50 g PACK
+                    ✓ {selectedSize} OFFICIAL POUCH
+                  </span>
+                  <span className="px-2.5 py-1 rounded-lg bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200 dark:border-[#243373] text-[#FF5400]">
+                    ✓ {selectedPack.toUpperCase()} ({netWeightGrams}G TOTAL)
                   </span>
                 </div>
               )}
             </div>
+
+            {/* ── 1. WEIGHT SELECTOR (70g vs 30g — NO 50g) ────────────────── */}
+            {!isComingSoon && !isTryAll5 && (
+              <div className="space-y-2 pt-1">
+                <div className="flex items-center justify-between">
+                  <label className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-300">
+                    1. SELECT WEIGHT <span className="text-[#FF5400]">• OFFICIAL SIZES</span>
+                  </label>
+                  <span className="font-mono text-[10px] text-stone-400">
+                    {selectedSize === '70g' ? '70g Standard Jumbo Pouch' : '30g Snack Pouch'}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 gap-3">
+                  {OFFICIAL_WEIGHTS.map((w) => {
+                    const isSelected = selectedSize === w.id
+                    const pricingForWeight = getPricing(w.id, selectedPack)
+                    return (
+                      <button
+                        key={w.id}
+                        type="button"
+                        onClick={() => setSelectedSize(w.id)}
+                        className={`p-3.5 rounded-2xl border text-left transition-all relative cursor-pointer ${
+                          isSelected
+                            ? 'border-[#FF5400] bg-[#1C2A6B] shadow-md ring-2 ring-[#FF5400]/40'
+                            : 'border-[#243373] bg-[#131D4A] hover:border-stone-500 opacity-80 hover:opacity-100'
+                        }`}
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="font-display text-lg font-black text-white">
+                            {w.label}
+                          </span>
+                          <span className={`font-mono text-[9px] font-bold px-2 py-0.5 rounded-full ${
+                            isSelected ? 'bg-[#FF5400] text-white' : 'bg-[#0C122C] text-stone-300'
+                          }`}>
+                            {w.badge}
+                          </span>
+                        </div>
+                        <div className="flex items-center justify-between text-xs font-mono">
+                          <span className="text-stone-300 text-[11px]">{w.title}</span>
+                          <span className="font-bold text-[#FF5400]">₹{pricingForWeight.price}</span>
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
+            {/* ── 2. PACK QUANTITY SELECTOR (1, 3, 5, 10 Pack) ─────────────── */}
+            {!isComingSoon && !isTryAll5 && (
+              <div className="space-y-2 pt-1">
+                <div className="flex items-center justify-between">
+                  <label className="font-mono text-[11px] font-bold uppercase tracking-wider text-stone-300">
+                    2. SELECT PACK QUANTITY <span className="text-[#FF5400]">• DEFAULT: PACK OF 3</span>
+                  </label>
+                  <span className="font-mono text-[10px] text-amber-400 font-bold uppercase">
+                    {selectedPack === '3 Pack' ? '★ POPULAR CHOICE' : `${selectedPack}`}
+                  </span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
+                  {PACK_OPTIONS.map((pack) => {
+                    const isSelected = selectedPack === pack.id
+                    const pricing = getPricing(selectedSize, pack.id)
+                    const totalGrams = getTotalWeightGrams(selectedSize, pack.id)
+                    return (
+                      <button
+                        key={pack.id}
+                        type="button"
+                        onClick={() => setSelectedPack(pack.id)}
+                        className={`p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer ${
+                          isSelected
+                            ? 'border-[#FF5400] bg-[#1C2A6B] shadow-md ring-2 ring-[#FF5400]/40'
+                            : 'border-[#243373] bg-[#131D4A] hover:border-stone-500 opacity-80 hover:opacity-100'
+                        }`}
+                      >
+                        {pack.badge && (
+                          <span className={`absolute -top-2.5 right-2 font-mono text-[9px] font-bold px-2 py-0.5 rounded-full shadow-xs ${
+                            isSelected || pack.badge === 'POPULAR'
+                              ? 'bg-[#FF5400] text-white'
+                              : 'bg-emerald-600 text-white'
+                          }`}>
+                            {pack.badge}
+                          </span>
+                        )}
+                        <div>
+                          <div className="font-display text-sm sm:text-base font-extrabold text-white">
+                            {pack.id}
+                          </div>
+                          <div className="font-mono text-[10px] text-stone-400 mt-0.5">
+                            {totalGrams}g ({pack.count} × {selectedSize})
+                          </div>
+                        </div>
+                        <div className="mt-2 pt-2 border-t border-white/10 flex flex-col">
+                          <span className="font-display text-base font-bold text-white">
+                            ₹{pricing.price}
+                          </span>
+                          <span className="font-mono text-[10px] text-stone-300">
+                            ₹{pricing.perPack}/pack
+                          </span>
+                        </div>
+                      </button>
+                    )
+                  })}
+                </div>
+              </div>
+            )}
+
 
             {/* Description Card */}
             <div className="p-6 rounded-2xl bg-white dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] space-y-2 shadow-2xs">
@@ -494,7 +662,11 @@ export default function ProductDetail() {
                       ? 'ADDED TO STASH ✓'
                       : isAdding
                       ? 'ADDING...'
-                      : `ADD TO STASH • ₹${(currentPrice * qty).toFixed(0)}`}
+                      : isTryAll5
+                      ? `ADD TRIO BOX TO STASH • ₹${(currentPrice * qty).toFixed(0)}`
+                      : selectedPack === '3 Pack'
+                      ? `ADD PACK OF 3 TO STASH • ₹${(currentPrice * qty).toFixed(0)}`
+                      : `ADD ${selectedPack.toUpperCase()} TO STASH • ₹${(currentPrice * qty).toFixed(0)}`}
                   </button>
                 </div>
 
@@ -509,7 +681,7 @@ export default function ProductDetail() {
                 <div className="flex items-center justify-between text-xs font-mono text-stone-500 dark:text-stone-400 pt-1 px-1">
                   <span>⚡ Dispatches in 24h</span>
                   <span>🍿 100% Roasted Not Fried</span>
-                  <span>🇮🇳 50g Official Pouch</span>
+                  <span>🇮🇳 {selectedSize} Official Pouch</span>
                 </div>
               </div>
             )}
@@ -548,7 +720,7 @@ export default function ProductDetail() {
             {/* Nutrition Grid */}
             <div className="space-y-3">
               <h3 className="font-display text-base font-bold text-[#17245B] dark:text-white uppercase">
-                NUTRITIONAL ESTIMATE (PER 50G SERVING)
+                NUTRITIONAL ESTIMATE (PER {selectedSize.toUpperCase()} SERVING)
               </h3>
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
                 {Object.entries(product.nutrition || { calories: '132 kcal', protein: '4.2g', carbs: '21g', fat: '3.5g', fiber: '3.6g' }).map(([key, val]) => (
@@ -613,7 +785,9 @@ export default function ProductDetail() {
                     {isComingSoon ? 'DROP 02' : `₹${Math.round(currentPrice * qty)}`}
                   </span>
                   <span>•</span>
-                  <span className="truncate">{isComingSoon ? 'COMING SOON' : selectedSize}</span>
+                  <span className="truncate">
+                    {isComingSoon ? 'COMING SOON' : `${selectedPack} (${selectedSize})`}
+                  </span>
                 </div>
               </div>
 
@@ -640,7 +814,15 @@ export default function ProductDetail() {
                       : 'bg-[#FF5400] text-white'
                   }`}
                 >
-                  {!isVariantAvailable ? 'SOLD OUT' : isAdded ? 'ADDED ✓' : isAdding ? 'ADDING...' : 'ADD TO STASH'}
+                  {!isVariantAvailable
+                    ? 'SOLD OUT'
+                    : isAdded
+                    ? 'ADDED ✓'
+                    : isAdding
+                    ? 'ADDING...'
+                    : selectedPack === '3 Pack'
+                    ? 'ADD PACK OF 3'
+                    : `ADD ${selectedPack.toUpperCase()}`}
                 </button>
               )}
             </div>

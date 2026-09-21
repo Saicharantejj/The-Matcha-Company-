@@ -24,7 +24,7 @@ export default function TryAll5Feature({ product }) {
     {
       name: 'Chocolate Makhana',
       tag: 'DARK COCOA GLAZE & HIMALAYAN SALT',
-      size: '50g Pouch',
+      size: '70g Pouch',
       packetName: 'CHOCOLATE MAKHANA',
       image: photos.chocolateMakhanaPack.src,
       accent: '#D4AF37',
@@ -32,7 +32,7 @@ export default function TryAll5Feature({ product }) {
     {
       name: 'Cheese and Herbs Makhana',
       tag: 'AGED CHEDDAR & MOUNTAIN HERBS',
-      size: '50g Pouch',
+      size: '70g Pouch',
       packetName: 'CHEESE AND HERBS MAKHANA',
       image: photos.cheeseAndHerbsMakhanaPack.src,
       accent: '#10B981',
@@ -40,7 +40,7 @@ export default function TryAll5Feature({ product }) {
     {
       name: 'Jalapeno Makhana',
       tag: 'FIERY GREEN JALAPENO & CITRUS LIME',
-      size: '50g Pouch',
+      size: '70g Pouch',
       packetName: 'JALAPENO MAKHANA',
       image: photos.jalapenoMakhanaPack.src,
       accent: '#EF4444',
@@ -70,8 +70,8 @@ export default function TryAll5Feature({ product }) {
         availableForSale: isAvailable,
         price,
         mrp,
-        size: '3x 50g Pouches (150g)',
-        packSize: '3x 50g Pouches (150g)',
+        size: '3x 70g Pouches (210g)',
+        packSize: '3x 70g Pouches (210g)',
         name: 'The Launch Trio Box (All 3 Flavours)',
         flavor: 'The Launch Trio Box',
         handle: 'chaska-try-all-5',
@@ -119,7 +119,7 @@ export default function TryAll5Feature({ product }) {
               </div>
 
               <p className="font-sans text-sm sm:text-base text-stone-200 leading-relaxed max-w-xl font-normal">
-                Can’t pick just one? Taste the official initial drop! Contains 1 full-size 50g pouch each of Chocolate, Cheese &amp; Herbs, and Jalapeno. Handpicked Bihar lotus seeds, 100% roasted not fried.
+                Can’t pick just one? Taste the official initial drop! Contains 1 full-size 70g pouch each of Chocolate, Cheese &amp; Herbs, and Jalapeno. Handpicked Bihar lotus seeds, 100% roasted not fried.
               </p>
 
               {/* 3 Flavour List Breakdown */}

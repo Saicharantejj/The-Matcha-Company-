@@ -159,7 +159,7 @@ export default function FlavourDiscovery() {
                 </div>
 
                 <div className="pt-3 border-t border-stone-200/70 dark:border-[#243373] flex items-center justify-between font-mono text-[11px] font-bold">
-                  <span className="text-[#17245B] dark:text-white">{f.price} (50g)</span>
+                  <span className="text-[#17245B] dark:text-white">{f.price} (70g)</span>
                   <span className="text-[#FF5400] flex items-center gap-1">
                     {isSelected ? 'ACTIVE SELECTION ★' : 'TAP TO PREVIEW ➔'}
                   </span>
@@ -195,7 +195,7 @@ export default function FlavourDiscovery() {
                     {activeFlavour.badge}
                   </span>
                   <span className="px-3 py-1 rounded-full bg-stone-200 dark:bg-[#1C2A6B] text-[#17245B] dark:text-stone-200 font-mono text-[11px] font-bold uppercase">
-                    50g OFFICIAL POUCH
+                    70G OFFICIAL POUCH
                   </span>
                 </div>
 

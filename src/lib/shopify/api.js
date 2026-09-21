@@ -67,7 +67,7 @@ export function mapShopifyProduct(node) {
     name: node.title,
     flavor: node.title,
     category: node.handle?.includes('try-all-5') || node.handle?.includes('box') ? 'Snack Bundles' : 'Flavoured Makhana',
-    size: primaryVariant.title && primaryVariant.title !== 'Default Title' ? primaryVariant.title : '50g Pack',
+    size: primaryVariant.title && primaryVariant.title !== 'Default Title' ? primaryVariant.title : '70g / 30g',
     count: 1,
     mrp,
     price,
@@ -197,7 +197,7 @@ export async function fetchShopifyProducts(first = 20) {
       const variants = live?.variants && live.variants.length > 0 ? live.variants : [
         {
           id: live?.variantId || 'variant-drop01',
-          title: '50g Pack',
+          title: '70g Pack',
           price: catalogItem.price,
           mrp: catalogItem.mrp,
           availableForSale: true,
@@ -268,7 +268,7 @@ export async function fetchShopifyProductByHandle(handle) {
     const variants = liveProduct?.variants && liveProduct.variants.length > 0 ? liveProduct.variants : [
       {
         id: liveProduct?.variantId || 'variant-drop01',
-        title: '50g Pack',
+        title: '70g Pack',
         price: catalogItem.price,
         mrp: catalogItem.mrp,
         availableForSale: true,

@@ -22,21 +22,21 @@ export default function Home() {
       src: photos.chocolateMakhanaPack.src,
       tag: 'OFFICIAL DROP 01',
       badge: 'CHOCOLATE MAKHANA',
-      title: 'Chocolate Makhana 50g',
+      title: 'Chocolate Makhana',
       caption: 'Roasted Not Fried • Indian Flavours Real Ingredients',
     },
     {
       src: photos.cheeseAndHerbsMakhanaPack.src,
       tag: 'OFFICIAL DROP 01',
       badge: 'CHEESE & HERBS',
-      title: 'Cheese & Herbs Makhana 50g',
-      caption: 'Aged Cheddar • Wild Mountain Herbs • 50g Pouch',
+      title: 'Cheese & Herbs Makhana',
+      caption: 'Aged Cheddar • Wild Mountain Herbs • 70g & 30g Pouches',
     },
     {
       src: photos.jalapenoMakhanaPack.src,
       tag: 'OFFICIAL DROP 01',
       badge: 'JALAPENO MAKHANA',
-      title: 'Jalapeno Makhana 50g',
+      title: 'Jalapeno Makhana',
       caption: 'Sun-Dried Green Jalapeno • Zesty Citrus Lime Crunch',
     },
     {
@@ -44,7 +44,7 @@ export default function Home() {
       tag: 'THE LAUNCH TRIO',
       badge: '3-PACK SAMPLER',
       title: 'The Launch Trio Box',
-      caption: 'All 3 Official Launch Flavours in 1 Box (150g)',
+      caption: 'All 3 Official Launch Flavours in 1 Box (210g)',
     },
   ]
 
@@ -231,13 +231,13 @@ export default function Home() {
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
                     src={photos.chocolateMakhanaPack.src}
-                    alt="CHASKA 50g Chocolate Makhana Pouch"
+                    alt="CHASKA Chocolate Makhana Pouch"
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
                   <span className="font-mono text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider">
-                    ROASTED NOT FRIED • 50G POUCH
+                    ROASTED NOT FRIED • 70G & 30G POUCHES
                   </span>
                   <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
                     CHOCOLATE MAKHANA
@@ -261,13 +261,13 @@ export default function Home() {
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
                     src={photos.cheeseAndHerbsMakhanaPack.src}
-                    alt="CHASKA 50g Cheese and Herbs Makhana Pouch"
+                    alt="CHASKA Cheese and Herbs Makhana Pouch"
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
                   <span className="font-mono text-[10px] font-bold text-[#10B981] uppercase tracking-wider">
-                    INDIAN FLAVOURS REAL INGREDIENTS • 50G
+                    INDIAN FLAVOURS REAL INGREDIENTS • 70G & 30G
                   </span>
                   <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
                     CHEESE AND HERBS MAKHANA
@@ -291,13 +291,13 @@ export default function Home() {
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
                     src={photos.jalapenoMakhanaPack.src}
-                    alt="CHASKA 50g Jalapeno Makhana Pouch"
+                    alt="CHASKA Jalapeno Makhana Pouch"
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
                   <span className="font-mono text-[10px] font-bold text-[#EF4444] uppercase tracking-wider">
-                    ROASTED NOT FRIED • 50G POUCH
+                    ROASTED NOT FRIED • 70G & 30G POUCHES
                   </span>
                   <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
                     JALAPENO MAKHANA

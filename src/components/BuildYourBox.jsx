@@ -45,8 +45,8 @@ export default function BuildYourBox() {
         availableForSale: isAvailable,
         price,
         mrp,
-        size: '3x 50g Pouches (150g)',
-        packSize: '3x 50g Pouches (150g)',
+        size: '3x 70g Pouches (210g)',
+        packSize: '3x 70g Pouches (210g)',
         name: 'The Launch Trio Box (All 3 Flavours)',
         flavor: 'The Launch Trio Box',
         handle: 'chaska-try-all-5',
@@ -118,14 +118,14 @@ export default function BuildYourBox() {
               🔥 OFFICIAL DROP 01
             </span>
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-stone-200 dark:bg-[#1C2A6B] text-stone-800 dark:text-stone-200 font-mono text-xs font-semibold uppercase tracking-wider">
-              ALL 3 LAUNCH POUCHES (150G)
+              ALL 3 LAUNCH POUCHES (210G)
             </span>
           </div>
           <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-[#17245B] dark:text-white leading-tight">
             THE LAUNCH <span className="text-[#FF5400]">TRIO BOX.</span>
           </h2>
           <p className="text-stone-600 dark:text-stone-300 text-sm sm:text-base leading-relaxed font-normal">
-            Can’t pick one? Taste the entire initial drop! Contains 1 full-size 50g pouch each of our 3 official launch flavours: Chocolate, Cheese &amp; Herbs, and Jalapeno.
+            Can’t pick one? Taste the entire initial drop! Contains 1 full-size 70g pouch each of our 3 official launch flavours: Chocolate, Cheese &amp; Herbs, and Jalapeno.
           </p>
         </div>
 
@@ -173,7 +173,7 @@ export default function BuildYourBox() {
                   </div>
 
                   <span className="font-mono text-xs font-black text-[#17245B] dark:text-white bg-white dark:bg-[#131D4A] px-3 py-1.5 rounded-full border border-stone-200 dark:border-[#243373] shrink-0">
-                    1x 50g
+                    1x 70g
                   </span>
                 </div>
               ))}
@@ -215,14 +215,14 @@ export default function BuildYourBox() {
                   THE LAUNCH TRIO
                 </h3>
                 <p className="font-sans text-xs text-stone-500 dark:text-stone-300">
-                  Total 150g net weight • 3 airtight nitrogen-flushed pouches • Zero deep fry.
+                  Total 210g net weight • 3 airtight nitrogen-flushed pouches • Zero deep fry.
                 </p>
               </div>
 
               {/* Price Calculation */}
               <div className="p-5 rounded-2xl bg-[#FAF8F5] dark:bg-[#1C2A6B] border border-stone-200/80 dark:border-[#243373] space-y-2.5">
                 <div className="flex justify-between font-mono text-xs text-stone-500 dark:text-stone-300">
-                  <span>3x 50g Pouches MRP</span>
+                  <span>3x 70g Pouches MRP</span>
                   <span className="line-through">₹{mrp}</span>
                 </div>
                 <div className="flex justify-between font-mono text-xs text-emerald-700 dark:text-emerald-400 font-bold">
@@ -250,7 +250,7 @@ export default function BuildYourBox() {
                   <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> Indian Flavours, Real Ingredients
                 </p>
                 <p className="flex items-center gap-2">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 50g Individual Pouches
+                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 70g Individual Pouches
                 </p>
               </div>
             </div>

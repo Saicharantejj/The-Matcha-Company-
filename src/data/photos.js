@@ -7,8 +7,8 @@ export const photos = {
     src: '/images/chaska-masala-pouch-blue.jpg',
     width: 687,
     height: 1024,
-    alt: 'CHASKA 50g Matte Black Masala Makhana Pouch against Midnight Blue',
-    title: '50g Signature Masala Pouch',
+    alt: 'CHASKA Matte Black Masala Makhana Pouch against Midnight Blue',
+    title: 'Signature Masala Pouch',
   },
   tabletopLifestyle: {
     src: '/images/chaska-tabletop-lifestyle.jpg',
@@ -35,7 +35,7 @@ export const photos = {
     src: '/images/chaska-coming-soon-poster.png',
     width: 1080,
     height: 1440,
-    alt: 'CHASKA Coming Soon Big Typography Editorial Poster with 100g Jar and 50g Pouch',
+    alt: 'CHASKA Coming Soon Big Typography Editorial Poster with Jar and Pouch',
     title: 'Stay Tuned • Big Flavours',
   },
   brandPoster: {
@@ -80,22 +80,22 @@ export const photos = {
     src: '/images/chaska-chocolate-makhana.jpg',
     width: 1080,
     height: 1620,
-    alt: 'CHASKA Chocolate Makhana 50g Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
-    title: 'Chocolate Makhana 50g Pouch',
+    alt: 'CHASKA Chocolate Makhana Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
+    title: 'Chocolate Makhana Pouch',
   },
   cheeseAndHerbsMakhanaPack: {
     src: '/images/chaska-cheese-and-herbs-makhana.jpg',
     width: 1080,
     height: 1620,
-    alt: 'CHASKA Cheese and Herbs Makhana 50g Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
-    title: 'Cheese and Herbs Makhana 50g Pouch',
+    alt: 'CHASKA Cheese and Herbs Makhana Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
+    title: 'Cheese and Herbs Makhana Pouch',
   },
   jalapenoMakhanaPack: {
     src: '/images/chaska-jalapeno-makhana.jpg',
     width: 1080,
     height: 1620,
-    alt: 'CHASKA Jalapeno Makhana 50g Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
-    title: 'Jalapeno Makhana 50g Pouch',
+    alt: 'CHASKA Jalapeno Makhana Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
+    title: 'Jalapeno Makhana Pouch',
   },
 
   // Legacy & Coming Soon assets
@@ -103,7 +103,7 @@ export const photos = {
     src: '/images/chaska-masala-pouch-blue.jpg',
     width: 687,
     height: 1024,
-    alt: 'CHASKA Masala Makhana 50g Pouch',
+    alt: 'CHASKA Masala Makhana Pouch',
   },
   periPeriPack: {
     src: '/images/chaska-masala-pouch-blue.jpg',
