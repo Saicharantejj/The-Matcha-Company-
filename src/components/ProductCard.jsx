@@ -83,7 +83,7 @@ export default function ProductCard({ product, index = 0 }) {
       className={`group relative flex flex-col h-full w-full rounded-3xl bg-white dark:bg-[#131D4A] border transition-all duration-300 overflow-hidden ${
         isComingSoon
           ? 'border-dashed border-stone-300 dark:border-[#243373] opacity-90'
-          : 'border-stone-200/80 dark:border-[#243373] shadow-2xs hover:shadow-card hover:border-[#FF5400]/40'
+          : 'border-stone-200/80 dark:border-[#243373] shadow-2xs hover:shadow-card hover:border-[#FF5400]/40 hover-pop-card'
       }`}
     >
       <div className="flex flex-col h-full p-4 sm:p-5">
@@ -126,6 +126,7 @@ export default function ProductCard({ product, index = 0 }) {
                 isComingSoon ? 'filter grayscale-30 brightness-95' : ''
               }`}
               loading="lazy"
+              decoding="async"
             />
           ) : (
             <div className="h-full w-full flex items-center justify-center font-display text-4xl text-[#17245B] dark:text-white">
@@ -194,7 +195,7 @@ export default function ProductCard({ product, index = 0 }) {
                 <button
                   type="button"
                   onClick={handleNotifyMe}
-                  className="col-span-2 py-2.5 rounded-full bg-stone-900 hover:bg-[#FF5400] text-white dark:bg-stone-800 dark:hover:bg-[#FF5400] font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="col-span-2 py-2.5 rounded-full bg-stone-900 hover:bg-[#FF5400] text-white dark:bg-stone-800 dark:hover:bg-[#FF5400] font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer hover-pop-subtle hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span>🔔 GET NOTIFIED (DROP 02)</span>
                 </button>
@@ -204,7 +205,7 @@ export default function ProductCard({ product, index = 0 }) {
                     type="button"
                     onClick={handleAdd}
                     disabled={!isAvailable || isAdding}
-                    className={`w-full py-2.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1 ${
+                    className={`w-full py-2.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1 cursor-pointer hover-pop-subtle hover:scale-[1.03] active:scale-[0.97] ${
                       !isAvailable
                         ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed'
                         : isAdded
@@ -226,7 +227,7 @@ export default function ProductCard({ product, index = 0 }) {
                   </button>
                   <Link
                     to={productUrl}
-                    className="w-full py-2.5 rounded-full bg-white dark:bg-[#131D4A] border border-stone-200 dark:border-[#243373] text-[#17245B] dark:text-stone-200 font-mono text-[11px] font-bold uppercase tracking-wider text-center hover:bg-[#17245B] dark:hover:bg-white hover:text-white dark:hover:text-[#17245B] hover:border-[#17245B] dark:hover:border-white transition-colors"
+                    className="w-full py-2.5 rounded-full bg-white dark:bg-[#131D4A] border border-stone-200 dark:border-[#243373] text-[#17245B] dark:text-stone-200 font-mono text-[11px] font-bold uppercase tracking-wider text-center hover:bg-[#17245B] dark:hover:bg-white hover:text-white dark:hover:text-[#17245B] hover:border-[#17245B] dark:hover:border-white transition-all hover-pop-subtle hover:scale-[1.03] active:scale-[0.97]"
                   >
                     VIEW PACK
                   </Link>

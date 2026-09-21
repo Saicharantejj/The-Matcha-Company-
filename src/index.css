@@ -165,30 +165,86 @@
     color: #FAF8F5;
   }
 
-  /* ── Buttons (Modern, Confident, Crisp) ──────────────────────────────── */
+  /* ── Interactive Pop-Up Hover Utilities (Hardware-Accelerated & Ultra-Fast) ── */
+  .hover-pop {
+    transition: transform 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.24s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.24s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .hover-pop:hover {
+    transform: translate3d(0, -3px, 0) scale3d(1.018, 1.018, 1);
+  }
+
+  .hover-pop:active {
+    transform: translate3d(0, 0, 0) scale3d(0.985, 0.985, 1);
+  }
+
+  .hover-pop-subtle {
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .hover-pop-subtle:hover {
+    transform: translate3d(0, -1.5px, 0) scale3d(1.012, 1.012, 1);
+  }
+
+  .hover-pop-subtle:active {
+    transform: translate3d(0, 0, 0) scale3d(0.988, 0.988, 1);
+  }
+
+  .hover-pop-card {
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                box-shadow 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .hover-pop-card:hover {
+    transform: translate3d(0, -4px, 0) scale3d(1.012, 1.012, 1);
+    box-shadow: 0 16px 40px -8px rgba(255, 84, 0, 0.14), 0 8px 20px -4px rgba(0, 0, 0, 0.4);
+  }
+
+  .hover-pop-card:active {
+    transform: translate3d(0, -1px, 0) scale3d(0.99, 0.99, 1);
+  }
+
+  /* ── Buttons (Modern, Confident, Crisp with Subtle Pop-Up) ─────────────── */
   /* Primary Action: Crisp Ivory on Dark Canvas */
   .btn, .btn-primary {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#FAF8F5] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#17245B] rounded-full;
+           bg-[#FAF8F5] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#17245B] rounded-full cursor-pointer;
     border: 1px solid #FAF8F5;
     box-shadow: 0 2px 12px rgba(12, 18, 44, 0.5);
-    transition: transform 0.2s ease,
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                 background-color 0.2s ease,
                 color 0.2s ease,
-                box-shadow 0.2s ease,
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .btn:hover, .btn-primary:hover {
-    transform: translateY(-1.5px);
+    transform: translate3d(0, -2px, 0) scale3d(1.02, 1.02, 1);
     background-color: #FF5400;
     border-color: #FF5400;
     color: #FFFFFF;
-    box-shadow: 0 6px 18px rgba(255, 84, 0, 0.35);
+    box-shadow: 0 8px 24px rgba(255, 84, 0, 0.35);
   }
 
   .btn:active, .btn-primary:active {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) scale3d(0.98, 0.98, 1);
   }
 
   .dark .btn, .dark .btn-primary {
@@ -202,27 +258,35 @@
     background-color: #FF5400;
     border-color: #FF5400;
     color: #FFFFFF;
-    box-shadow: 0 6px 18px rgba(255, 84, 0, 0.35);
+    box-shadow: 0 8px 24px rgba(255, 84, 0, 0.35);
   }
 
   /* Orange Action Button */
   .btn-orange, .btn-accent {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-[#FF5400] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-white rounded-full;
+           bg-[#FF5400] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-white rounded-full cursor-pointer;
     border: 1px solid #FF5400;
     box-shadow: 0 2px 12px rgba(255, 84, 0, 0.24);
-    transition: transform 0.2s ease,
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                 background-color 0.2s ease,
                 color 0.2s ease,
-                box-shadow 0.2s ease;
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .btn-orange:hover, .btn-accent:hover {
-    transform: translateY(-1.5px);
+    transform: translate3d(0, -2px, 0) scale3d(1.02, 1.02, 1);
     background-color: #FAF8F5;
     border-color: #FAF8F5;
     color: #17245B;
-    box-shadow: 0 6px 20px rgba(12, 18, 44, 0.5);
+    box-shadow: 0 8px 24px rgba(12, 18, 44, 0.6);
+  }
+
+  .btn-orange:active, .btn-accent:active {
+    transform: translate3d(0, 0, 0) scale3d(0.98, 0.98, 1);
   }
 
   .dark .btn-orange:hover, .dark .btn-accent:hover {
@@ -247,23 +311,28 @@
   /* Quiet Outline Button */
   .btn-outline {
     @apply relative isolate inline-flex items-center justify-center gap-2
-           bg-transparent px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#FAF8F5] rounded-full;
+           bg-transparent px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#FAF8F5] rounded-full cursor-pointer;
     border: 1px solid rgba(255, 255, 255, 0.25);
-    transition: transform 0.2s ease,
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                 background-color 0.2s ease,
                 color 0.2s ease,
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
                 border-color 0.2s ease;
+    will-change: transform;
+    backface-visibility: hidden;
+    transform: translateZ(0);
   }
 
   .btn-outline:hover {
     background-color: #FAF8F5;
     color: #17245B;
     border-color: #FAF8F5;
-    transform: translateY(-1.5px);
+    transform: translate3d(0, -2px, 0) scale3d(1.02, 1.02, 1);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
   }
 
   .btn-outline:active {
-    transform: translateY(0);
+    transform: translate3d(0, 0, 0) scale3d(0.98, 0.98, 1);
   }
 
   .dark .btn-outline {

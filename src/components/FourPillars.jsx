@@ -74,8 +74,7 @@ export default function FourPillars() {
               initial={{ opacity: 0, y: 16 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.35, delay: i * 0.08 }}
-              className="p-7 rounded-3xl bg-[#131D4A]/90 dark:bg-[#131D4A] border border-[#243373] hover:border-indigo-400/60 transition-all duration-300 flex flex-col justify-between space-y-6 group shadow-sm hover:-translate-y-1"
+              className="p-7 rounded-3xl bg-[#131D4A]/90 dark:bg-[#131D4A] border border-[#243373] hover:border-[#FF5400]/50 transition-all duration-300 flex flex-col justify-between space-y-6 group shadow-sm hover-pop-card cursor-default"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">

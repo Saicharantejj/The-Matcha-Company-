@@ -132,10 +132,10 @@ export default function TryAll5Feature({ product }) {
                     <div
                       key={flv.name}
                       onClick={() => setActivePhotoIdx(idx)}
-                      className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between ${
+                      className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between hover-pop-subtle hover:-translate-y-0.5 hover:scale-[1.01] ${
                         activePhotoIdx === idx
                           ? 'bg-white/15 border-[#FF5400] shadow-sm'
-                          : 'bg-white/5 border-white/10 hover:bg-white/10'
+                          : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
                       }`}
                     >
                       <div className="flex items-center gap-3">
@@ -207,7 +207,7 @@ export default function TryAll5Feature({ product }) {
                 </div>
                 <div className="absolute bottom-4 left-4 right-4 p-3 rounded-xl bg-black/80 backdrop-blur-xs text-white font-mono text-[10px] flex items-center justify-between border border-white/15">
                   <span className="text-[#FF5400] font-bold">ROASTED NOT FRIED</span>
-                  <span>50 g NET WEIGHT</span>
+                  <span>70g NET WEIGHT</span>
                 </div>
               </div>
 
@@ -218,13 +218,13 @@ export default function TryAll5Feature({ product }) {
                     key={i}
                     type="button"
                     onClick={() => setActivePhotoIdx(i)}
-                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all cursor-pointer hover-pop-subtle hover:scale-105 active:scale-95 ${
                       activePhotoIdx === i
                         ? 'border-[#FF5400] ring-2 ring-[#FF5400]/40 scale-105 shadow-md'
-                        : 'border-white/20 opacity-60 hover:opacity-100'
+                        : 'border-white/20 opacity-60 hover:opacity-100 hover:border-white/40'
                     }`}
                   >
-                    <img src={img.src} alt={img.label} className="w-full h-full object-cover" />
+                    <img src={img.src} alt={img.label} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>

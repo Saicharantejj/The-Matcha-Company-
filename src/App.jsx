@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useEffect, useState, lazy, Suspense } from 'react'
 import { Routes, Route, useLocation } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
@@ -12,22 +12,35 @@ import { ThemeProvider } from './context/ThemeContext'
 import { ToastProvider } from './components/Toast'
 import { initMetaPixel, trackPageView } from './lib/metaPixel'
 
-// Core Pages
+// Core Pages (Home is statically bundled for zero-latency initial paint)
 import Home from './pages/Home'
-import Shop from './pages/Shop'
-import BuildYourBoxPage from './pages/BuildYourBoxPage'
-import ProductDetail from './pages/ProductDetail'
-import OurStory from './pages/OurStory'
-import B2bPage from './pages/B2bPage'
 
-// Secondary Pages
-import FaqPage from './pages/FaqPage'
-import ContactPage from './pages/ContactPage'
-import ShippingPage from './pages/ShippingPage'
-import ReturnsPage from './pages/ReturnsPage'
-import PrivacyPolicyPage from './pages/PrivacyPolicyPage'
-import TermsPage from './pages/TermsPage'
-import NotFound from './pages/NotFound'
+// Lazy-loaded pages for ultra-fast bundle size and instant loading
+const Shop = lazy(() => import('./pages/Shop'))
+const BuildYourBoxPage = lazy(() => import('./pages/BuildYourBoxPage'))
+const ProductDetail = lazy(() => import('./pages/ProductDetail'))
+const OurStory = lazy(() => import('./pages/OurStory'))
+const B2bPage = lazy(() => import('./pages/B2bPage'))
+
+// Secondary Pages (Code-split on demand)
+const FaqPage = lazy(() => import('./pages/FaqPage'))
+const ContactPage = lazy(() => import('./pages/ContactPage'))
+const ShippingPage = lazy(() => import('./pages/ShippingPage'))
+const ReturnsPage = lazy(() => import('./pages/ReturnsPage'))
+const PrivacyPolicyPage = lazy(() => import('./pages/PrivacyPolicyPage'))
+const TermsPage = lazy(() => import('./pages/TermsPage'))
+const NotFound = lazy(() => import('./pages/NotFound'))
+
+function PageFallback() {
+  return (
+    <div className="min-h-[70vh] bg-[#0C122C] flex items-center justify-center">
+      <div className="h-10 w-10 rounded-2xl bg-[#131D4A] border border-[#243373] flex items-center justify-center animate-pulse shadow-md">
+        <span className="text-[#FF5400] text-base">🍿</span>
+      </div>
+    </div>
+  )
+}
+
 
 function ScrollToTop() {
   const { pathname } = useLocation()
@@ -82,43 +95,45 @@ export default function App() {
             <Header onOpenSearch={() => setIsSearchOpen(true)} />
 
             <AnimatePresence mode="wait" initial={false}>
-              <Routes location={location} key={location.pathname}>
-                {/* Primary Routes */}
-                <Route path="/" element={<Home />} />
-                <Route path="/shop" element={<Shop />} />
-                <Route path="/collections" element={<Shop />} />
-                <Route path="/collections/:handle" element={<Shop />} />
-                <Route path="/product/:handle" element={<ProductDetail />} />
-                <Route path="/products/:handle" element={<ProductDetail />} />
-                <Route path="/build-your-box" element={<BuildYourBoxPage />} />
-                <Route path="/build-box" element={<BuildYourBoxPage />} />
-                <Route path="/about" element={<OurStory />} />
-                <Route path="/our-story" element={<OurStory />} />
+              <Suspense fallback={<PageFallback />}>
+                <Routes location={location} key={location.pathname}>
+                  {/* Primary Routes */}
+                  <Route path="/" element={<Home />} />
+                  <Route path="/shop" element={<Shop />} />
+                  <Route path="/collections" element={<Shop />} />
+                  <Route path="/collections/:handle" element={<Shop />} />
+                  <Route path="/product/:handle" element={<ProductDetail />} />
+                  <Route path="/products/:handle" element={<ProductDetail />} />
+                  <Route path="/build-your-box" element={<BuildYourBoxPage />} />
+                  <Route path="/build-box" element={<BuildYourBoxPage />} />
+                  <Route path="/about" element={<OurStory />} />
+                  <Route path="/our-story" element={<OurStory />} />
 
-                {/* B2B / Corporate Gifting */}
-                <Route path="/b2b" element={<B2bPage />} />
+                  {/* B2B / Corporate Gifting */}
+                  <Route path="/b2b" element={<B2bPage />} />
 
-                {/* Secondary Routes */}
-                <Route path="/faq" element={<FaqPage />} />
-                <Route path="/contact" element={<ContactPage />} />
+                  {/* Secondary Routes */}
+                  <Route path="/faq" element={<FaqPage />} />
+                  <Route path="/contact" element={<ContactPage />} />
 
-                {/* Policies & Aliases */}
-                <Route path="/shipping" element={<ShippingPage />} />
-                <Route path="/policies/shipping" element={<ShippingPage />} />
-                <Route path="/returns" element={<ReturnsPage />} />
-                <Route path="/policies/returns" element={<ReturnsPage />} />
-                <Route path="/privacy" element={<PrivacyPolicyPage />} />
-                <Route path="/policies/privacy" element={<PrivacyPolicyPage />} />
-                <Route path="/terms" element={<TermsPage />} />
-                <Route path="/policies/terms" element={<TermsPage />} />
+                  {/* Policies & Aliases */}
+                  <Route path="/shipping" element={<ShippingPage />} />
+                  <Route path="/policies/shipping" element={<ShippingPage />} />
+                  <Route path="/returns" element={<ReturnsPage />} />
+                  <Route path="/policies/returns" element={<ReturnsPage />} />
+                  <Route path="/privacy" element={<PrivacyPolicyPage />} />
+                  <Route path="/policies/privacy" element={<PrivacyPolicyPage />} />
+                  <Route path="/terms" element={<TermsPage />} />
+                  <Route path="/policies/terms" element={<TermsPage />} />
 
-                {/* Additional Aliases */}
-                <Route path="/gift-hampers" element={<Shop />} />
-                <Route path="/diy-kits" element={<Shop />} />
+                  {/* Additional Aliases */}
+                  <Route path="/gift-hampers" element={<Shop />} />
+                  <Route path="/diy-kits" element={<Shop />} />
 
-                {/* 404 Route */}
-                <Route path="*" element={<NotFound />} />
-              </Routes>
+                  {/* 404 Route */}
+                  <Route path="*" element={<NotFound />} />
+                </Routes>
+              </Suspense>
             </AnimatePresence>
 
             <Footer />

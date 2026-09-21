@@ -109,12 +109,12 @@ export default function Home() {
               </p>
 
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Link to="/shop" className="btn px-8 py-4 text-xs font-bold tracking-wider shadow-sm">
+                <Link to="/shop" className="btn px-8 py-4 text-xs font-bold tracking-wider shadow-sm hover-pop">
                   SHOP DROP 01 ➔
                 </Link>
                 <Link
                   to="/products/chaska-try-all-5"
-                  className="px-7 py-4 text-xs font-bold tracking-wider rounded-full bg-[#17245B] dark:bg-white text-white dark:text-[#17245B] hover:bg-[#FF5400] dark:hover:bg-[#FF5400] dark:hover:text-white transition-colors shadow-sm"
+                  className="px-7 py-4 text-xs font-bold tracking-wider rounded-full bg-[#17245B] dark:bg-white text-white dark:text-[#17245B] hover:bg-[#FF5400] dark:hover:bg-[#FF5400] dark:hover:text-white transition-all shadow-sm cursor-pointer hover-pop hover:scale-[1.02] active:scale-[0.98]"
                 >
                   LAUNCH TRIO BOX
                 </Link>
@@ -176,13 +176,13 @@ export default function Home() {
                     type="button"
                     onClick={() => setHeroPhotoIndex(idx)}
                     aria-label={`View ${item.title}`}
-                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all ${
+                    className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all cursor-pointer hover-pop-subtle hover:scale-105 active:scale-95 ${
                       heroPhotoIndex === idx
                         ? 'border-[#FF5400] ring-2 ring-[#FF5400]/30 scale-105 shadow-sm'
-                        : 'border-stone-200/80 dark:border-[#243373] opacity-70 hover:opacity-100'
+                        : 'border-stone-200/80 dark:border-[#243373] opacity-70 hover:opacity-100 hover:border-stone-400'
                     }`}
                   >
-                    <img src={item.src} alt={item.tag} className="w-full h-full object-cover" />
+                    <img src={item.src} alt={item.tag} className="w-full h-full object-cover" loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>
@@ -226,13 +226,15 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Card 1: Chocolate Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover-pop-card hover:border-[#FF5400]/40 transition-all flex flex-col justify-between cursor-default">
               <div>
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
                     src={photos.chocolateMakhanaPack.src}
                     alt="CHASKA Chocolate Makhana Pouch"
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
@@ -256,13 +258,15 @@ export default function Home() {
             </div>
 
             {/* Card 2: Cheese and Herbs Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover-pop-card hover:border-[#FF5400]/40 transition-all flex flex-col justify-between cursor-default">
               <div>
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
                     src={photos.cheeseAndHerbsMakhanaPack.src}
                     alt="CHASKA Cheese and Herbs Makhana Pouch"
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">
@@ -286,13 +290,15 @@ export default function Home() {
             </div>
 
             {/* Card 3: Jalapeno Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover:shadow-md transition-all flex flex-col justify-between">
+            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover-pop-card hover:border-[#FF5400]/40 transition-all flex flex-col justify-between cursor-default">
               <div>
                 <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
                   <img
                     src={photos.jalapenoMakhanaPack.src}
                     alt="CHASKA Jalapeno Makhana Pouch"
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
+                    loading="lazy"
+                    decoding="async"
                   />
                 </div>
                 <div className="p-7 space-y-2.5">

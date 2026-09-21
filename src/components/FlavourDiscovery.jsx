@@ -11,7 +11,7 @@ const LAUNCH_FLAVOURS = [
     packetName: 'CHOCOLATE MAKHANA',
     tagline: 'Dark Cocoa Glaze • Sea Salt • Pure Crunch',
     personality: 'Slow-roasted jumbo lotus pops enrobed in decadent dark cocoa glaze, caramelized raw sugar, and crystal Himalayan rock salt. Dessert meets crunch without the guilt.',
-    specs: ['ROASTED NOT FRIED', 'INDIAN FLAVOURS REAL INGREDIENTS', '50 g POUCH'],
+    specs: ['ROASTED NOT FRIED', 'INDIAN FLAVOURS REAL INGREDIENTS', '70g & 30g POUCHES'],
     accent: '#D4AF37',
     glowColor: 'rgba(212, 175, 55, 0.25)',
     borderAccent: '#D4AF37',
@@ -27,7 +27,7 @@ const LAUNCH_FLAVOURS = [
     packetName: 'CHEESE AND HERBS MAKHANA',
     tagline: 'Aged Cheddar • Mountain Oregano • Roasted Butter',
     personality: 'Savory perfection. Whole roasted Bihar lotus seeds tossed in sharp aged cheddar cheese dust, dried wild mountain oregano, rubbed thyme, and slow-roasted garlic butter.',
-    specs: ['ROASTED NOT FRIED', 'INDIAN FLAVOURS REAL INGREDIENTS', '50 g POUCH'],
+    specs: ['ROASTED NOT FRIED', 'INDIAN FLAVOURS REAL INGREDIENTS', '70g & 30g POUCHES'],
     accent: '#10B981',
     glowColor: 'rgba(16, 185, 129, 0.25)',
     borderAccent: '#10B981',
@@ -43,7 +43,7 @@ const LAUNCH_FLAVOURS = [
     packetName: 'JALAPENO MAKHANA',
     tagline: 'Smoky Green Jalapeno • Citrus Lime • High Crunch',
     personality: 'Electrifying crunch. Whole lotus seeds slow-roasted and tossed in fiery sun-dried green jalapeno chili, tangy Mexican lime zest, and pink Himalayan rock salt for an instant rush.',
-    specs: ['ROASTED NOT FRIED', 'INDIAN FLAVOURS REAL INGREDIENTS', '50 g POUCH'],
+    specs: ['ROASTED NOT FRIED', 'INDIAN FLAVOURS REAL INGREDIENTS', '70g & 30g POUCHES'],
     accent: '#EF4444',
     glowColor: 'rgba(239, 68, 68, 0.25)',
     borderAccent: '#EF4444',
@@ -125,7 +125,7 @@ export default function FlavourDiscovery() {
                 key={f.handle}
                 type="button"
                 onClick={() => setActiveFlavour(f)}
-                className={`relative p-6 rounded-3xl border-2 text-left transition-all duration-300 flex flex-col justify-between space-y-4 cursor-pointer overflow-hidden ${
+                className={`relative p-6 rounded-3xl border-2 text-left transition-all duration-300 flex flex-col justify-between space-y-4 cursor-pointer overflow-hidden hover-pop-card ${
                   isSelected
                     ? 'bg-[#FAF8F5] dark:bg-[#131D4A] shadow-card scale-[1.02]'
                     : 'bg-white dark:bg-[#0C122C] border-stone-200/80 dark:border-[#243373] hover:border-stone-400 dark:hover:border-stone-500'
@@ -249,7 +249,7 @@ export default function FlavourDiscovery() {
                     className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700"
                   />
                   <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-black/80 backdrop-blur-xs text-white font-mono text-[10px] font-bold uppercase tracking-widest border border-white/20">
-                    50 g POUCH
+                    70g / 30g POUCH
                   </div>
                 </div>
               </div>
@@ -280,7 +280,7 @@ export default function FlavourDiscovery() {
             {COMING_SOON_FLAVOURS.map((item) => (
               <div
                 key={item.name}
-                className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3 flex flex-col justify-between"
+                className="p-5 rounded-2xl bg-white/5 border border-white/10 space-y-3 flex flex-col justify-between hover-pop-card hover:border-[#FF5400]/40"
               >
                 <div>
                   <div className="flex items-center justify-between mb-2">
@@ -302,7 +302,7 @@ export default function FlavourDiscovery() {
                 <button
                   type="button"
                   onClick={() => handleNotifyDrop02(item.name)}
-                  className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-[#FF5400] text-white font-mono text-[11px] font-bold uppercase tracking-wider transition-colors border border-white/15 cursor-pointer mt-2"
+                  className="w-full py-2.5 rounded-xl bg-white/10 hover:bg-[#FF5400] text-white font-mono text-[11px] font-bold uppercase tracking-wider transition-all border border-white/15 cursor-pointer mt-2 hover-pop-subtle hover:scale-[1.02] active:scale-[0.98]"
                 >
                   🔔 GET NOTIFIED
                 </button>

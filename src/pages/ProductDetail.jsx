@@ -324,13 +324,13 @@ export default function ProductDetail() {
                     type="button"
                     onClick={() => setSelectedImgIndex(i)}
                     aria-label={`View photo ${i + 1}`}
-                    className={`h-20 w-20 shrink-0 rounded-2xl bg-white dark:bg-[#131D4A] border-2 p-1 overflow-hidden transition-all duration-200 cursor-pointer ${
+                    className={`h-20 w-20 shrink-0 rounded-2xl bg-white dark:bg-[#131D4A] border-2 p-1 overflow-hidden transition-all duration-200 cursor-pointer hover-pop-subtle hover:scale-105 active:scale-95 ${
                       selectedImgIndex === i
                         ? 'border-[#FF5400] scale-105 shadow-sm ring-2 ring-[#FF5400]/30'
-                        : 'border-stone-200/80 dark:border-[#243373] opacity-70 hover:opacity-100'
+                        : 'border-stone-200/80 dark:border-[#243373] opacity-70 hover:opacity-100 hover:border-stone-400'
                     }`}
                   >
-                    <img src={img.url} alt={img.altText || product.name} className="h-full w-full object-cover rounded-xl" />
+                    <img src={img.url} alt={img.altText || product.name} className="h-full w-full object-cover rounded-xl" loading="lazy" decoding="async" />
                   </button>
                 ))}
               </div>
@@ -475,10 +475,10 @@ export default function ProductDetail() {
                         key={w.id}
                         type="button"
                         onClick={() => setSelectedSize(w.id)}
-                        className={`p-3.5 rounded-2xl border text-left transition-all relative cursor-pointer ${
+                        className={`p-3.5 rounded-2xl border text-left transition-all relative cursor-pointer hover-pop-subtle hover:-translate-y-1 hover:scale-[1.015] ${
                           isSelected
                             ? 'border-[#FF5400] bg-[#1C2A6B] shadow-md ring-2 ring-[#FF5400]/40'
-                            : 'border-[#243373] bg-[#131D4A] hover:border-stone-500 opacity-80 hover:opacity-100'
+                            : 'border-[#243373] bg-[#131D4A] hover:border-[#FF5400]/50 opacity-80 hover:opacity-100'
                         }`}
                       >
                         <div className="flex items-center justify-between mb-1">
@@ -523,10 +523,10 @@ export default function ProductDetail() {
                         key={pack.id}
                         type="button"
                         onClick={() => setSelectedPack(pack.id)}
-                        className={`p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer ${
+                        className={`p-3 rounded-2xl border text-left transition-all relative flex flex-col justify-between cursor-pointer hover-pop-subtle hover:-translate-y-1 hover:scale-[1.02] ${
                           isSelected
                             ? 'border-[#FF5400] bg-[#1C2A6B] shadow-md ring-2 ring-[#FF5400]/40'
-                            : 'border-[#243373] bg-[#131D4A] hover:border-stone-500 opacity-80 hover:opacity-100'
+                            : 'border-[#243373] bg-[#131D4A] hover:border-[#FF5400]/50 opacity-80 hover:opacity-100'
                         }`}
                       >
                         {pack.badge && (
@@ -581,7 +581,7 @@ export default function ProductDetail() {
                 {tasteTags.map((tag, i) => (
                   <span
                     key={i}
-                    className="px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] font-mono text-[10px] font-bold text-stone-700 dark:text-stone-300 uppercase"
+                    className="px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] font-mono text-[10px] font-bold text-stone-700 dark:text-stone-300 uppercase hover-pop-subtle cursor-default"
                   >
                     {tag}
                   </span>

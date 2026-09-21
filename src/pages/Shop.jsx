@@ -152,7 +152,7 @@ export default function Shop() {
                 key={cat.id}
                 to={cat.to}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all ${
+                className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all hover-pop-subtle hover:scale-[1.03] active:scale-[0.97] cursor-pointer ${
                   activeCategory === cat.id
                     ? 'bg-[#FF5400] text-white shadow-xs'
                     : 'bg-white/10 dark:bg-[#1C2A6B] text-stone-200 hover:bg-white/20'

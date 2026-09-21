@@ -77,7 +77,7 @@ export default function Header({ onOpenSearch }) {
                 key={link.to}
                 to={link.to}
                 className={({ isActive }) =>
-                  `font-sans text-xs uppercase font-bold tracking-wider transition-colors duration-200 flex items-center gap-1.5 py-1 ${
+                  `font-sans text-xs uppercase font-bold tracking-wider transition-all duration-200 flex items-center gap-1.5 py-1 hover-pop-subtle hover:-translate-y-0.5 ${
                     isActive
                       ? 'text-[#FF5400]'
                       : 'text-stone-700 dark:text-stone-300 hover:text-[#17245B] dark:hover:text-white'
@@ -102,7 +102,7 @@ export default function Header({ onOpenSearch }) {
               type="button"
               onClick={onOpenSearch}
               aria-label="Search snacks"
-              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full border border-stone-200/80 dark:border-[#243373] bg-white dark:bg-[#131D4A] text-[#17245B] dark:text-stone-200 font-sans text-xs font-semibold tracking-wide hover:border-stone-400 dark:hover:border-indigo-400 transition-all shadow-2xs"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 sm:px-3.5 sm:py-2 rounded-full border border-stone-200/80 dark:border-[#243373] bg-white dark:bg-[#131D4A] text-[#17245B] dark:text-stone-200 font-sans text-xs font-semibold tracking-wide hover:border-stone-400 dark:hover:border-indigo-400 transition-all shadow-2xs cursor-pointer hover-pop-subtle hover:scale-[1.02] active:scale-[0.98]"
             >
               <span className="text-xs">🔍</span>
               <span className="hidden sm:inline">SEARCH</span>
@@ -116,7 +116,7 @@ export default function Header({ onOpenSearch }) {
               aria-label={`Open stash with ${cartCount} ${cartCount === 1 ? 'item' : 'items'}`}
               animate={lastAddedId && !reduceMotion ? { scale: [1, 1.08, 1] } : { scale: 1 }}
               transition={{ duration: 0.25 }}
-              className="group relative inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#17245B] dark:bg-white text-white dark:text-[#17245B] font-sans text-xs font-bold uppercase tracking-wider hover:bg-[#FF5400] dark:hover:bg-[#FF5400] dark:hover:text-white transition-colors shadow-2xs"
+              className="group relative inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[#17245B] dark:bg-white text-white dark:text-[#17245B] font-sans text-xs font-bold uppercase tracking-wider hover:bg-[#FF5400] dark:hover:bg-[#FF5400] dark:hover:text-white transition-all shadow-2xs cursor-pointer hover-pop-subtle hover:scale-[1.03] active:scale-[0.97]"
             >
               <span>STASH</span>
               <span className="inline-flex h-4.5 min-w-[1.125rem] px-1 items-center justify-center rounded-full bg-[#FF5400] group-hover:bg-white text-white group-hover:text-[#17245B] text-[10px] font-mono font-bold tabular-nums transition-colors">
@@ -130,7 +130,7 @@ export default function Header({ onOpenSearch }) {
               aria-label={menuOpen ? 'Close menu' : 'Open menu'}
               aria-expanded={menuOpen}
               onClick={() => setMenuOpen((v) => !v)}
-              className="flex h-9 w-9 items-center justify-center rounded-full border border-stone-200/80 dark:border-[#243373] bg-white dark:bg-[#131D4A] lg:hidden shadow-2xs hover:border-stone-400 dark:hover:border-indigo-400 transition-colors"
+              className="flex h-9 w-9 items-center justify-center rounded-full border border-stone-200/80 dark:border-[#243373] bg-white dark:bg-[#131D4A] lg:hidden shadow-2xs hover:border-stone-400 dark:hover:border-indigo-400 transition-all cursor-pointer hover-pop-subtle hover:scale-105 active:scale-95"
             >
               <div className="relative w-4 h-3 flex flex-col justify-between">
                 <span className={`h-0.5 w-full bg-[#17245B] dark:bg-white rounded-full transition-transform duration-300 ${menuOpen ? 'rotate-45 translate-y-[5px]' : ''}`} />

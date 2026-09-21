@@ -24,7 +24,7 @@ export default function BenefitsGrid() {
           {/* Left Column: Big Editorial Statements */}
           <div className="lg:col-span-7 space-y-10">
             
-            <div className="border-b border-stone-200/80 dark:border-[#243373] pb-8 space-y-2.5">
+            <div className="border-b border-stone-200/80 dark:border-[#243373] pb-8 space-y-2.5 transition-transform duration-200 hover:translate-x-1.5 cursor-default">
               <div className="flex items-center gap-2.5">
                 <span className="px-2.5 py-0.5 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-[10px] font-bold uppercase">
                   100% SLOW-ROASTED
@@ -41,7 +41,7 @@ export default function BenefitsGrid() {
               </p>
             </div>
 
-            <div className="border-b border-stone-200/80 dark:border-[#243373] pb-8 space-y-2.5">
+            <div className="border-b border-stone-200/80 dark:border-[#243373] pb-8 space-y-2.5 transition-transform duration-200 hover:translate-x-1.5 cursor-default">
               <div className="flex items-center gap-2.5">
                 <span className="px-2.5 py-0.5 rounded-full bg-stone-100 dark:bg-[#1C2A6B] text-[#17245B] dark:text-stone-200 font-mono text-[10px] font-bold uppercase">
                   JUMBO LOTUS SEEDS
@@ -58,7 +58,7 @@ export default function BenefitsGrid() {
               </p>
             </div>
 
-            <div className="pb-2 space-y-2.5">
+            <div className="pb-2 space-y-2.5 transition-transform duration-200 hover:translate-x-1.5 cursor-default">
               <div className="flex items-center gap-2.5">
                 <span className="px-2.5 py-0.5 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-[10px] font-bold uppercase">
                   CHEF CRAFTED
@@ -79,14 +79,15 @@ export default function BenefitsGrid() {
 
           {/* Right Column: Macro Photography Showcase */}
           <div className="lg:col-span-5">
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] shadow-md bg-white dark:bg-[#131D4A] relative group">
+            <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-stone-200/80 dark:border-[#243373] shadow-md bg-white dark:bg-[#131D4A] relative group hover-pop-card cursor-default">
               <img
                 src={photos.heroMakhanaBowl.src}
                 alt="Macro texture of slow-roasted makhana"
                 className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
                 loading="lazy"
+                decoding="async"
               />
-              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/95 dark:bg-[#131D4A]/95 backdrop-blur-md border border-stone-200/80 dark:border-[#243373] text-xs font-mono text-[#17245B] dark:text-white font-bold flex justify-between items-center shadow-sm">
+              <div className="absolute bottom-6 left-6 right-6 p-4 rounded-2xl bg-white/95 dark:bg-[#131D4A]/95 backdrop-blur-md border border-stone-200/80 dark:border-[#243373] text-xs font-mono text-[#17245B] dark:text-white font-bold flex justify-between items-center shadow-sm hover-pop-subtle">
                 <span>BIHAR LOTUS SEEDS</span>
                 <span className="text-[#FF5400] font-hindi">100% प्राकृतिक 🍃</span>
               </div>
