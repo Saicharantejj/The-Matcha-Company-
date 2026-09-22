@@ -4,6 +4,7 @@ import { motion, AnimatePresence, useReducedMotion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { setSmoothScrollPaused } from '../lib/smoothScroll'
 import ChaskaLogo from './ChaskaLogo'
+import LiveBanner from './LiveBanner'
 
 const NAV_LINKS = [
   { to: '/shop', label: 'SHOP' },
@@ -47,13 +48,8 @@ export default function Header({ onOpenSearch }) {
 
   return (
     <>
-      {/* ── CLEAN ANNOUNCEMENT BAR ────────────────────────────────────── */}
-      <div className="bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] py-2 px-4 text-center font-sans text-[11px] sm:text-xs font-semibold tracking-wider flex items-center justify-center gap-2 border-b border-[#1F2E70]">
-        <span className="inline-block w-1.5 h-1.5 rounded-full bg-[#FF5400]" />
-        <span className="truncate">
-          FREE NATIONWIDE SHIPPING ON ORDERS ABOVE <strong className="text-white font-bold">₹499</strong>
-        </span>
-      </div>
+      {/* ── LIVE RED MOVING ANNOUNCEMENT BANNER ────────────────────────── */}
+      <LiveBanner />
 
       {/* ── MAIN NAVBAR ─────────────────────────────────────────────── */}
       <header

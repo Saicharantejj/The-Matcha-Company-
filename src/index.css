@@ -373,3 +373,29 @@
 
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+/* ── Live Banner Smooth Marquee (GPU-Accelerated & Silky Smooth) ─────── */
+@keyframes live-banner-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.live-marquee-track {
+  display: flex;
+  width: max-content;
+  align-items: center;
+  will-change: transform;
+  backface-visibility: hidden;
+  perspective: 1000px;
+  transform: translateZ(0);
+  animation: live-banner-scroll 32s linear infinite;
+}
+
+.live-marquee-track:hover {
+  animation-play-state: paused;
+}
+

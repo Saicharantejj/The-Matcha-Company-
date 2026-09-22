@@ -192,18 +192,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 2. TICKER RIBBON ───────────────────────────────────────────────── */}
-      <div className="bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] py-3 px-4 font-mono text-xs font-bold uppercase tracking-widest border-b border-[#243373] overflow-hidden">
-        <div className="flex items-center justify-around gap-8 whitespace-nowrap overflow-x-auto no-scrollbar">
-          <span>🍿 100% SLOW ROASTED</span>
-          <span className="text-[#FF5400]">★</span>
-          <span>🌶️ ZERO PALM OIL</span>
-          <span className="text-[#FF5400]">★</span>
-          <span>💥 CRACKLING CRUNCH</span>
-          <span className="text-[#FF5400]">★</span>
-          <span>🇮🇳 BIHAR LOTUS SEEDS</span>
-          <span className="text-[#FF5400]">★</span>
-          <span>⚡ FREE SHIPPING OVER ₹499</span>
+      {/* ── 2. TICKER RIBBON (ULTRA-SMOOTH CONTINUOUS TICKER) ─────────────── */}
+      <div className="bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] py-3 border-b border-[#243373] overflow-hidden select-none">
+        <div className="live-marquee-track" style={{ animationDuration: '38s' }}>
+          {[1, 2].map((k) => (
+            <div key={k} className="flex items-center gap-8 whitespace-nowrap px-4 font-mono text-xs font-bold uppercase tracking-widest shrink-0">
+              <span>🍿 100% SLOW ROASTED</span>
+              <span className="text-[#FF5400]">★</span>
+              <span>🌶️ ZERO PALM OIL</span>
+              <span className="text-[#FF5400]">★</span>
+              <span>💥 CRACKLING CRUNCH</span>
+              <span className="text-[#FF5400]">★</span>
+              <span>🇮🇳 BIHAR LOTUS SEEDS</span>
+              <span className="text-[#FF5400]">★</span>
+              <span>⚡ FREE SHIPPING OVER ₹499</span>
+              <span className="text-[#FF5400]">★</span>
+              <span>⭐ 3-IN-1 LAUNCH TRIO</span>
+              <span className="text-[#FF5400]">★</span>
+            </div>
+          ))}
         </div>
       </div>
 
