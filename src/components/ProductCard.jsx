@@ -1,11 +1,11 @@
-import { useState } from 'react'
+import { useState, memo } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { photos } from '../data/photos'
 
-export default function ProductCard({ product, index = 0 }) {
+function ProductCardComponent({ product, index = 0 }) {
   const { addItem } = useCart()
   const { addToast } = useToast()
   const [isAdding, setIsAdding] = useState(false)
@@ -241,3 +241,6 @@ export default function ProductCard({ product, index = 0 }) {
     </motion.article>
   )
 }
+
+const ProductCard = memo(ProductCardComponent)
+export default ProductCard

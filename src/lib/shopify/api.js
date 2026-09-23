@@ -149,6 +149,38 @@ export function mapShopifyCart(cart) {
   }
 }
 
+// ── IN-MEMORY CACHE & REQUEST DEDUPLICATION ───────────────────────────────────
+const apiCache = new Map()
+const inFlightPromises = new Map()
+const PRODUCT_CACHE_TTL_MS = 3 * 60 * 1000 // 3 minutes
+
+async function cachedFetch(key, fetcher, ttlMs = PRODUCT_CACHE_TTL_MS) {
+  const cached = apiCache.get(key)
+  const now = Date.now()
+  if (cached && now - cached.timestamp < ttlMs) {
+    return cached.data
+  }
+
+  if (inFlightPromises.has(key)) {
+    return inFlightPromises.get(key)
+  }
+
+  const promise = (async () => {
+    try {
+      const data = await fetcher()
+      if (data) {
+        apiCache.set(key, { data, timestamp: Date.now() })
+      }
+      return data
+    } finally {
+      inFlightPromises.delete(key)
+    }
+  })()
+
+  inFlightPromises.set(key, promise)
+  return promise
+}
+
 // ── SHOPIFY API SERVICE METHODS ──────────────────────────────────────────────
 
 /**
@@ -157,67 +189,69 @@ export function mapShopifyCart(cart) {
  * Drop 02: Peri Peri, Kashmiri Garlic Chilli, Pudhina (Coming Soon / locked)
  */
 export async function fetchShopifyProducts(first = 20) {
-  try {
-    const data = await shopifyFetch({
-      query: GET_PRODUCTS_QUERY,
-      variables: { first },
-    })
-    const edges = data?.products?.edges || []
-    const shopifyMap = new Map()
-    edges.forEach((edge) => {
-      if (edge.node?.handle) {
-        shopifyMap.set(edge.node.handle, mapShopifyProduct(edge.node))
-      }
-    })
+  return cachedFetch(`shopify_products_${first}`, async () => {
+    try {
+      const data = await shopifyFetch({
+        query: GET_PRODUCTS_QUERY,
+        variables: { first },
+      })
+      const edges = data?.products?.edges || []
+      const shopifyMap = new Map()
+      edges.forEach((edge) => {
+        if (edge.node?.handle) {
+          shopifyMap.set(edge.node.handle, mapShopifyProduct(edge.node))
+        }
+      })
 
-    return PRODUCTS_CATALOGUE.map((catalogItem) => {
-      let live = null
-      if (catalogItem.handle === 'chocolate-makhana') {
-        live = shopifyMap.get('peri-peri-makhana') || shopifyMap.get('chocolate-makhana')
-      } else if (catalogItem.handle === 'cheese-and-herbs-makhana') {
-        live = shopifyMap.get('chilli-cheese-makhana') || shopifyMap.get('cheese-and-herbs-makhana')
-      } else if (catalogItem.handle === 'jalapeno-makhana') {
-        live = shopifyMap.get('chilli-lime-makhana') || shopifyMap.get('jalapeno-makhana')
-      } else if (catalogItem.handle === 'chaska-try-all-5' || catalogItem.handle === 'chaska-launch-trio') {
-        live = shopifyMap.get('chaska-try-all-5') || shopifyMap.get('chaska-launch-trio')
-      } else {
-        live = shopifyMap.get(catalogItem.handle)
-      }
+      return PRODUCTS_CATALOGUE.map((catalogItem) => {
+        let live = null
+        if (catalogItem.handle === 'chocolate-makhana') {
+          live = shopifyMap.get('peri-peri-makhana') || shopifyMap.get('chocolate-makhana')
+        } else if (catalogItem.handle === 'cheese-and-herbs-makhana') {
+          live = shopifyMap.get('chilli-cheese-makhana') || shopifyMap.get('cheese-and-herbs-makhana')
+        } else if (catalogItem.handle === 'jalapeno-makhana') {
+          live = shopifyMap.get('chilli-lime-makhana') || shopifyMap.get('jalapeno-makhana')
+        } else if (catalogItem.handle === 'chaska-try-all-5' || catalogItem.handle === 'chaska-launch-trio') {
+          live = shopifyMap.get('chaska-try-all-5') || shopifyMap.get('chaska-launch-trio')
+        } else {
+          live = shopifyMap.get(catalogItem.handle)
+        }
 
-      if (catalogItem.isComingSoon) {
+        if (catalogItem.isComingSoon) {
+          return {
+            ...catalogItem,
+            availableForSale: false,
+            badge: '🔒 DROP 02 • COMING SOON',
+            variantId: null,
+            variants: [],
+          }
+        }
+
+        const variants = live?.variants && live.variants.length > 0 ? live.variants : [
+          {
+            id: live?.variantId || 'variant-drop01',
+            title: '70g Pack',
+            price: catalogItem.price,
+            mrp: catalogItem.mrp,
+            availableForSale: true,
+          },
+        ]
+
         return {
           ...catalogItem,
-          availableForSale: false,
-          badge: '🔒 DROP 02 • COMING SOON',
-          variantId: null,
-          variants: [],
-        }
-      }
-
-      const variants = live?.variants && live.variants.length > 0 ? live.variants : [
-        {
-          id: live?.variantId || 'variant-drop01',
-          title: '70g Pack',
-          price: catalogItem.price,
-          mrp: catalogItem.mrp,
+          shopifyId: live?.shopifyId || catalogItem.shopifyId,
+          variantId: variants[0]?.id || live?.variantId || catalogItem.variantId,
+          variants,
           availableForSale: true,
-        },
-      ]
-
-      return {
-        ...catalogItem,
-        shopifyId: live?.shopifyId || catalogItem.shopifyId,
-        variantId: variants[0]?.id || live?.variantId || catalogItem.variantId,
-        variants,
-        availableForSale: true,
+        }
+      })
+    } catch (err) {
+      if (import.meta.env?.DEV) {
+        console.warn('[Shopify Products Fetch Fallback]', err)
       }
-    })
-  } catch (err) {
-    if (import.meta.env?.DEV) {
-      console.warn('[Shopify Products Fetch Fallback]', err)
+      return PRODUCTS_CATALOGUE
     }
-    return PRODUCTS_CATALOGUE
-  }
+  })
 }
 
 /**
@@ -227,89 +261,93 @@ export async function fetchShopifyProductByHandle(handle) {
   if (!handle) return null
   const handleLower = handle.toLowerCase()
 
-  const catalogItem = PRODUCTS_CATALOGUE.find(
-    (p) =>
-      p.handle === handleLower ||
-      p.aliasHandle === handleLower ||
-      (handleLower === 'chilli-cheese-makhana' && p.handle === 'cheese-and-herbs-makhana') ||
-      (handleLower === 'chilli-lime-makhana' && p.handle === 'jalapeno-makhana') ||
-      (handleLower === 'peri-peri-makhana' && p.isComingSoon && p.handle === 'peri-peri-makhana')
-  )
+  return cachedFetch(`shopify_product_${handleLower}`, async () => {
+    const catalogItem = PRODUCTS_CATALOGUE.find(
+      (p) =>
+        p.handle === handleLower ||
+        p.aliasHandle === handleLower ||
+        (handleLower === 'chilli-cheese-makhana' && p.handle === 'cheese-and-herbs-makhana') ||
+        (handleLower === 'chilli-lime-makhana' && p.handle === 'jalapeno-makhana') ||
+        (handleLower === 'peri-peri-makhana' && p.isComingSoon && p.handle === 'peri-peri-makhana')
+    )
 
-  let shopifyHandleToFetch = handleLower
-  if (handleLower === 'chocolate-makhana') shopifyHandleToFetch = 'peri-peri-makhana'
-  else if (handleLower === 'cheese-and-herbs-makhana') shopifyHandleToFetch = 'chilli-cheese-makhana'
-  else if (handleLower === 'jalapeno-makhana') shopifyHandleToFetch = 'chilli-lime-makhana'
-  else if (handleLower === 'chaska-launch-trio') shopifyHandleToFetch = 'chaska-try-all-5'
+    let shopifyHandleToFetch = handleLower
+    if (handleLower === 'chocolate-makhana') shopifyHandleToFetch = 'peri-peri-makhana'
+    else if (handleLower === 'cheese-and-herbs-makhana') shopifyHandleToFetch = 'chilli-cheese-makhana'
+    else if (handleLower === 'jalapeno-makhana') shopifyHandleToFetch = 'chilli-lime-makhana'
+    else if (handleLower === 'chaska-launch-trio') shopifyHandleToFetch = 'chaska-try-all-5'
 
-  let liveProduct = null
-  try {
-    const data = await shopifyFetch({
-      query: GET_PRODUCT_BY_HANDLE_QUERY,
-      variables: { handle: shopifyHandleToFetch },
-    })
-    liveProduct = mapShopifyProduct(data?.product)
-  } catch (err) {
-    if (import.meta.env?.DEV) {
-      console.warn('[Shopify Product Handle Fetch Error]', err)
-    }
-  }
-
-  if (catalogItem) {
-    if (catalogItem.isComingSoon) {
-      return {
-        ...catalogItem,
-        availableForSale: false,
-        badge: '🔒 DROP 02 • COMING SOON',
-        variants: [],
+    let liveProduct = null
+    try {
+      const data = await shopifyFetch({
+        query: GET_PRODUCT_BY_HANDLE_QUERY,
+        variables: { handle: shopifyHandleToFetch },
+      })
+      liveProduct = mapShopifyProduct(data?.product)
+    } catch (err) {
+      if (import.meta.env?.DEV) {
+        console.warn('[Shopify Product Handle Fetch Error]', err)
       }
     }
 
-    const variants = liveProduct?.variants && liveProduct.variants.length > 0 ? liveProduct.variants : [
-      {
-        id: liveProduct?.variantId || 'variant-drop01',
-        title: '70g Pack',
-        price: catalogItem.price,
-        mrp: catalogItem.mrp,
+    if (catalogItem) {
+      if (catalogItem.isComingSoon) {
+        return {
+          ...catalogItem,
+          availableForSale: false,
+          badge: '🔒 DROP 02 • COMING SOON',
+          variants: [],
+        }
+      }
+
+      const variants = liveProduct?.variants && liveProduct.variants.length > 0 ? liveProduct.variants : [
+        {
+          id: liveProduct?.variantId || 'variant-drop01',
+          title: '70g Pack',
+          price: catalogItem.price,
+          mrp: catalogItem.mrp,
+          availableForSale: true,
+        },
+      ]
+
+      return {
+        ...catalogItem,
+        shopifyId: liveProduct?.shopifyId || catalogItem.shopifyId,
+        variantId: variants[0]?.id || liveProduct?.variantId || catalogItem.variantId,
+        variants,
         availableForSale: true,
-      },
-    ]
-
-    return {
-      ...catalogItem,
-      shopifyId: liveProduct?.shopifyId || catalogItem.shopifyId,
-      variantId: variants[0]?.id || liveProduct?.variantId || catalogItem.variantId,
-      variants,
-      availableForSale: true,
+      }
     }
-  }
 
-  return liveProduct
+    return liveProduct
+  })
 }
 
 /**
  * Fetches collections from Shopify Storefront API
  */
 export async function fetchShopifyCollections(first = 10) {
-  try {
-    const data = await shopifyFetch({
-      query: GET_COLLECTIONS_QUERY,
-      variables: { first },
-    })
-    const edges = data?.collections?.edges || []
-    return edges.map((edge) => ({
-      id: edge.node.id,
-      title: edge.node.title,
-      handle: edge.node.handle,
-      description: edge.node.description,
-      image: edge.node.image?.url || null,
-    }))
-  } catch (err) {
-    if (import.meta.env?.DEV) {
-      console.warn('[Shopify Collections API Unavailable]', err.message || err)
+  return cachedFetch(`shopify_collections_${first}`, async () => {
+    try {
+      const data = await shopifyFetch({
+        query: GET_COLLECTIONS_QUERY,
+        variables: { first },
+      })
+      const edges = data?.collections?.edges || []
+      return edges.map((edge) => ({
+        id: edge.node.id,
+        title: edge.node.title,
+        handle: edge.node.handle,
+        description: edge.node.description,
+        image: edge.node.image?.url || null,
+      }))
+    } catch (err) {
+      if (import.meta.env?.DEV) {
+        console.warn('[Shopify Collections API Unavailable]', err.message || err)
+      }
+      return []
     }
-    return []
-  }
+  })
 }
 
 /**
@@ -317,28 +355,30 @@ export async function fetchShopifyCollections(first = 10) {
  */
 export async function fetchShopifyCollectionByHandle(handle, first = 20) {
   if (!handle) return null
-  try {
-    const data = await shopifyFetch({
-      query: GET_COLLECTION_BY_HANDLE_QUERY,
-      variables: { handle, first },
-    })
-    const col = data?.collection
-    if (!col) return null
-    const productEdges = col.products?.edges || []
-    return {
-      id: col.id,
-      title: col.title,
-      handle: col.handle,
-      description: col.description,
-      image: col.image?.url || null,
-      products: productEdges.map((e) => mapShopifyProduct(e.node)).filter(Boolean),
+  return cachedFetch(`shopify_col_${handle.toLowerCase()}_${first}`, async () => {
+    try {
+      const data = await shopifyFetch({
+        query: GET_COLLECTION_BY_HANDLE_QUERY,
+        variables: { handle, first },
+      })
+      const col = data?.collection
+      if (!col) return null
+      const productEdges = col.products?.edges || []
+      return {
+        id: col.id,
+        title: col.title,
+        handle: col.handle,
+        description: col.description,
+        image: col.image?.url || null,
+        products: productEdges.map((e) => mapShopifyProduct(e.node)).filter(Boolean),
+      }
+    } catch (err) {
+      if (import.meta.env?.DEV) {
+        console.warn('[Shopify Collection Handle API Unavailable]', err.message || err)
+      }
+      return null
     }
-  } catch (err) {
-    if (import.meta.env?.DEV) {
-      console.warn('[Shopify Collection Handle API Unavailable]', err.message || err)
-    }
-    return null
-  }
+  })
 }
 
 /**

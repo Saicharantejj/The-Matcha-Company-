@@ -19,6 +19,7 @@ export default function SearchModal({ isOpen, onClose }) {
   const navigate = useNavigate()
 
   useEffect(() => {
+    if (!isOpen) return
     async function load() {
       try {
         const live = await fetchShopifyProducts(25)
@@ -32,7 +33,7 @@ export default function SearchModal({ isOpen, onClose }) {
       }
     }
     load()
-  }, [])
+  }, [isOpen])
 
   useEffect(() => {
     if (isOpen) {

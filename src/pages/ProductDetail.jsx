@@ -27,7 +27,7 @@ export default function ProductDetail() {
   const [isAdded, setIsAdded] = useState(false)
   const [showStickyBar, setShowStickyBar] = useState(false)
 
-  // 1. Data Fetching
+  // 1. Data Fetching (Parallelized & Cached)
   useEffect(() => {
     async function loadProduct() {
       setIsLoading(true)
@@ -35,19 +35,16 @@ export default function ProductDetail() {
       setSelectedImgIndex(0)
       setQty(1)
       try {
-        const foundProduct = await fetchShopifyProductByHandle(handle)
+        const [foundProduct, allShopify] = await Promise.all([
+          fetchShopifyProductByHandle(handle),
+          fetchShopifyProducts(8).catch(() => []),
+        ])
 
         if (foundProduct) {
           setProduct(foundProduct)
-          // Load related products from Shopify
-          try {
-            const allShopify = await fetchShopifyProducts(8)
-            if (allShopify && allShopify.length > 0) {
-              setRelatedProducts(allShopify.filter((p) => p.handle !== handle).slice(0, 3))
-            } else {
-              setRelatedProducts([])
-            }
-          } catch {
+          if (allShopify && allShopify.length > 0) {
+            setRelatedProducts(allShopify.filter((p) => p.handle !== handle).slice(0, 3))
+          } else {
             setRelatedProducts([])
           }
         } else {
@@ -74,11 +71,20 @@ export default function ProductDetail() {
     }
   }, [product])
 
-  // 3. Scroll listener for mobile sticky add-to-cart bar
+  // 3. Scroll listener for mobile sticky add-to-cart bar (rAF Throttled)
   useEffect(() => {
+    let ticking = false
     const handleScroll = () => {
-      setShowStickyBar(window.scrollY > 420)
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const next = window.scrollY > 420
+          setShowStickyBar((prev) => (prev !== next ? next : prev))
+          ticking = false
+        })
+        ticking = true
+      }
     }
+    handleScroll()
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])

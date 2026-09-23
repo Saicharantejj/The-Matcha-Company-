@@ -10,10 +10,11 @@ import Reviews from '../components/Reviews'
 import UgcGrid from '../components/UgcGrid'
 import { fetchShopifyProducts } from '../lib/shopify/api'
 import { photos } from '../data/photos'
+import { PRODUCTS_CATALOGUE } from '../data/products'
 
 export default function Home() {
-  const [products, setProducts] = useState([])
-  const [, setIsLoading] = useState(true)
+  const [products, setProducts] = useState(() => PRODUCTS_CATALOGUE)
+  const [, setIsLoading] = useState(false)
   const [heroPhotoIndex, setHeroPhotoIndex] = useState(0)
 
   const heroPhotos = [
@@ -142,6 +143,10 @@ export default function Home() {
                   src={activeHeroPhoto.src}
                   alt={activeHeroPhoto.title}
                   className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-out"
+                  fetchPriority="high"
+                  decoding="sync"
+                  width={1080}
+                  height={1350}
                 />
                 <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#17245B] text-white font-mono text-[10px] font-bold uppercase tracking-widest shadow-sm">
                   {activeHeroPhoto.badge}
