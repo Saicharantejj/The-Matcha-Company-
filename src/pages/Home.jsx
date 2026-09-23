@@ -77,96 +77,111 @@ export default function Home() {
   return (
     <PageShell>
       {/* ── 1. WHO IS CHASKA? BRAND INTRODUCTION HERO ──────────────────────── */}
-      <section className="relative bg-[#0C122C] px-4 pt-8 pb-16 sm:px-8 sm:pt-14 sm:pb-24 border-b border-[#243373] flex items-center">
-        <div className="mx-auto w-full max-w-7xl">
+      <section className="relative bg-[#0C122C] px-4 pt-8 pb-16 sm:px-8 sm:pt-14 sm:pb-24 border-b border-[#243373] flex items-center overflow-hidden">
+        {/* Ambient warm cream atmospheric glow to connect with Section 2 Warm Ivory */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full max-w-6xl h-96 bg-[#FFF9EF]/10 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute top-1/4 -right-20 w-80 h-80 bg-[#F7F2E8]/8 rounded-full blur-3xl pointer-events-none" />
+
+        <div className="mx-auto w-full max-w-7xl relative z-10">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-12 lg:items-center">
             
-            {/* Left Column: Bold Editorial Headline & Copy */}
+            {/* Left Column: Bold Editorial Headline & Copy with Warm Cream Touch */}
             <motion.div
               initial={{ opacity: 0, y: 16 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-7 space-y-7"
             >
+              {/* Warm Cream & Accent Pills */}
               <div className="flex flex-wrap items-center gap-2.5">
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-[11px] font-bold uppercase tracking-wider">
-                  🔥 100% ROASTED NOT FRIED
+                <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-[#FFF9EF] text-[#0B1230] font-mono text-[11px] font-black uppercase tracking-wider border border-[#E5DCC9] shadow-xs">
+                  <span className="w-2 h-2 rounded-full bg-[#FF5400] animate-pulse" />
+                  OFFICIAL DROP 01 • REAL INDIAN INGREDIENTS
                 </span>
-                <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-100 dark:bg-[#1C2A6B] text-[#17245B] dark:text-stone-200 font-mono text-[11px] font-semibold uppercase tracking-wider border border-transparent dark:border-[#243373]">
-                  INDIAN FLAVOURS REAL INGREDIENTS
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF9EF]/10 text-[#FFF9EF] font-mono text-[11px] font-bold uppercase tracking-wider border border-[#FFF9EF]/20">
+                  🔥 100% ROASTED NOT FRIED
                 </span>
               </div>
 
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight text-[#17245B] dark:text-white leading-[0.96] uppercase">
+              {/* Headline with Cream Typography Accent */}
+              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight text-white leading-[0.96] uppercase">
                 MAKHANA KO <br />
-                <span className="text-[#FF5400]">CHASKA</span> <span>LAGA DIYA.</span>
+                <span className="text-[#FF5400]">CHASKA</span> <span className="text-[#FFF9EF]">LAGA DIYA.</span>
               </h1>
 
-              <p className="font-sans text-base sm:text-lg leading-relaxed text-stone-600 dark:text-stone-300 font-normal max-w-xl">
+              <p className="font-sans text-base sm:text-lg leading-relaxed text-[#FAF8F5]/85 font-normal max-w-xl">
                 Big crunch. Bold flavour. Bas boring nahi. Handpicked Bihar lotus seeds slow-roasted in small batches with chef-crafted seasonings.
               </p>
 
+              {/* Action Buttons: Signature Orange & Warm Cream Secondary */}
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link to="/shop" className="btn px-8 py-4 text-xs font-bold tracking-wider shadow-sm hover-pop">
                   SHOP DROP 01 ➔
                 </Link>
                 <Link
                   to="/products/chaska-try-all-5"
-                  className="px-7 py-4 text-xs font-bold tracking-wider rounded-full bg-[#17245B] dark:bg-white text-white dark:text-[#17245B] hover:bg-[#FF5400] dark:hover:bg-[#FF5400] dark:hover:text-white transition-all shadow-sm cursor-pointer hover-pop hover:scale-[1.02] active:scale-[0.98]"
+                  className="px-7 py-4 text-xs font-bold tracking-wider rounded-full bg-[#FFF9EF] text-[#0B1230] hover:bg-[#FF5400] hover:text-white border-2 border-[#E5DCC9] transition-all shadow-md cursor-pointer hover-pop hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
                 >
-                  LAUNCH TRIO BOX
+                  <span>LAUNCH TRIO BOX</span>
+                  <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF5400] text-white font-mono font-bold">
+                    3-PACK
+                  </span>
                 </Link>
               </div>
 
-              {/* Micro specs */}
-              <div className="pt-2 flex flex-wrap items-center gap-6 font-mono text-xs text-stone-600 dark:text-stone-300">
-                <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 3 Official Launch Flavours
+              {/* Micro specs in warm cream badge chips */}
+              <div className="pt-2 flex flex-wrap items-center gap-2.5 font-mono text-xs">
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF9EF]/10 border border-[#FFF9EF]/20 text-[#FFF9EF] font-semibold">
+                  <span className="text-emerald-400 font-bold">✓</span> 3 Official Launch Flavours
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> 100% Roasted, Not Fried
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF9EF]/10 border border-[#FFF9EF]/20 text-[#FFF9EF] font-semibold">
+                  <span className="text-emerald-400 font-bold">✓</span> 100% Roasted, Not Fried
                 </span>
-                <span className="flex items-center gap-1.5">
-                  <span className="text-emerald-600 dark:text-emerald-400 font-bold">✓</span> Free Shipping &gt; ₹499
+                <span className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#FFF9EF]/10 border border-[#FFF9EF]/20 text-[#FFF9EF] font-semibold">
+                  <span className="text-emerald-400 font-bold">✓</span> Free Shipping &gt; ₹499
                 </span>
               </div>
             </motion.div>
 
-            {/* Right Column: Hero Photo Stage */}
+            {/* Right Column: Hero Photo Stage with Cream Matting & Framing */}
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.5, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
               className="lg:col-span-5 space-y-3.5"
             >
-              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border border-[#243373] shadow-md bg-[#131D4A]">
-                <img
-                  src={activeHeroPhoto.src}
-                  alt={activeHeroPhoto.title}
-                  className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-out"
-                  fetchPriority="high"
-                  decoding="sync"
-                  width={1080}
-                  height={1350}
-                />
-                <div className="absolute top-4 right-4 px-3 py-1 rounded-full bg-[#17245B] text-white font-mono text-[10px] font-bold uppercase tracking-widest shadow-sm">
-                  {activeHeroPhoto.badge}
-                </div>
-                <div className="absolute bottom-4 left-4 right-4 p-4 rounded-2xl bg-[#17245B]/90 text-white backdrop-blur-md border border-white/10 flex items-center justify-between shadow-lg">
-                  <div>
-                    <span className="font-mono text-[10px] font-bold text-[#FF5400] uppercase tracking-wider block">
-                      {activeHeroPhoto.tag}
-                    </span>
-                    <p className="font-display font-bold text-sm sm:text-base text-white leading-tight mt-0.5">
-                      {activeHeroPhoto.title}
-                    </p>
+              <div className="relative aspect-[4/5] rounded-3xl overflow-hidden border-2 border-[#E5DCC9]/70 shadow-2xl bg-[#131D4A] p-2">
+                <div className="relative w-full h-full rounded-2xl overflow-hidden border border-[#E5DCC9]/30">
+                  <img
+                    src={activeHeroPhoto.src}
+                    alt={activeHeroPhoto.title}
+                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-700 ease-out"
+                    fetchPriority="high"
+                    decoding="sync"
+                    width={1080}
+                    height={1350}
+                  />
+                  {/* Warm Cream Badge at Top Right */}
+                  <div className="absolute top-3.5 right-3.5 px-3.5 py-1 rounded-full bg-[#FFF9EF] text-[#0B1230] font-mono text-[10px] font-black uppercase tracking-widest border border-[#E5DCC9] shadow-sm">
+                    {activeHeroPhoto.badge}
                   </div>
-                  <Link
-                    to="/shop"
-                    className="px-3.5 py-1.5 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold hover:bg-[#E04800] transition-colors shadow-xs"
-                  >
-                    SHOP
-                  </Link>
+                  {/* Editorial Info Card at Bottom */}
+                  <div className="absolute bottom-3.5 left-3.5 right-3.5 p-4 rounded-2xl bg-[#0C122C]/90 text-white backdrop-blur-md border border-[#E5DCC9]/30 flex items-center justify-between shadow-lg">
+                    <div>
+                      <span className="font-mono text-[10px] font-bold text-[#FF5400] uppercase tracking-wider block">
+                        {activeHeroPhoto.tag}
+                      </span>
+                      <p className="font-display font-bold text-sm sm:text-base text-[#FFF9EF] leading-tight mt-0.5">
+                        {activeHeroPhoto.title}
+                      </p>
+                    </div>
+                    <Link
+                      to="/shop"
+                      className="px-4 py-1.5 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold hover:bg-[#E04800] transition-colors shadow-xs"
+                    >
+                      SHOP
+                    </Link>
+                  </div>
                 </div>
               </div>
 
@@ -181,7 +196,7 @@ export default function Home() {
                     className={`relative aspect-square rounded-xl overflow-hidden border-2 transition-all cursor-pointer hover-pop-subtle hover:scale-105 active:scale-95 ${
                       heroPhotoIndex === idx
                         ? 'border-[#FF5400] ring-2 ring-[#FF5400]/30 scale-105 shadow-sm'
-                        : 'border-stone-200/80 dark:border-[#243373] opacity-70 hover:opacity-100 hover:border-stone-400'
+                        : 'border-[#E5DCC9]/40 opacity-70 hover:opacity-100 hover:border-[#FFF9EF]'
                     }`}
                   >
                     <img src={item.src} alt={item.tag} className="w-full h-full object-cover" loading="lazy" decoding="async" />

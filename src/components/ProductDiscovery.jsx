@@ -59,7 +59,11 @@ export default function ProductDiscovery({ products = [] }) {
               {flavourPills.map((pill) => (
                 <span
                   key={pill.label}
-                  className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white text-[#0B1230] font-mono text-[11px] font-bold border border-stone-200 shadow-2xs"
+                  className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white font-mono text-[11px] font-black shadow-2xs"
+                  style={{
+                    border: `1.5px solid ${pill.color}`,
+                    color: pill.color,
+                  }}
                 >
                   <span>{pill.icon}</span>
                   <span>{pill.label}</span>

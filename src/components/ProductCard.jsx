@@ -15,11 +15,11 @@ export function getFlavourTheme(handleOrName = '') {
       accent: '#D4AF37', // warm gold & cocoa
       badgeBg: '#FDF8EB',
       badgeText: '#8D6E18',
-      glow: 'rgba(212, 175, 55, 0.38)',
-      bgLight: '#FCF9F2',
-      hoverBgLight: '#FAF2E1', // warm rich cocoa-gold cream
+      glow: 'rgba(212, 175, 55, 0.45)',
+      bgLight: '#FAF3E3', // clear warm cocoa-gold cream tint
+      hoverBgLight: '#F5E8CC', // rich warm cocoa cream
       hoverBgDark: '#221B14',
-      borderLight: 'rgba(212, 175, 55, 0.4)',
+      borderLight: '#D4AF37',
       borderHover: '#D4AF37',
       spiceTag: 'Sweet & Salty 🍫',
       flavourPill: 'Dark Cocoa Glaze',
@@ -32,11 +32,11 @@ export function getFlavourTheme(handleOrName = '') {
       accent: '#10B981', // emerald herb & cheddar gold
       badgeBg: '#ECFDF5',
       badgeText: '#047857',
-      glow: 'rgba(16, 185, 129, 0.38)',
-      bgLight: '#F2FAF5',
-      hoverBgLight: '#E8F7EE', // fresh herbal cream tint
+      glow: 'rgba(16, 185, 129, 0.45)',
+      bgLight: '#EAF7EE', // clear fresh herbal tint
+      hoverBgLight: '#DBF1E2', // fresh herbal cream tint
       hoverBgDark: '#12251D',
-      borderLight: 'rgba(16, 185, 129, 0.4)',
+      borderLight: '#10B981',
       borderHover: '#10B981',
       spiceTag: 'Cheesy Herb 🧀🌿',
       flavourPill: 'Aged Cheddar & Herb',
@@ -50,11 +50,11 @@ export function getFlavourTheme(handleOrName = '') {
       secondaryAccent: '#C8E86B',
       badgeBg: '#F4FBE8',
       badgeText: '#3B6D1B',
-      glow: 'rgba(77, 140, 36, 0.38)',
-      bgLight: '#F5FAED',
-      hoverBgLight: '#EFF8E3', // zesty fresh lime/jalapeno tint
+      glow: 'rgba(77, 140, 36, 0.45)',
+      bgLight: '#F1F8E8', // clear zesty lime tint
+      hoverBgLight: '#E3F2D4', // zesty fresh lime/jalapeno tint
       hoverBgDark: '#172514',
-      borderLight: 'rgba(77, 140, 36, 0.4)',
+      borderLight: '#4D8C24',
       borderHover: '#4D8C24',
       spiceTag: 'Fiery Zest 🌶️⚡',
       flavourPill: 'Smoky Jalapeno & Lime',
@@ -67,11 +67,11 @@ export function getFlavourTheme(handleOrName = '') {
       accent: '#F04444', // chilli red
       badgeBg: '#FEF2F2',
       badgeText: '#DC2626',
-      glow: 'rgba(240, 68, 68, 0.38)',
-      bgLight: '#FFF5F5',
-      hoverBgLight: '#FEE8E8', // warm fiery red cream
+      glow: 'rgba(240, 68, 68, 0.45)',
+      bgLight: '#FFF0F0',
+      hoverBgLight: '#FEE0E0', // warm fiery red cream
       hoverBgDark: '#281515',
-      borderLight: 'rgba(240, 68, 68, 0.4)',
+      borderLight: '#F04444',
       borderHover: '#F04444',
       spiceTag: 'High Heat 🌶️',
       flavourPill: 'Bird’s Eye Chilli',
@@ -84,11 +84,11 @@ export function getFlavourTheme(handleOrName = '') {
       accent: '#B91C1C', // deep kashmiri red
       badgeBg: '#FEF2F2',
       badgeText: '#991B1B',
-      glow: 'rgba(185, 28, 28, 0.38)',
-      bgLight: '#FFF5F5',
-      hoverBgLight: '#FDE6E6',
+      glow: 'rgba(185, 28, 28, 0.45)',
+      bgLight: '#FFF0F0',
+      hoverBgLight: '#FEDADA',
       hoverBgDark: '#251313',
-      borderLight: 'rgba(185, 28, 28, 0.4)',
+      borderLight: '#B91C1C',
       borderHover: '#B91C1C',
       spiceTag: 'Warm Garlic 🧄🌶️',
       flavourPill: 'Golden Toasted Garlic',
@@ -101,11 +101,11 @@ export function getFlavourTheme(handleOrName = '') {
       accent: '#52C878', // fresh garden mint
       badgeBg: '#F0FDF4',
       badgeText: '#15803D',
-      glow: 'rgba(82, 200, 120, 0.38)',
-      bgLight: '#F2FCF5',
-      hoverBgLight: '#E6F6EC',
+      glow: 'rgba(82, 200, 120, 0.45)',
+      bgLight: '#EFFBF3',
+      hoverBgLight: '#DCF7E4',
       hoverBgDark: '#12251B',
-      borderLight: 'rgba(82, 200, 120, 0.4)',
+      borderLight: '#52C878',
       borderHover: '#52C878',
       spiceTag: 'Fresh Mint 🌿',
       flavourPill: 'Garden Spearmint',
@@ -118,11 +118,11 @@ export function getFlavourTheme(handleOrName = '') {
       accent: '#FF5400', // signature chaska orange
       badgeBg: '#FFF4ED',
       badgeText: '#E04800',
-      glow: 'rgba(255, 84, 0, 0.38)',
-      bgLight: '#FFF8F4',
-      hoverBgLight: '#FFEFE3', // warm Chaska orange cream
+      glow: 'rgba(255, 84, 0, 0.45)',
+      bgLight: '#FFF2E8', // clear warm Chaska orange cream
+      hoverBgLight: '#FFE6D5',
       hoverBgDark: '#291815',
-      borderLight: 'rgba(255, 84, 0, 0.4)',
+      borderLight: '#FF5400',
       borderHover: '#FF5400',
       spiceTag: '3-In-1 Sampler 📦',
       flavourPill: 'All 3 Launch Flavours',
@@ -134,11 +134,11 @@ export function getFlavourTheme(handleOrName = '') {
     accent: '#FF5400',
     badgeBg: '#FFF4ED',
     badgeText: '#E04800',
-    glow: 'rgba(255, 84, 0, 0.3)',
-    bgLight: '#FAF8F5',
-    hoverBgLight: '#FFF3EB',
+    glow: 'rgba(255, 84, 0, 0.35)',
+    bgLight: '#FFF4ED',
+    hoverBgLight: '#FFE8DB',
     hoverBgDark: '#241B20',
-    borderLight: 'rgba(255, 84, 0, 0.3)',
+    borderLight: '#FF5400',
     borderHover: '#FF5400',
     spiceTag: 'Slow-Roasted',
     flavourPill: '100% Roasted',
@@ -233,15 +233,13 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
           ? (isLight ? flavourTheme.hoverBgLight : flavourTheme.hoverBgDark)
           : (isLight ? '#FFFFFF' : '#131D4A'),
         borderWidth: '2px',
-        borderColor: isHovered
-          ? flavourTheme.borderHover
-          : (isLight ? flavourTheme.borderLight : '#243373'),
+        borderColor: flavourTheme.accent,
         transform: isHovered
           ? 'translate3d(0, -10px, 0) scale3d(1.025, 1.025, 1)'
           : 'translate3d(0, 0, 0) scale3d(1, 1, 1)',
         boxShadow: isHovered
           ? `0 24px 50px -12px ${flavourTheme.glow}, 0 8px 24px -6px rgba(11, 18, 48, 0.16)`
-          : (isLight ? '0 4px 20px rgba(0, 0, 0, 0.06)' : '0 4px 20px rgba(12, 18, 44, 0.5)'),
+          : `0 6px 22px -6px ${flavourTheme.glow}, 0 2px 8px rgba(0, 0, 0, 0.05)`,
         transition: 'transform 0.28s cubic-bezier(0.16, 1, 0.3, 1), background-color 0.28s ease, border-color 0.28s ease, box-shadow 0.28s cubic-bezier(0.16, 1, 0.3, 1)',
         willChange: 'transform, background-color, box-shadow',
       }}
@@ -251,26 +249,24 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
         className="h-1.5 w-full shrink-0 transition-opacity duration-300"
         style={{
           backgroundColor: flavourTheme.accent,
-          opacity: isHovered ? 1 : 0.8,
+          opacity: 1,
         }}
       />
 
       <div className="flex flex-col h-full p-5 sm:p-6">
         
-        {/* Clickable Image Canvas with Flavour Accent Tint */}
+        {/* Clickable Image Canvas with Clear Flavour Accent Tint & 2px Solid Flavour Frame */}
         <Link
           to={productUrl}
-          className="relative aspect-[1/1] w-full overflow-hidden rounded-2xl p-4 flex items-center justify-center transition-all duration-300 border"
+          className="relative aspect-[1/1] w-full overflow-hidden rounded-2xl p-4 flex items-center justify-center transition-all duration-300"
           style={{
             backgroundColor: isHovered
-              ? (isLight ? 'rgba(255, 255, 255, 0.95)' : 'rgba(23, 36, 91, 0.95)')
-              : (isLight ? flavourTheme.bgLight : 'rgba(23, 36, 91, 0.7)'),
-            borderColor: isHovered
-              ? flavourTheme.borderHover
-              : (isLight ? 'rgba(0,0,0,0.08)' : 'rgba(255,255,255,0.08)'),
+              ? (isLight ? flavourTheme.hoverBgLight : 'rgba(23, 36, 91, 0.95)')
+              : (isLight ? flavourTheme.bgLight : 'rgba(23, 36, 91, 0.85)'),
+            border: `2px solid ${flavourTheme.accent}`,
           }}
         >
-          {/* Badge */}
+          {/* Top Left: Drop / Launch Badge */}
           <div className="absolute top-3.5 left-3.5 z-10 flex flex-col gap-1 items-start">
             {isComingSoon ? (
               <span className="px-3 py-1 font-mono text-[10px] font-bold tracking-widest uppercase rounded-full bg-stone-900/90 text-[#FF5400] backdrop-blur-xs border border-[#FF5400]/40 shadow-xs">
@@ -298,19 +294,10 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
             )}
           </div>
 
-          {/* Flavour Tag Pill on top right */}
+          {/* Top Right: Pouch Size Badge (Matching Flavour Lab visual frame) */}
           <div className="absolute top-3.5 right-3.5 z-10">
-            <span
-              className="px-3 py-1 rounded-full font-mono text-[10px] font-bold uppercase tracking-wider backdrop-blur-md shadow-2xs transition-all duration-300"
-              style={{
-                backgroundColor: isHovered
-                  ? flavourTheme.accent
-                  : (isLight ? 'rgba(255,255,255,0.95)' : 'rgba(12,18,44,0.9)'),
-                color: isHovered ? '#FFFFFF' : flavourTheme.accent,
-                border: `1.5px solid ${flavourTheme.accent}`,
-              }}
-            >
-              {flavourTheme.flavourPill}
+            <span className="px-3 py-1 rounded-full bg-black/85 backdrop-blur-xs text-white font-mono text-[10px] font-bold uppercase tracking-wider border border-white/20 shadow-xs">
+              {isLaunchBox ? '3 x 70G' : '70G / 30G POUCH'}
             </span>
           </div>
 
@@ -330,14 +317,17 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
             </div>
           )}
 
-          {/* Packet Highlight Pill */}
-          {!isComingSoon && !isLaunchBox && (
-            <div className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between px-3 py-1.5 rounded-xl bg-black/80 backdrop-blur-md text-[10px] font-mono text-white font-semibold">
-              <span className="flex items-center gap-1.5">
+          {/* Packet Highlight Pill Frame at Canvas Bottom */}
+          {!isComingSoon && (
+            <div
+              className="absolute bottom-2.5 left-2.5 right-2.5 flex items-center justify-between px-3 py-1.5 rounded-xl bg-black/85 backdrop-blur-md text-[10px] font-mono text-white font-semibold border"
+              style={{ borderColor: flavourTheme.accent }}
+            >
+              <span className="flex items-center gap-1.5 font-bold" style={{ color: flavourTheme.accent }}>
                 <span className="w-2 h-2 rounded-full" style={{ backgroundColor: flavourTheme.accent }} />
-                <span>ROASTED NOT FRIED</span>
+                <span>{flavourTheme.flavourPill}</span>
               </span>
-              <span className="text-amber-300 font-bold">70g / 30g</span>
+              <span className="text-amber-300 font-bold">ROASTED NOT FRIED</span>
             </div>
           )}
         </Link>
