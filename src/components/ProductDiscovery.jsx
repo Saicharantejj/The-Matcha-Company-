@@ -28,7 +28,7 @@ export default function ProductDiscovery({ products = [] }) {
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFE9D6]/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#E8F5EB]/50 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-12">
+      <div className="mx-auto max-w-[1380px] px-4 sm:px-8 relative z-10 space-y-14">
         
         {/* Section Header with Typographic Rhythm */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#E5DCC9] pb-8">
@@ -76,8 +76,8 @@ export default function ProductDiscovery({ products = [] }) {
           </div>
         </div>
 
-        {/* 4-Card Responsive Grid on Warm Ivory */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        {/* 4-Card Responsive Grid on Warm Ivory - Bigger, Expanded Proportions */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8 items-stretch">
           {launchPacks.map((prod, idx) => (
             <ProductCard
               key={prod.id || prod.handle || idx}
