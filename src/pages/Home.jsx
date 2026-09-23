@@ -2,19 +2,18 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import PageShell from '../components/PageShell'
-import ProductCard from '../components/ProductCard'
 import FlavourDiscovery from '../components/FlavourDiscovery'
-import TryAll5Feature from '../components/TryAll5Feature'
 import BenefitsGrid from '../components/BenefitsGrid'
+import TryAll5Feature from '../components/TryAll5Feature'
 import FourPillars from '../components/FourPillars'
-import UgcGrid from '../components/UgcGrid'
 import Reviews from '../components/Reviews'
+import UgcGrid from '../components/UgcGrid'
 import { fetchShopifyProducts } from '../lib/shopify/api'
 import { photos } from '../data/photos'
 
 export default function Home() {
   const [products, setProducts] = useState([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [, setIsLoading] = useState(true)
   const [heroPhotoIndex, setHeroPhotoIndex] = useState(0)
 
   const heroPhotos = [
@@ -70,15 +69,12 @@ export default function Home() {
     load()
   }, [])
 
-  // Separate Try All 5 from single flavours
+  // Find Launch Trio Box product bundle
   const tryAll5Product = products.find((p) => p.handle === 'chaska-try-all-5') || null
-  const singleFlavours = products.filter((p) => p.handle !== 'chaska-try-all-5')
-  const drop01Flavours = singleFlavours.filter((p) => !p.isComingSoon)
-  const drop02Flavours = singleFlavours.filter((p) => p.isComingSoon)
 
   return (
     <PageShell>
-      {/* ── 1. PRODUCT CAMPAIGN HERO SECTION ──────────────────────────────── */}
+      {/* ── 1. WHO IS CHASKA? BRAND INTRODUCTION HERO ──────────────────────── */}
       <section className="relative bg-[#0C122C] px-4 pt-8 pb-16 sm:px-8 sm:pt-14 sm:pb-24 border-b border-[#243373] flex items-center">
         <div className="mx-auto w-full max-w-7xl">
           <div className="grid gap-12 lg:gap-16 lg:grid-cols-12 lg:items-center">
@@ -134,7 +130,7 @@ export default function Home() {
               </div>
             </motion.div>
 
-            {/* Right Column: Hero Photo Stage with Provided Photos */}
+            {/* Right Column: Hero Photo Stage */}
             <motion.div
               initial={{ opacity: 0, scale: 0.98 }}
               animate={{ opacity: 1, scale: 1 }}
@@ -192,7 +188,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ── 2. TICKER RIBBON (ULTRA-SMOOTH CONTINUOUS TICKER) ─────────────── */}
+      {/* ── TICKER RIBBON (CONTINUOUS BRAND STATEMENTS) ─────────────────────── */}
       <div className="bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] py-3 border-b border-[#243373] overflow-hidden select-none">
         <div className="live-marquee-track" style={{ animationDuration: '38s' }}>
           {[1, 2].map((k) => (
@@ -214,233 +210,57 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── 3. OFFICIAL CAMPAIGN PHOTO SHOWCASE ("THE SIGNATURE CHASKA DROP") ─ */}
-      <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
-          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-            <div className="space-y-2">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400] flex items-center gap-1.5">
-                🔥 OFFICIAL 2026 CAMPAIGN PHOTOS
-              </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
-                THE SIGNATURE <span className="text-[#FF5400]">CHASKA</span> DROP
-              </h2>
-            </div>
-            <Link to="/shop" className="btn-outline dark:border-[#243373] dark:text-stone-200 dark:hover:border-white text-xs font-bold shadow-xs self-start sm:self-auto">
-              SHOP ALL FLAVOURS ➔
-            </Link>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {/* Card 1: Chocolate Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover-pop-card hover:border-[#FF5400]/40 transition-all flex flex-col justify-between cursor-default">
-              <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
-                  <img
-                    src={photos.chocolateMakhanaPack.src}
-                    alt="CHASKA Chocolate Makhana Pouch"
-                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div className="p-7 space-y-2.5">
-                  <span className="font-mono text-[10px] font-bold text-[#D4AF37] uppercase tracking-wider">
-                    ROASTED NOT FRIED • 70G & 30G POUCHES
-                  </span>
-                  <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
-                    CHOCOLATE MAKHANA
-                  </h3>
-                  <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-                    Dark cocoa glaze, caramelized raw sugar, and Himalayan rock salt. Decadent sweet &amp; salty crunch without frying.
-                  </p>
-                </div>
-              </div>
-              <div className="px-7 pb-7 pt-0 flex items-center justify-between">
-                <Link to="/products/chocolate-makhana" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
-                  SHOP CHOCOLATE ➔
-                </Link>
-                <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">₹199</span>
-              </div>
-            </div>
-
-            {/* Card 2: Cheese and Herbs Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover-pop-card hover:border-[#FF5400]/40 transition-all flex flex-col justify-between cursor-default">
-              <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
-                  <img
-                    src={photos.cheeseAndHerbsMakhanaPack.src}
-                    alt="CHASKA Cheese and Herbs Makhana Pouch"
-                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div className="p-7 space-y-2.5">
-                  <span className="font-mono text-[10px] font-bold text-[#10B981] uppercase tracking-wider">
-                    INDIAN FLAVOURS REAL INGREDIENTS • 70G & 30G
-                  </span>
-                  <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
-                    CHEESE AND HERBS MAKHANA
-                  </h3>
-                  <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-                    Sharp aged cheddar cheese dust blended with wild mountain oregano, rubbed thyme, and roasted garlic butter.
-                  </p>
-                </div>
-              </div>
-              <div className="px-7 pb-7 pt-0 flex items-center justify-between">
-                <Link to="/products/cheese-and-herbs-makhana" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
-                  SHOP CHEESE &amp; HERBS ➔
-                </Link>
-                <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">₹199</span>
-              </div>
-            </div>
-
-            {/* Card 3: Jalapeno Makhana */}
-            <div className="group rounded-3xl overflow-hidden border border-[#243373] bg-[#131D4A] shadow-xs hover-pop-card hover:border-[#FF5400]/40 transition-all flex flex-col justify-between cursor-default">
-              <div>
-                <div className="aspect-[4/5] overflow-hidden bg-stone-900 p-2">
-                  <img
-                    src={photos.jalapenoMakhanaPack.src}
-                    alt="CHASKA Jalapeno Makhana Pouch"
-                    className="w-full h-full object-cover rounded-2xl group-hover:scale-105 transition-transform duration-700 ease-out"
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </div>
-                <div className="p-7 space-y-2.5">
-                  <span className="font-mono text-[10px] font-bold text-[#EF4444] uppercase tracking-wider">
-                    ROASTED NOT FRIED • 70G & 30G POUCHES
-                  </span>
-                  <h3 className="font-display text-xl font-bold uppercase text-[#17245B] dark:text-white">
-                    JALAPENO MAKHANA
-                  </h3>
-                  <p className="font-sans text-xs text-stone-600 dark:text-stone-300 leading-relaxed font-normal">
-                    Smoky green jalapeno chili, tangy Mexican lime zest, and pink rock salt for an immediate surge of crunchy heat.
-                  </p>
-                </div>
-              </div>
-              <div className="px-7 pb-7 pt-0 flex items-center justify-between">
-                <Link to="/products/jalapeno-makhana" className="font-mono text-xs font-bold text-[#17245B] dark:text-stone-200 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors inline-flex items-center gap-1">
-                  SHOP JALAPENO ➔
-                </Link>
-                <span className="font-mono text-xs font-bold text-emerald-600 dark:text-emerald-400">₹199</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ── 4. FLAVOUR DISCOVERY ("KAUNSA CHASKA?") ────────────────────────── */}
+      {/* ── 2. WHAT ARE WE SELLING? HERO PRODUCT & FLAVOUR DISCOVERY ─────────── */}
       <FlavourDiscovery />
 
-      {/* ── 5. CHASKA TRY ALL 5 (MAJOR CONVERSION FEATURE) ─────────────────── */}
-      <TryAll5Feature product={tryAll5Product} />
-
-      {/* ── 6. SINGLE FLAVOUR PACKS CATALOGUE GRID ─────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]" id="all-products">
-        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-16">
-          
-          {/* Drop 01 Section */}
-          <div className="space-y-8">
-            <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-              <div className="space-y-2">
-                <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 font-mono text-xs font-bold uppercase tracking-widest">
-                  🔥 DROP 01: AVAILABLE NOW
-                </span>
-                <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
-                  OFFICIAL <span className="text-[#FF5400]">LAUNCH FLAVOURS.</span>
-                </h2>
-              </div>
-              <Link
-                to="/shop"
-                className="font-mono text-xs font-bold uppercase tracking-wider text-stone-700 dark:text-stone-300 hover:text-[#FF5400] dark:hover:text-[#FF5400] transition-colors"
-              >
-                VIEW FULL CATALOGUE ➔
-              </Link>
-            </div>
-
-            {isLoading ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {[1, 2, 3].map((n) => (
-                  <div key={n} className="h-[460px] rounded-3xl bg-[#131D4A] border border-[#243373] p-6 animate-pulse" />
-                ))}
-              </div>
-            ) : drop01Flavours.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {drop01Flavours.map((product, i) => (
-                  <ProductCard key={product.id || product.handle} product={product} index={i} />
-                ))}
-              </div>
-            ) : (
-              <div className="rounded-3xl bg-[#131D4A] border border-dashed border-[#243373] p-12 text-center space-y-3 max-w-md mx-auto">
-                <span className="text-4xl block">🍿</span>
-                <h3 className="font-display text-lg font-bold uppercase text-[#17245B] dark:text-white">
-                  Loading Official Launch Flavours
-                </h3>
-              </div>
-            )}
-          </div>
-
-          {/* Drop 02 Section */}
-          {drop02Flavours.length > 0 && (
-            <div className="space-y-8 pt-8 border-t border-stone-200/80 dark:border-[#243373]">
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-                <div className="space-y-2">
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-stone-200 dark:bg-[#1C2A6B] text-[#17245B] dark:text-stone-200 font-mono text-xs font-bold uppercase tracking-widest">
-                    🔒 DROP 02: IN THE EXPERIMENTAL LAB
-                  </span>
-                  <h3 className="font-display text-2xl sm:text-4xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
-                    COMING SOON <span className="text-[#FF5400]">(NOT FOR SALE YET)</span>
-                  </h3>
-                  <p className="font-sans text-xs sm:text-sm text-stone-500 dark:text-stone-400">
-                    Get VIP notifications the moment these experimental recipes drop.
-                  </p>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                {drop02Flavours.map((product, i) => (
-                  <ProductCard key={product.id || product.handle} product={product} index={i} />
-                ))}
-              </div>
-            </div>
-          )}
-
-        </div>
-      </section>
-
-      {/* ── 7. WHY THE CRUNCH? (EDITORIAL BENEFITS) ────────────────────────── */}
+      {/* ── 3. WHY CHASKA? HEALTHIER SNACKING POSITIONING (REPOSITIONED & REDESIGNED) */}
       <BenefitsGrid />
 
-      {/* ── 8. FOUR FOUNDATIONAL PILLARS ───────────────────────────────────── */}
+      {/* ── 4. CONVERSION SAMPLER: THE LAUNCH TRIO BOX ─────────────────────── */}
+      <TryAll5Feature product={tryAll5Product} />
+
+      {/* ── 5. BRAND CREDIBILITY: THE FOUR CORE PILLARS ─────────────────────── */}
       <FourPillars />
 
-      {/* ── 9. BRAND MANIFESTO ─────────────────────────────────────────────── */}
+      {/* ── 6. SOCIAL PROOF: REAL COMMUNITY WORDS ──────────────────────────── */}
+      <Reviews />
+
+      {/* ── 7. LIFESTYLE MOMENTS: SPOTTED SNACKING GALLERY ──────────────────── */}
+      <UgcGrid />
+
+      {/* ── 8. BRAND MANIFESTO & FINAL CONVERSION CTA ───────────────────────── */}
       <section className="py-24 sm:py-28 bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden" id="why-chaska">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             
             <div className="lg:col-span-7 space-y-7">
-              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
-                BRAND MANIFESTO
-              </span>
+              <div className="flex items-center gap-2">
+                <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
+                  BRAND MANIFESTO
+                </span>
+                <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-stone-200 font-mono text-[10px] font-bold uppercase">
+                  SNACK KA SCENE SORTED
+                </span>
+              </div>
+
               <h2 className="font-display text-4xl sm:text-6xl font-black uppercase leading-tight tracking-tight text-white">
                 MAKHANA KO BORING <br />
                 <span className="text-[#FF5400]">KISNE BOLA?</span>
               </h2>
+
               <p className="text-stone-200 text-base sm:text-lg leading-relaxed font-sans font-normal max-w-xl">
-                Makhana has been around forever. We just thought it deserved a little more chaska. Handpicked in Bihar wetlands, slow-roasted in small batches, and tossed in real spices for an absurdly addictive crunch.
+                Makhana has been around forever. We just thought it deserved a little more chaska. Handpicked in Bihar wetlands, slow-roasted in small batches, and tossed in real spices for an absurdly addictive crunch. Thoda aur crunch ho jaaye? Chaska lag gaya.
               </p>
+
               <div className="pt-2 flex flex-wrap items-center gap-4">
-                <Link to="/about" className="btn px-8 py-4 text-xs font-bold shadow-sm">
-                  OUR FULL STORY ➔
+                <Link to="/shop" className="btn px-8 py-4 text-xs font-bold shadow-sm hover-pop">
+                  SHOP DROP 01 ➔
                 </Link>
                 <Link
                   to="/products/chaska-try-all-5"
-                  className="px-6 py-4 rounded-full border border-white/20 text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors"
+                  className="px-6 py-4 rounded-full border border-white/20 text-white font-mono text-xs font-bold uppercase tracking-wider hover:bg-white/10 transition-colors hover-pop-subtle"
                 >
-                  TRY ALL 5
+                  GET THE LAUNCH TRIO 📦
                 </Link>
               </div>
             </div>
@@ -458,12 +278,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      {/* ── 10. LIFESTYLE CAMPAIGN GALLERY ─────────────────────────────────── */}
-      <UgcGrid />
-
-      {/* ── 11. COMMUNITY REVIEWS ──────────────────────────────────────────── */}
-      <Reviews />
 
     </PageShell>
   )

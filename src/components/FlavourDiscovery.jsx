@@ -103,7 +103,7 @@ export default function FlavourDiscovery() {
               DROP 01: <span className="text-[#FF5400]">CHOOSE YOUR CRUNCH.</span>
             </h2>
             <p className="font-sans text-xs sm:text-sm text-stone-600 dark:text-stone-300 font-normal leading-relaxed">
-              We launched with exactly 3 uncompromising recipes, hand-printed on the official packets. 100% roasted not fried.
+              Three uncompromising recipes slow-roasted with Bihar lotus seeds and chef-crafted seasonings. Pick your daily crunch or sample all three. Ek packet se kaam nahi chalega.
             </p>
           </div>
 
