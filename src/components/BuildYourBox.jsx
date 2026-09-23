@@ -7,34 +7,34 @@ import { photos } from '../data/photos'
 const BOX_TIERS = [
   {
     id: 'trio',
-    name: 'Trio Sampler Box',
+    name: 'Trio Tasting Box',
     capacity: 3,
     price: 499,
     mrp: 599,
     discount: '17% OFF',
     tag: 'STARTER GIFT',
-    description: '3 full-sized signature pouches in a premium gift sleeve.',
+    description: '3 full-sized signature pouches in a premium rigid gift sleeve.',
   },
   {
     id: 'celebration',
-    name: 'Celebration Gift Box',
+    name: 'Celebration Hamper',
     capacity: 5,
     price: 799,
     mrp: 995,
     discount: '20% OFF',
-    tag: '★ MOST POPULAR',
+    tag: 'MOST POPULAR',
     popular: true,
     description: '5 custom curated pouches with festive magnetic gift packaging.',
   },
   {
     id: 'party',
-    name: 'Grand Party Hamper',
+    name: 'Grand Party Box',
     capacity: 8,
     price: 1199,
     mrp: 1592,
     discount: '25% OFF',
     tag: 'BEST VALUE',
-    description: '8 custom pouches for sharing, family gifting, and celebrations.',
+    description: '8 custom pouches for sharing, family gifting, and festive parties.',
   },
 ]
 
@@ -43,10 +43,10 @@ const FLAVOUR_OPTIONS = [
     id: 'chocolate-makhana',
     name: 'Chocolate Makhana',
     tagline: 'Dark Cocoa Glaze • Himalayan Salt',
-    spice: 'Sweet & Salty 🍫',
+    spice: 'Sweet & Salty',
     size: '70g Pouch',
     accent: '#D4AF37',
-    badgeColor: 'bg-[#D4AF37]/20 text-[#D4AF37] border-[#D4AF37]/30',
+    badgeColor: 'bg-[#D4AF37]/15 text-[#D4AF37] border-[#D4AF37]/30',
     image: photos.chocolateMakhanaPack.src,
     nutrition: '~142 kcal • 3.8g Protein',
   },
@@ -54,10 +54,10 @@ const FLAVOUR_OPTIONS = [
     id: 'cheese-and-herbs',
     name: 'Cheese & Herbs Makhana',
     tagline: 'Aged Cheddar • Mountain Oregano',
-    spice: 'Cheesy Herb 🧀🌿',
+    spice: 'Aged Cheddar & Herbs',
     size: '70g Pouch',
     accent: '#10B981',
-    badgeColor: 'bg-[#10B981]/20 text-[#10B981] border-[#10B981]/30',
+    badgeColor: 'bg-[#10B981]/15 text-[#10B981] border-[#10B981]/30',
     image: photos.cheeseAndHerbsMakhanaPack.src,
     nutrition: '~136 kcal • 4.4g Protein',
   },
@@ -65,10 +65,10 @@ const FLAVOUR_OPTIONS = [
     id: 'jalapeno',
     name: 'Jalapeno Makhana',
     tagline: 'Smoky Green Jalapeno • Citrus Lime',
-    spice: 'Fiery Zest 🌶️⚡',
+    spice: 'Fiery Lime Zest',
     size: '70g Pouch',
     accent: '#EF4444',
-    badgeColor: 'bg-[#EF4444]/20 text-[#EF4444] border-[#EF4444]/30',
+    badgeColor: 'bg-[#EF4444]/15 text-[#EF4444] border-[#EF4444]/30',
     image: photos.jalapenoMakhanaPack.src,
     nutrition: '~131 kcal • 4.1g Protein',
   },
@@ -76,10 +76,10 @@ const FLAVOUR_OPTIONS = [
     id: 'peri-peri',
     name: 'Peri Peri Makhana',
     tagline: 'Bird’s Eye Chili • Smoked Garlic',
-    spice: 'High Heat 🌶️🔥',
+    spice: 'Bird’s Eye Chili Heat',
     size: '50g Pouch',
     accent: '#F43F5E',
-    badgeColor: 'bg-[#F43F5E]/20 text-[#F43F5E] border-[#F43F5E]/30',
+    badgeColor: 'bg-[#F43F5E]/15 text-[#F43F5E] border-[#F43F5E]/30',
     image: photos.masalaPack.src,
     nutrition: '~132 kcal • 4.0g Protein',
   },
@@ -87,10 +87,10 @@ const FLAVOUR_OPTIONS = [
     id: 'kashmiri-garlic',
     name: 'Kashmiri Garlic Chilli',
     tagline: 'Toasted Garlic • Kashmiri Mirch',
-    spice: 'Warm Garlic 🧄🌶️',
+    spice: 'Toasted Garlic Heat',
     size: '50g Pouch',
     accent: '#EA580C',
-    badgeColor: 'bg-[#EA580C]/20 text-[#EA580C] border-[#EA580C]/30',
+    badgeColor: 'bg-[#EA580C]/15 text-[#EA580C] border-[#EA580C]/30',
     image: photos.meshBagIngredients.src,
     nutrition: '~134 kcal • 4.2g Protein',
   },
@@ -98,19 +98,34 @@ const FLAVOUR_OPTIONS = [
     id: 'pudhina',
     name: 'Pudhina Makhana',
     tagline: 'Garden Spearmint • Tangy Amchur',
-    spice: 'Fresh Mint 🌿',
+    spice: 'Garden Spearmint',
     size: '50g Pouch',
     accent: '#0D9488',
-    badgeColor: 'bg-[#0D9488]/20 text-[#0D9488] border-[#0D9488]/30',
+    badgeColor: 'bg-[#0D9488]/15 text-[#0D9488] border-[#0D9488]/30',
     image: photos.pudhinaPack.src,
     nutrition: '~130 kcal • 4.1g Protein',
   },
 ]
 
 const BOX_THEMES = [
-  { id: 'royal', name: 'Royal Midnight Navy & Gold', icon: '👑' },
-  { id: 'festive', name: 'Festive Celebrations Ribbon', icon: '🎀' },
-  { id: 'kraft', name: 'Artisanal Eco-Kraft Box', icon: '🌿' },
+  {
+    id: 'royal',
+    name: 'Royal Midnight Navy',
+    subtitle: 'Gold Embossed Foil',
+    badge: 'LUXE',
+  },
+  {
+    id: 'festive',
+    name: 'Festive Celebrations',
+    subtitle: 'Satin Ribbon Sleeve',
+    badge: 'GIFTING',
+  },
+  {
+    id: 'kraft',
+    name: 'Artisanal Eco-Kraft',
+    subtitle: 'Recycled Fiber Pack',
+    badge: 'ECO',
+  },
 ]
 
 export default function BuildYourBox() {
@@ -188,7 +203,7 @@ export default function BuildYourBox() {
     }
 
     setSelections(newSelections)
-    addToast(`Auto-balanced ${target} packs in your box! 🍿`, 'info')
+    addToast(`Balanced ${target} packs in your box!`, 'info')
   }
 
   // Clear selections
@@ -234,7 +249,7 @@ export default function BuildYourBox() {
       }
 
       await addItem(customBoxItem, 1)
-      addToast(`🎉 Added your Custom Gift Pack to Stash!`, 'success')
+      addToast(`Added your Custom Gift Pack to Stash!`, 'success')
       openCart()
     } catch (err) {
       console.error(err)
@@ -257,26 +272,25 @@ export default function BuildYourBox() {
 
   return (
     <section className="py-12 sm:py-20 bg-[#0C122C] text-[#FAF8F5] relative overflow-hidden" id="custom-gift-pack">
-      {/* Background atmospheric ambient glows */}
+      {/* Background ambient lighting */}
       <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#FF5400]/10 blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 -right-32 w-96 h-96 rounded-full bg-[#1C2A6B]/40 blur-3xl pointer-events-none" />
-      <div className="absolute bottom-10 left-1/4 w-80 h-80 rounded-full bg-[#10B981]/10 blur-3xl pointer-events-none" />
 
       <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-12">
         
-        {/* ── HEADER BANNER ──────────────────────────────────────────────── */}
+        {/* ── EDITORIAL HEADER BANNER ───────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto space-y-4">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#FF5400]/15 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest border border-[#FF5400]/30 shadow-2xs">
-            <span>🎁</span>
-            <span>CUSTOMISE YOUR GIFT PACK</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-[#FF5400] animate-pulse" />
+            <span>CUSTOMISE YOUR GIFT BOX</span>
           </div>
 
           <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-tight">
-            BUILD YOUR <span className="text-[#FF5400]">DREAM PACK.</span>
+            CURATE YOUR <span className="text-[#FF5400]">CHASKA PACK.</span>
           </h1>
 
           <p className="font-sans text-stone-300 text-sm sm:text-base leading-relaxed max-w-2xl mx-auto">
-            Pick your favourite roasted flavours, choose how many packs of each you crave, and personalise with a custom gift box &amp; handwritten greeting note.
+            Choose your box capacity, hand-select your favourite slow-roasted flavours and pack quantities, and personalize with custom packaging and a handwritten gift card.
           </p>
         </div>
 
@@ -288,11 +302,11 @@ export default function BuildYourBox() {
                 1
               </span>
               <h2 className="font-display text-lg sm:text-xl font-bold uppercase text-white tracking-wide">
-                SELECT GIFT BOX SIZE
+                SELECT BOX CAPACITY
               </h2>
             </div>
             <span className="font-mono text-xs text-stone-400">
-              Up to 25% Bundle Savings
+              Save up to 25% vs single packs
             </span>
           </div>
 
@@ -304,10 +318,10 @@ export default function BuildYourBox() {
                   key={tier.id}
                   type="button"
                   onClick={() => setSelectedTierId(tier.id)}
-                  className={`p-5 rounded-3xl border-2 text-left transition-all duration-200 relative flex flex-col justify-between space-y-3 cursor-pointer ${
+                  className={`p-6 rounded-3xl border-2 text-left transition-all duration-200 relative flex flex-col justify-between space-y-4 cursor-pointer ${
                     isSelected
-                      ? 'bg-[#17245B] border-[#FF5400] shadow-xl shadow-[#FF5400]/10 scale-[1.02]'
-                      : 'bg-[#131D4A] border-[#243373] hover:border-stone-400/50 opacity-90 hover:opacity-100'
+                      ? 'bg-[#17245B] border-[#FF5400] shadow-xl shadow-[#FF5400]/10 scale-[1.01]'
+                      : 'bg-[#131D4A] border-[#243373] hover:border-stone-400/40 opacity-90 hover:opacity-100'
                   }`}
                 >
                   {tier.popular && (
@@ -324,7 +338,7 @@ export default function BuildYourBox() {
                         {tier.capacity} Packs
                       </span>
                     </div>
-                    <p className="font-sans text-xs text-stone-300 mt-1 leading-relaxed">
+                    <p className="font-sans text-xs text-stone-300 mt-1.5 leading-relaxed">
                       {tier.description}
                     </p>
                   </div>
@@ -359,7 +373,7 @@ export default function BuildYourBox() {
                   2
                 </span>
                 <h2 className="font-display text-lg sm:text-xl font-bold uppercase text-white tracking-wide">
-                  CUSTOMISE FLAVOURS &amp; PACKS
+                  CUSTOMISE FLAVOURS &amp; QUANTITIES
                 </h2>
               </div>
               <div className="flex items-center gap-3">
@@ -368,7 +382,7 @@ export default function BuildYourBox() {
                   onClick={handleAutoFill}
                   className="font-mono text-xs text-[#FF5400] hover:underline cursor-pointer font-bold"
                 >
-                  ⚡ Auto-Fill
+                  Auto-Balance
                 </button>
                 <span className="text-stone-600">•</span>
                 <button
@@ -435,14 +449,14 @@ export default function BuildYourBox() {
                     {/* Stepper controls */}
                     <div className="pt-2 border-t border-white/10 flex items-center justify-between">
                       <span className="font-mono text-xs text-stone-300">
-                        {qty === 0 ? 'Not added' : `${qty} in box`}
+                        {qty === 0 ? 'Not in box' : `${qty} selected`}
                       </span>
 
                       {qty === 0 ? (
                         <button
                           type="button"
                           onClick={() => handleUpdateQty(flavour.id, 1)}
-                          className="px-3.5 py-1.5 rounded-full bg-white/10 hover:bg-[#FF5400] text-white font-mono text-xs font-bold transition-all flex items-center gap-1 cursor-pointer hover-pop-subtle"
+                          className="px-4 py-1.5 rounded-full bg-white/10 hover:bg-[#FF5400] text-white font-mono text-xs font-bold transition-all flex items-center gap-1 cursor-pointer hover-pop-subtle"
                         >
                           <span>+ ADD</span>
                         </button>
@@ -485,9 +499,8 @@ export default function BuildYourBox() {
               {/* Progress Header */}
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="font-display text-base font-bold text-white uppercase tracking-wider flex items-center gap-2">
-                    <span>📦</span>
-                    <span>{activeTier.name}</span>
+                  <span className="font-display text-base font-bold text-white uppercase tracking-wider">
+                    {activeTier.name}
                   </span>
                   <span className="font-mono text-xs font-bold text-[#FF5400] bg-[#FF5400]/10 px-2.5 py-1 rounded-full border border-[#FF5400]/20">
                     {totalPacks} of {activeTier.capacity} Packs
@@ -528,13 +541,13 @@ export default function BuildYourBox() {
                 </div>
               </div>
 
-              {/* ── REAL-TIME VISUAL PACK SLOTS ──────────────────────────── */}
+              {/* ── REAL-TIME VISUAL PACK SLOTS PREVIEW ──────────────────── */}
               <div className="space-y-2">
                 <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-400 block">
                   PACK SLOTS PREVIEW:
                 </span>
                 
-                <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 p-3 rounded-2xl bg-[#0C122C] border border-[#243373]/80 min-h-[90px] items-center">
+                <div className="grid grid-cols-4 sm:grid-cols-5 gap-2 p-3 rounded-2xl bg-[#0C122C] border border-[#243373]/80 min-h-[96px] items-center">
                   {Array.from({ length: Math.max(activeTier.capacity, totalPacks) }).map((_, slotIdx) => {
                     const pack = visualPacks[slotIdx]
                     return (
@@ -543,23 +556,29 @@ export default function BuildYourBox() {
                         layout
                         initial={{ scale: 0.8, opacity: 0 }}
                         animate={{ scale: 1, opacity: 1 }}
-                        className={`aspect-square rounded-xl flex flex-col items-center justify-center p-1 relative text-center border transition-all ${
+                        className={`aspect-[3/4] rounded-xl flex flex-col items-center justify-between p-1.5 relative text-center border transition-all overflow-hidden ${
                           pack
                             ? 'bg-[#17245B] border-[#FF5400]/60 shadow-xs'
                             : 'bg-transparent border-dashed border-[#243373] text-stone-500'
                         }`}
                       >
                         {pack ? (
-                          <div className="w-full h-full flex flex-col items-center justify-center">
-                            <span className="text-base sm:text-lg">🍿</span>
+                          <>
+                            <div className="w-full flex-1 rounded-lg overflow-hidden bg-[#0C122C]/70 p-0.5">
+                              <img
+                                src={pack.image}
+                                alt={pack.name}
+                                className="w-full h-full object-cover rounded-md"
+                              />
+                            </div>
                             <span className="font-mono text-[8px] font-bold text-white truncate max-w-full leading-none mt-1">
                               {pack.name.split(' ')[0]}
                             </span>
-                          </div>
+                          </>
                         ) : (
-                          <div className="flex flex-col items-center justify-center">
+                          <div className="w-full h-full flex flex-col items-center justify-center">
                             <span className="text-xs text-stone-500 font-mono">+</span>
-                            <span className="font-mono text-[7px] text-stone-500 uppercase">Empty</span>
+                            <span className="font-mono text-[8px] text-stone-500 uppercase mt-0.5">Slot</span>
                           </div>
                         )}
                       </motion.div>
@@ -575,7 +594,7 @@ export default function BuildYourBox() {
                     3
                   </span>
                   <span className="font-display text-sm font-bold uppercase text-white tracking-wide">
-                    PERSONALISE YOUR GIFT (OPTIONAL)
+                    PERSONALISE PACKAGING &amp; NOTE
                   </span>
                 </div>
 
@@ -586,15 +605,20 @@ export default function BuildYourBox() {
                       key={theme.id}
                       type="button"
                       onClick={() => setBoxTheme(theme.id)}
-                      className={`p-2.5 rounded-xl border text-center transition-colors cursor-pointer ${
+                      className={`p-3 rounded-2xl border text-left transition-colors cursor-pointer ${
                         boxTheme === theme.id
-                          ? 'bg-[#0C122C] border-[#FF5400] text-white font-bold'
+                          ? 'bg-[#0C122C] border-[#FF5400] text-white'
                           : 'bg-[#0C122C]/40 border-[#243373] text-stone-400 hover:text-white'
                       }`}
                     >
-                      <span className="text-base block">{theme.icon}</span>
-                      <span className="font-mono text-[9px] uppercase tracking-wider block mt-1 truncate">
-                        {theme.name.split(' ')[0]}
+                      <span className="font-mono text-[9px] font-black uppercase text-[#FF5400] tracking-wider block">
+                        {theme.badge}
+                      </span>
+                      <span className="font-display text-xs font-bold text-white block mt-0.5 leading-snug">
+                        {theme.name}
+                      </span>
+                      <span className="font-mono text-[9px] text-stone-400 block mt-0.5 leading-tight">
+                        {theme.subtitle}
                       </span>
                     </button>
                   ))}
@@ -607,20 +631,20 @@ export default function BuildYourBox() {
                     value={recipientName}
                     onChange={(e) => setRecipientName(e.target.value)}
                     placeholder="Recipient's Name (e.g. Sneha)"
-                    className="w-full px-3.5 py-2 rounded-xl bg-[#0C122C] border border-[#243373] text-xs font-sans text-white placeholder-stone-500 focus:outline-none focus:border-[#FF5400] transition-colors"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#0C122C] border border-[#243373] text-xs font-sans text-white placeholder-stone-500 focus:outline-none focus:border-[#FF5400] transition-colors"
                   />
                   <textarea
                     value={giftNote}
                     onChange={(e) => setGiftNote(e.target.value)}
-                    placeholder="Gift Message (e.g. Happy Snacking! With love...)"
+                    placeholder="Gift Message (e.g. Wishing you a healthy and crunchy celebration!)"
                     rows={2}
-                    className="w-full px-3.5 py-2 rounded-xl bg-[#0C122C] border border-[#243373] text-xs font-sans text-white placeholder-stone-500 focus:outline-none focus:border-[#FF5400] transition-colors resize-none"
+                    className="w-full px-3.5 py-2.5 rounded-xl bg-[#0C122C] border border-[#243373] text-xs font-sans text-white placeholder-stone-500 focus:outline-none focus:border-[#FF5400] transition-colors resize-none"
                   />
                 </div>
 
                 <div className="flex items-center gap-2 font-mono text-[11px] text-emerald-400">
                   <span>✓</span>
-                  <span>Free handwritten greeting card &amp; luxury gift wrap</span>
+                  <span>Free handwritten greeting card &amp; luxury gift wrap included</span>
                 </div>
               </div>
 

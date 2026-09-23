@@ -126,7 +126,7 @@ export default function Home() {
                 >
                   <span>CUSTOMISE GIFT PACK</span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF5400] text-white font-mono font-bold">
-                    🎁 BUILD YOURS
+                    BUILD YOURS
                   </span>
                 </Link>
               </div>
