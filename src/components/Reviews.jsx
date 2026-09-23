@@ -27,20 +27,20 @@ const REVIEWS = [
 
 export default function Reviews() {
   return (
-    <section className="py-20 sm:py-24 bg-white dark:bg-[#0C122C] border-b border-stone-200/80 dark:border-[#243373] transition-colors">
+    <section className="py-20 sm:py-28 bg-[#F7F2E8] text-[#0B1230] border-b border-[#E5DCC9] transition-colors" id="reviews">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
         
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E5DCC9] pb-8">
           <div className="space-y-2">
-            <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
+            <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest border border-[#FF5400]/20">
               💬 REAL COMMUNITY WORDS
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#0B1230]">
               PEOPLE ARE <span className="text-[#FF5400]">CRUNCHING.</span>
             </h2>
           </div>
-          <p className="font-sans text-xs sm:text-sm text-stone-600 dark:text-stone-300 max-w-sm font-normal">
-            Genuine feedback from snackers who made CHASKA their daily stash.
+          <p className="font-sans text-xs sm:text-sm text-stone-600 max-w-sm font-normal">
+            Genuine feedback from snackers who made CHASKA their daily crunch.
           </p>
         </div>
 
@@ -48,28 +48,28 @@ export default function Reviews() {
           {REVIEWS.map((rev, i) => (
             <div
               key={i}
-              className="bg-[#FAF8F5] dark:bg-[#131D4A] border border-stone-200/80 dark:border-[#243373] rounded-3xl p-7 flex flex-col justify-between shadow-xs hover:shadow-sm transition-all"
+              className="bg-white border border-[#E5DCC9] rounded-3xl p-7 flex flex-col justify-between shadow-2xs hover:shadow-md transition-all hover-pop-card cursor-default"
             >
               <div className="space-y-4">
                 <div className="flex items-center gap-1 text-[#FF5400] text-sm">
                   {'★'.repeat(rev.rating)}
                 </div>
-                <p className="font-sans text-sm sm:text-base text-[#17245B] dark:text-stone-200 leading-relaxed font-normal">
+                <p className="font-sans text-sm sm:text-base text-[#0B1230] leading-relaxed font-normal">
                   "{rev.quote}"
                 </p>
               </div>
 
-              <div className="pt-6 border-t border-stone-200/80 dark:border-[#243373] flex items-center justify-between font-mono text-xs">
+              <div className="pt-6 border-t border-stone-100 flex items-center justify-between font-mono text-xs">
                 <div>
-                  <h4 className="font-bold text-[#17245B] dark:text-white flex items-center gap-1.5">
+                  <h4 className="font-bold text-[#0B1230] flex items-center gap-1.5">
                     <span>{rev.name}</span>
-                    <span className="text-emerald-700 dark:text-emerald-400 text-[10px] font-bold bg-emerald-50 dark:bg-emerald-950/40 px-2 py-0.5 rounded-full border border-emerald-200 dark:border-emerald-800">
+                    <span className="text-emerald-700 text-[10px] font-bold bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
                       ✓ Verified
                     </span>
                   </h4>
-                  <span className="text-stone-500 dark:text-stone-400 text-[11px]">{rev.location}</span>
+                  <span className="text-stone-500 text-[11px]">{rev.location}</span>
                 </div>
-                <span className="text-[#17245B] dark:text-stone-300 text-[10px] font-semibold uppercase tracking-wider bg-white dark:bg-[#1C2A6B] px-2.5 py-1 rounded-lg border border-stone-200/80 dark:border-[#243373] shadow-2xs">
+                <span className="text-[#0B1230] text-[10px] font-semibold uppercase tracking-wider bg-stone-100 px-2.5 py-1 rounded-lg border border-stone-200 shadow-2xs">
                   {rev.flavor}
                 </span>
               </div>

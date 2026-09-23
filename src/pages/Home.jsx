@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import PageShell from '../components/PageShell'
+import ProductDiscovery from '../components/ProductDiscovery'
 import FlavourDiscovery from '../components/FlavourDiscovery'
 import BenefitsGrid from '../components/BenefitsGrid'
 import TryAll5Feature from '../components/TryAll5Feature'
@@ -215,25 +216,26 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── 2. WHAT ARE WE SELLING? HERO PRODUCT & FLAVOUR DISCOVERY ─────────── */}
-      <FlavourDiscovery />
+      {/* ── 2. PRODUCT DISCOVERY: WARM IVORY EDITORIAL ROSTER ──────────────── */}
+      <ProductDiscovery products={products} />
 
-      {/* ── 3. WHY CHASKA? HEALTHIER SNACKING POSITIONING (REPOSITIONED & REDESIGNED) */}
+      {/* ── 3. HEALTHIER SNACKING: FRESH NATURAL MINT CRUNCH CRAFT ─────────── */}
       <BenefitsGrid />
 
-      {/* ── 4. CONVERSION SAMPLER: THE LAUNCH TRIO BOX ─────────────────────── */}
-      <TryAll5Feature product={tryAll5Product} />
+      {/* ── 4. FLAVOUR DISCOVERY: PLAYFUL COLOUR & FLAVOUR IDENTITIES ─────── */}
+      <FlavourDiscovery />
 
-      {/* ── 5. BRAND CREDIBILITY: THE FOUR CORE PILLARS ─────────────────────── */}
+      {/* ── 5. BRAND CREDIBILITY: THE FOUR CORE PILLARS (DEEP NAVY) ─────────── */}
       <FourPillars />
 
-      {/* ── 6. SOCIAL PROOF: REAL COMMUNITY WORDS ──────────────────────────── */}
+      {/* ── 6. SOCIAL PROOF & COMMUNITY: WARM IVORY WORDS & MOMENTS ────────── */}
       <Reviews />
-
-      {/* ── 7. LIFESTYLE MOMENTS: SPOTTED SNACKING GALLERY ──────────────────── */}
       <UgcGrid />
 
-      {/* ── 8. BRAND MANIFESTO & FINAL CONVERSION CTA ───────────────────────── */}
+      {/* ── 7. THE CONVERSION SAMPLER: THE LAUNCH TRIO BOX (ACTION) ─────────── */}
+      <TryAll5Feature product={tryAll5Product} />
+
+      {/* ── 8. BRAND MANIFESTO & FINAL CLOSING CTA (DEEP NAVY) ──────────────── */}
       <section className="py-24 sm:py-28 bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden" id="why-chaska">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">

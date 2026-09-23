@@ -39,6 +39,36 @@
 
   :root {
     color-scheme: dark;
+    /* ── Chaska Master Colour System ───────────────────────────────────── */
+    --chaska-navy: #0C122C;
+    --chaska-navy-deep: #0B1230;
+    --chaska-indigo: #17245B;
+    --chaska-surface: #131D4A;
+    --chaska-orange: #FF5400;
+    --chaska-orange-dark: #E04800;
+
+    /* Rhythm Section Grounds */
+    --warm-ivory: #F7F2E8;
+    --soft-cream: #FFF9EF;
+    --mint-ground: #F0F7F2;
+    --ivory-border: #E5DCC9;
+    --mint-border: #CBE5D4;
+
+    /* Flavour Identity Tokens */
+    --flavour-peri: #F04444;
+    --flavour-cheese: #F4C430;
+    --flavour-lime: #C8E86B;
+    --flavour-jalapeno: #4D8C24;
+    --flavour-chocolate: #D4AF37;
+    --flavour-garlic: #B91C1C;
+    --flavour-pudhina: #52C878;
+
+    /* Semantic Text Tokens */
+    --text-navy: #0B1230;
+    --text-navy-muted: #556080;
+    --text-navy-subtle: #7E8BA8;
+    --text-light: #FAF8F5;
+    --text-light-muted: #D1D5DB;
   }
 
   html, body {
@@ -288,6 +318,59 @@
     background-color: #FAF8F5;
     border-color: #FAF8F5;
     color: #17245B;
+  }
+
+  /* Navy Action Button (For Warm Ivory & Mint sections) */
+  .btn-navy {
+    @apply relative isolate inline-flex items-center justify-center gap-2
+           bg-[#0B1230] px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-white rounded-full cursor-pointer;
+    border: 1px solid #0B1230;
+    box-shadow: 0 2px 10px rgba(11, 18, 48, 0.25);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s ease;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .btn-navy:hover {
+    transform: translate3d(0, -2px, 0) scale3d(1.02, 1.02, 1);
+    background-color: #FF5400;
+    border-color: #FF5400;
+    color: #FFFFFF;
+    box-shadow: 0 8px 24px rgba(255, 84, 0, 0.35);
+  }
+
+  .btn-navy:active {
+    transform: translate3d(0, 0, 0) scale3d(0.98, 0.98, 1);
+  }
+
+  /* Outline Button for Light / Ivory Canvas */
+  .btn-outline-dark {
+    @apply relative isolate inline-flex items-center justify-center gap-2
+           bg-transparent px-6 py-3.5 font-sans text-xs font-bold uppercase tracking-wider text-[#0B1230] rounded-full cursor-pointer;
+    border: 1.5px solid rgba(11, 18, 48, 0.25);
+    transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                background-color 0.2s ease,
+                color 0.2s ease,
+                box-shadow 0.2s cubic-bezier(0.16, 1, 0.3, 1),
+                border-color 0.2s ease;
+    backface-visibility: hidden;
+    transform: translateZ(0);
+  }
+
+  .btn-outline-dark:hover {
+    background-color: #0B1230;
+    color: #FAF8F5;
+    border-color: #0B1230;
+    transform: translate3d(0, -2px, 0) scale3d(1.02, 1.02, 1);
+    box-shadow: 0 6px 18px rgba(11, 18, 48, 0.2);
+  }
+
+  .btn-outline-dark:active {
+    transform: translate3d(0, 0, 0) scale3d(0.98, 0.98, 1);
   }
 
   /* Secondary / Midnight Indigo Button */

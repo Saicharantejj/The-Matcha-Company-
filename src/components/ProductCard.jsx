@@ -5,7 +5,122 @@ import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { photos } from '../data/photos'
 
-function ProductCardComponent({ product, index = 0 }) {
+// Flavour Identity System for subtle card accents & meaning
+export function getFlavourTheme(handleOrName = '') {
+  const str = (handleOrName || '').toLowerCase()
+  if (str.includes('chocolate')) {
+    return {
+      key: 'chocolate',
+      name: 'Chocolate',
+      accent: '#D4AF37', // warm gold & cocoa
+      badgeBg: '#FDF8EB',
+      badgeText: '#8D6E18',
+      glow: 'rgba(212, 175, 55, 0.28)',
+      bgLight: '#FCF9F2',
+      borderLight: 'rgba(212, 175, 55, 0.35)',
+      spiceTag: 'Sweet & Salty 🍫',
+      flavourPill: 'Dark Cocoa Glaze',
+    }
+  }
+  if (str.includes('cheese-and-herbs') || (str.includes('cheese') && !str.includes('chilli-cheese'))) {
+    return {
+      key: 'cheese',
+      name: 'Cheese & Herbs',
+      accent: '#10B981', // emerald herb & cheddar gold
+      badgeBg: '#ECFDF5',
+      badgeText: '#047857',
+      glow: 'rgba(16, 185, 129, 0.28)',
+      bgLight: '#F2FAF5',
+      borderLight: 'rgba(16, 185, 129, 0.35)',
+      spiceTag: 'Cheesy Herb 🧀🌿',
+      flavourPill: 'Aged Cheddar & Herb',
+    }
+  }
+  if (str.includes('jalapeno') || str.includes('lime')) {
+    return {
+      key: 'jalapeno',
+      name: 'Jalapeno',
+      accent: '#4D8C24', // zesty jalapeno lime
+      badgeBg: '#F4FBE8',
+      badgeText: '#3B6D1B',
+      glow: 'rgba(77, 140, 36, 0.28)',
+      bgLight: '#F5FAED',
+      borderLight: 'rgba(77, 140, 36, 0.35)',
+      spiceTag: 'Fiery Zest 🌶️⚡',
+      flavourPill: 'Smoky Jalapeno & Lime',
+    }
+  }
+  if (str.includes('peri-peri') || str.includes('peri')) {
+    return {
+      key: 'peri',
+      name: 'Peri Peri',
+      accent: '#F04444', // chilli red
+      badgeBg: '#FEF2F2',
+      badgeText: '#DC2626',
+      glow: 'rgba(240, 68, 68, 0.28)',
+      bgLight: '#FFF5F5',
+      borderLight: 'rgba(240, 68, 68, 0.35)',
+      spiceTag: 'High Heat 🌶️',
+      flavourPill: 'Bird’s Eye Chilli',
+    }
+  }
+  if (str.includes('garlic')) {
+    return {
+      key: 'garlic',
+      name: 'Kashmiri Garlic',
+      accent: '#B91C1C', // deep kashmiri red
+      badgeBg: '#FEF2F2',
+      badgeText: '#991B1B',
+      glow: 'rgba(185, 28, 28, 0.28)',
+      bgLight: '#FFF5F5',
+      borderLight: 'rgba(185, 28, 28, 0.35)',
+      spiceTag: 'Warm Garlic 🧄🌶️',
+      flavourPill: 'Golden Toasted Garlic',
+    }
+  }
+  if (str.includes('pudhina') || str.includes('mint')) {
+    return {
+      key: 'pudhina',
+      name: 'Pudhina',
+      accent: '#52C878', // fresh garden mint
+      badgeBg: '#F0FDF4',
+      badgeText: '#15803D',
+      glow: 'rgba(82, 200, 120, 0.28)',
+      bgLight: '#F2FCF5',
+      borderLight: 'rgba(82, 200, 120, 0.35)',
+      spiceTag: 'Fresh Mint 🌿',
+      flavourPill: 'Garden Spearmint',
+    }
+  }
+  if (str.includes('try-all-5') || str.includes('trio') || str.includes('box')) {
+    return {
+      key: 'trio',
+      name: 'Launch Trio Box',
+      accent: '#FF5400', // signature chaska orange
+      badgeBg: '#FFF4ED',
+      badgeText: '#E04800',
+      glow: 'rgba(255, 84, 0, 0.3)',
+      bgLight: '#FFF8F4',
+      borderLight: 'rgba(255, 84, 0, 0.35)',
+      spiceTag: '3-In-1 Sampler 📦',
+      flavourPill: 'All 3 Launch Flavours',
+    }
+  }
+  return {
+    key: 'classic',
+    name: 'Roasted Makhana',
+    accent: '#FF5400',
+    badgeBg: '#FFF4ED',
+    badgeText: '#E04800',
+    glow: 'rgba(255, 84, 0, 0.25)',
+    bgLight: '#FAF8F5',
+    borderLight: 'rgba(255, 84, 0, 0.25)',
+    spiceTag: 'Slow-Roasted',
+    flavourPill: '100% Roasted',
+  }
+}
+
+function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
   const { addItem } = useCart()
   const { addToast } = useToast()
   const [isAdding, setIsAdding] = useState(false)
@@ -71,8 +186,10 @@ function ProductCardComponent({ product, index = 0 }) {
 
   const photoObj = photos[photoKey] || photos.brandPoster
   const displayImage = product.image || (product.images && product.images[0]?.url) || photoObj?.src
-
   const isLaunchBox = handleLower.includes('try-all-5') || handleLower.includes('trio')
+
+  const flavourTheme = getFlavourTheme(handleLower || name)
+  const isLight = colorMode === 'light'
 
   return (
     <motion.article
@@ -80,18 +197,31 @@ function ProductCardComponent({ product, index = 0 }) {
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true }}
       transition={{ duration: 0.35, delay: index * 0.04 }}
-      className={`group relative flex flex-col h-full w-full rounded-3xl bg-white dark:bg-[#131D4A] border transition-all duration-300 overflow-hidden ${
-        isComingSoon
-          ? 'border-dashed border-stone-300 dark:border-[#243373] opacity-90'
-          : 'border-stone-200/80 dark:border-[#243373] shadow-2xs hover:shadow-card hover:border-[#FF5400]/40 hover-pop-card'
-      }`}
+      className={`group relative flex flex-col h-full w-full rounded-3xl transition-all duration-300 overflow-hidden ${
+        isLight
+          ? 'bg-white border text-[#0B1230] shadow-sm hover:shadow-xl hover:-translate-y-1'
+          : 'bg-[#131D4A] border border-[#243373] text-[#FAF8F5] shadow-card hover:shadow-2xl hover:-translate-y-1'
+      } ${isComingSoon ? 'border-dashed opacity-90' : ''}`}
+      style={{
+        borderColor: isComingSoon ? undefined : flavourTheme.borderLight,
+      }}
     >
+      {/* Subtle top flavour accent strip */}
+      <div
+        className="h-1 w-full shrink-0"
+        style={{ backgroundColor: flavourTheme.accent }}
+      />
+
       <div className="flex flex-col h-full p-4 sm:p-5">
         
-        {/* Clickable Image Canvas */}
+        {/* Clickable Image Canvas with Flavour Accent Tint */}
         <Link
           to={productUrl}
-          className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl bg-[#FAF8F5] dark:bg-[#1C2A6B] p-3 flex items-center justify-center group-hover:bg-[#F5F2EB] dark:group-hover:bg-[#23337A] transition-colors border border-stone-200/40 dark:border-[#243373]"
+          className="relative aspect-[4/3] w-full overflow-hidden rounded-2xl p-3 flex items-center justify-center transition-colors border"
+          style={{
+            backgroundColor: isLight ? flavourTheme.bgLight : 'rgba(23, 36, 91, 0.7)',
+            borderColor: isLight ? 'rgba(0,0,0,0.06)' : 'rgba(255,255,255,0.08)',
+          }}
         >
           {/* Badge */}
           <div className="absolute top-3 left-3 z-10 flex flex-col gap-1 items-start">
@@ -104,7 +234,7 @@ function ProductCardComponent({ product, index = 0 }) {
                 SOLD OUT
               </span>
             ) : isLaunchBox ? (
-              <span className="px-3 py-1 font-mono text-[10px] font-bold tracking-wider uppercase rounded-full bg-[#17245B] dark:bg-[#FF5400] text-white shadow-2xs">
+              <span className="px-3 py-1 font-mono text-[10px] font-bold tracking-wider uppercase rounded-full bg-[#FF5400] text-white shadow-2xs">
                 ⭐ 3-IN-1 LAUNCH BOX
               </span>
             ) : discount ? (
@@ -112,10 +242,27 @@ function ProductCardComponent({ product, index = 0 }) {
                 {discount}
               </span>
             ) : (
-              <span className="px-2.5 py-1 font-mono text-[10px] font-bold tracking-wider uppercase rounded-full bg-emerald-600 text-white shadow-2xs">
+              <span
+                className="px-2.5 py-1 font-mono text-[10px] font-bold tracking-wider uppercase rounded-full text-white shadow-2xs"
+                style={{ backgroundColor: flavourTheme.accent }}
+              >
                 🔥 DROP 01
               </span>
             )}
+          </div>
+
+          {/* Flavour Tag Pill on top right */}
+          <div className="absolute top-3 right-3 z-10">
+            <span
+              className="px-2.5 py-0.5 rounded-full font-mono text-[9px] font-bold uppercase tracking-wider backdrop-blur-md shadow-2xs"
+              style={{
+                backgroundColor: isLight ? 'rgba(255,255,255,0.92)' : 'rgba(12,18,44,0.85)',
+                color: flavourTheme.accent,
+                border: `1px solid ${flavourTheme.borderLight}`,
+              }}
+            >
+              {flavourTheme.flavourPill}
+            </span>
           </div>
 
           {displayImage ? (
@@ -129,7 +276,7 @@ function ProductCardComponent({ product, index = 0 }) {
               decoding="async"
             />
           ) : (
-            <div className="h-full w-full flex items-center justify-center font-display text-4xl text-[#17245B] dark:text-white">
+            <div className="h-full w-full flex items-center justify-center font-display text-4xl">
               🍿
             </div>
           )}
@@ -137,8 +284,11 @@ function ProductCardComponent({ product, index = 0 }) {
           {/* Packet Highlight Pill */}
           {!isComingSoon && !isLaunchBox && (
             <div className="absolute bottom-2 left-2 right-2 flex items-center justify-between px-2.5 py-1 rounded-lg bg-black/75 backdrop-blur-xs text-[9px] font-mono text-white font-semibold">
-              <span>ROASTED NOT FRIED</span>
-              <span className="text-amber-400">70g / 30g</span>
+              <span className="flex items-center gap-1">
+                <span className="w-1.5 h-1.5 rounded-full" style={{ backgroundColor: flavourTheme.accent }} />
+                <span>ROASTED NOT FRIED</span>
+              </span>
+              <span className="text-amber-300 font-bold">70g / 30g</span>
             </div>
           )}
         </Link>
@@ -147,45 +297,70 @@ function ProductCardComponent({ product, index = 0 }) {
         <div className="mt-4 flex flex-1 flex-col justify-between space-y-3.5">
           <div>
             <div className="flex items-center justify-between gap-2 mb-1.5">
-              <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-stone-500 dark:text-stone-400">
+              <span
+                className={`font-mono text-[10px] font-bold uppercase tracking-wider ${
+                  isLight ? 'text-stone-500' : 'text-stone-300'
+                }`}
+              >
                 {isComingSoon
                   ? 'EXPERIMENTAL LAB • DROP 02'
                   : isLaunchBox
                   ? '3 POUCH SAMPLER (210G)'
                   : '70G / 30G POUCH'}
               </span>
-              {product.spiceLevel && !isLaunchBox && (
-                <span className="font-mono text-[10px] font-bold text-[#FF5400]">
-                  {product.spiceLevel}
-                </span>
-              )}
+              <span
+                className="font-mono text-[10px] font-bold"
+                style={{ color: flavourTheme.accent }}
+              >
+                {product.spiceLevel || flavourTheme.spiceTag}
+              </span>
             </div>
 
             <Link to={productUrl} className="block group/title">
-              <h3 className="font-display text-base sm:text-lg font-black text-[#17245B] dark:text-white group-hover/title:text-[#FF5400] transition-colors leading-snug uppercase">
+              <h3
+                className={`font-display text-base sm:text-lg font-black group-hover/title:text-[#FF5400] transition-colors leading-snug uppercase ${
+                  isLight ? 'text-[#0B1230]' : 'text-white'
+                }`}
+              >
                 {name}
               </h3>
             </Link>
 
-            <p className="mt-1 font-sans text-xs leading-relaxed text-stone-600 dark:text-stone-300 line-clamp-2">
+            <p
+              className={`mt-1 font-sans text-xs leading-relaxed line-clamp-2 ${
+                isLight ? 'text-stone-600' : 'text-stone-300'
+              }`}
+            >
               {product.blurb || product.description || 'Handpicked Bihar lotus seeds slow-roasted with authentic spices.'}
             </p>
           </div>
 
           {/* Pricing & CTA */}
-          <div className="pt-3 border-t border-stone-100 dark:border-[#243373] space-y-2.5">
+          <div
+            className={`pt-3 border-t space-y-2.5 ${
+              isLight ? 'border-stone-200/80' : 'border-[#243373]'
+            }`}
+          >
             <div className="flex items-baseline justify-between">
               <div className="flex items-baseline gap-2">
-                <span className="font-display text-lg font-extrabold text-[#17245B] dark:text-white">
+                <span
+                  className={`font-display text-lg font-extrabold ${
+                    isLight ? 'text-[#0B1230]' : 'text-white'
+                  }`}
+                >
                   {isComingSoon ? 'DROP 02' : priceFormatted}
                 </span>
                 {!isComingSoon && mrpFormatted && (
-                  <span className="font-sans text-xs text-stone-400 dark:text-stone-500 line-through font-medium">
+                  <span className="font-sans text-xs text-stone-400 line-through font-medium">
                     {mrpFormatted}
                   </span>
                 )}
               </div>
-              <span className="font-mono text-[10px] font-bold text-stone-500 dark:text-stone-400 uppercase">
+              <span
+                className={`font-mono text-[10px] font-bold uppercase ${
+                  isLight ? 'text-stone-500' : 'text-stone-400'
+                }`}
+              >
                 {isComingSoon ? '🔒 LOCKED' : isLaunchBox ? 'ALL 3 FLAVOURS' : '70G / 30G'}
               </span>
             </div>
@@ -195,7 +370,7 @@ function ProductCardComponent({ product, index = 0 }) {
                 <button
                   type="button"
                   onClick={handleNotifyMe}
-                  className="col-span-2 py-2.5 rounded-full bg-stone-900 hover:bg-[#FF5400] text-white dark:bg-stone-800 dark:hover:bg-[#FF5400] font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer hover-pop-subtle hover:scale-[1.02] active:scale-[0.98]"
+                  className="col-span-2 py-2.5 rounded-full bg-stone-900 hover:bg-[#FF5400] text-white font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1.5 cursor-pointer hover-pop-subtle hover:scale-[1.02] active:scale-[0.98]"
                 >
                   <span>🔔 GET NOTIFIED (DROP 02)</span>
                 </button>
@@ -207,12 +382,14 @@ function ProductCardComponent({ product, index = 0 }) {
                     disabled={!isAvailable || isAdding}
                     className={`w-full py-2.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider transition-all shadow-2xs flex items-center justify-center gap-1 cursor-pointer hover-pop-subtle hover:scale-[1.03] active:scale-[0.97] ${
                       !isAvailable
-                        ? 'bg-stone-200 dark:bg-stone-800 text-stone-400 cursor-not-allowed'
+                        ? 'bg-stone-200 text-stone-400 cursor-not-allowed'
                         : isAdded
                         ? 'bg-emerald-600 text-white'
                         : isAdding
-                        ? 'bg-[#17245B] dark:bg-white text-white dark:text-[#17245B] opacity-85'
-                        : 'bg-[#17245B] dark:bg-white hover:bg-[#FF5400] dark:hover:bg-[#FF5400] text-white dark:text-[#17245B] dark:hover:text-white'
+                        ? 'bg-[#0B1230] text-white opacity-85'
+                        : isLight
+                        ? 'bg-[#0B1230] hover:bg-[#FF5400] text-white'
+                        : 'bg-white hover:bg-[#FF5400] text-[#0C122C] hover:text-white'
                     }`}
                   >
                     {!isAvailable ? (
@@ -227,7 +404,11 @@ function ProductCardComponent({ product, index = 0 }) {
                   </button>
                   <Link
                     to={productUrl}
-                    className="w-full py-2.5 rounded-full bg-white dark:bg-[#131D4A] border border-stone-200 dark:border-[#243373] text-[#17245B] dark:text-stone-200 font-mono text-[11px] font-bold uppercase tracking-wider text-center hover:bg-[#17245B] dark:hover:bg-white hover:text-white dark:hover:text-[#17245B] hover:border-[#17245B] dark:hover:border-white transition-all hover-pop-subtle hover:scale-[1.03] active:scale-[0.97]"
+                    className={`w-full py-2.5 rounded-full font-mono text-[11px] font-bold uppercase tracking-wider text-center transition-all hover-pop-subtle hover:scale-[1.03] active:scale-[0.97] ${
+                      isLight
+                        ? 'bg-stone-100 hover:bg-[#0B1230] text-[#0B1230] hover:text-white border border-stone-300/80 hover:border-[#0B1230]'
+                        : 'bg-[#17245B] hover:bg-white text-white hover:text-[#0C122C] border border-[#243373] hover:border-white'
+                    }`}
                   >
                     VIEW PACK
                   </Link>

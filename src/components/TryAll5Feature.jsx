@@ -43,7 +43,7 @@ export default function TryAll5Feature({ product }) {
       size: '70g Pouch',
       packetName: 'JALAPENO MAKHANA',
       image: photos.jalapenoMakhanaPack.src,
-      accent: '#EF4444',
+      accent: '#4D8C24',
     },
   ]
 
@@ -91,12 +91,19 @@ export default function TryAll5Feature({ product }) {
   }
 
   return (
-    <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373] relative overflow-hidden" id="try-all-5">
-      <div className="mx-auto max-w-7xl px-4 sm:px-8">
+    <section className="py-20 sm:py-28 bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden" id="try-all-5">
+      {/* Radiant Orange and Indigo Ambient Glow */}
+      <div className="absolute top-1/2 -left-32 w-96 h-96 bg-[#FF5400]/15 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute bottom-0 right-0 w-96 h-96 bg-[#17245B]/50 rounded-full blur-3xl pointer-events-none" />
+
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10">
         
-        {/* Luxury Container */}
-        <div className="relative rounded-3xl bg-[#17245B] dark:bg-[#131D4A] text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-card border border-[#243373]">
+        {/* Luxury Conversion Container */}
+        <div className="relative rounded-3xl bg-gradient-to-br from-[#17245B] via-[#131D4A] to-[#1A1438] text-white p-8 sm:p-12 lg:p-16 overflow-hidden shadow-2xl border border-[#FF5400]/30">
           
+          {/* Subtle Orange Glow highlight across top edge */}
+          <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#FF5400]/20 via-[#FF5400] to-[#FF5400]/20" />
+
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-14 items-center relative z-10">
             
             {/* Left Column: Value Proposition & Flavours */}
@@ -104,10 +111,10 @@ export default function TryAll5Feature({ product }) {
               
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-[10px] font-bold uppercase tracking-widest shadow-2xs">
-                  THE LAUNCH TRIO
+                  🔥 THE LAUNCH SAMPLER
                 </span>
                 <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-white/10 text-white font-mono text-[10px] font-bold uppercase tracking-wider border border-white/10">
-                  ALL 3 INITIAL FLAVOURS INCLUDED
+                  ALL 3 INITIAL FLAVOURS INCLUDED (210G)
                 </span>
               </div>
 
@@ -134,12 +141,18 @@ export default function TryAll5Feature({ product }) {
                       onClick={() => setActivePhotoIdx(idx)}
                       className={`p-3.5 rounded-2xl border transition-all cursor-pointer flex items-center justify-between hover-pop-subtle hover:-translate-y-0.5 hover:scale-[1.01] ${
                         activePhotoIdx === idx
-                          ? 'bg-white/15 border-[#FF5400] shadow-sm'
+                          ? 'bg-white/15 shadow-sm'
                           : 'bg-white/5 border-white/10 hover:bg-white/10 hover:border-white/20'
                       }`}
+                      style={{
+                        borderColor: activePhotoIdx === idx ? flv.accent : undefined,
+                      }}
                     >
                       <div className="flex items-center gap-3">
-                        <span className="font-mono text-xs font-black text-[#FF5400] bg-white/10 px-2.5 py-1 rounded-lg">
+                        <span
+                          className="font-mono text-xs font-black text-white px-2.5 py-1 rounded-lg"
+                          style={{ backgroundColor: flv.accent }}
+                        >
                           0{idx + 1}
                         </span>
                         <div>
@@ -147,7 +160,7 @@ export default function TryAll5Feature({ product }) {
                           <p className="font-sans text-[11px] text-stone-300">{flv.tag}</p>
                         </div>
                       </div>
-                      <span className="font-mono text-[10px] font-bold text-emerald-400 uppercase bg-emerald-950/60 px-2 py-0.5 rounded-full">
+                      <span className="font-mono text-[10px] font-bold text-emerald-400 uppercase bg-emerald-950/60 px-2 py-0.5 rounded-full border border-emerald-800/40">
                         {flv.size}
                       </span>
                     </div>
@@ -155,15 +168,15 @@ export default function TryAll5Feature({ product }) {
                 </div>
               </div>
 
-              {/* Pricing & CTA */}
+              {/* Pricing & High-Conversion CTA */}
               <div className="pt-4 border-t border-white/15 space-y-4">
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                   <div className="space-y-0.5">
-                    <span className="font-mono text-[10px] font-bold text-stone-300 uppercase">3 POUCHES SAMPLER</span>
+                    <span className="font-mono text-[10px] font-bold text-stone-300 uppercase">3 POUCHES SAMPLER BOX</span>
                     <div className="flex items-baseline gap-2.5">
-                      <span className="font-display text-3xl font-black text-white">₹{price}</span>
+                      <span className="font-display text-3xl sm:text-4xl font-black text-white">₹{price}</span>
                       <span className="font-mono text-sm text-stone-400 line-through">₹{mrp}</span>
-                      <span className="font-mono text-xs font-bold text-[#FF5400] bg-[#FF5400]/20 px-2 py-0.5 rounded-full border border-[#FF5400]/30">
+                      <span className="font-mono text-xs font-bold text-[#FF5400] bg-[#FF5400]/20 px-2.5 py-0.5 rounded-full border border-[#FF5400]/40">
                         {discount}% OFF
                       </span>
                     </div>
@@ -173,12 +186,12 @@ export default function TryAll5Feature({ product }) {
                     type="button"
                     onClick={handleAddToCart}
                     disabled={!isAvailable || isAdding}
-                    className={`btn px-8 py-4 text-xs font-bold uppercase tracking-wider shadow-sm transition-all ${
+                    className={`btn px-8 py-4 text-xs font-bold uppercase tracking-wider shadow-lg transition-all hover-pop ${
                       isAdded
-                        ? 'bg-emerald-600 text-white'
+                        ? 'bg-emerald-600 text-white border-emerald-600'
                         : isAdding
-                        ? 'bg-[#FF5400] text-white opacity-85'
-                        : 'bg-[#FF5400] hover:bg-[#E04800] text-white'
+                        ? 'bg-[#FF5400] text-white opacity-85 border-[#FF5400]'
+                        : 'bg-[#FF5400] hover:bg-[#E04800] text-white border-[#FF5400]'
                     }`}
                   >
                     {isAdded ? 'ADDED TO STASH ✓' : isAdding ? 'ADDING...' : `ADD LAUNCH TRIO • ₹${price}`}

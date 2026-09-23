@@ -116,7 +116,7 @@ export default function Shop() {
   return (
     <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C]">
       <div className="mx-auto max-w-7xl space-y-10">
-        
+
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 font-mono text-xs text-stone-500 dark:text-stone-400 font-semibold uppercase tracking-wider">
           <Link to="/" className="hover:text-[#FF5400] transition-colors">HOME</Link>
@@ -152,11 +152,10 @@ export default function Shop() {
                 key={cat.id}
                 to={cat.to}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all hover-pop-subtle hover:scale-[1.03] active:scale-[0.97] cursor-pointer ${
-                  activeCategory === cat.id
+                className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all hover-pop-subtle hover:scale-[1.03] active:scale-[0.97] cursor-pointer ${activeCategory === cat.id
                     ? 'bg-[#FF5400] text-white shadow-xs'
                     : 'bg-white/10 dark:bg-[#1C2A6B] text-stone-200 hover:bg-white/20'
-                }`}
+                  }`}
               >
                 {cat.label}
               </Link>
