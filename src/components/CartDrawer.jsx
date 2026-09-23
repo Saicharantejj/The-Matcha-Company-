@@ -200,6 +200,11 @@ export default function CartDrawer() {
                           <p className="font-sans text-[11px] text-stone-500 dark:text-stone-400 font-medium truncate">
                             {variantLabel}
                           </p>
+                          {item.recipient && (
+                            <p className="font-mono text-[10px] text-[#FF5400] font-bold truncate">
+                              🎁 For: {item.recipient}
+                            </p>
+                          )}
 
                           <div className="pt-1 flex items-center gap-3">
                             <QtyStepper

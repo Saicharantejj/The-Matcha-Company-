@@ -190,10 +190,10 @@ export default function BenefitsGrid() {
                 </p>
               </div>
               <Link
-                to="/products/chaska-try-all-5"
+                to="/custom-gift-pack"
                 className="font-mono text-xs font-bold text-[#FF5400] hover:text-[#0B1230] transition-colors shrink-0 flex items-center gap-1"
               >
-                <span>TRY ALL 3 IN LAUNCH TRIO</span>
+                <span>CUSTOMISE YOUR GIFT PACK</span>
                 <span>➔</span>
               </Link>
             </div>

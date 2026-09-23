@@ -9,7 +9,7 @@ import LiveBanner from './LiveBanner'
 const NAV_LINKS = [
   { to: '/shop', label: 'SHOP' },
   { to: '/collections', label: 'COLLECTIONS' },
-  { to: '/products/chaska-try-all-5', label: 'TRY ALL 5', isBadge: 'STARTER BOX' },
+  { to: '/custom-gift-pack', label: 'CUSTOM GIFT PACK', isBadge: 'BUILD YOURS' },
   { to: '/about', label: 'OUR STORY' },
   { to: '/b2b', label: 'B2B & GIFTS' },
 ]

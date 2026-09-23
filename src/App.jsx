@@ -104,6 +104,9 @@ export default function App() {
                   <Route path="/collections/:handle" element={<Shop />} />
                   <Route path="/product/:handle" element={<ProductDetail />} />
                   <Route path="/products/:handle" element={<ProductDetail />} />
+                  <Route path="/custom-gift-pack" element={<BuildYourBoxPage />} />
+                  <Route path="/customise-gift-pack" element={<BuildYourBoxPage />} />
+                  <Route path="/gift-pack" element={<BuildYourBoxPage />} />
                   <Route path="/build-your-box" element={<BuildYourBoxPage />} />
                   <Route path="/build-box" element={<BuildYourBoxPage />} />
                   <Route path="/about" element={<OurStory />} />

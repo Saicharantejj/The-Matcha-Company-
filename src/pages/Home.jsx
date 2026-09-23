@@ -104,27 +104,29 @@ export default function Home() {
               </div>
 
               {/* Headline with Cream Typography Accent */}
-              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.75rem] font-black tracking-tight text-white leading-[0.96] uppercase">
-                MAKHANA KO <br />
-                <span className="text-[#FF5400]">CHASKA</span> <span className="text-[#FFF9EF]">LAGA DIYA.</span>
+              <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.5rem] font-black tracking-tight text-white leading-[0.96] uppercase">
+                WELCOME TO <br />
+                <span className="text-[#FF5400]">A HEALTHIER</span> <span className="text-[#FFF9EF]">SNACKING ERA.</span>
               </h1>
 
-              <p className="font-sans text-base sm:text-lg leading-relaxed text-[#FAF8F5]/85 font-normal max-w-xl">
-                Big crunch. Bold flavour. Bas boring nahi. Handpicked Bihar lotus seeds slow-roasted in small batches with chef-crafted seasonings.
-              </p>
+              <div className="border-l-2 border-[#FF5400] pl-4 py-1 max-w-xl">
+                <p className="font-sans text-base sm:text-lg leading-relaxed text-[#FAF8F5]/90 font-medium italic">
+                  “Snacking shouldn’t be a compromise between guilty junk and cardboard. Big crackling crunch, honest plant protein, and chef-crafted bold flavours—100% slow-roasted lotus seeds, zero palm oil, pure crunch.”
+                </p>
+              </div>
 
               {/* Action Buttons: Signature Orange & Warm Cream Secondary */}
               <div className="pt-2 flex flex-wrap items-center gap-4">
                 <Link to="/shop" className="btn px-8 py-4 text-xs font-bold tracking-wider shadow-sm hover-pop">
-                  SHOP DROP 01 ➔
+                  SHOP HEALTHY CRUNCH ➔
                 </Link>
                 <Link
-                  to="/products/chaska-try-all-5"
+                  to="/custom-gift-pack"
                   className="px-7 py-4 text-xs font-bold tracking-wider rounded-full bg-[#FFF9EF] text-[#0B1230] hover:bg-[#FF5400] hover:text-white border-2 border-[#E5DCC9] transition-all shadow-md cursor-pointer hover-pop hover:scale-[1.02] active:scale-[0.98] flex items-center gap-2"
                 >
-                  <span>LAUNCH TRIO BOX</span>
+                  <span>CUSTOMISE GIFT PACK</span>
                   <span className="text-[10px] px-2 py-0.5 rounded-full bg-[#FF5400] text-white font-mono font-bold">
-                    3-PACK
+                    🎁 BUILD YOURS
                   </span>
                 </Link>
               </div>
@@ -231,8 +233,8 @@ export default function Home() {
         </div>
       </div>
 
-      {/* ── 2. PRODUCT DISCOVERY: WARM IVORY EDITORIAL ROSTER ──────────────── */}
-      <ProductDiscovery products={products} />
+      {/* ── 2. BRAND CREDIBILITY: THE FOUR HEALTHIER SNACKING PILLARS ─────── */}
+      <FourPillars />
 
       {/* ── 3. HEALTHIER SNACKING: FRESH NATURAL MINT CRUNCH CRAFT ─────────── */}
       <BenefitsGrid />
@@ -240,8 +242,8 @@ export default function Home() {
       {/* ── 4. FLAVOUR DISCOVERY: PLAYFUL COLOUR & FLAVOUR IDENTITIES ─────── */}
       <FlavourDiscovery />
 
-      {/* ── 5. BRAND CREDIBILITY: THE FOUR CORE PILLARS (DEEP NAVY) ─────────── */}
-      <FourPillars />
+      {/* ── 5. PRODUCT DISCOVERY: WARM IVORY EDITORIAL ROSTER ──────────────── */}
+      <ProductDiscovery products={products} />
 
       {/* ── 6. SOCIAL PROOF & COMMUNITY: WARM IVORY WORDS & MOMENTS ────────── */}
       <Reviews />

@@ -25,7 +25,7 @@ export default function Footer() {
               GET THE CHASKA DROP
             </span>
             <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-white uppercase">
-              MAKHANA KO CHASKA LAGA DIYA.
+              WELCOME TO HEALTHIER SNACKING.
             </h2>
             <p className="font-sans text-xs sm:text-sm text-stone-300 max-w-md font-normal leading-relaxed">
               Get secret flavour drops, early tasting invites &amp; 15% off your first stash order.
@@ -68,7 +68,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               <li><NavLink to="/shop" className="hover:text-[#FF5400] transition-colors">All Products</NavLink></li>
               <li><NavLink to="/collections/best-sellers" className="hover:text-[#FF5400] transition-colors">Best Sellers</NavLink></li>
-              <li><NavLink to="/products/chaska-try-all-5" className="hover:text-[#FF5400] transition-colors">Try All 5 Box</NavLink></li>
+              <li><NavLink to="/custom-gift-pack" className="hover:text-[#FF5400] transition-colors">Custom Gift Pack</NavLink></li>
               <li><NavLink to="/collections" className="hover:text-[#FF5400] transition-colors">Collections</NavLink></li>
             </ul>
           </div>
