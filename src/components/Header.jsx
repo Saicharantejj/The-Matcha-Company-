@@ -8,7 +8,6 @@ import LiveBanner from './LiveBanner'
 
 const NAV_LINKS = [
   { to: '/shop', label: 'SHOP' },
-  { to: '/collections', label: 'COLLECTIONS' },
   { to: '/custom-gift-pack', label: 'CUSTOM GIFT PACK', isBadge: 'BUILD YOURS' },
   { to: '/about', label: 'OUR STORY' },
   { to: '/b2b', label: 'B2B & GIFTS' },

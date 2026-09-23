@@ -121,9 +121,13 @@ export default function Shop() {
         <nav className="flex items-center gap-2 font-mono text-xs text-stone-500 dark:text-stone-400 font-semibold uppercase tracking-wider">
           <Link to="/" className="hover:text-[#FF5400] transition-colors">HOME</Link>
           <span>/</span>
-          <Link to="/collections" className="hover:text-[#FF5400] transition-colors">COLLECTIONS</Link>
-          <span>/</span>
-          <span className="text-[#17245B] dark:text-white font-bold">{currentMeta.title}</span>
+          <span className="text-[#17245B] dark:text-white font-bold">SHOP</span>
+          {activeCategory !== 'all' && (
+            <>
+              <span>/</span>
+              <span className="text-[#FF5400] font-bold">{currentMeta.title}</span>
+            </>
+          )}
         </nav>
 
         {/* Header Banner */}
@@ -143,13 +147,13 @@ export default function Shop() {
           {/* Filter Tabs */}
           <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-white/10 dark:border-[#243373] relative z-10">
             {[
-              { id: 'all', label: 'ALL PRODUCTS', to: '/collections/all' },
-              { id: 'bundles', label: '⭐ LAUNCH TRIO BOX', to: '/collections/bundles' },
-              { id: 'coming-soon', label: '🔒 DROP 02 (IN THE LAB)', to: '/collections/coming-soon' },
+              { id: 'all', label: 'ALL PRODUCTS' },
+              { id: 'bundles', label: 'LAUNCH TRIO BOX' },
+              { id: 'coming-soon', label: 'DROP 02 (IN THE LAB)' },
             ].map((cat) => (
-              <Link
+              <button
                 key={cat.id}
-                to={cat.to}
+                type="button"
                 onClick={() => setActiveCategory(cat.id)}
                 className={`inline-flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 border cursor-pointer hover-pop-subtle hover:scale-[1.02] active:scale-[0.98] ${
                   activeCategory === cat.id
@@ -158,7 +162,7 @@ export default function Shop() {
                 }`}
               >
                 {cat.label}
-              </Link>
+              </button>
             ))}
           </div>
         </div>

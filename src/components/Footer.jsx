@@ -67,9 +67,8 @@ export default function Footer() {
             <p className="font-bold uppercase tracking-wider text-white">SHOP</p>
             <ul className="space-y-2.5">
               <li><NavLink to="/shop" className="hover:text-[#FF5400] transition-colors">All Products</NavLink></li>
-              <li><NavLink to="/collections/best-sellers" className="hover:text-[#FF5400] transition-colors">Best Sellers</NavLink></li>
               <li><NavLink to="/custom-gift-pack" className="hover:text-[#FF5400] transition-colors">Custom Gift Pack</NavLink></li>
-              <li><NavLink to="/collections" className="hover:text-[#FF5400] transition-colors">Collections</NavLink></li>
+              <li><NavLink to="/b2b" className="hover:text-[#FF5400] transition-colors">B2B &amp; Corporate Gifts</NavLink></li>
             </ul>
           </div>
 

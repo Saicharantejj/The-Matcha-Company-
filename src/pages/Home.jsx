@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { motion } from 'framer-motion'
 import PageShell from '../components/PageShell'
 import ProductDiscovery from '../components/ProductDiscovery'
-import FlavourDiscovery from '../components/FlavourDiscovery'
 import BenefitsGrid from '../components/BenefitsGrid'
 import TryAll5Feature from '../components/TryAll5Feature'
 import FourPillars from '../components/FourPillars'
@@ -239,10 +238,7 @@ export default function Home() {
       {/* ── 3. HEALTHIER SNACKING: FRESH NATURAL MINT CRUNCH CRAFT ─────────── */}
       <BenefitsGrid />
 
-      {/* ── 4. FLAVOUR DISCOVERY: PLAYFUL COLOUR & FLAVOUR IDENTITIES ─────── */}
-      <FlavourDiscovery />
-
-      {/* ── 5. PRODUCT DISCOVERY: WARM IVORY EDITORIAL ROSTER ──────────────── */}
+      {/* ── 4. PRODUCT DISCOVERY: WARM IVORY EDITORIAL ROSTER ──────────────── */}
       <ProductDiscovery products={products} />
 
       {/* ── 6. SOCIAL PROOF & COMMUNITY: WARM IVORY WORDS & MOMENTS ────────── */}

@@ -1,5 +1,5 @@
 import { useEffect, useState, lazy, Suspense } from 'react'
-import { Routes, Route, useLocation } from 'react-router-dom'
+import { Routes, Route, useLocation, Navigate } from 'react-router-dom'
 import { AnimatePresence } from 'framer-motion'
 import Header from './components/Header'
 import Footer from './components/Footer'
@@ -100,8 +100,8 @@ export default function App() {
                   {/* Primary Routes */}
                   <Route path="/" element={<Home />} />
                   <Route path="/shop" element={<Shop />} />
-                  <Route path="/collections" element={<Shop />} />
-                  <Route path="/collections/:handle" element={<Shop />} />
+                  <Route path="/collections" element={<Navigate to="/shop" replace />} />
+                  <Route path="/collections/:handle" element={<Navigate to="/shop" replace />} />
                   <Route path="/product/:handle" element={<ProductDetail />} />
                   <Route path="/products/:handle" element={<ProductDetail />} />
                   <Route path="/custom-gift-pack" element={<BuildYourBoxPage />} />
