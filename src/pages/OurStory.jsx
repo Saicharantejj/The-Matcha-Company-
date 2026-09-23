@@ -47,10 +47,10 @@ export default function OurStory() {
                   SHOP CHASKA ➔
                 </Link>
                 <Link
-                  to="/products/chaska-try-all-5"
+                  to="/custom-gift-pack"
                   className="btn-outline dark:border-[#243373] dark:text-stone-200 dark:hover:border-white px-7 py-3.5 text-xs font-bold"
                 >
-                  TRY ALL 5 BOX
+                  CUSTOM GIFT PACK
                 </Link>
               </div>
             </div>

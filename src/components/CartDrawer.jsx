@@ -171,8 +171,8 @@ export default function CartDrawer() {
                   {lines.map((item) => {
                     const itemTitle = item.name || item.flavor || 'CHASKA Makhana'
                     const variantLabel = item.size && item.size !== 'Default Title' ? item.size : 'Standard Pack'
-                    const itemPrice = typeof item.price === 'number' ? item.price : parseFloat(item.price) || 0
-                    const itemTotal = (itemPrice * (item.quantity || 1)).toFixed(0)
+                    const itemPrice = typeof item.price === 'number' ? Math.ceil(item.price) : Math.ceil(parseFloat(item.price) || 0)
+                    const itemTotal = Math.ceil(itemPrice * (item.quantity || 1))
 
                     return (
                       <motion.div
@@ -247,7 +247,7 @@ export default function CartDrawer() {
                 <div className="space-y-2 font-sans text-xs">
                   <div className="flex justify-between text-stone-600 dark:text-stone-300">
                     <span>Subtotal</span>
-                    <span className="font-bold text-[#17245B] dark:text-white">₹{Math.round(safeSubtotal)}</span>
+                    <span className="font-bold text-[#17245B] dark:text-white">₹{Math.ceil(safeSubtotal)}</span>
                   </div>
                   <div className="flex justify-between text-stone-600 dark:text-stone-300">
                     <span>Estimated Shipping</span>
@@ -258,7 +258,7 @@ export default function CartDrawer() {
                   <div className="border-t border-stone-200/60 dark:border-[#243373] pt-2 flex justify-between items-baseline">
                     <span className="font-display text-base font-bold text-[#17245B] dark:text-white uppercase">Total</span>
                     <span className="font-display text-2xl font-black text-[#17245B] dark:text-white">
-                      ₹{Math.round(safeSubtotal + (remainingForFreeShipping === 0 ? 0 : 50))}
+                      ₹{Math.ceil(safeSubtotal + (remainingForFreeShipping === 0 ? 0 : 50))}
                     </span>
                   </div>
                 </div>

@@ -107,8 +107,8 @@ export const photos = {
     fallbackSrc: '/images/chaska-jalapeno-makhana.jpg',
     width: 1080,
     height: 1620,
-    alt: 'CHASKA Jalapeno Makhana Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
-    title: 'Jalapeno Makhana Pouch',
+    alt: 'CHASKA Jalapeño Makhana Pouch - Roasted Not Fried, Indian Flavours Real Ingredients',
+    title: 'Jalapeño Makhana Pouch',
   },
 
   // Legacy & Coming Soon assets
@@ -138,7 +138,7 @@ export const photos = {
     fallbackSrc: '/images/chaska-mesh-bag-ingredients.jpg',
     width: 1080,
     height: 1350,
-    alt: 'Pudhina Makhana Pack - Fresh Herbs & Real Ingredients',
+    alt: 'Pudina Makhana Pack - Fresh Herbs & Real Ingredients',
   },
   barbequePack: {
     src: '/images/chaska-mesh-bag-ingredients.webp',

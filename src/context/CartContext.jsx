@@ -15,14 +15,10 @@ const SHOPIFY_CART_ID_KEY = 'chaska.shopify_cart_id'
 const LOCAL_CART_ITEMS_KEY = 'chaska.cart_items.v2'
 
 function getPhotoForId(id) {
-  const photoKey = id?.includes('cheese') ? 'chillyCheesePack'
-    : id?.includes('pudhina') ? 'pudhinaPack'
-    : id?.includes('barbeque') ? 'barbequePack'
-    : id?.includes('peri-peri') ? 'periPeriPack'
-    : id?.includes('black-pepper') ? 'blackPepperPack'
-    : id?.includes('box') || id?.includes('stash') ? 'stashBox'
-    : 'yellowBasket'
-  return photos[photoKey]?.src || photos.brandPoster?.src || null
+  const photoKey = id?.includes('cheese') ? 'cheeseAndHerbsMakhanaPack'
+    : id?.includes('jalapeno') ? 'jalapenoMakhanaPack'
+    : 'meshBagIngredients'
+  return photos[photoKey]?.src || photos.meshBagIngredients?.src || null
 }
 
 function sanitizeCartItem(item) {
@@ -32,7 +28,7 @@ function sanitizeCartItem(item) {
   const priceNum = typeof item.price === 'number' && !isNaN(item.price)
     ? item.price
     : parseFloat(item.price)
-  const price = !isNaN(priceNum) && priceNum >= 0 ? priceNum : 199
+  const price = !isNaN(priceNum) && priceNum >= 0 ? Math.ceil(priceNum) : 129
 
   let numQty = 1
   if (typeof item.quantity === 'number' && !isNaN(item.quantity) && item.quantity > 0) {
@@ -42,7 +38,7 @@ function sanitizeCartItem(item) {
   }
 
   const name = String(item.name || item.flavor || 'CHASKA Makhana Pack')
-  const packSize = String(item.packSize || item.size || '70g Pack')
+  const packSize = String(item.packSize || item.size || '30g Pack')
   const image = item.image || getPhotoForId(id)
 
   return {
@@ -151,14 +147,14 @@ export function CartProvider({ children }) {
       return sum + q
     }, 0)
 
-    const calculatedSubtotal = items.reduce((sum, i) => {
-      const p = Number(i.price) || 0
+    const calculatedSubtotal = Math.ceil(items.reduce((sum, i) => {
+      const p = Math.ceil(Number(i.price) || 0)
       const q = Number(i.quantity || i.qty) || 1
       return sum + p * q
-    }, 0)
+    }, 0))
 
     const count = countState > 0 ? countState : calculatedCount
-    const subtotal = subtotalState > 0 ? subtotalState : calculatedSubtotal
+    const subtotal = Math.ceil(subtotalState > 0 ? subtotalState : calculatedSubtotal)
 
     // ── ADD ITEM ─────────────────────────────────────────────────────────────
     const addItem = async (product, quantity = 1) => {

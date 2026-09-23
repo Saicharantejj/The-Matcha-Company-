@@ -2,8 +2,8 @@ import { Link } from 'react-router-dom'
 
 const LIVE_ITEMS = [
   {
-    badge: 'DROP 01 LIVE',
-    text: 'OFFICIAL LAUNCH IS ACTIVE • CHOCOLATE • CHEESE & HERBS • JALAPENO IN STOCK',
+    badge: 'LIVE FLAVOURS',
+    text: 'AVAILABLE NOW • PUDINA • JALAPEÑO • CHEESE IN STOCK',
     link: '/shop',
   },
   {
@@ -12,9 +12,9 @@ const LIVE_ITEMS = [
     link: '/shop',
   },
   {
-    badge: 'BEST VALUE',
-    text: 'THE LAUNCH TRIO BOX (3X 70G PACKS • 210G) AVAILABLE NOW AT ₹499 — SAVE ₹100',
-    link: '/products/chaska-try-all-5',
+    badge: 'BEST SELLER',
+    text: 'PACK OF 10: BEST SELLER • ENJOY 20% OFF ON 30G & 70G PACKS',
+    link: '/shop',
   },
   {
     badge: 'ROASTED NOT FRIED',
@@ -22,8 +22,8 @@ const LIVE_ITEMS = [
     link: '/about',
   },
   {
-    badge: 'OFFICIAL WEIGHTS',
-    text: 'CHOOSE 70G STANDARD JUMBO POUCHES OR 30G SNACK PACKS • PACKS OF 1, 3, 5 & 10',
+    badge: 'OFFICIAL SIZES',
+    text: 'AVAILABLE IN 30G (₹129) & 70G (₹229) • PACKS OF 1, 3, 5 & 10 (UP TO 20% OFF)',
     link: '/shop',
   },
   {

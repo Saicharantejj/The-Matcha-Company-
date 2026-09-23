@@ -13,7 +13,7 @@ const FAQ_DATA = [
       },
       {
         q: 'Are your flavours gluten-free?',
-        a: 'Yes! All 5 of our signature flavours (Peri Peri, Chilli Cheese, Chilli Lime, Kashmiri Garlic Chilli, and Pudhina) are 100% gluten-free and slow-roasted with zero palm oil.',
+        a: 'Yes! All of our flavours (Pudina, Jalapeño, and Cheese) are 100% gluten-free and slow-roasted with zero palm oil.',
       },
       {
         q: 'What oil do you use for roasting?',

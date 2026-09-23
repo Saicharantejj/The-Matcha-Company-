@@ -4,12 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { fetchShopifyProducts } from '../lib/shopify/api'
 
 const QUICK_TAGS = [
-  'Peri Peri',
-  'Chilli Cheese',
-  'Chilli Lime',
-  'Kashmiri Garlic',
-  'Pudhina',
-  'Try All 5',
+  'Pudina',
+  'Jalapeño',
+  'Cheese',
+  'Pack of 10',
+  '30g',
+  '70g',
 ]
 
 export default function SearchModal({ isOpen, onClose }) {
@@ -153,7 +153,7 @@ export default function SearchModal({ isOpen, onClose }) {
                       No matching snacks found
                     </p>
                     <p className="font-sans text-xs text-stone-500 dark:text-stone-400">
-                      Try searching for "Peri Peri", "Chilli Cheese", or "Try All 5".
+                      Try searching for "Pudina", "Jalapeño", or "Cheese".
                     </p>
                   </div>
                 ) : (
@@ -177,7 +177,7 @@ export default function SearchModal({ isOpen, onClose }) {
                             {item.name}
                           </p>
                           <p className="font-sans text-[11px] text-stone-500 dark:text-stone-400 font-medium">
-                            {item.size || '70g & 30g Packs'} • ₹{Math.round(item.price)}
+                            {item.size || '70g & 30g Packs'} • ₹{Math.ceil(item.price)}
                           </p>
                         </div>
                       </div>

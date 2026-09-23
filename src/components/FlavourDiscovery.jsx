@@ -41,9 +41,9 @@ const LAUNCH_FLAVOURS = [
   },
   {
     handle: 'jalapeno-makhana',
-    name: 'Jalapeno Makhana',
-    packetName: 'JALAPENO MAKHANA',
-    tagline: 'Smoky Green Jalapeno • Citrus Lime • High Crunch',
+    name: 'Jalapeño Makhana',
+    packetName: 'JALAPEÑO MAKHANA',
+    tagline: 'Smoky Green Jalapeño • Citrus Lime • High Crunch',
     personality: 'Electrifying crunch. Whole lotus seeds slow-roasted and tossed in fiery sun-dried green jalapeno chili, tangy Mexican lime zest, and pink Himalayan rock salt for an instant rush.',
     specs: ['ROASTED NOT FRIED', 'INDIAN FLAVOURS REAL INGREDIENTS', '70g & 30g POUCHES'],
     accent: '#4D8C24',
@@ -79,13 +79,13 @@ const COMING_SOON_FLAVOURS = [
     bg: 'rgba(185, 28, 28, 0.1)',
   },
   {
-    name: 'Pudhina Makhana',
+    name: 'Pudina Makhana',
     heat: 'Fresh Mint 🌿',
     note: 'Garden Spearmint, Amchur & Roasted Rock Salt',
     status: 'IN THE ROASTER',
-    accent: '#52C878',
-    border: 'rgba(82, 200, 120, 0.4)',
-    bg: 'rgba(82, 200, 120, 0.1)',
+    accent: '#0D9488',
+    border: 'rgba(13, 148, 136, 0.4)',
+    bg: 'rgba(13, 148, 136, 0.1)',
   },
 ]
 

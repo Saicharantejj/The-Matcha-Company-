@@ -8,44 +8,27 @@ import { photos } from '../data/photos'
 // Flavour Identity System for subtle card accents & meaning
 export function getFlavourTheme(handleOrName = '') {
   const str = (handleOrName || '').toLowerCase()
-  if (str.includes('chocolate')) {
+  if (str.includes('pud') || str.includes('mint')) {
     return {
-      key: 'chocolate',
-      name: 'Chocolate',
-      accent: '#D4AF37', // warm gold & cocoa
-      badgeBg: '#FDF8EB',
-      badgeText: '#8D6E18',
-      glow: 'rgba(212, 175, 55, 0.45)',
-      bgLight: '#FAF3E3', // clear warm cocoa-gold cream tint
-      hoverBgLight: '#F5E8CC', // rich warm cocoa cream
-      hoverBgDark: '#221B14',
-      borderLight: '#D4AF37',
-      borderHover: '#D4AF37',
-      spiceTag: 'Sweet & Salty 🍫',
-      flavourPill: 'Dark Cocoa Glaze',
+      key: 'pudina',
+      name: 'Pudina',
+      accent: '#0D9488', // garden mint teal
+      badgeBg: '#F0FDFA',
+      badgeText: '#0F766E',
+      glow: 'rgba(13, 148, 136, 0.45)',
+      bgLight: '#EFFBF7',
+      hoverBgLight: '#DCF7ED',
+      hoverBgDark: '#0D2B24',
+      borderLight: '#0D9488',
+      borderHover: '#0D9488',
+      spiceTag: 'Fresh Mint 🌿',
+      flavourPill: 'Garden Mint & Salt',
     }
   }
-  if (str.includes('cheese-and-herbs') || (str.includes('cheese') && !str.includes('chilli-cheese'))) {
-    return {
-      key: 'cheese',
-      name: 'Cheese & Herbs',
-      accent: '#10B981', // emerald herb & cheddar gold
-      badgeBg: '#ECFDF5',
-      badgeText: '#047857',
-      glow: 'rgba(16, 185, 129, 0.45)',
-      bgLight: '#EAF7EE', // clear fresh herbal tint
-      hoverBgLight: '#DBF1E2', // fresh herbal cream tint
-      hoverBgDark: '#12251D',
-      borderLight: '#10B981',
-      borderHover: '#10B981',
-      spiceTag: 'Cheesy Herb 🧀🌿',
-      flavourPill: 'Aged Cheddar & Herb',
-    }
-  }
-  if (str.includes('jalapeno') || str.includes('lime')) {
+  if (str.includes('jalapeno') || str.includes('jalapeño') || str.includes('lime')) {
     return {
       key: 'jalapeno',
-      name: 'Jalapeno',
+      name: 'Jalapeño',
       accent: '#4D8C24', // zesty jalapeno lime
       secondaryAccent: '#C8E86B',
       badgeBg: '#F4FBE8',
@@ -56,31 +39,31 @@ export function getFlavourTheme(handleOrName = '') {
       hoverBgDark: '#172514',
       borderLight: '#4D8C24',
       borderHover: '#4D8C24',
-      spiceTag: 'Fiery Zest 🌶️⚡',
-      flavourPill: 'Smoky Jalapeno & Lime',
+      spiceTag: 'Zesty Heat 🌶️⚡',
+      flavourPill: 'Green Jalapeño & Lime',
     }
   }
-  if (str.includes('peri-peri') || str.includes('peri')) {
+  if (str.includes('cheese')) {
     return {
-      key: 'peri',
-      name: 'Peri Peri',
-      accent: '#F04444', // chilli red
-      badgeBg: '#FEF2F2',
-      badgeText: '#DC2626',
-      glow: 'rgba(240, 68, 68, 0.45)',
-      bgLight: '#FFF0F0',
-      hoverBgLight: '#FEE0E0', // warm fiery red cream
-      hoverBgDark: '#281515',
-      borderLight: '#F04444',
-      borderHover: '#F04444',
-      spiceTag: 'High Heat 🌶️',
-      flavourPill: 'Bird’s Eye Chilli',
+      key: 'cheese',
+      name: 'Cheese',
+      accent: '#10B981', // emerald herb & cheddar gold
+      badgeBg: '#ECFDF5',
+      badgeText: '#047857',
+      glow: 'rgba(16, 185, 129, 0.45)',
+      bgLight: '#EAF7EE', // clear fresh herbal tint
+      hoverBgLight: '#DBF1E2', // fresh herbal cream tint
+      hoverBgDark: '#12251D',
+      borderLight: '#10B981',
+      borderHover: '#10B981',
+      spiceTag: 'Mild Savoury 🧀',
+      flavourPill: 'Aged Cheddar Dust',
     }
   }
-  if (str.includes('garlic')) {
+  if (str.includes('garlic') || str.includes('kashmiri')) {
     return {
       key: 'garlic',
-      name: 'Kashmiri Garlic',
+      name: 'Kashmiri Chilli Lime Garlic',
       accent: '#B91C1C', // deep kashmiri red
       badgeBg: '#FEF2F2',
       badgeText: '#991B1B',
@@ -90,42 +73,42 @@ export function getFlavourTheme(handleOrName = '') {
       hoverBgDark: '#251313',
       borderLight: '#B91C1C',
       borderHover: '#B91C1C',
-      spiceTag: 'Warm Garlic 🧄🌶️',
-      flavourPill: 'Golden Toasted Garlic',
+      spiceTag: 'Aromatic Heat',
+      flavourPill: 'Coming Soon',
     }
   }
-  if (str.includes('pudhina') || str.includes('mint')) {
+  if (str.includes('peri')) {
     return {
-      key: 'pudhina',
-      name: 'Pudhina',
-      accent: '#52C878', // fresh garden mint
-      badgeBg: '#F0FDF4',
-      badgeText: '#15803D',
-      glow: 'rgba(82, 200, 120, 0.45)',
-      bgLight: '#EFFBF3',
-      hoverBgLight: '#DCF7E4',
-      hoverBgDark: '#12251B',
-      borderLight: '#52C878',
-      borderHover: '#52C878',
-      spiceTag: 'Fresh Mint 🌿',
-      flavourPill: 'Garden Spearmint',
+      key: 'peri',
+      name: 'South African Peri Peri',
+      accent: '#DC2626', // chilli red
+      badgeBg: '#FEF2F2',
+      badgeText: '#DC2626',
+      glow: 'rgba(220, 38, 38, 0.45)',
+      bgLight: '#FFF0F0',
+      hoverBgLight: '#FEE0E0',
+      hoverBgDark: '#281515',
+      borderLight: '#DC2626',
+      borderHover: '#DC2626',
+      spiceTag: 'Fiery Heat',
+      flavourPill: 'Coming Soon',
     }
   }
-  if (str.includes('try-all-5') || str.includes('trio') || str.includes('box')) {
+  if (str.includes('chocolate') || str.includes('brownie')) {
     return {
-      key: 'trio',
-      name: 'Launch Trio Box',
-      accent: '#FF5400', // signature chaska orange
-      badgeBg: '#FFF4ED',
-      badgeText: '#E04800',
-      glow: 'rgba(255, 84, 0, 0.45)',
-      bgLight: '#FFF2E8', // clear warm Chaska orange cream
-      hoverBgLight: '#FFE6D5',
-      hoverBgDark: '#291815',
-      borderLight: '#FF5400',
-      borderHover: '#FF5400',
-      spiceTag: '3-In-1 Sampler 📦',
-      flavourPill: 'All 3 Launch Flavours',
+      key: 'chocolate',
+      name: 'Dark Chocolate Brownie',
+      accent: '#D4AF37', // warm gold & cocoa
+      badgeBg: '#FDF8EB',
+      badgeText: '#8D6E18',
+      glow: 'rgba(212, 175, 55, 0.45)',
+      bgLight: '#FAF3E3',
+      hoverBgLight: '#F5E8CC',
+      hoverBgDark: '#221B14',
+      borderLight: '#D4AF37',
+      borderHover: '#D4AF37',
+      spiceTag: 'Sweet Crunch',
+      flavourPill: 'Coming Soon',
     }
   }
   return {
@@ -156,7 +139,7 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
 
   const name = product.title || product.name || product.flavor || 'CHASKA Makhana'
   const handle = product.handle || product.id
-  const productUrl = `/products/${handle}`
+  const productUrl = `/product/${handle}`
 
   const isComingSoon = Boolean(product.isComingSoon)
   const isAvailable = Boolean(product.availableForSale) && !isComingSoon
@@ -164,7 +147,7 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
   const handleNotifyMe = (e) => {
     e.preventDefault()
     e.stopPropagation()
-    addToast(`You're on the VIP waitlist for ${name}! We'll alert you the second Drop 02 goes live. 🚀`, 'success')
+    addToast(`You're on the priority waitlist for ${name}! We'll alert you the moment this flavour launches. 🚀`, 'success')
   }
 
   const handleAdd = async (e) => {
@@ -194,25 +177,22 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
     }
   }
 
-  const priceFormatted = product.displayPrice || (typeof product.price === 'number' ? `₹${Math.round(product.price)}` : `₹${product.price || 199}`)
-  const mrpFormatted = product.mrp && product.mrp > product.price ? (product.displayMrp || `₹${Math.round(product.mrp)}`) : null
+  const priceFormatted = product.displayPrice || (typeof product.price === 'number' ? `₹${Math.ceil(product.price)}` : `₹${product.price || 129}`)
+  const mrpFormatted = product.mrp && product.mrp > product.price ? (product.displayMrp || `₹${Math.ceil(product.mrp)}`) : null
   const discount = product.discount || (product.mrp && product.mrp > product.price ? `${Math.round(((product.mrp - product.price) / product.mrp) * 100)}% OFF` : null)
 
   const handleLower = (handle || '').toLowerCase()
-  const photoKey = handleLower.includes('chocolate') ? 'chocolateMakhanaPack'
-    : handleLower.includes('cheese-and-herbs') || (handleLower.includes('cheese') && !handleLower.includes('chilli-cheese')) ? 'cheeseAndHerbsMakhanaPack'
+  const photoKey = handleLower.includes('cheese') ? 'cheeseAndHerbsMakhanaPack'
     : handleLower.includes('jalapeno') ? 'jalapenoMakhanaPack'
-    : handleLower.includes('cheese') ? 'cheeseAndHerbsMakhanaPack'
-    : handleLower.includes('pudhina') ? 'pudhinaPack'
-    : handleLower.includes('lime') ? 'yellowBasket'
+    : handleLower.includes('pud') ? 'meshBagIngredients'
+    : handleLower.includes('peri') ? 'masalaPack'
     : handleLower.includes('garlic') ? 'meshBagIngredients'
-    : handleLower.includes('peri-peri') ? 'periPeriPack'
-    : handleLower.includes('try-all-5') || handleLower.includes('trio') || handleLower.includes('box') ? 'tabletopLifestyle'
-    : 'masalaPouchHero'
+    : handleLower.includes('brownie') || handleLower.includes('chocolate') ? 'chocolateMakhanaPack'
+    : 'meshBagIngredients'
 
   const photoObj = photos[photoKey] || photos.brandPoster
   const displayImage = product.image || (product.images && product.images[0]?.url) || photoObj?.src
-  const isLaunchBox = handleLower.includes('try-all-5') || handleLower.includes('trio')
+  const isLaunchBox = false
 
   const flavourTheme = getFlavourTheme(handleLower || name)
   const isLight = colorMode === 'light'
@@ -387,7 +367,7 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
                     isLight ? 'text-[#0B1230]' : 'text-white'
                   }`}
                 >
-                  {isComingSoon ? 'DROP 02' : priceFormatted}
+                  {isComingSoon ? 'COMING SOON' : priceFormatted}
                 </span>
                 {!isComingSoon && mrpFormatted && (
                   <span className="font-sans text-xs sm:text-sm text-stone-400 line-through font-medium">
@@ -400,7 +380,7 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
                   isLight ? 'text-stone-500' : 'text-stone-400'
                 }`}
               >
-                {isComingSoon ? '🔒 LOCKED' : isLaunchBox ? 'ALL 3 FLAVOURS' : '70G / 30G'}
+                {isComingSoon ? 'IN PROGRESS' : '30G / 70G'}
               </span>
             </div>
 
@@ -411,7 +391,7 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
                   onClick={handleNotifyMe}
                   className="col-span-2 py-3 rounded-full bg-stone-900 hover:bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all shadow-sm flex items-center justify-center gap-1.5 cursor-pointer hover-pop-subtle hover:scale-[1.02] active:scale-[0.98]"
                 >
-                  <span>🔔 GET NOTIFIED (DROP 02)</span>
+                  <span>🔔 NOTIFY ME (IN PROGRESS)</span>
                 </button>
               ) : (
                 <>

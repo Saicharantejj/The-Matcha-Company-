@@ -48,14 +48,14 @@ export function mapShopifyProduct(node) {
   const primaryVariant = variants[0] || {
     id: node.id,
     sku: '',
-    price: parseFloat(node.priceRange?.minVariantPrice?.amount || '199'),
-    mrp: parseFloat(node.compareAtPriceRange?.minVariantPrice?.amount || '219'),
+    price: parseFloat(node.priceRange?.minVariantPrice?.amount || '129'),
+    mrp: parseFloat(node.compareAtPriceRange?.minVariantPrice?.amount || '129'),
     currency: node.priceRange?.minVariantPrice?.currencyCode || 'INR',
     availableForSale: Boolean(node.availableForSale),
   }
 
-  const price = primaryVariant.price || 199
-  const mrp = primaryVariant.mrp && primaryVariant.mrp > price ? primaryVariant.mrp : price
+  const price = Math.ceil(primaryVariant.price || 129)
+  const mrp = Math.ceil(primaryVariant.mrp && primaryVariant.mrp > price ? primaryVariant.mrp : price)
   const discountPercent = mrp > price ? Math.round(((mrp - price) / mrp) * 100) : 0
   const discount = discountPercent > 0 ? `${discountPercent}% OFF` : null
   const isAvailable = Boolean(node.availableForSale)
@@ -71,8 +71,8 @@ export function mapShopifyProduct(node) {
     count: 1,
     mrp,
     price,
-    displayPrice: `₹${Math.round(price)}`,
-    displayMrp: `₹${Math.round(mrp)}`,
+    displayPrice: `₹${Math.ceil(price)}`,
+    displayMrp: `₹${Math.ceil(mrp)}`,
     discount,
     badge: !isAvailable ? 'SOLD OUT' : (discount || 'SIGNATURE CRUNCH 🍿'),
     swatch: node.handle?.includes('cheese') ? 'cheddar' : node.handle?.includes('pudhina') ? 'pudina' : 'chili',
@@ -110,8 +110,8 @@ export function mapShopifyCart(cart) {
     const node = edge.node
     const merchandise = node.merchandise || {}
     const product = merchandise.product || {}
-    const priceAmount = parseFloat(merchandise.price?.amount || '0')
-    const totalAmount = parseFloat(node.cost?.totalAmount?.amount || '0')
+    const priceAmount = Math.ceil(parseFloat(merchandise.price?.amount || '0'))
+    const totalAmount = Math.ceil(parseFloat(node.cost?.totalAmount?.amount || `${priceAmount * qty}`))
     const qty = typeof node.quantity === 'number' && node.quantity > 0 ? node.quantity : 1
 
     return {
@@ -132,7 +132,7 @@ export function mapShopifyCart(cart) {
     }
   })
 
-  const subtotal = parseFloat(cart.cost?.subtotalAmount?.amount || '0')
+  const subtotal = Math.ceil(parseFloat(cart.cost?.subtotalAmount?.amount || '0'))
   const calculatedQty = lines.reduce((sum, item) => sum + item.quantity, 0)
 
   return {
@@ -142,7 +142,7 @@ export function mapShopifyCart(cart) {
     subtotal,
     cost: {
       subtotalAmount: subtotal,
-      totalAmount: parseFloat(cart.cost?.totalAmount?.amount || '0'),
+      totalAmount: Math.ceil(parseFloat(cart.cost?.totalAmount?.amount || `${subtotal}`)),
       currencyCode: cart.cost?.totalAmount?.currencyCode || 'INR',
     },
     lines,
@@ -184,9 +184,9 @@ async function cachedFetch(key, fetcher, ttlMs = PRODUCT_CACHE_TTL_MS) {
 // ── SHOPIFY API SERVICE METHODS ──────────────────────────────────────────────
 
 /**
- * Fetches products from Shopify Storefront API merged with the official Drop 01 Launch Lineup
- * Drop 01: Chocolate Makhana, Cheese and Herbs Makhana, Jalapeno Makhana, and The Launch Trio Box (all for sale)
- * Drop 02: Peri Peri, Kashmiri Garlic Chilli, Pudhina (Coming Soon / locked)
+ * Fetches products from Shopify Storefront API merged with the official CHASKA catalogue:
+ * Available Flavours (3): Pudina, Jalapeño, Cheese
+ * Flavours In Progress (3): Kashmiri Chilli Lime Garlic, South African Peri Peri, Dark Chocolate Brownie
  */
 export async function fetchShopifyProducts(first = 20) {
   return cachedFetch(`shopify_products_${first}`, async () => {
@@ -205,23 +205,21 @@ export async function fetchShopifyProducts(first = 20) {
 
       return PRODUCTS_CATALOGUE.map((catalogItem) => {
         let live = null
-        if (catalogItem.handle === 'chocolate-makhana') {
-          live = shopifyMap.get('peri-peri-makhana') || shopifyMap.get('chocolate-makhana')
-        } else if (catalogItem.handle === 'cheese-and-herbs-makhana') {
-          live = shopifyMap.get('chilli-cheese-makhana') || shopifyMap.get('cheese-and-herbs-makhana')
-        } else if (catalogItem.handle === 'jalapeno-makhana') {
-          live = shopifyMap.get('chilli-lime-makhana') || shopifyMap.get('jalapeno-makhana')
-        } else if (catalogItem.handle === 'chaska-try-all-5' || catalogItem.handle === 'chaska-launch-trio') {
-          live = shopifyMap.get('chaska-try-all-5') || shopifyMap.get('chaska-launch-trio')
+        if (catalogItem.handle === 'pudina') {
+          live = shopifyMap.get('pudina') || shopifyMap.get('pudina-makhana') || shopifyMap.get('pudhina-makhana')
+        } else if (catalogItem.handle === 'jalapeno') {
+          live = shopifyMap.get('jalapeno') || shopifyMap.get('jalapeno-makhana') || shopifyMap.get('chilli-lime-makhana')
+        } else if (catalogItem.handle === 'cheese') {
+          live = shopifyMap.get('cheese') || shopifyMap.get('cheese-makhana') || shopifyMap.get('chilli-cheese-makhana')
         } else {
-          live = shopifyMap.get(catalogItem.handle)
+          live = shopifyMap.get(catalogItem.handle) || shopifyMap.get(catalogItem.aliasHandle)
         }
 
         if (catalogItem.isComingSoon) {
           return {
             ...catalogItem,
             availableForSale: false,
-            badge: '🔒 DROP 02 • COMING SOON',
+            badge: 'COMING SOON',
             variantId: null,
             variants: [],
           }
@@ -229,10 +227,10 @@ export async function fetchShopifyProducts(first = 20) {
 
         const variants = live?.variants && live.variants.length > 0 ? live.variants : [
           {
-            id: live?.variantId || 'variant-drop01',
-            title: '70g Pack',
-            price: catalogItem.price,
-            mrp: catalogItem.mrp,
+            id: live?.variantId || `variant-${catalogItem.handle}-30g`,
+            title: '30g Pack',
+            price: catalogItem.price || 129,
+            mrp: catalogItem.mrp || 129,
             availableForSale: true,
           },
         ]
@@ -255,7 +253,7 @@ export async function fetchShopifyProducts(first = 20) {
 }
 
 /**
- * Fetches a single product by handle, resolving launch flavours to active Shopify inventory
+ * Fetches a single product by handle, resolving to active Shopify inventory or catalogue
  */
 export async function fetchShopifyProductByHandle(handle) {
   if (!handle) return null
@@ -266,16 +264,23 @@ export async function fetchShopifyProductByHandle(handle) {
       (p) =>
         p.handle === handleLower ||
         p.aliasHandle === handleLower ||
-        (handleLower === 'chilli-cheese-makhana' && p.handle === 'cheese-and-herbs-makhana') ||
-        (handleLower === 'chilli-lime-makhana' && p.handle === 'jalapeno-makhana') ||
-        (handleLower === 'peri-peri-makhana' && p.isComingSoon && p.handle === 'peri-peri-makhana')
+        (handleLower === 'pudina-makhana' && p.handle === 'pudina') ||
+        (handleLower === 'pudhina-makhana' && p.handle === 'pudina') ||
+        (handleLower === 'jalapeno-makhana' && p.handle === 'jalapeno') ||
+        (handleLower === 'chilli-lime-makhana' && p.handle === 'jalapeno') ||
+        (handleLower === 'cheese-makhana' && p.handle === 'cheese') ||
+        (handleLower === 'chilli-cheese-makhana' && p.handle === 'cheese') ||
+        (handleLower === 'kashmiri-garlic-chilli-makhana' && p.handle === 'kashmiri-chilli-lime-garlic') ||
+        (handleLower === 'peri-peri-makhana' && p.handle === 'south-african-peri-peri') ||
+        (handleLower === 'chocolate-makhana' && p.handle === 'dark-chocolate-brownie')
     )
 
     let shopifyHandleToFetch = handleLower
-    if (handleLower === 'chocolate-makhana') shopifyHandleToFetch = 'peri-peri-makhana'
-    else if (handleLower === 'cheese-and-herbs-makhana') shopifyHandleToFetch = 'chilli-cheese-makhana'
-    else if (handleLower === 'jalapeno-makhana') shopifyHandleToFetch = 'chilli-lime-makhana'
-    else if (handleLower === 'chaska-launch-trio') shopifyHandleToFetch = 'chaska-try-all-5'
+    if (handleLower === 'pudina') shopifyHandleToFetch = 'pudhina-makhana'
+    else if (handleLower === 'jalapeno') shopifyHandleToFetch = 'chilli-lime-makhana'
+    else if (handleLower === 'cheese') shopifyHandleToFetch = 'chilli-cheese-makhana'
+    else if (handleLower === 'kashmiri-chilli-lime-garlic') shopifyHandleToFetch = 'kashmiri-garlic-chilli-makhana'
+    else if (handleLower === 'south-african-peri-peri') shopifyHandleToFetch = 'peri-peri-makhana'
 
     let liveProduct = null
     try {
@@ -295,17 +300,17 @@ export async function fetchShopifyProductByHandle(handle) {
         return {
           ...catalogItem,
           availableForSale: false,
-          badge: '🔒 DROP 02 • COMING SOON',
+          badge: 'COMING SOON',
           variants: [],
         }
       }
 
       const variants = liveProduct?.variants && liveProduct.variants.length > 0 ? liveProduct.variants : [
         {
-          id: liveProduct?.variantId || 'variant-drop01',
-          title: '70g Pack',
-          price: catalogItem.price,
-          mrp: catalogItem.mrp,
+          id: liveProduct?.variantId || `variant-${catalogItem.handle}-30g`,
+          title: '30g Pack',
+          price: catalogItem.price || 129,
+          mrp: catalogItem.mrp || 129,
           availableForSale: true,
         },
       ]

@@ -6,8 +6,8 @@
  * NEVER expose this token in the Vite frontend or git commits.
  */
 
-const SHOPIFY_DOMAIN = '502a8s-aj.myshopify.com';
-const API_VERSION = '2026-07';
+const SHOPIFY_DOMAIN = process.env.SHOPIFY_STORE_DOMAIN || '502a8s-aj.myshopify.com';
+const API_VERSION = process.env.SHOPIFY_API_VERSION || '2026-07';
 const ADMIN_TOKEN = process.env.SHOPIFY_ADMIN_ACCESS_TOKEN;
 
 if (!ADMIN_TOKEN) {
@@ -37,62 +37,48 @@ async function adminFetch(query, variables = {}) {
 
 const FLAVOUR_PRODUCTS = [
   {
-    title: 'Peri Peri Makhana',
-    handle: 'peri-peri-makhana',
-    descriptionHtml: "<p>Fiery, tangy African bird's eye chilli roasted with premium jumbo fox nuts. Crunchy, bold, and addictive.</p>",
+    title: 'Pudina Makhana',
+    handle: 'pudina-makhana',
+    descriptionHtml: '<p>Refreshing garden mint blended with roasted spices and pink rock salt over crisp slow-roasted makhana.</p>',
     productType: 'Flavoured Makhana',
-    tags: ['makhana', 'peri peri', 'spicy', 'snacks', 'roasted'],
-    prefix: 'PERI',
-  },
-  {
-    title: 'Chilli Cheese Makhana',
-    handle: 'chilli-cheese-makhana',
-    descriptionHtml: '<p>Creamy sharp cheddar dusted with a slow red chilli burn over crisp slow-roasted makhana.</p>',
-    productType: 'Flavoured Makhana',
-    tags: ['makhana', 'cheese', 'chilli cheese', 'savory', 'roasted'],
-    prefix: 'CHCH',
-  },
-  {
-    title: 'Chilli Lime Makhana',
-    handle: 'chilli-lime-makhana',
-    descriptionHtml: '<p>Zesty Mexican key lime with a smoky crushed chilli kick. Crisp, tart, and extraordinarily refreshing.</p>',
-    productType: 'Flavoured Makhana',
-    tags: ['makhana', 'chilli lime', 'lime', 'zesty', 'roasted'],
-    prefix: 'CHLI',
-  },
-  {
-    title: 'Kashmiri Garlic Chilli Makhana',
-    handle: 'kashmiri-garlic-chilli-makhana',
-    descriptionHtml: '<p>Aromatic roasted garlic paired with vibrant, deep Kashmiri chillies. Rich, savoury warmth in every crunch.</p>',
-    productType: 'Flavoured Makhana',
-    tags: ['makhana', 'garlic', 'kashmiri chilli', 'roasted', 'savoury'],
-    prefix: 'KGC',
-  },
-  {
-    title: 'Pudhina Makhana',
-    handle: 'pudhina-makhana',
-    descriptionHtml: '<p>Refreshing garden mint blended with roasted spices and pink rock salt. Tangy, herbaceous, and crisp.</p>',
-    productType: 'Flavoured Makhana',
-    tags: ['makhana', 'pudhina', 'mint', 'fresh', 'roasted'],
+    tags: ['makhana', 'pudina', 'mint', 'fresh', 'roasted'],
     prefix: 'PUD',
+  },
+  {
+    title: 'Jalapeño Makhana',
+    handle: 'jalapeno-makhana',
+    descriptionHtml: '<p>Whole roasted lotus pops coated with smoky sun-dried green jalapeño chili dust, tangy lime zest, and rock salt.</p>',
+    productType: 'Flavoured Makhana',
+    tags: ['makhana', 'jalapeno', 'spicy', 'roasted', 'zesty'],
+    prefix: 'JAL',
+  },
+  {
+    title: 'Cheese Makhana',
+    handle: 'cheese-makhana',
+    descriptionHtml: '<p>Rich cheddar cheese seasoning and roasted butter notes dusted over crisp slow-roasted makhana pops.</p>',
+    productType: 'Flavoured Makhana',
+    tags: ['makhana', 'cheese', 'savory', 'roasted'],
+    prefix: 'CHS',
   },
 ];
 
 const SIZES = [
   {
-    size: '50g',
+    size: '30g',
     packs: [
-      { pack: 'Pack of 3', price: '450.00', compareAt: '540.00', suffix: '50-3', weight: 150 },
-      { pack: 'Pack of 6', price: '900.00', compareAt: '1080.00', suffix: '50-6', weight: 300 },
-      { pack: 'Pack of 10', price: '1500.00', compareAt: '1800.00', suffix: '50-10', weight: 500 },
+      { pack: 'Pack of 1', price: '129', compareAt: '129', suffix: '30-1', weight: 30 },
+      { pack: 'Pack of 3', price: '368', compareAt: '387', suffix: '30-3', weight: 90 },
+      { pack: 'Pack of 5', price: '581', compareAt: '645', suffix: '30-5', weight: 150 },
+      { pack: 'Pack of 10', price: '1032', compareAt: '1290', suffix: '30-10', weight: 300 },
     ],
   },
   {
-    size: '100g',
+    size: '70g',
     packs: [
-      { pack: 'Pack of 3', price: '870.00', compareAt: '960.00', suffix: '100-3', weight: 300 },
-      { pack: 'Pack of 6', price: '1740.00', compareAt: '1920.00', suffix: '100-6', weight: 600 },
-      { pack: 'Pack of 10', price: '2900.00', compareAt: '3200.00', suffix: '100-10', weight: 1000 },
+      { pack: 'Pack of 1', price: '229', compareAt: '229', suffix: '70-1', weight: 70 },
+      { pack: 'Pack of 3', price: '653', compareAt: '687', suffix: '70-3', weight: 210 },
+      { pack: 'Pack of 5', price: '1031', compareAt: '1145', suffix: '70-5', weight: 350 },
+      { pack: 'Pack of 10', price: '1832', compareAt: '2290', suffix: '70-10', weight: 700 },
     ],
   },
 ];
@@ -170,78 +156,50 @@ async function createProductWithVariants(productDef) {
   if (variantResult.productVariantsBulkCreate.userErrors?.length > 0) {
     console.warn('Variant creation notice:', variantResult.productVariantsBulkCreate.userErrors);
   } else {
-    console.log(`  ✓ Created 6 variants for ${productDef.title}`);
+    console.log(`  ✓ Created 8 variants for ${productDef.title}`);
   }
 
   return productId;
 }
 
-async function createTryAll5Box() {
-  console.log('Creating product: Chaska Try All 5...');
-  const input = {
-    title: 'Chaska Try All 5',
-    handle: 'chaska-try-all-5',
-    descriptionHtml: '<p>Experience the complete CHASKA universe in one sampler box! Includes 1 pouch of each of our 5 signature flavours: Peri Peri, Chilli Cheese, Chilli Lime, Kashmiri Garlic Chilli, and Pudhina Makhana.</p>',
-    vendor: 'CHASKA',
-    productType: 'Snack Box',
-    tags: ['bundle', 'box', 'sampler', 'try all 5', 'variety pack', 'all flavours'],
-  };
-
-  const createMutation = `
-    mutation productCreate($input: ProductInput!) {
-      productCreate(input: $input) {
-        product {
-          id
-        }
-        userErrors {
-          field
-          message
+async function archiveOldProducts() {
+  console.log('\nChecking for old products to unpublish/archive...');
+  const query = `
+    query {
+      products(first: 20) {
+        edges {
+          node {
+            id
+            title
+            handle
+            status
+          }
         }
       }
     }
   `;
 
-  const res = await adminFetch(createMutation, { input });
-  const productId = res.productCreate.product.id;
-  console.log(`  ✓ Chaska Try All 5 created (${productId})`);
+  const data = await adminFetch(query);
+  const products = data.products.edges;
 
-  const variants = [
-    {
-      options: ['50g'],
-      price: '710.00',
-      compareAtPrice: '900.00',
-      sku: 'TRY5-50',
-      inventoryItem: { tracked: true },
-    },
-    {
-      options: ['100g'],
-      price: '1410.00',
-      compareAtPrice: '1600.00',
-      sku: 'TRY5-100',
-      inventoryItem: { tracked: true },
-    },
-  ];
+  const validHandles = ['pudina-makhana', 'jalapeno-makhana', 'cheese-makhana'];
 
-  const bulkMutation = `
-    mutation productVariantsBulkCreate($productId: ID!, $variants: [ProductVariantsBulkInput!]!) {
-      productVariantsBulkCreate(productId: $productId, variants: $variants) {
-        productVariants {
-          id
-          title
-          sku
-          price
+  for (const edge of products) {
+    const p = edge.node;
+    if (!validHandles.includes(p.handle)) {
+      console.log(`Archiving old product: ${p.title} (${p.handle})...`);
+      const updateMutation = `
+        mutation productUpdate($input: ProductInput!) {
+          productUpdate(input: $input) {
+            product { id status }
+            userErrors { field message }
+          }
         }
-        userErrors {
-          field
-          message
-        }
-      }
+      `;
+      await adminFetch(updateMutation, { input: { id: p.id, status: 'ARCHIVED' } });
+      console.log(`  ✓ Archived ${p.title}`);
     }
-  `;
-
-  await adminFetch(bulkMutation, { productId, variants });
-  console.log('  ✓ Created 2 size variants for Chaska Try All 5');
-  return productId;
+  }
 }
 
 async function run() {
@@ -252,10 +210,10 @@ async function run() {
       const id = await createProductWithVariants(p);
       createdIds.push(id);
     }
-    const boxId = await createTryAll5Box();
-    createdIds.push(boxId);
 
-    console.log('\n--- ALL 6 PRODUCTS & 32 VARIANTS SEEDED SUCCESSFULLY! ---');
+    await archiveOldProducts();
+
+    console.log('\n--- ALL 3 PRODUCTS & 24 VARIANTS SEEDED & OLD PRODUCTS ARCHIVED! ---');
   } catch (err) {
     console.error('Failed to seed products:', err.message);
   }

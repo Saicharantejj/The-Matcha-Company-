@@ -1,25 +1,28 @@
 import { Link } from 'react-router-dom'
-import { motion } from 'framer-motion'
 import ProductCard from './ProductCard'
 import { PRODUCTS_CATALOGUE } from '../data/products'
 
 export default function ProductDiscovery({ products = [] }) {
-  // Use passed products or fallback to official launch catalogue
   const sourceProducts = products && products.length > 0 ? products : PRODUCTS_CATALOGUE
 
-  // Filter the official Drop 01 lineup: 3 single flavours + the 3-Pack Launch Trio
-  const launchPacks = [
-    sourceProducts.find((p) => p.handle?.includes('chocolate')) || PRODUCTS_CATALOGUE[0],
-    sourceProducts.find((p) => p.handle?.includes('cheese-and-herbs') || (p.handle?.includes('cheese') && !p.handle?.includes('chilli-cheese'))) || PRODUCTS_CATALOGUE[1],
-    sourceProducts.find((p) => p.handle?.includes('jalapeno')) || PRODUCTS_CATALOGUE[2],
-    sourceProducts.find((p) => p.handle?.includes('try-all-5') || p.handle?.includes('trio')) || PRODUCTS_CATALOGUE[3],
+  // Filter ONLY the 3 available live flavours
+  const availablePacks = [
+    sourceProducts.find((p) => p.handle === 'pudina' || p.handle?.includes('pud')) || PRODUCTS_CATALOGUE[0],
+    sourceProducts.find((p) => p.handle === 'jalapeno' || p.handle?.includes('jal')) || PRODUCTS_CATALOGUE[1],
+    sourceProducts.find((p) => p.handle === 'cheese' || p.handle?.includes('cheese')) || PRODUCTS_CATALOGUE[2],
+  ].filter(Boolean)
+
+  // In-progress coming soon flavours (strictly non-purchasable)
+  const comingSoonPacks = [
+    sourceProducts.find((p) => p.handle === 'kashmiri-chilli-lime-garlic' || p.handle?.includes('kashmiri') || p.handle?.includes('garlic')) || PRODUCTS_CATALOGUE[3],
+    sourceProducts.find((p) => p.handle === 'south-african-peri-peri' || p.handle?.includes('peri')) || PRODUCTS_CATALOGUE[4],
+    sourceProducts.find((p) => p.handle === 'dark-chocolate-brownie' || p.handle?.includes('brownie') || p.handle?.includes('chocolate')) || PRODUCTS_CATALOGUE[5],
   ].filter(Boolean)
 
   const flavourPills = [
-    { label: 'Dark Cocoa', color: '#D4AF37', icon: '🍫' },
-    { label: 'Aged Cheddar', color: '#10B981', icon: '🧀' },
-    { label: 'Fiery Jalapeno', color: '#4D8C24', icon: '🌶️' },
-    { label: '3-In-1 Sampler', color: '#FF5400', icon: '📦' },
+    { label: 'Pudina', color: '#0D9488', icon: '🌿' },
+    { label: 'Jalapeño', color: '#4D8C24', icon: '🌶️' },
+    { label: 'Cheese', color: '#107B4F', icon: '🧀' },
   ]
 
   return (
@@ -28,7 +31,7 @@ export default function ProductDiscovery({ products = [] }) {
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFE9D6]/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#E8F5EB]/50 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-[1380px] px-4 sm:px-8 relative z-10 space-y-14">
+      <div className="mx-auto max-w-[1380px] px-4 sm:px-8 relative z-10 space-y-16">
         
         {/* Section Header with Typographic Rhythm */}
         <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#E5DCC9] pb-8">
@@ -36,20 +39,20 @@ export default function ProductDiscovery({ products = [] }) {
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400] flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-[#FF5400] animate-pulse" />
-                OFFICIAL DROP 01 ROSTER
+                AVAILABLE FLAVOURS
               </span>
               <span className="px-2.5 py-0.5 rounded-full bg-[#0B1230]/5 text-[#0B1230] font-mono text-[10px] font-bold uppercase border border-[#0B1230]/10">
-                4 LAUNCH ITEMS
+                3 LIVE FLAVOURS • 30G &amp; 70G
               </span>
             </div>
 
             <h2 className="font-display text-3xl sm:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#0B1230] leading-[1.02]">
               BIG CRUNCH. <br className="hidden sm:block" />
-              <span className="text-[#FF5400]">ZERO BORING.</span>
+              <span className="text-[#FF5400]">ZERO COMPROMISE.</span>
             </h2>
 
             <p className="font-sans text-sm sm:text-base text-stone-600 leading-relaxed font-normal">
-              Handpicked whole Bihar lotus pops slow-roasted in small artisanal batches. 100% roasted, zero palm oil, real spices and chef seasonings. Meet your new daily crunch.
+              Handpicked whole Bihar lotus pops slow-roasted in small batches. 100% roasted with zero deep frying, real spices, and authentic ingredients. Starting at ₹129 for 30g and ₹229 for 70g.
             </p>
           </div>
 
@@ -75,21 +78,63 @@ export default function ProductDiscovery({ products = [] }) {
               to="/shop"
               className="btn-outline-dark text-xs font-bold uppercase tracking-wider shrink-0"
             >
-              ALL PACKS ➔
+              EXPLORE ALL PACKS ➔
             </Link>
           </div>
         </div>
 
-        {/* 4-Card Responsive Grid on Warm Ivory - Bigger, Expanded Proportions */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-7 lg:gap-8 items-stretch">
-          {launchPacks.map((prod, idx) => (
-            <ProductCard
-              key={prod.id || prod.handle || idx}
-              product={prod}
-              index={idx}
-              colorMode="light"
-            />
-          ))}
+        {/* 3-Card Responsive Grid for Live Available Flavours */}
+        <div className="space-y-4">
+          <div className="flex items-center justify-between">
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-stone-600">
+              AVAILABLE NOW FOR PURCHASE
+            </span>
+            <span className="font-mono text-xs font-bold text-[#FF5400]">
+              PACK OF 10: BEST SELLER (20% OFF)
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 items-stretch">
+            {availablePacks.map((prod, idx) => (
+              <ProductCard
+                key={prod.id || prod.handle || idx}
+                product={prod}
+                index={idx}
+                colorMode="light"
+              />
+            ))}
+          </div>
+        </div>
+
+        {/* ── COMING SOON / IN PROGRESS SECTION ───────────────────────────── */}
+        <div className="pt-8 border-t border-[#E5DCC9] space-y-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
+            <div className="space-y-1">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400] flex items-center gap-1.5">
+                <span>🧪</span> COMING SOON • IN PROGRESS
+              </span>
+              <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-[#0B1230]">
+                FUTURE FLAVOURS ROASTING IN THE LAB
+              </h3>
+              <p className="font-sans text-xs sm:text-sm text-stone-600">
+                These flavours are currently in development and are not yet available for purchase.
+              </p>
+            </div>
+            <span className="font-mono text-xs font-bold text-stone-500 uppercase px-3 py-1 rounded-full bg-white border border-[#E5DCC9]">
+              3 UPCOMING RECIPES
+            </span>
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-7 lg:gap-8 items-stretch">
+            {comingSoonPacks.map((prod, idx) => (
+              <ProductCard
+                key={prod.id || prod.handle || idx}
+                product={prod}
+                index={idx}
+                colorMode="light"
+              />
+            ))}
+          </div>
         </div>
 
         {/* Bottom Trust & Satisfaction Strip */}
@@ -104,13 +149,16 @@ export default function ProductDiscovery({ products = [] }) {
             <span className="flex items-center gap-1.5">
               <span className="text-emerald-600">✓</span> Bihar Lotus Seeds
             </span>
+            <span className="flex items-center gap-1.5">
+              <span className="text-[#FF5400]">★</span> Pack of 10: 20% OFF (Best Seller)
+            </span>
           </div>
 
           <Link
             to="/shop"
             className="font-mono text-xs font-bold text-[#FF5400] hover:text-[#0B1230] transition-colors flex items-center gap-1"
           >
-            <span>VIEW ALL POUCH SIZES &amp; MULTI-PACKS</span>
+            <span>VIEW ALL SIZES &amp; PACK DISCOUNTS</span>
             <span>➔</span>
           </Link>
         </div>
