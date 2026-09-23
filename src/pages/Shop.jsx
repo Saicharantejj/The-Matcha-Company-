@@ -6,13 +6,13 @@ import { fetchShopifyProducts, fetchShopifyCollectionByHandle } from '../lib/sho
 const COLLECTION_METADATA = {
   all: {
     title: 'OFFICIAL CATALOGUE',
-    badge: 'DROP 01 LAUNCH + DROP 02 LAB',
-    description: 'Explore the 3 official launch flavours available now, plus experimental batches roasting in the lab.',
+    badge: 'COMPLETE COLLECTION',
+    description: 'Explore the 3 official flavours available now, plus experimental batches roasting in the lab.',
   },
   'best-sellers': {
-    title: 'DROP 01 LAUNCH',
+    title: 'SIGNATURE RECIPES',
     badge: '🔥 AVAILABLE NOW',
-    description: 'Our 3 official signature launch recipes printed on the packets: Chocolate, Cheese & Herbs, and Jalapeno.',
+    description: 'Our 3 official signature launch recipes: Chocolate, Cheese & Herbs, and Jalapeno.',
   },
   flavours: {
     title: 'LAUNCH POUCHES',
@@ -141,10 +141,9 @@ export default function Shop() {
           </div>
 
           {/* Filter Tabs */}
-          <div className="flex flex-wrap items-center gap-2.5 pt-6 border-t border-white/10 dark:border-[#243373] relative z-10">
+          <div className="flex flex-wrap items-center gap-3 pt-6 border-t border-white/10 dark:border-[#243373] relative z-10">
             {[
               { id: 'all', label: 'ALL PRODUCTS', to: '/collections/all' },
-              { id: 'best-sellers', label: '🔥 DROP 01 LAUNCH (3 FLAVOURS)', to: '/collections/best-sellers' },
               { id: 'bundles', label: '⭐ LAUNCH TRIO BOX', to: '/collections/bundles' },
               { id: 'coming-soon', label: '🔒 DROP 02 (IN THE LAB)', to: '/collections/coming-soon' },
             ].map((cat) => (
@@ -152,10 +151,11 @@ export default function Shop() {
                 key={cat.id}
                 to={cat.to}
                 onClick={() => setActiveCategory(cat.id)}
-                className={`px-4.5 py-2 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all hover-pop-subtle hover:scale-[1.03] active:scale-[0.97] cursor-pointer ${activeCategory === cat.id
-                    ? 'bg-[#FF5400] text-white shadow-xs'
-                    : 'bg-white/10 dark:bg-[#1C2A6B] text-stone-200 hover:bg-white/20'
-                  }`}
+                className={`inline-flex items-center justify-center px-5 py-2.5 sm:px-6 sm:py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider transition-all duration-200 border cursor-pointer hover-pop-subtle hover:scale-[1.02] active:scale-[0.98] ${
+                  activeCategory === cat.id
+                    ? 'bg-[#FF5400] text-white border-[#FF5400] shadow-sm'
+                    : 'bg-white/10 dark:bg-[#1C2A6B] text-stone-200 border-white/15 dark:border-[#243373] hover:bg-white/20 hover:text-white hover:border-white/30'
+                }`}
               >
                 {cat.label}
               </Link>
