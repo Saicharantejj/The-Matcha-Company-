@@ -1,0 +1,180 @@
+{% comment %}
+  ==============================================================================
+  CHASKA BRANDED THANK YOU EXPERIENCE & DEDUPLICATED META PIXEL PURCHASE SCRIPT
+  ==============================================================================
+  Location in Shopify Admin:
+    Settings > Checkout > Order status page > Additional scripts
+
+  Features:
+    1. Polished CHASKA Order Confirmation Card injected via official
+       Shopify.Checkout.OrderStatus.addContentBox API.
+    2. Full Custom Gift Pack attribute preservation (Flavours, Packaging, Recipient, Gift Note).
+    3. Action buttons: "Continue Shopping" (returns to CHASKA store and resets cart)
+       and "Track Order".
+    4. Meta Pixel Purchase Event (Pixel ID: 1045964184868120) with strict deduplication:
+       - Server-side guard: {% if first_time_accessed %}
+       - Client-side guard: localStorage['chaska_meta_purchased_{{ checkout.order_id }}']
+       - Meta eventID deduplication key: {{ checkout.order_id }}
+    5. Fully responsive with CHASKA brand colors: Deep Navy (#0C122C / #17245B),
+       Vibrant Orange (#FF5400), and crisp typography.
+{% endcomment %}
+
+<!-- 1. CHASKA BRANDED POST-PURCHASE ORDER STATUS EXPERIENCE -->
+<script>
+  window.addEventListener('load', function() {
+    if (typeof Shopify === 'undefined' || !Shopify.Checkout || !Shopify.Checkout.OrderStatus) {
+      return;
+    }
+
+    var orderNumber = '{{ checkout.order_number }}' || '{{ order.order_number }}' || '{{ checkout.order_id }}';
+    var orderCurrency = '{{ checkout.currency }}' || 'INR';
+    var orderTotalFormatted = '₹{{ checkout.total_price | money_without_currency }}';
+
+    var chaskaContentBoxHtml = `
+      <div style="background-color: #0C122C; border: 2px solid #243373; border-radius: 24px; padding: 28px 24px; color: #FAF8F5; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5); margin-bottom: 24px;">
+        
+        <!-- Header Badge -->
+        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px; flex-wrap: wrap; gap: 12px;">
+          <div style="display: inline-flex; align-items: center; gap: 8px; background-color: rgba(255, 84, 0, 0.15); border: 1px solid rgba(255, 84, 0, 0.35); padding: 6px 14px; border-radius: 9999px;">
+            <span style="width: 8px; height: 8px; border-radius: 9999px; background-color: #FF5400; display: inline-block;"></span>
+            <span style="font-size: 11px; font-weight: 800; color: #FF5400; letter-spacing: 0.1em; text-transform: uppercase;">ORDER CONFIRMED</span>
+          </div>
+          <span style="font-family: monospace; font-size: 13px; font-weight: 700; color: #94A3B8; background: #131D4A; padding: 4px 12px; border-radius: 8px; border: 1px solid #243373;">
+            Order #${orderNumber}
+          </span>
+        </div>
+
+        <!-- Main Title & Greeting -->
+        <h2 style="font-size: 24px; font-weight: 900; text-transform: uppercase; color: #ffffff; margin: 0 0 8px 0; letter-spacing: -0.02em; line-height: 1.2;">
+          Thank You for Choosing <span style="color: #FF5400;">CHASKA!</span>
+        </h2>
+        <p style="font-size: 14px; color: #CBD5E1; margin: 0 0 20px 0; line-height: 1.5;">
+          Your order has been successfully placed and is now queued for slow-roasting and dispatch from our Bihar kitchen.
+        </p>
+
+        <!-- Order Items & Custom Gift Pack Details -->
+        <div style="background-color: #131D4A; border: 1px solid #243373; border-radius: 16px; padding: 18px; margin-bottom: 22px;">
+          <div style="font-size: 11px; font-weight: 800; color: #94A3B8; text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; border-bottom: 1px solid #243373; padding-bottom: 8px;">
+            PURCHASED ITEMS SUMMARY
+          </div>
+          
+          <div style="display: flex; flex-direction: column; gap: 12px;">
+            {% for line_item in checkout.line_items %}
+              <div style="padding-bottom: 10px; border-bottom: 1px dashed rgba(255, 255, 255, 0.1);">
+                <div style="display: flex; justify-content: space-between; align-items: baseline;">
+                  <span style="font-weight: 700; font-size: 14px; color: #ffffff;">
+                    {{ line_item.quantity }}× {{ line_item.title }}
+                  </span>
+                  <span style="font-family: monospace; font-weight: 700; font-size: 13px; color: #FF5400;">
+                    ₹{{ line_item.final_price | money_without_currency }}
+                  </span>
+                </div>
+
+                <!-- Custom Gift Pack Line Item Properties -->
+                {% if line_item.properties.size > 0 %}
+                  <div style="margin-top: 6px; padding-left: 12px; border-left: 2px solid #FF5400; font-size: 12px; color: #CBD5E1; display: flex; flex-direction: column; gap: 3px;">
+                    {% for property in line_item.properties %}
+                      {% if property.first != blank and property.last != blank %}
+                        <div>
+                          <span style="color: #94A3B8; font-weight: 600;">{{ property.first }}:</span>
+                          <span style="color: #FAF8F5; font-weight: 500;">{{ property.last }}</span>
+                        </div>
+                      {% endif %}
+                    {% endfor %}
+                  </div>
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+
+          <div style="display: flex; justify-content: space-between; align-items: baseline; margin-top: 14px; padding-top: 10px; border-top: 1px solid #243373;">
+            <span style="font-size: 12px; font-weight: 700; text-transform: uppercase; color: #94A3B8;">TOTAL PAID</span>
+            <span style="font-size: 20px; font-weight: 900; color: #ffffff;">${orderTotalFormatted}</span>
+          </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div style="display: flex; gap: 12px; flex-wrap: wrap;">
+          <a href="https://www.snackchaska.shop/shop?clearcart=true" 
+             style="flex: 1; min-width: 180px; background-color: #FF5400; color: #ffffff; text-align: center; padding: 14px 20px; border-radius: 9999px; font-weight: 800; font-size: 13px; text-transform: uppercase; text-decoration: none; letter-spacing: 0.05em; display: inline-block; box-shadow: 0 4px 14px rgba(255, 84, 0, 0.4); transition: transform 0.15s ease;">
+            CONTINUE SHOPPING ➔
+          </a>
+          <a href="mailto:snackchaska@gmail.com?subject=Order%20%23${orderNumber}%20Status%20Inquiry" 
+             style="background-color: transparent; border: 1px solid #243373; color: #FAF8F5; text-align: center; padding: 14px 20px; border-radius: 9999px; font-weight: 700; font-size: 13px; text-transform: uppercase; text-decoration: none; letter-spacing: 0.05em; display: inline-block;">
+            TRACK ORDER / HELP
+          </a>
+        </div>
+
+      </div>
+    `;
+
+    Shopify.Checkout.OrderStatus.addContentBox(chaskaContentBoxHtml);
+  });
+</script>
+
+
+<!-- 2. DEDUPLICATED META PIXEL PURCHASE TRACKING -->
+{% if first_time_accessed %}
+<script>
+  (function() {
+    var orderId = '{{ checkout.order_id }}' || '{{ order.id }}' || '{{ checkout.order_number }}';
+    if (!orderId) return;
+
+    // Strict browser localStorage deduplication guard
+    var dedupeKey = 'chaska_meta_purchased_' + orderId;
+    try {
+      if (window.localStorage && window.localStorage.getItem(dedupeKey) === 'true') {
+        return; // Prevent duplicate execution on refresh or revisit
+      }
+    } catch (e) {}
+
+    // Initialize Meta Pixel if not loaded by theme/custom pixel
+    if (!window.fbq) {
+      !function(f,b,e,v,n,t,s)
+      {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+      n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+      if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+      n.queue=[];t=b.createElement(e);t.async=!0;
+      t.src=v;s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s)}(window, document,'script',
+      'https://connect.facebook.net/en_US/fbevents.js');
+
+      fbq('init', '1045964184868120');
+    }
+
+    // Build real content ids & contents array
+    var contentIds = [];
+    var contents = [];
+    {% for line_item in checkout.line_items %}
+      contentIds.push('{{ line_item.variant_id | default: line_item.product_id }}');
+      contents.push({
+        id: '{{ line_item.variant_id | default: line_item.product_id }}',
+        quantity: {{ line_item.quantity }},
+        item_price: {{ line_item.final_price | money_without_currency | remove: ',' }},
+        title: '{{ line_item.title | escape }}'
+      });
+    {% endfor %}
+
+    var purchaseTotal = parseFloat('{{ checkout.total_price | money_without_currency | remove: "," }}') || 0;
+    var purchaseCurrency = '{{ checkout.currency }}' || 'INR';
+
+    // Track Meta Purchase event with eventID for deduplication
+    fbq('track', 'Purchase', {
+      content_ids: contentIds,
+      contents: contents,
+      content_type: 'product',
+      value: purchaseTotal,
+      currency: purchaseCurrency,
+      order_id: orderId,
+      num_items: {{ checkout.line_items.size }}
+    }, { eventID: orderId });
+
+    // Mark order as tracked in browser storage
+    try {
+      if (window.localStorage) {
+        window.localStorage.setItem(dedupeKey, 'true');
+      }
+    } catch (e) {}
+  })();
+</script>
+{% endif %}

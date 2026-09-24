@@ -106,8 +106,27 @@ export function CartProvider({ children }) {
     } catch {}
   }, [items])
 
-  // Initialize Shopify Cart from stored ID on app startup
+  // Initialize Shopify Cart from stored ID on app startup & handle post-purchase clearcart return
   useEffect(() => {
+    // Check if returning from completed checkout with clearcart signal
+    if (typeof window !== 'undefined' && window.location.search.includes('clearcart=true')) {
+      try {
+        window.localStorage.removeItem(SHOPIFY_CART_ID_KEY)
+        window.localStorage.removeItem(LOCAL_CART_ITEMS_KEY)
+      } catch {}
+      setShopifyCartId(null)
+      setCheckoutUrl(null)
+      setItems([])
+      setSubtotalState(0)
+      setCountState(0)
+      try {
+        const url = new URL(window.location.href)
+        url.searchParams.delete('clearcart')
+        window.history.replaceState({}, '', url.pathname + (url.search ? url.search : ''))
+      } catch {}
+      return
+    }
+
     async function syncShopifyCart() {
       const storedId = window.localStorage.getItem(SHOPIFY_CART_ID_KEY)
       if (!storedId) return
@@ -133,8 +152,14 @@ export function CartProvider({ children }) {
             setCountState(shopifyCart.totalQuantity)
           }
         } else {
+          // Cart completed or expired in Shopify; clean up stale local storage
           window.localStorage.removeItem(SHOPIFY_CART_ID_KEY)
+          window.localStorage.removeItem(LOCAL_CART_ITEMS_KEY)
           setShopifyCartId(null)
+          setCheckoutUrl(null)
+          setItems([])
+          setSubtotalState(0)
+          setCountState(0)
         }
       } catch (err) {
         // Fallback to local state if offline or tokenless query restricted

@@ -137,17 +137,52 @@ export function trackInitiateCheckout(items = [], subtotal = 0) {
 }
 
 /**
- * Prepared Purchase function for future payment backend integration (DO NOT CALL currently)
+ * Central Purchase tracking utility with strict order deduplication and eventID
+ * Note: Real checkout purchases fire from the completed Shopify Thank You experience.
  */
 export function trackPurchase(orderData = {}) {
-  const { content_ids = [], value = 0, order_id = '' } = orderData
-  fbqCall('track', 'Purchase', {
+  const {
+    content_ids = [],
+    contents = [],
+    value = 0,
+    currency = 'INR',
+    order_id = '',
+    num_items,
+  } = orderData
+
+  if (!order_id) return
+
+  // Deduplication guard: Never fire twice for the same order in the browser
+  const dedupeKey = `chaska_meta_purchased_${order_id}`
+  try {
+    if (typeof window !== 'undefined' && window.localStorage.getItem(dedupeKey) === 'true') {
+      if (import.meta.env?.DEV) {
+        console.log(`[Meta Pixel] Purchase event for order ${order_id} already recorded. Skipping duplicate.`)
+      }
+      return
+    }
+  } catch {}
+
+  const payload = {
     content_ids,
+    contents,
     content_type: 'product',
-    value,
-    currency: 'INR',
-    order_id,
-  })
+    value: Number(value) || 0,
+    currency: currency || 'INR',
+    order_id: String(order_id),
+  }
+  if (num_items !== undefined) {
+    payload.num_items = num_items
+  }
+
+  // Pass eventID as 3rd parameter for Meta browser & Conversions API deduplication
+  fbqCall('track', 'Purchase', payload, { eventID: String(order_id) })
+
+  try {
+    if (typeof window !== 'undefined') {
+      window.localStorage.setItem(dedupeKey, 'true')
+    }
+  } catch {}
 }
 
 /**
