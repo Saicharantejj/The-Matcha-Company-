@@ -55,6 +55,11 @@ function sanitizeCartItem(item) {
     image,
     quantity: numQty,
     qty: numQty,
+    attributes: item.attributes || [],
+    recipient: item.recipient || undefined,
+    giftNote: item.giftNote || undefined,
+    boxTheme: item.boxTheme || undefined,
+    breakdown: item.breakdown || undefined,
   }
 }
 
@@ -200,10 +205,16 @@ export function CartProvider({ children }) {
         let updatedCart = null
         const targetVariantId = product.variantId || product.shopifyId || product.id
 
+        const linePayload = {
+          variantId: targetVariantId,
+          quantity: addQty,
+          ...(cleanItem.attributes && cleanItem.attributes.length > 0 ? { attributes: cleanItem.attributes } : {}),
+        }
+
         if (shopifyCartId) {
-          updatedCart = await addShopifyCartLines(shopifyCartId, [{ variantId: targetVariantId, quantity: addQty }])
+          updatedCart = await addShopifyCartLines(shopifyCartId, [linePayload])
         } else {
-          updatedCart = await createShopifyCart([{ variantId: targetVariantId, quantity: addQty }])
+          updatedCart = await createShopifyCart([linePayload])
         }
 
         if (updatedCart && updatedCart.id) {

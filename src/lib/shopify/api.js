@@ -113,6 +113,11 @@ export function mapShopifyCart(cart) {
     const priceAmount = Math.ceil(parseFloat(merchandise.price?.amount || '0'))
     const totalAmount = Math.ceil(parseFloat(node.cost?.totalAmount?.amount || `${priceAmount * qty}`))
     const qty = typeof node.quantity === 'number' && node.quantity > 0 ? node.quantity : 1
+    const attributes = node.attributes || []
+    const attrMap = {}
+    attributes.forEach((a) => {
+      if (a?.key && a?.value) attrMap[a.key] = a.value
+    })
 
     return {
       lineId: node.id,
@@ -129,6 +134,11 @@ export function mapShopifyCart(cart) {
       currency: merchandise.price?.currencyCode || 'INR',
       lineTotal: totalAmount,
       image: merchandise.image?.url || null,
+      attributes,
+      recipient: attrMap['Recipient'] || undefined,
+      giftNote: attrMap['Gift Note'] || undefined,
+      boxTheme: attrMap['Packaging'] || undefined,
+      breakdown: attrMap['Flavours'] || undefined,
     }
   })
 
@@ -276,18 +286,30 @@ export async function fetchShopifyProductByHandle(handle) {
     )
 
     let shopifyHandleToFetch = handleLower
-    if (handleLower === 'pudina') shopifyHandleToFetch = 'pudhina-makhana'
-    else if (handleLower === 'jalapeno') shopifyHandleToFetch = 'chilli-lime-makhana'
-    else if (handleLower === 'cheese') shopifyHandleToFetch = 'chilli-cheese-makhana'
+    if (handleLower === 'pudina') shopifyHandleToFetch = 'pudina-makhana'
+    else if (handleLower === 'jalapeno') shopifyHandleToFetch = 'jalapeno-makhana'
+    else if (handleLower === 'cheese') shopifyHandleToFetch = 'cheese-makhana'
     else if (handleLower === 'kashmiri-chilli-lime-garlic') shopifyHandleToFetch = 'kashmiri-garlic-chilli-makhana'
     else if (handleLower === 'south-african-peri-peri') shopifyHandleToFetch = 'peri-peri-makhana'
 
     let liveProduct = null
     try {
-      const data = await shopifyFetch({
+      let data = await shopifyFetch({
         query: GET_PRODUCT_BY_HANDLE_QUERY,
         variables: { handle: shopifyHandleToFetch },
       })
+      if (!data?.product && shopifyHandleToFetch !== handleLower) {
+        data = await shopifyFetch({
+          query: GET_PRODUCT_BY_HANDLE_QUERY,
+          variables: { handle: handleLower },
+        })
+      }
+      if (!data?.product && handleLower === 'pudina') {
+        data = await shopifyFetch({
+          query: GET_PRODUCT_BY_HANDLE_QUERY,
+          variables: { handle: 'pudhina-makhana' },
+        })
+      }
       liveProduct = mapShopifyProduct(data?.product)
     } catch (err) {
       if (import.meta.env?.DEV) {
@@ -402,10 +424,16 @@ export async function getShopifyCart(cartId) {
  * Creates a new cart in Shopify with optional initial lines
  */
 export async function createShopifyCart(lines = []) {
-  const formattedLines = lines.map((item) => ({
-    merchandiseId: item.variantId || item.id,
-    quantity: Number(item.quantity || item.qty) || 1,
-  }))
+  const formattedLines = lines.map((item) => {
+    const line = {
+      merchandiseId: item.variantId || item.id,
+      quantity: Number(item.quantity || item.qty) || 1,
+    }
+    if (Array.isArray(item.attributes) && item.attributes.length > 0) {
+      line.attributes = item.attributes
+    }
+    return line
+  })
 
   const data = await shopifyFetch({
     query: CART_CREATE_MUTATION,
@@ -428,10 +456,16 @@ export async function createShopifyCart(lines = []) {
 export async function addShopifyCartLines(cartId, lines = []) {
   if (!cartId) return createShopifyCart(lines)
 
-  const formattedLines = lines.map((item) => ({
-    merchandiseId: item.variantId || item.id,
-    quantity: Number(item.quantity || item.qty) || 1,
-  }))
+  const formattedLines = lines.map((item) => {
+    const line = {
+      merchandiseId: item.variantId || item.id,
+      quantity: Number(item.quantity || item.qty) || 1,
+    }
+    if (Array.isArray(item.attributes) && item.attributes.length > 0) {
+      line.attributes = item.attributes
+    }
+    return line
+  })
 
   const data = await shopifyFetch({
     query: CART_LINES_ADD_MUTATION,

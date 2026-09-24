@@ -1,25 +1,28 @@
 Handle,Title,Body (HTML),Vendor,Standardized Product Type,Custom Product Type,Tags,Published,Option1 Name,Option1 Value,Option2 Name,Option2 Value,Option3 Name,Option3 Value,Variant SKU,Variant Grams,Variant Inventory Tracker,Variant Inventory Qty,Variant Inventory Policy,Variant Fulfillment Service,Variant Price,Variant Compare At Price,Variant Requires Shipping,Variant Taxable,Variant Barcode,Image Src,Image Position,Image Alt Text,Gift Card,SEO Title,SEO Description,Google Shopping / Google Product Category,Google Shopping / Gender,Google Shopping / Age Group,Google Shopping / MPN,Google Shopping / AdWords Grouping,Google Shopping / AdWords Labels,Google Shopping / Condition,Google Shopping / Custom Product,Google Shopping / Custom Label 0,Google Shopping / Custom Label 1,Google Shopping / Custom Label 2,Google Shopping / Custom Label 3,Google Shopping / Custom Label 4,Variant Image,Variant Weight Unit,Variant Tax Code,Cost per item,Status
-pudina-makhana,Pudina Makhana,"<p>Refreshing garden mint blended with roasted spices and pink rock salt over crisp slow-roasted makhana.</p>",CHASKA,,Flavoured Makhana,"makhana, pudina, mint, fresh, roasted",true,Size,30g,Pack,Pack of 1,,,PUD-30-1,30,shopify,10000,continue,manual,129,129,true,true,,,,,false,Pudina Makhana | CHASKA,Refreshing garden mint blended with roasted spices and pink rock salt.,,,,,,,,,,,,,,,g,,,active
-pudina-makhana,,,,,,,,Size,30g,Pack,Pack of 3,,,PUD-30-3,90,shopify,10000,continue,manual,368,387,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-pudina-makhana,,,,,,,,Size,30g,Pack,Pack of 5,,,PUD-30-5,150,shopify,10000,continue,manual,581,645,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-pudina-makhana,,,,,,,,Size,30g,Pack,Pack of 10,,,PUD-30-10,300,shopify,10000,continue,manual,1032,1290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-pudina-makhana,,,,,,,,Size,70g,Pack,Pack of 1,,,PUD-70-1,70,shopify,10000,continue,manual,229,229,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-pudina-makhana,,,,,,,,Size,70g,Pack,Pack of 3,,,PUD-70-3,210,shopify,10000,continue,manual,653,687,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-pudina-makhana,,,,,,,,Size,70g,Pack,Pack of 5,,,PUD-70-5,350,shopify,10000,continue,manual,1031,1145,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-pudina-makhana,,,,,,,,Size,70g,Pack,Pack of 10,,,PUD-70-10,700,shopify,10000,continue,manual,1832,2290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,Jalapeño Makhana,"<p>Whole roasted lotus pops coated with smoky sun-dried green jalapeño chili dust, tangy lime zest, and rock salt.</p>",CHASKA,,Flavoured Makhana,"makhana, jalapeno, spicy, roasted, zesty",true,Size,30g,Pack,Pack of 1,,,JAL-30-1,30,shopify,10000,continue,manual,129,129,true,true,,,,,false,Jalapeño Makhana | CHASKA,Whole roasted lotus pops seasoned with sun-dried green jalapeño chili and lime.,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,,,,,,,,Size,30g,Pack,Pack of 3,,,JAL-30-3,90,shopify,10000,continue,manual,368,387,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,,,,,,,,Size,30g,Pack,Pack of 5,,,JAL-30-5,150,shopify,10000,continue,manual,581,645,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,,,,,,,,Size,30g,Pack,Pack of 10,,,JAL-30-10,300,shopify,10000,continue,manual,1032,1290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,,,,,,,,Size,70g,Pack,Pack of 1,,,JAL-70-1,70,shopify,10000,continue,manual,229,229,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,,,,,,,,Size,70g,Pack,Pack of 3,,,JAL-70-3,210,shopify,10000,continue,manual,653,687,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,,,,,,,,Size,70g,Pack,Pack of 5,,,JAL-70-5,350,shopify,10000,continue,manual,1031,1145,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-jalapeno-makhana,,,,,,,,Size,70g,Pack,Pack of 10,,,JAL-70-10,700,shopify,10000,continue,manual,1832,2290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,Cheese Makhana,"<p>Rich cheddar cheese seasoning and roasted butter notes dusted over crisp slow-roasted makhana pops.</p>",CHASKA,,Flavoured Makhana,"makhana, cheese, savory, roasted",true,Size,30g,Pack,Pack of 1,,,CHS-30-1,30,shopify,10000,continue,manual,129,129,true,true,,,,,false,Cheese Makhana | CHASKA,Rich cheddar cheese seasoning dusted over slow-roasted makhana pops.,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,,,,,,,,Size,30g,Pack,Pack of 3,,,CHS-30-3,90,shopify,10000,continue,manual,368,387,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,,,,,,,,Size,30g,Pack,Pack of 5,,,CHS-30-5,150,shopify,10000,continue,manual,581,645,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,,,,,,,,Size,30g,Pack,Pack of 10,,,CHS-30-10,300,shopify,10000,continue,manual,1032,1290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,,,,,,,,Size,70g,Pack,Pack of 1,,,CHS-70-1,70,shopify,10000,continue,manual,229,229,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,,,,,,,,Size,70g,Pack,Pack of 3,,,CHS-70-3,210,shopify,10000,continue,manual,653,687,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,,,,,,,,Size,70g,Pack,Pack of 5,,,CHS-70-5,350,shopify,10000,continue,manual,1031,1145,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
-cheese-makhana,,,,,,,,Size,70g,Pack,Pack of 10,,,CHS-70-10,700,shopify,10000,continue,manual,1832,2290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,Pudina,<p>Refreshing garden mint blended with roasted spices and pink rock salt over crisp slow-roasted makhana.</p>,CHASKA,,Flavoured Makhana,"makhana, pudina, mint, fresh, roasted",true,Size,30g,Pack,Pack of 1,,,PUD-30-1,30,shopify,10000,continue,manual,129,129,true,true,,,,,false,Pudina | CHASKA,Refreshing garden mint blended with roasted spices and pink rock salt.,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,,,,,,,,,30g,,Pack of 3,,,PUD-30-3,90,shopify,10000,continue,manual,368,387,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,,,,,,,,,30g,,Pack of 5,,,PUD-30-5,150,shopify,10000,continue,manual,581,645,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,,,,,,,,,30g,,Pack of 10,,,PUD-30-10,300,shopify,10000,continue,manual,1032,1290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,,,,,,,,,70g,,Pack of 1,,,PUD-70-1,70,shopify,10000,continue,manual,229,229,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,,,,,,,,,70g,,Pack of 3,,,PUD-70-3,210,shopify,10000,continue,manual,653,687,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,,,,,,,,,70g,,Pack of 5,,,PUD-70-5,350,shopify,10000,continue,manual,1031,1145,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+pudina-makhana,,,,,,,,,70g,,Pack of 10,,,PUD-70-10,700,shopify,10000,continue,manual,1832,2290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,Jalapeño,"<p>Whole roasted lotus pops coated with smoky sun-dried green jalapeño chili dust, tangy lime zest, and rock salt.</p>",CHASKA,,Flavoured Makhana,"makhana, jalapeno, spicy, roasted, zesty",true,Size,30g,Pack,Pack of 1,,,JAL-30-1,30,shopify,10000,continue,manual,129,129,true,true,,,,,false,Jalapeño | CHASKA,Whole roasted lotus pops seasoned with sun-dried green jalapeño chili and lime.,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,,,,,,,,,30g,,Pack of 3,,,JAL-30-3,90,shopify,10000,continue,manual,368,387,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,,,,,,,,,30g,,Pack of 5,,,JAL-30-5,150,shopify,10000,continue,manual,581,645,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,,,,,,,,,30g,,Pack of 10,,,JAL-30-10,300,shopify,10000,continue,manual,1032,1290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,,,,,,,,,70g,,Pack of 1,,,JAL-70-1,70,shopify,10000,continue,manual,229,229,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,,,,,,,,,70g,,Pack of 3,,,JAL-70-3,210,shopify,10000,continue,manual,653,687,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,,,,,,,,,70g,,Pack of 5,,,JAL-70-5,350,shopify,10000,continue,manual,1031,1145,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+jalapeno-makhana,,,,,,,,,70g,,Pack of 10,,,JAL-70-10,700,shopify,10000,continue,manual,1832,2290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,Cheese,<p>Rich cheddar cheese seasoning and roasted butter notes dusted over crisp slow-roasted makhana pops.</p>,CHASKA,,Flavoured Makhana,"makhana, cheese, savory, roasted",true,Size,30g,Pack,Pack of 1,,,CHS-30-1,30,shopify,10000,continue,manual,129,129,true,true,,,,,false,Cheese | CHASKA,Rich cheddar cheese seasoning dusted over slow-roasted makhana pops.,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,,,,,,,,,30g,,Pack of 3,,,CHS-30-3,90,shopify,10000,continue,manual,368,387,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,,,,,,,,,30g,,Pack of 5,,,CHS-30-5,150,shopify,10000,continue,manual,581,645,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,,,,,,,,,30g,,Pack of 10,,,CHS-30-10,300,shopify,10000,continue,manual,1032,1290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,,,,,,,,,70g,,Pack of 1,,,CHS-70-1,70,shopify,10000,continue,manual,229,229,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,,,,,,,,,70g,,Pack of 3,,,CHS-70-3,210,shopify,10000,continue,manual,653,687,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,,,,,,,,,70g,,Pack of 5,,,CHS-70-5,350,shopify,10000,continue,manual,1031,1145,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+cheese-makhana,,,,,,,,,70g,,Pack of 10,,,CHS-70-10,700,shopify,10000,continue,manual,1832,2290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+custom-gift-pack,Custom Gift Pack,<p>Curated artisanal gift box. Hand-selected slow-roasted lotus seed flavours packed in luxury sleeve with handwritten gift card.</p>,CHASKA,,Gift Pack,"gift, box, bundle, custom gift pack, curated",true,Tier,Trio Tasting Box (3 Packs),,,,,GIFT-TRIO-3,90,shopify,10000,continue,manual,368,387,true,true,,,,,false,Custom Gift Pack | CHASKA,Custom curated artisanal makhana gift box.,,,,,,,,,,,,,,,g,,,active
+custom-gift-pack,,,,,,,,,Celebration Hamper (5 Packs),,,,,GIFT-CELEB-5,150,shopify,10000,continue,manual,581,645,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active
+custom-gift-pack,,,,,,,,,Grand 10-Pack Box (10 Packs),,,,,GIFT-GRAND-10,300,shopify,10000,continue,manual,1032,1290,true,true,,,,,,,,,,,,,,,,,,,,,,g,,,active

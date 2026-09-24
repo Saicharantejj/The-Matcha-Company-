@@ -22,6 +22,10 @@ export const CART_FRAGMENT = `
         node {
           id
           quantity
+          attributes {
+            key
+            value
+          }
           merchandise {
             ... on ProductVariant {
               id

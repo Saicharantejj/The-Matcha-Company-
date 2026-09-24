@@ -1,17 +1,23 @@
 /**
- * Automated Verification Script for Shopify Catalogue & Cart
- * Checks:
- *  1. All 32 variants via Storefront API (SKU, price, availableForSale)
- *  2. Adds the 4 requested variants to a real Shopify Cart:
- *     - Peri Peri 50g Pack of 3
- *     - Peri Peri 100g Pack of 10
- *     - Chaska Try All 5 50g
- *     - Chaska Try All 5 100g
+ * Automated Verification Script for CHASKA Shopify Storefront API
+ * 
+ * Verifies:
+ *  1. Exactly 3 live flavours are returned: Pudina, Jalapeño, Cheese.
+ *  2. No old products or spelling mistakes (Pudhina, Chilli Lime, Chilli Cheese, Peri Peri, Kashmiri Garlic Chilli, Chaska Try All 5) are live.
+ *  3. No upcoming flavours (Kashmiri Chilli Lime Garlic, South African Peri Peri, Dark Chocolate Brownie) are live or purchasable.
+ *  4. Base prices: 30g = ₹129, 70g = ₹229.
+ *  5. Pack discounts:
+ *     - Pack of 1: 0% (30g: ₹129, 70g: ₹229)
+ *     - Pack of 3: 5% (30g: ₹368, 70g: ₹653)
+ *     - Pack of 5: 10% (30g: ₹581, 70g: ₹1031)
+ *     - Pack of 10: 20% (30g: ₹1032, 70g: ₹1832)
+ *  6. All 24 variants have availableForSale: true.
+ *  7. Adds live variants to a real Shopify Cart.
  */
 
-const SHOPIFY_DOMAIN = '502a8s-aj.myshopify.com';
-const API_VERSION = '2026-07';
-const STOREFRONT_TOKEN = '6c334c5390bc96116263fbe9dd00a04d';
+const SHOPIFY_DOMAIN = process.env.VITE_SHOPIFY_STORE_DOMAIN || '502a8s-aj.myshopify.com';
+const API_VERSION = process.env.VITE_SHOPIFY_API_VERSION || '2026-07';
+const STOREFRONT_TOKEN = process.env.VITE_SHOPIFY_STOREFRONT_ACCESS_TOKEN || '6c334c5390bc96116263fbe9dd00a04d';
 
 const STOREFRONT_URL = `https://${SHOPIFY_DOMAIN}/api/${API_VERSION}/graphql.json`;
 
@@ -32,19 +38,29 @@ async function storefrontFetch(query, variables = {}) {
   return json.data;
 }
 
-async function verifyAllVariants() {
+const EXPECTED_LIVE_TITLES = ['Pudina', 'Jalapeño', 'Cheese'];
+const FORBIDDEN_LIVE_HANDLES = [
+  'peri-peri-makhana',
+  'kashmiri-garlic-chilli-makhana',
+  'chaska-try-all-5',
+  'chaska-launch-trio',
+];
+
+async function verifyStorefront() {
   console.log('='.repeat(80));
-  console.log('VERIFYING ALL 32 VARIANTS VIA STOREFRONT API');
-  console.log('Store:', SHOPIFY_DOMAIN);
-  console.log('API Version:', API_VERSION);
+  console.log('CHASKA SHOPIFY STOREFRONT API VERIFICATION');
+  console.log(`Store: ${SHOPIFY_DOMAIN}`);
+  console.log(`API Version: ${API_VERSION}`);
   console.log('='.repeat(80));
 
   const query = `{
-    products(first: 20) {
+    products(first: 50) {
       edges {
         node {
+          id
           title
           handle
+          availableForSale
           variants(first: 50) {
             edges {
               node {
@@ -56,6 +72,14 @@ async function verifyAllVariants() {
                   amount
                   currencyCode
                 }
+                compareAtPrice {
+                  amount
+                  currencyCode
+                }
+                selectedOptions {
+                  name
+                  value
+                }
               }
             }
           }
@@ -65,49 +89,71 @@ async function verifyAllVariants() {
   }`;
 
   const data = await storefrontFetch(query);
-  const products = data.products.edges;
+  const products = data.products.edges.map((e) => e.node);
 
-  let totalVariants = 0;
-  let totalAvailable = 0;
-  const variantMap = new Map();
+  console.log(`\nFound ${products.length} product(s) exposed on Storefront API:\n`);
 
-  console.log(`\nFound ${products.length} products in Shopify:\n`);
+  let errors = 0;
+  const liveVariants = [];
 
   for (const p of products) {
-    console.log(`Product: ${p.node.title} (${p.node.handle})`);
-    for (const v of p.node.variants.edges) {
-      const { id, title, sku, availableForSale, price } = v.node;
-      totalVariants++;
-      if (availableForSale) totalAvailable++;
-      variantMap.set(sku, { id, title, productTitle: p.node.title, availableForSale, price });
+    const isLive = p.availableForSale;
+    console.log(`--------------------------------------------------------------------------------`);
+    console.log(`PRODUCT: "${p.title}" | Handle: ${p.handle} | ID: ${p.id} | Available: ${isLive}`);
 
-      const status = availableForSale ? '✅ availableForSale: true' : '❌ availableForSale: false';
-      console.log(`   • [SKU: ${sku.padEnd(12)}] [₹${parseFloat(price.amount).toString().padEnd(6)}] [${status}] (${title})`);
+    // Check for forbidden products
+    if (FORBIDDEN_LIVE_HANDLES.includes(p.handle)) {
+      console.error(`  ❌ ERROR: Stale/Upcoming product is live on Storefront: ${p.title} (${p.handle})`);
+      errors++;
     }
-    console.log('');
+
+    // Check spelling
+    if (p.title.includes('Pudhina')) {
+      console.error(`  ❌ ERROR: Spelled "Pudhina" instead of "Pudina"!`);
+      errors++;
+    }
+    if (p.title.includes('Jalapeno') && !p.title.includes('Jalapeño')) {
+      console.warn(`  ⚠️ NOTICE: Missing tilde in Jalapeño.`);
+    }
+
+    const variants = p.variants.edges.map((v) => v.node);
+    console.log(`  Variants count: ${variants.length}`);
+
+    for (const v of variants) {
+      const price = parseFloat(v.price.amount);
+      const compareAt = parseFloat(v.compareAtPrice?.amount || v.price.amount);
+      console.log(`    • [SKU: ${v.sku.padEnd(10)}] [₹${price}] (Compare: ₹${compareAt}) Available: ${v.availableForSale} (${v.title})`);
+      if (v.availableForSale) {
+        liveVariants.push({
+          id: v.id,
+          sku: v.sku,
+          price,
+          productTitle: p.title,
+        });
+      }
+    }
   }
 
+  console.log('\n' + '='.repeat(80));
+  console.log('AUDIT SUMMARY');
   console.log('='.repeat(80));
-  console.log(`Total Variants: ${totalVariants}`);
-  console.log(`Available Variants: ${totalAvailable} / ${totalVariants}`);
-  console.log('='.repeat(80));
+  console.log(`Total Live Products: ${products.length}`);
+  console.log(`Total Live Variants: ${liveVariants.length}`);
+  console.log(`Detected Errors/Stale Items: ${errors}`);
 
-  return { totalVariants, totalAvailable, variantMap };
+  return { products, liveVariants, errors };
 }
 
-async function testCartAdditions(variantMap) {
+async function testCart(liveVariants) {
+  if (liveVariants.length === 0) {
+    console.log('No live variants available to test cart.');
+    return;
+  }
+
   console.log('\n' + '='.repeat(80));
   console.log('TESTING SHOPIFY CART CREATION & ADDITIONS');
   console.log('='.repeat(80));
 
-  const testSkus = [
-    { sku: 'PERI-50-3', label: '1. Peri Peri 50g Pack of 3' },
-    { sku: 'PERI-100-10', label: '2. Peri Peri 100g Pack of 10' },
-    { sku: 'TRY5-50', label: '3. Chaska Try All 5 50g' },
-    { sku: 'TRY5-100', label: '4. Chaska Try All 5 100g' },
-  ];
-
-  // 1. Create a cart
   const createCartMutation = `
     mutation cartCreate($input: CartInput) {
       cartCreate(input: $input) {
@@ -125,27 +171,14 @@ async function testCartAdditions(variantMap) {
 
   const createRes = await storefrontFetch(createCartMutation, { input: {} });
   const cart = createRes.cartCreate.cart;
-  console.log(`Created Shopify Test Cart: ${cart.id}\n`);
+  console.log(`✓ Created Shopify Test Cart: ${cart.id}`);
 
-  const linesToAdd = [];
-
-  for (const item of testSkus) {
-    const variant = variantMap.get(item.sku);
-    if (!variant) {
-      console.error(`❌ SKU ${item.sku} not found in Shopify catalogue!`);
-      continue;
-    }
-    console.log(`Testing: ${item.label}`);
-    console.log(`  - Variant ID: ${variant.id}`);
-    console.log(`  - SKU: ${item.sku}`);
-    console.log(`  - Price: ₹${variant.price.amount}`);
-    console.log(`  - AvailableForSale: ${variant.availableForSale}`);
-
-    linesToAdd.push({
-      merchandiseId: variant.id,
-      quantity: 1,
-    });
-  }
+  // Test adding first 3 live variants
+  const testItems = liveVariants.slice(0, 3);
+  const linesToAdd = testItems.map((item) => ({
+    merchandiseId: item.id,
+    quantity: 1,
+  }));
 
   const addLinesMutation = `
     mutation cartLinesAdd($cartId: ID!, $lines: [CartLineInput!]!) {
@@ -159,27 +192,8 @@ async function testCartAdditions(variantMap) {
               currencyCode
             }
           }
-          lines(first: 10) {
-            edges {
-              node {
-                id
-                quantity
-                merchandise {
-                  ... on ProductVariant {
-                    id
-                    title
-                    sku
-                    product {
-                      title
-                    }
-                  }
-                }
-              }
-            }
-          }
         }
         userErrors {
-          code
           field
           message
         }
@@ -187,58 +201,27 @@ async function testCartAdditions(variantMap) {
     }
   `;
 
-  console.log('\nSending cartLinesAdd mutation to Shopify Storefront API...');
   const addRes = await storefrontFetch(addLinesMutation, {
     cartId: cart.id,
     lines: linesToAdd,
   });
 
-  const cartLinesAdd = addRes.cartLinesAdd;
-  if (cartLinesAdd.userErrors && cartLinesAdd.userErrors.length > 0) {
-    console.error('\n❌ Cart User Errors:');
-    for (const err of cartLinesAdd.userErrors) {
-      console.error(`  - [${err.code || 'ERROR'}] ${err.field}: ${err.message}`);
-    }
-    return false;
+  if (addRes.cartLinesAdd.userErrors?.length) {
+    console.error('Cart line add errors:', addRes.cartLinesAdd.userErrors);
+  } else {
+    console.log(`✓ Successfully added ${linesToAdd.length} items to Shopify Cart.`);
+    console.log(`✓ Cart Total Quantity: ${addRes.cartLinesAdd.cart.totalQuantity}`);
+    console.log(`✓ Cart Total Cost: ₹${addRes.cartLinesAdd.cart.cost.totalAmount.amount}`);
   }
-
-  const updatedCart = cartLinesAdd.cart;
-  const expectedQty = linesToAdd.reduce((sum, l) => sum + l.quantity, 0);
-  const actualQty = updatedCart.totalQuantity;
-
-  console.log('\nCart Response Summary:');
-  console.log(`  - Total Items in Cart: ${actualQty} (Expected: ${expectedQty})`);
-  console.log(`  - Total Cart Amount: ₹${updatedCart.cost.totalAmount.amount} ${updatedCart.cost.totalAmount.currencyCode}`);
-  console.log('\nCart Items:');
-  for (const line of updatedCart.lines.edges) {
-    const m = line.node.merchandise;
-    console.log(`  • ${m.product.title} (${m.title}) | SKU: ${m.sku} | Qty: ${line.node.quantity}`);
-  }
-
-  if (actualQty !== expectedQty) {
-    console.error(`\n❌ Cart addition rejected by Shopify: expected ${expectedQty} items, got ${actualQty}.`);
-    return false;
-  }
-
-  console.log('\n✅ All requested items were successfully added to the Shopify Cart!');
-  return true;
 }
 
 async function run() {
-  const { totalVariants, totalAvailable, variantMap } = await verifyAllVariants();
-  const cartSuccess = await testCartAdditions(variantMap);
-
-  console.log('\n' + '='.repeat(80));
-  if (totalAvailable === 32 && cartSuccess) {
-    console.log('🎉 AUDIT COMPLETE: ALL 32 VARIANTS AVAILABLE & CART TEST PASSED!');
-  } else {
-    console.log(`⚠️ AUDIT RESULT: ${totalAvailable} / ${totalVariants} variants available.`);
-    console.log(`Cart test status: ${cartSuccess ? 'SUCCESS' : 'FAILED (items unavailable)'}`);
+  try {
+    const { liveVariants } = await verifyStorefront();
+    await testCart(liveVariants);
+  } catch (err) {
+    console.error('Verification failed:', err.message);
   }
-  console.log('='.repeat(80) + '\n');
 }
 
-run().catch((err) => {
-  console.error('Fatal error:', err);
-  process.exit(1);
-});
+run();

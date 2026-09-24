@@ -1,8 +1,9 @@
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useCart } from '../context/CartContext'
 import { useToast } from './Toast'
 import { photos } from '../data/photos'
+import { fetchShopifyProductByHandle } from '../lib/shopify/api'
 
 const BOX_TIERS = [
   {
@@ -96,29 +97,43 @@ const BOX_THEMES = [
   },
 ]
 
+const createEmptySelections = () => {
+  const initial = {}
+  FLAVOUR_OPTIONS.forEach((f) => {
+    initial[f.id] = 0
+  })
+  return initial
+}
+
 export default function BuildYourBox() {
   const [selectedTierId, setSelectedTierId] = useState('celebration')
-  const [selections, setSelections] = useState({
-    'chocolate-makhana': 2,
-    'cheese-and-herbs': 2,
-    'jalapeno': 1,
-    'peri-peri': 0,
-    'kashmiri-garlic': 0,
-    'pudhina': 0,
-  })
+  const [selections, setSelections] = useState(createEmptySelections)
   const [boxTheme, setBoxTheme] = useState('royal')
   const [recipientName, setRecipientName] = useState('')
   const [giftNote, setGiftNote] = useState('')
+  const [shopifyGiftProduct, setShopifyGiftProduct] = useState(null)
   const [isAdding, setIsAdding] = useState(false)
 
   const { addItem, openCart } = useCart()
   const { addToast } = useToast()
 
+  useEffect(() => {
+    let isMounted = true
+    fetchShopifyProductByHandle('custom-gift-pack')
+      .then((prod) => {
+        if (isMounted && prod) setShopifyGiftProduct(prod)
+      })
+      .catch(() => {})
+    return () => {
+      isMounted = false
+    }
+  }, [])
+
   const activeTier = BOX_TIERS.find((t) => t.id === selectedTierId) || BOX_TIERS[1]
 
-  // Calculate total packs selected
+  // Calculate total packs selected strictly from active flavour options
   const totalPacks = useMemo(() => {
-    return Object.values(selections).reduce((sum, q) => sum + (Number(q) || 0), 0)
+    return FLAVOUR_OPTIONS.reduce((sum, f) => sum + (Number(selections[f.id]) || 0), 0)
   }, [selections])
 
   const slotsRemaining = Math.max(0, activeTier.capacity - totalPacks)
@@ -142,32 +157,28 @@ export default function BuildYourBox() {
     })
   }
 
-  // Quick auto-fill
+  // Quick auto-fill strictly among currently live flavours
   const handleAutoFill = () => {
     const target = activeTier.capacity
     const newSelections = {
-      'chocolate-makhana': 0,
-      'cheese-and-herbs': 0,
-      'jalapeno': 0,
-      'peri-peri': 0,
-      'kashmiri-garlic': 0,
-      'pudhina': 0,
+      pudina: 0,
+      jalapeno: 0,
+      cheese: 0,
     }
 
     if (target === 3) {
-      newSelections['chocolate-makhana'] = 1
-      newSelections['cheese-and-herbs'] = 1
-      newSelections['jalapeno'] = 1
+      newSelections.pudina = 1
+      newSelections.jalapeno = 1
+      newSelections.cheese = 1
     } else if (target === 5) {
-      newSelections['chocolate-makhana'] = 2
-      newSelections['cheese-and-herbs'] = 2
-      newSelections['jalapeno'] = 1
+      newSelections.pudina = 2
+      newSelections.jalapeno = 1
+      newSelections.cheese = 2
     } else {
-      newSelections['chocolate-makhana'] = 2
-      newSelections['cheese-and-herbs'] = 2
-      newSelections['jalapeno'] = 2
-      newSelections['peri-peri'] = 1
-      newSelections['pudhina'] = 1
+      // 10-pack best seller
+      newSelections.pudina = 4
+      newSelections.jalapeno = 3
+      newSelections.cheese = 3
     }
 
     setSelections(newSelections)
@@ -176,11 +187,7 @@ export default function BuildYourBox() {
 
   // Clear selections
   const handleClear = () => {
-    const cleared = {}
-    FLAVOUR_OPTIONS.forEach((f) => {
-      cleared[f.id] = 0
-    })
-    setSelections(cleared)
+    setSelections(createEmptySelections())
   }
 
   // Add custom gift box to cart
@@ -199,9 +206,31 @@ export default function BuildYourBox() {
     try {
       const summaryParts = selectedFlavoursList.map((f) => `${f.qty}x ${f.name}`)
       const summaryString = summaryParts.join(', ')
+      const themeObj = BOX_THEMES.find((t) => t.id === boxTheme)
+      const themeName = themeObj?.name || 'Royal Midnight Navy'
+      const recipient = recipientName.trim()
+      const note = giftNote.trim()
+
+      const attributes = [
+        { key: 'Flavours', value: summaryString },
+        { key: 'Packaging', value: themeName },
+      ]
+      if (recipient) attributes.push({ key: 'Recipient', value: recipient })
+      if (note) attributes.push({ key: 'Gift Note', value: note })
+
+      // Match real Shopify variant for this tier
+      const matchingVariant = shopifyGiftProduct?.variants?.find((v) => {
+        const titleLower = (v.title || '').toLowerCase()
+        return (
+          titleLower.includes(String(activeTier.capacity)) ||
+          titleLower.includes(activeTier.id.toLowerCase()) ||
+          titleLower.includes(activeTier.name.toLowerCase())
+        )
+      })
 
       const customBoxItem = {
-        id: `custom-gift-box-${Date.now()}`,
+        id: `custom-gift-box-${activeTier.id}-${Date.now()}`,
+        variantId: matchingVariant?.id || undefined,
         name: `Custom Gift Pack (${activeTier.name})`,
         flavor: `Custom Gift Pack (${activeTier.name})`,
         size: `${totalPacks} Packs: ${summaryString}`,
@@ -209,10 +238,11 @@ export default function BuildYourBox() {
         price: activeTier.price,
         mrp: activeTier.mrp,
         image: photos.tabletopLifestyle.src,
-        recipient: recipientName.trim() || undefined,
-        giftNote: giftNote.trim() || undefined,
-        boxTheme: BOX_THEMES.find((t) => t.id === boxTheme)?.name,
+        recipient: recipient || undefined,
+        giftNote: note || undefined,
+        boxTheme: themeName,
         breakdown: summaryString,
+        attributes,
         availableForSale: true,
       }
 
