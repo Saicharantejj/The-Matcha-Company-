@@ -29,7 +29,7 @@ export default function ContactPage() {
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               SAY HELLO
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white tracking-tight">
+            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white tracking-normal">
               GET IN TOUCH WITH CHASKA
             </h1>
             <p className="font-sans text-sm text-stone-600 dark:text-stone-300 max-w-lg mx-auto font-normal">

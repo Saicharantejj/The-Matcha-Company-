@@ -337,7 +337,7 @@ function ProductCardComponent({ product, index = 0, colorMode = 'auto' }) {
 
             <Link to={productUrl} className="block group/title">
               <h3
-                className={`font-display text-lg sm:text-xl font-black group-hover/title:text-[#FF5400] transition-colors leading-snug uppercase tracking-tight ${
+                className={`font-display text-lg sm:text-xl font-black group-hover/title:text-[#FF5400] transition-colors leading-snug uppercase tracking-normal ${
                   isLight ? 'text-[#0B1230]' : 'text-white'
                 }`}
               >

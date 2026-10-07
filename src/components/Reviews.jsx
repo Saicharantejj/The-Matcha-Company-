@@ -35,7 +35,7 @@ export default function Reviews() {
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest border border-[#FF5400]/20">
               💬 REAL COMMUNITY WORDS
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#0B1230]">
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-normal text-[#0B1230]">
               PEOPLE ARE <span className="text-[#FF5400]">CRUNCHING.</span>
             </h2>
           </div>

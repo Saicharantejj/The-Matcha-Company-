@@ -62,7 +62,7 @@ export default function B2bPage() {
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
               ⚡ CORPORATE, WHOLESALE &amp; BULK
             </span>
-            <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-[0.96]">
+            <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-normal text-white leading-[0.96]">
               UPGRADE YOUR <br />
               <span className="text-[#FF5400]">SNACK OFFERING.</span>
             </h1>
@@ -104,7 +104,7 @@ export default function B2bPage() {
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400">
               WHERE CHASKA SHINES
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#17245B] dark:text-white">
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-normal text-[#17245B] dark:text-white">
               TAILORED FOR EVERY OCCASION
             </h2>
           </div>

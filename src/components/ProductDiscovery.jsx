@@ -46,7 +46,7 @@ export default function ProductDiscovery({ products = [] }) {
               </span>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-[3.5rem] font-black uppercase tracking-tight text-[#0B1230] leading-[1.02]">
+            <h2 className="font-display text-3xl sm:text-5xl lg:text-[3.5rem] font-black uppercase tracking-normal text-[#0B1230] leading-[1.02]">
               BIG CRUNCH. <br className="hidden sm:block" />
               <span className="text-[#FF5400]">ZERO COMPROMISE.</span>
             </h2>

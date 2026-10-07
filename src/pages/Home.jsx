@@ -81,7 +81,7 @@ export default function Home() {
 
               {/* Main Headline */}
               <div className="space-y-2">
-                <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.5rem] font-black uppercase tracking-tight leading-[0.96] text-[#FAF8F5]">
+                <h1 className="font-display text-4xl sm:text-6xl lg:text-[4.5rem] font-black uppercase tracking-normal leading-[0.96] text-[#FAF8F5]">
                   WELCOME TO A <br />
                   <span className="text-[#FF5400] drop-shadow-sm">HEALTHIER SNACKING</span> <br />
                   <span className="text-[#E5DCC9]">ERA.</span>
@@ -168,7 +168,7 @@ export default function Home() {
                 <div className="relative z-10 pt-2.5 border-t border-[#243373]">
                   <div className="flex items-center justify-between">
                     <div>
-                      <p className="font-display text-lg font-black text-white uppercase tracking-tight">
+                      <p className="font-display text-lg font-black text-white uppercase tracking-normal">
                         {activeHeroPhoto.title}
                       </p>
                       <p className="font-sans text-xs text-stone-300 font-normal">
@@ -252,7 +252,7 @@ export default function Home() {
               <span className="px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs inline-block">
                 CUSTOM GIFT PACK
               </span>
-              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-tight leading-tight">
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-normal leading-tight">
                 BUILD YOUR OWN <br /><span className="text-[#FF5400]">CHASKA STASH BOX</span>
               </h2>
               <p className="font-sans text-sm sm:text-base text-stone-300 leading-relaxed font-normal">
@@ -286,7 +286,7 @@ export default function Home() {
                 </span>
               </div>
 
-              <h2 className="font-display text-4xl sm:text-6xl font-black uppercase leading-tight tracking-tight text-white">
+              <h2 className="font-display text-4xl sm:text-6xl font-black uppercase leading-tight tracking-normal text-white">
                 MAKHANA KO BORING <br />
                 <span className="text-[#FF5400]">KISNE BOLA?</span>
               </h2>

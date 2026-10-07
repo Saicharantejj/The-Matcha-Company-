@@ -283,7 +283,7 @@ export default function BuildYourBox() {
             <span>CUSTOMISE YOUR GIFT BOX</span>
           </div>
 
-          <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-tight text-white leading-tight">
+          <h1 className="font-display text-4xl sm:text-6xl font-black uppercase tracking-normal text-white leading-tight">
             CURATE YOUR <span className="text-[#FF5400]">CHASKA PACK.</span>
           </h1>
 
@@ -329,7 +329,7 @@ export default function BuildYourBox() {
                   )}
                   <div>
                     <div className="flex items-center justify-between gap-2">
-                      <span className="font-display text-lg font-bold text-white uppercase tracking-tight">
+                      <span className="font-display text-lg font-bold text-white uppercase tracking-normal">
                         {tier.name}
                       </span>
                       <span className="px-2.5 py-0.5 rounded-full bg-white/10 text-stone-200 font-mono text-xs font-bold">

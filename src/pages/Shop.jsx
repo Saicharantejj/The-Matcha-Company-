@@ -126,7 +126,7 @@ export default function Shop() {
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
               {currentMeta.badge}
             </span>
-            <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-tight leading-none">
+            <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-normal leading-none">
               {currentMeta.title}
             </h1>
             <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed font-normal">

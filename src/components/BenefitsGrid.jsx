@@ -65,7 +65,7 @@ export default function BenefitsGrid() {
                 </span>
               </div>
 
-              <h2 className="font-display text-3xl sm:text-5xl lg:text-[3.25rem] font-black uppercase tracking-tight text-[#0B1230] leading-[1.02]">
+              <h2 className="font-display text-3xl sm:text-5xl lg:text-[3.25rem] font-black uppercase tracking-normal text-[#0B1230] leading-[1.02]">
                 YOUR SNACKING ERA <br />
                 <span className="text-[#FF5400]">JUST GOT BETTER.</span>
               </h2>
@@ -159,7 +159,7 @@ export default function BenefitsGrid() {
                   </div>
 
                   <div>
-                    <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-[#0B1230] tracking-tight leading-snug group-hover:text-[#1B703C] transition-colors">
+                    <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-[#0B1230] tracking-normal leading-snug group-hover:text-[#1B703C] transition-colors">
                       {card.title}
                     </h3>
                     <p className="font-sans text-xs sm:text-sm text-stone-600 leading-relaxed font-normal mt-2.5">

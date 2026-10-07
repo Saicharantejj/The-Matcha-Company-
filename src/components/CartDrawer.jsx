@@ -102,7 +102,7 @@ export default function CartDrawer() {
             {/* ── TOP HEADER ──────────────────────────────────────────────── */}
             <header className="flex items-center justify-between border-b border-stone-200/80 dark:border-[#243373] px-6 py-4.5 bg-white dark:bg-[#131D4A]">
               <div className="flex items-center gap-2.5">
-                <span className="font-display text-lg font-bold uppercase tracking-tight text-[#17245B] dark:text-white">
+                <span className="font-display text-lg font-bold uppercase tracking-normal text-[#17245B] dark:text-white">
                   YOUR CHASKA STASH
                 </span>
                 {count > 0 && (

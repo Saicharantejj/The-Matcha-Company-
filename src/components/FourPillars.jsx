@@ -133,7 +133,7 @@ export default function FourPillars() {
               </span>
             </div>
 
-            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-tight text-white leading-[1.02]">
+            <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase tracking-normal text-white leading-[1.02]">
               WHY WE ARE <span className="text-[#FF5400]">ACTUALLY HEALTHY.</span>
             </h2>
 
@@ -184,7 +184,7 @@ export default function FourPillars() {
                   <span className="font-mono text-[10px] text-stone-400 font-bold uppercase tracking-widest block mb-1">
                     PILLAR {pillar.num}
                   </span>
-                  <h3 className="font-display text-xl font-bold uppercase text-white tracking-tight leading-snug">
+                  <h3 className="font-display text-xl font-bold uppercase text-white tracking-normal leading-snug">
                     {pillar.title}
                   </h3>
                   <p className="font-sans text-xs text-[#FF5400] font-semibold mt-1">
@@ -225,7 +225,7 @@ export default function FourPillars() {
                 <span className="w-2 h-2 rounded-full bg-[#FF5400] animate-pulse" />
                 THE CLEAN CRUNCH AUDIT
               </span>
-              <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white tracking-tight">
+              <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white tracking-normal">
                 HOW CHASKA COMPARES TO REGULAR FRIED CHIPS
               </h3>
             </div>
@@ -298,7 +298,7 @@ export default function FourPillars() {
                 </div>
 
                 <div className="space-y-2">
-                  <h4 className="font-display text-lg font-bold text-white uppercase tracking-tight">
+                  <h4 className="font-display text-lg font-bold text-white uppercase tracking-normal">
                     ANCIENT AYURVEDIC SUPERFOOD
                   </h4>
                   <p className="font-sans text-xs text-stone-300 leading-relaxed">

@@ -10,7 +10,7 @@ export default function ShippingPage() {
             <span className="inline-block px-4 py-1.5 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               LOGISTICS &amp; DELIVERY
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white tracking-tight">
+            <h1 className="font-display text-4xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white tracking-normal">
               SHIPPING POLICY
             </h1>
             <p className="font-mono text-xs text-stone-500 dark:text-stone-400">

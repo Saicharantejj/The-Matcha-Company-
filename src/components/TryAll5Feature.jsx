@@ -119,7 +119,7 @@ export default function TryAll5Feature({ product }) {
               </div>
 
               <div className="space-y-2">
-                <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none">
+                <h2 className="font-display text-3xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-normal leading-none">
                   THREE FLAVOURS. <br />
                   <span className="text-[#FF5400]">MAXIMUM CHASKA.</span>
                 </h2>

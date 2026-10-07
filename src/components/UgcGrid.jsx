@@ -49,7 +49,7 @@ export default function UgcGrid() {
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest border border-[#FF5400]/20">
               📷 SPOTTED SNACKING
             </span>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-[#0B1230]">
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-normal text-[#0B1230]">
               GOOD FOOD. <span className="text-[#FF5400]">BETTER SNACKS.</span>
             </h2>
           </div>

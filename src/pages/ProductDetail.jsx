@@ -364,7 +364,7 @@ export default function ProductDetail() {
                 )}
               </div>
 
-              <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-tight leading-tight">
+              <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-normal leading-tight">
                 {product.name}
               </h1>
 
@@ -430,7 +430,7 @@ export default function ProductDetail() {
                         }`}
                       >
                         <span className="text-xl">{f.icon}</span>
-                        <span className="font-display text-sm font-bold text-white uppercase tracking-tight">
+                        <span className="font-display text-sm font-bold text-white uppercase tracking-normal">
                           {f.name}
                         </span>
                         <span className={`font-mono text-[9px] font-bold uppercase ${

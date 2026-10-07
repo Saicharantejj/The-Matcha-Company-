@@ -10,7 +10,7 @@ export default function NotFound() {
         <span className="font-mono text-xs font-bold text-[#FF5400] uppercase tracking-widest bg-[#FF5400]/10 px-3.5 py-1 rounded-full">
           404 &middot; PAGE NOT FOUND
         </span>
-        <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white mt-4 tracking-tight">
+        <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-[#17245B] dark:text-white mt-4 tracking-normal">
           LOOKS LIKE THIS SNACK WENT MISSING.
         </h1>
         <p className="font-sans text-sm sm:text-base text-stone-600 dark:text-stone-400 max-w-md mt-3 leading-relaxed font-normal">

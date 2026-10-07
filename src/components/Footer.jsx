@@ -24,7 +24,7 @@ export default function Footer() {
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-2xs">
               GET THE CHASKA DROP
             </span>
-            <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-tight text-white uppercase">
+            <h2 className="font-display text-2xl sm:text-4xl font-extrabold tracking-normal text-white uppercase">
               WELCOME TO HEALTHIER SNACKING.
             </h2>
             <p className="font-sans text-xs sm:text-sm text-stone-300 max-w-md font-normal leading-relaxed">

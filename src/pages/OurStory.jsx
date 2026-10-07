@@ -14,7 +14,7 @@ export default function OurStory() {
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               OUR STORY
             </span>
-            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-tight text-[#17245B] dark:text-white leading-[0.96]">
+            <h1 className="font-display text-4xl sm:text-6xl lg:text-7xl font-black uppercase tracking-normal text-[#17245B] dark:text-white leading-[0.96]">
               MAKHANA HAS BEEN AROUND FOREVER. WE GAVE IT A <span className="text-[#FF5400]">CHASKA.</span>
             </h1>
             <p className="font-sans text-base sm:text-xl text-stone-600 dark:text-stone-300 leading-relaxed max-w-2xl font-normal">

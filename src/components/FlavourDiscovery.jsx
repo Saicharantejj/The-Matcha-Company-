@@ -120,7 +120,7 @@ export default function FlavourDiscovery() {
                 3 OFFICIAL LAUNCH FLAVOURS
               </span>
             </div>
-            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-tight text-white leading-tight">
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase tracking-normal text-white leading-tight">
               DROP 01: <span className="text-[#FF5400]">CHOOSE YOUR CRUNCH.</span>
             </h2>
             <p className="font-sans text-xs sm:text-sm text-stone-300 font-normal leading-relaxed">
@@ -179,7 +179,7 @@ export default function FlavourDiscovery() {
                   </div>
 
                   <div>
-                    <h3 className="font-display text-xl sm:text-2xl font-black text-white uppercase leading-tight tracking-tight">
+                    <h3 className="font-display text-xl sm:text-2xl font-black text-white uppercase leading-tight tracking-normal">
                       {f.packetName}
                     </h3>
                     <p className="font-sans text-xs text-stone-300 mt-1 line-clamp-2">
@@ -244,7 +244,7 @@ export default function FlavourDiscovery() {
                 </div>
 
                 <div>
-                  <h3 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-tight leading-none">
+                  <h3 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-normal leading-none">
                     {activeFlavour.packetName}
                   </h3>
                   <p

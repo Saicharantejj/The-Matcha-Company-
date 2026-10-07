@@ -5,7 +5,8 @@
 /* ── TT BURN / TRT BURN BRAND TYPEFACE (ALL 6 WEIGHTS) ─────────────────── */
 @font-face {
   font-family: 'TT Burn';
-  src: url('/fonts/TRTBurn-Light.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Light.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Light.ttf?v=clean3') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -13,7 +14,8 @@
 
 @font-face {
   font-family: 'TT Burn';
-  src: url('/fonts/TRTBurn-Regular.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Regular.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Regular.ttf?v=clean3') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -21,7 +23,8 @@
 
 @font-face {
   font-family: 'TT Burn';
-  src: url('/fonts/TRTBurn-Medium.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Medium.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Medium.ttf?v=clean3') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -29,7 +32,8 @@
 
 @font-face {
   font-family: 'TT Burn';
-  src: url('/fonts/TRTBurn-SemiBold.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-SemiBold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-SemiBold.ttf?v=clean3') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -37,7 +41,8 @@
 
 @font-face {
   font-family: 'TT Burn';
-  src: url('/fonts/TRTBurn-Bold.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Bold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Bold.ttf?v=clean3') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -45,8 +50,18 @@
 
 @font-face {
   font-family: 'TT Burn';
-  src: url('/fonts/TRTBurn-ExtraBold.ttf') format('truetype');
-  font-weight: 800 900;
+  src: url('/fonts/TRTBurn-ExtraBold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-ExtraBold.ttf?v=clean3') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Burn';
+  src: url('/fonts/TRTBurn-ExtraBold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-ExtraBold.ttf?v=clean3') format('truetype');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -54,7 +69,8 @@
 /* Family Alias: TRT Burn */
 @font-face {
   font-family: 'TRT Burn';
-  src: url('/fonts/TRTBurn-Light.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Light.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Light.ttf?v=clean3') format('truetype');
   font-weight: 300;
   font-style: normal;
   font-display: swap;
@@ -62,7 +78,8 @@
 
 @font-face {
   font-family: 'TRT Burn';
-  src: url('/fonts/TRTBurn-Regular.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Regular.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Regular.ttf?v=clean3') format('truetype');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -70,7 +87,8 @@
 
 @font-face {
   font-family: 'TRT Burn';
-  src: url('/fonts/TRTBurn-Medium.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Medium.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Medium.ttf?v=clean3') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -78,7 +96,8 @@
 
 @font-face {
   font-family: 'TRT Burn';
-  src: url('/fonts/TRTBurn-SemiBold.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-SemiBold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-SemiBold.ttf?v=clean3') format('truetype');
   font-weight: 600;
   font-style: normal;
   font-display: swap;
@@ -86,7 +105,8 @@
 
 @font-face {
   font-family: 'TRT Burn';
-  src: url('/fonts/TRTBurn-Bold.ttf') format('truetype');
+  src: url('/fonts/TRTBurn-Bold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-Bold.ttf?v=clean3') format('truetype');
   font-weight: 700;
   font-style: normal;
   font-display: swap;
@@ -94,8 +114,18 @@
 
 @font-face {
   font-family: 'TRT Burn';
-  src: url('/fonts/TRTBurn-ExtraBold.ttf') format('truetype');
-  font-weight: 800 900;
+  src: url('/fonts/TRTBurn-ExtraBold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-ExtraBold.ttf?v=clean3') format('truetype');
+  font-weight: 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TRT Burn';
+  src: url('/fonts/TRTBurn-ExtraBold.woff2?v=clean3') format('woff2'),
+       url('/fonts/TRTBurn-ExtraBold.ttf?v=clean3') format('truetype');
+  font-weight: 900;
   font-style: normal;
   font-display: swap;
 }
@@ -178,6 +208,7 @@
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
     overflow-x: hidden;
+    font-kerning: none;
   }
 
   html.dark,
@@ -198,6 +229,7 @@
 
   h1, h2, h3, h4, h5, h6,
   .font-display,
+  .font-heading,
   .btn,
   .btn-primary,
   .btn-orange,
@@ -206,7 +238,10 @@
   .btn-outline-dark,
   nav a {
     font-family: "TT Burn", "TRT Burn", "Bebas Neue", "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
-    letter-spacing: 0.015em;
+    letter-spacing: 0.025em;
+    font-kerning: none;
+    font-variant-ligatures: none;
+    font-feature-settings: "liga" 0, "clig" 0, "calt" 0, "dlig" 0, "kern" 0;
   }
 
   h1, h2 {
