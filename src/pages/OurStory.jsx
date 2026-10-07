@@ -8,9 +8,9 @@ export default function OurStory() {
   return (
     <PageShell>
       {/* Header */}
-      <section className="bg-[#0C122C] px-4 py-16 sm:px-8 sm:py-24 border-b border-[#243373]">
+      <section className="bg-[#0C122C] px-4 pt-4 sm:pt-6 pb-8 sm:pb-10 sm:px-8 border-b border-[#243373]">
         <div className="mx-auto max-w-7xl">
-          <div className="max-w-4xl space-y-4">
+          <div className="max-w-4xl space-y-3">
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               OUR STORY
             </span>
@@ -25,7 +25,7 @@ export default function OurStory() {
       </section>
 
       {/* Narrative Section 1: Philosophy & The Print Edition */}
-      <section className="bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-[#243373]">
+      <section className="bg-[#0C122C] py-10 sm:py-14 px-4 sm:px-8 border-b border-[#243373]">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             
@@ -70,7 +70,7 @@ export default function OurStory() {
       </section>
 
       {/* Narrative Section 2: Real Ingredients */}
-      <section className="bg-[#0C122C] py-20 sm:py-24 px-4 sm:px-8 border-b border-[#243373]">
+      <section className="bg-[#0C122C] py-10 sm:py-14 px-4 sm:px-8 border-b border-[#243373]">
         <div className="mx-auto max-w-7xl">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
             

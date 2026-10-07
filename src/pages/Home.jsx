@@ -47,14 +47,11 @@ export default function Home() {
       setIsLoading(true)
       try {
         const live = await fetchShopifyProducts(10)
-        if (live && Array.isArray(live)) {
+        if (live && Array.isArray(live) && live.length > 0) {
           setProducts(live)
-        } else {
-          setProducts([])
         }
       } catch (err) {
         console.warn('[Shopify Storefront API Error on Home]', err)
-        setProducts([])
       } finally {
         setIsLoading(false)
       }
@@ -65,16 +62,16 @@ export default function Home() {
   return (
     <PageShell>
       {/* ── 1. HERO SECTION (EDITORIAL DEEP NAVY / WARM ACCENT) ───────────── */}
-      <section className="relative overflow-hidden bg-[#0C122C] text-[#FAF8F5] pt-28 sm:pt-36 pb-20 sm:pb-28 border-b border-[#243373]">
+      <section className="relative overflow-hidden bg-[#0C122C] text-[#FAF8F5] pt-4 sm:pt-8 pb-10 sm:pb-12 border-b border-[#243373]">
         {/* Subtle decorative mesh gradients */}
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-[#FF5400]/10 rounded-full blur-[140px] pointer-events-none" />
-        <div className="absolute bottom-0 right-0 w-[450px] h-[450px] bg-[#1E3A8A]/25 rounded-full blur-[110px] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-[#FF5400]/10 rounded-full blur-[140px] pointer-events-none" />
+        <div className="absolute bottom-0 right-0 w-[400px] h-[400px] bg-[#1E3A8A]/25 rounded-full blur-[110px] pointer-events-none" />
 
         <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             
             {/* Left Column: Brand Statement */}
-            <div className="lg:col-span-7 space-y-6 sm:space-y-8 text-left">
+            <div className="lg:col-span-7 space-y-4 sm:space-y-6 text-left">
               
               {/* Release Tag Pill */}
               <div className="inline-flex items-center gap-2.5 px-4 py-1.5 rounded-full bg-[#131D4A] border border-[#243373] text-stone-200 font-mono text-xs font-bold uppercase tracking-wider shadow-xs hover-pop-subtle">
@@ -89,7 +86,7 @@ export default function Home() {
                   <span className="text-[#FF5400] drop-shadow-sm">HEALTHIER SNACKING</span> <br />
                   <span className="text-[#E5DCC9]">ERA.</span>
                 </h1>
-                <p className="font-mono text-xs sm:text-sm text-[#FF5400] font-bold tracking-widest uppercase pt-2">
+                <p className="font-mono text-xs sm:text-sm text-[#FF5400] font-bold tracking-widest uppercase pt-1">
                   100% SLOW-ROASTED BIHAR LOTUS POPS • ZERO PALM OIL • CRACKLING CRUNCH
                 </p>
               </div>
@@ -100,24 +97,24 @@ export default function Home() {
               </p>
 
               {/* Primary Call to Action Bar */}
-              <div className="pt-2 flex flex-col sm:flex-row items-stretch sm:items-center gap-4">
+              <div className="pt-1 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
                 <Link
                   to="/shop"
-                  className="btn btn-primary px-8 py-4 text-xs font-bold uppercase tracking-wider text-center shadow-sm hover-pop flex items-center justify-center gap-2"
+                  className="btn btn-primary px-8 py-3.5 text-xs font-bold uppercase tracking-wider text-center shadow-sm hover-pop flex items-center justify-center gap-2"
                 >
                   <span>SHOP FLAVOURS</span>
                   <span>➔</span>
                 </Link>
                 <Link
                   to="/custom-gift-pack"
-                  className="btn-outline-dark px-7 py-4 text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2"
+                  className="btn-outline-dark px-7 py-3.5 text-xs font-bold uppercase tracking-wider text-center flex items-center justify-center gap-2"
                 >
                   <span>CUSTOM GIFT PACK [BUILD YOURS]</span>
                 </Link>
               </div>
 
               {/* Quick Trust Badges Strip */}
-              <div className="pt-4 border-t border-[#243373] flex flex-wrap items-center gap-6 font-mono text-xs text-stone-300">
+              <div className="pt-3 border-t border-[#243373] flex flex-wrap items-center gap-5 font-mono text-xs text-stone-300">
                 <div className="flex items-center gap-2">
                   <span className="text-[#FF5400] font-bold">✓</span>
                   <span>30g &amp; 70g Pouches</span>
@@ -142,7 +139,7 @@ export default function Home() {
               className="lg:col-span-5 relative"
             >
               {/* Product Card Container with Warm Glow */}
-              <div className="relative aspect-[4/5] w-full rounded-3xl overflow-hidden bg-gradient-to-b from-[#131D4A] to-[#0C122C] border-2 border-[#243373] shadow-2xl p-6 sm:p-8 flex flex-col justify-between mb-4">
+              <div className="relative aspect-[4/4.2] sm:h-[420px] w-full rounded-3xl overflow-hidden bg-gradient-to-b from-[#131D4A] to-[#0C122C] border-2 border-[#243373] shadow-2xl p-5 sm:p-6 flex flex-col justify-between mb-3">
                 
                 {/* Floating Top Badge */}
                 <div className="flex items-center justify-between z-10">
@@ -155,7 +152,7 @@ export default function Home() {
                 </div>
 
                 {/* Center Image Stage */}
-                <div className="relative flex-1 flex items-center justify-center my-4 overflow-hidden">
+                <div className="relative flex-1 flex items-center justify-center my-2 overflow-hidden">
                   <motion.img
                     key={activeHeroPhoto.src}
                     initial={{ opacity: 0, y: 15 }}
@@ -163,12 +160,12 @@ export default function Home() {
                     transition={{ duration: 0.35 }}
                     src={activeHeroPhoto.src}
                     alt={activeHeroPhoto.title}
-                    className="max-h-[300px] w-auto object-contain rounded-2xl drop-shadow-2xl"
+                    className="max-h-[260px] sm:max-h-[290px] w-auto object-contain rounded-2xl drop-shadow-2xl"
                   />
                 </div>
 
                 {/* Bottom Card Strip */}
-                <div className="relative z-10 pt-3 border-t border-[#243373]">
+                <div className="relative z-10 pt-2.5 border-t border-[#243373]">
                   <div className="flex items-center justify-between">
                     <div>
                       <p className="font-display text-lg font-black text-white uppercase tracking-tight">
@@ -248,10 +245,10 @@ export default function Home() {
       <UgcGrid />
 
       {/* ── 6. CUSTOM GIFT PACK SPOTLIGHT (ACTION) ─────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden">
+      <section className="py-10 sm:py-14 bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
-          <div className="p-8 sm:p-14 rounded-3xl bg-gradient-to-br from-[#131D4A] to-[#1A265E] border border-[#243373] flex flex-col md:flex-row md:items-center justify-between gap-8 shadow-xl">
-            <div className="space-y-3 max-w-xl">
+          <div className="p-6 sm:p-10 rounded-3xl bg-gradient-to-br from-[#131D4A] to-[#1A265E] border border-[#243373] flex flex-col md:flex-row md:items-center justify-between gap-6 shadow-xl">
+            <div className="space-y-2.5 max-w-xl">
               <span className="px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs inline-block">
                 CUSTOM GIFT PACK
               </span>
@@ -262,11 +259,11 @@ export default function Home() {
                 Choose your favourite flavours between Pudina, Jalapeño, and Cheese. Select from 3-Pack, 5-Pack, or 10-Pack gift formats with up to 20% savings.
               </p>
             </div>
-            <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-              <Link to="/custom-gift-pack" className="btn px-8 py-4 text-xs font-bold shadow-sm hover-pop text-center">
+            <div className="flex flex-col sm:flex-row gap-3 shrink-0">
+              <Link to="/custom-gift-pack" className="btn px-8 py-3.5 text-xs font-bold shadow-sm hover-pop text-center">
                 BUILD YOUR PACK ➔
               </Link>
-              <Link to="/shop" className="btn-outline-dark px-6 py-4 text-xs font-bold text-center">
+              <Link to="/shop" className="btn-outline-dark px-6 py-3.5 text-xs font-bold text-center">
                 BROWSE ALL 🍿
               </Link>
             </div>
@@ -275,7 +272,7 @@ export default function Home() {
       </section>
 
       {/* ── 7. BRAND MANIFESTO & FINAL CLOSING CTA (DEEP NAVY) ──────────────── */}
-      <section className="py-24 sm:py-28 bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden" id="why-chaska">
+      <section className="py-12 sm:py-16 bg-[#17245B] dark:bg-[#0C122C] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden" id="why-chaska">
         <div className="mx-auto max-w-7xl px-4 sm:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
             

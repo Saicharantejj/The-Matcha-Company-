@@ -269,12 +269,12 @@ export default function BuildYourBox() {
   }, [selectedFlavoursList])
 
   return (
-    <section className="py-12 sm:py-20 bg-[#0C122C] text-[#FAF8F5] relative overflow-hidden" id="custom-gift-pack">
+    <section className="pt-4 sm:pt-6 pb-12 sm:pb-16 bg-[#0C122C] text-[#FAF8F5] relative overflow-hidden" id="custom-gift-pack">
       {/* Background ambient lighting */}
       <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-[#FF5400]/10 blur-3xl pointer-events-none" />
       <div className="absolute top-1/3 -right-32 w-96 h-96 rounded-full bg-[#1C2A6B]/40 blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-12">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-8 sm:space-y-10">
         
         {/* ── EDITORIAL HEADER BANNER ───────────────────────────────────── */}
         <div className="text-center max-w-3xl mx-auto space-y-4">

@@ -22,8 +22,8 @@ export default function ContactPage() {
 
   return (
     <PageShell>
-      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C]">
-        <div className="mx-auto max-w-5xl space-y-12">
+      <main className="min-h-screen pt-4 sm:pt-6 pb-12 sm:pb-16 px-4 sm:px-8 bg-[#0C122C]">
+        <div className="mx-auto max-w-5xl space-y-8">
           {/* Page Header */}
           <div className="text-center space-y-3">
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400]/10 dark:bg-[#FF5400]/20 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">

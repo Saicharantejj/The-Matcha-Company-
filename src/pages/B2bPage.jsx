@@ -56,9 +56,9 @@ export default function B2bPage() {
   return (
     <PageShell>
       {/* ── B2B HERO BANNER ──────────────────────────────────────────────── */}
-      <section className="relative bg-[#17245B] dark:bg-[#131D4A] text-white px-4 py-16 sm:px-8 sm:py-24 border-b border-white/10 dark:border-[#243373] overflow-hidden transition-colors">
-        <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-10 items-center">
-          <div className="lg:col-span-7 space-y-6">
+      <section className="relative bg-[#17245B] dark:bg-[#131D4A] text-white px-4 pt-4 sm:pt-6 pb-8 sm:pb-10 sm:px-8 border-b border-white/10 dark:border-[#243373] overflow-hidden transition-colors">
+        <div className="mx-auto max-w-7xl grid lg:grid-cols-12 gap-8 items-center">
+          <div className="lg:col-span-7 space-y-4 sm:space-y-5">
             <span className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
               ⚡ CORPORATE, WHOLESALE &amp; BULK
             </span>
@@ -86,7 +86,7 @@ export default function B2bPage() {
           </div>
 
           <div className="lg:col-span-5">
-            <div className="aspect-[4/5] rounded-3xl overflow-hidden border border-white/10 dark:border-[#243373] shadow-2xl bg-white/5 p-2.5">
+            <div className="aspect-[4/5] max-h-[380px] rounded-3xl overflow-hidden border border-white/10 dark:border-[#243373] shadow-2xl bg-white/5 p-2.5">
               <img
                 src={photos.comingSoonPoster.src}
                 alt="CHASKA B2B Bulk Jars and Pouches"
@@ -98,8 +98,8 @@ export default function B2bPage() {
       </section>
 
       {/* ── USE CASES & TIERS ────────────────────────────────────────────── */}
-      <section className="py-20 sm:py-24 bg-[#0C122C] border-b border-[#243373]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
+      <section className="py-10 sm:py-14 bg-[#0C122C] border-b border-[#243373]">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-8">
           <div className="max-w-2xl space-y-2">
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-stone-500 dark:text-stone-400">
               WHERE CHASKA SHINES
@@ -133,9 +133,9 @@ export default function B2bPage() {
       </section>
 
       {/* ── B2B INQUIRY FORM ─────────────────────────────────────────────── */}
-      <section id="b2b-form" className="py-20 bg-[#0C122C] border-b border-[#243373]">
+      <section id="b2b-form" className="py-10 sm:py-14 bg-[#0C122C] border-b border-[#243373]">
         <div className="mx-auto max-w-4xl px-4 sm:px-8">
-          <div className="p-8 sm:p-12 rounded-3xl bg-[#131D4A] border border-[#243373] shadow-xs space-y-8">
+          <div className="p-6 sm:p-10 rounded-3xl bg-[#131D4A] border border-[#243373] shadow-xs space-y-6">
             <div className="space-y-2 text-center max-w-xl mx-auto">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
                 GET A FAST B2B PROPOSAL

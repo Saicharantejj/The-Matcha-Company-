@@ -113,15 +113,15 @@ export default function FourPillars() {
   ]
 
   return (
-    <section className="py-20 sm:py-28 bg-[#0B1230] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden" id="pillars">
+    <section className="py-10 sm:py-14 bg-[#0B1230] text-[#FAF8F5] border-b border-[#243373] relative overflow-hidden" id="pillars">
       {/* Ambient background glows */}
       <div className="absolute top-1/4 -left-40 w-96 h-96 bg-[#FF5400]/10 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-[30rem] h-[30rem] bg-[#10B981]/10 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-16">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10 space-y-8 sm:space-y-10">
         
         {/* ── EDITORIAL HEADER ─────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end border-b border-white/10 pb-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-end border-b border-white/10 pb-6 sm:pb-8">
           <div className="lg:col-span-8 space-y-3.5">
             <div className="flex flex-wrap items-center gap-2">
               <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#10B981]/15 text-emerald-400 font-mono text-[11px] font-bold uppercase tracking-widest border border-emerald-500/30">

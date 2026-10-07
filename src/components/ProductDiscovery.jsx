@@ -26,15 +26,15 @@ export default function ProductDiscovery({ products = [] }) {
   ]
 
   return (
-    <section className="py-20 sm:py-28 bg-[#F7F2E8] text-[#0B1230] border-b border-[#E5DCC9] relative overflow-hidden" id="products">
+    <section className="py-10 sm:py-14 bg-[#F7F2E8] text-[#0B1230] border-b border-[#E5DCC9] relative overflow-hidden" id="products">
       {/* Subtle organic warmth */}
       <div className="absolute top-0 right-0 w-96 h-96 bg-[#FFE9D6]/40 rounded-full blur-3xl pointer-events-none" />
       <div className="absolute bottom-0 left-0 w-80 h-80 bg-[#E8F5EB]/50 rounded-full blur-3xl pointer-events-none" />
 
-      <div className="mx-auto max-w-[1380px] px-4 sm:px-8 relative z-10 space-y-16">
+      <div className="mx-auto max-w-[1380px] px-4 sm:px-8 relative z-10 space-y-8 sm:space-y-10">
         
         {/* Section Header with Typographic Rhythm */}
-        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#E5DCC9] pb-8">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 border-b border-[#E5DCC9] pb-6">
           <div className="space-y-3 max-w-2xl">
             <div className="flex items-center gap-2">
               <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400] flex items-center gap-1.5">

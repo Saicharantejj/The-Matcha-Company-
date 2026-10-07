@@ -2,6 +2,104 @@
 @tailwind components;
 @tailwind utilities;
 
+/* ── TT BURN / TRT BURN BRAND TYPEFACE (ALL 6 WEIGHTS) ─────────────────── */
+@font-face {
+  font-family: 'TT Burn';
+  src: url('/fonts/TRTBurn-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Burn';
+  src: url('/fonts/TRTBurn-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Burn';
+  src: url('/fonts/TRTBurn-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Burn';
+  src: url('/fonts/TRTBurn-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Burn';
+  src: url('/fonts/TRTBurn-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TT Burn';
+  src: url('/fonts/TRTBurn-ExtraBold.ttf') format('truetype');
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Family Alias: TRT Burn */
+@font-face {
+  font-family: 'TRT Burn';
+  src: url('/fonts/TRTBurn-Light.ttf') format('truetype');
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TRT Burn';
+  src: url('/fonts/TRTBurn-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TRT Burn';
+  src: url('/fonts/TRTBurn-Medium.ttf') format('truetype');
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TRT Burn';
+  src: url('/fonts/TRTBurn-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TRT Burn';
+  src: url('/fonts/TRTBurn-Bold.ttf') format('truetype');
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'TRT Burn';
+  src: url('/fonts/TRTBurn-ExtraBold.ttf') format('truetype');
+  font-weight: 800 900;
+  font-style: normal;
+  font-display: swap;
+}
+
 @layer base {
   * {
     border-color: rgba(255, 255, 255, 0.08);
@@ -75,7 +173,7 @@
     background-color: #0C122C;
     color: #FAF8F5;
     color-scheme: dark;
-    font-family: "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    font-family: "TT Burn", "TRT Burn", "Bebas Neue", "Plus Jakarta Sans", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-rendering: optimizeLegibility;
@@ -98,10 +196,17 @@
     color: #FFFFFF;
   }
 
-  h1, h2, h3, h4, .font-display {
-    font-family: "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
-    letter-spacing: -0.03em;
-    font-weight: 800;
+  h1, h2, h3, h4, h5, h6,
+  .font-display,
+  .btn,
+  .btn-primary,
+  .btn-orange,
+  .btn-navy,
+  .btn-outline,
+  .btn-outline-dark,
+  nav a {
+    font-family: "TT Burn", "TRT Burn", "Bebas Neue", "Bricolage Grotesque", "Plus Jakarta Sans", system-ui, sans-serif;
+    letter-spacing: 0.015em;
   }
 
   h1, h2 {

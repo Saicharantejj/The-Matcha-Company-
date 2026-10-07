@@ -134,7 +134,7 @@ export default function ProductDetail() {
 
   if (isLoading) {
     return (
-      <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C] flex items-center justify-center">
+      <main className="min-h-screen pt-8 sm:pt-10 pb-16 sm:pb-24 px-4 sm:px-8 bg-[#0C122C] flex items-center justify-center">
         <div className="mx-auto max-w-5xl w-full p-8 rounded-3xl bg-[#131D4A] border border-[#243373] animate-pulse space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="aspect-square rounded-2xl bg-[#1C2A6B]" />
@@ -242,8 +242,8 @@ export default function ProductDetail() {
     : ['AUTHENTIC ROASTED SPICES', 'BIHAR LOTUS SEEDS', 'ZERO PALM OIL', 'CHEF CRAFTED']
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C]">
-      <div className="mx-auto max-w-7xl space-y-16">
+    <main className="min-h-screen pt-4 sm:pt-6 pb-12 sm:pb-16 px-4 sm:px-8 bg-[#0C122C]">
+      <div className="mx-auto max-w-7xl space-y-6 sm:space-y-8">
         
         {/* Breadcrumb Navigation */}
         <nav className="flex items-center gap-2 font-mono text-xs text-stone-400 font-semibold uppercase tracking-wider">
@@ -700,7 +700,7 @@ export default function ProductDetail() {
         </div>
 
         {/* ── 2. NUTRITIONAL FACTS & INGREDIENTS ─────────────────────────────── */}
-        <section className="p-6 sm:p-10 rounded-3xl bg-[#131D4A] border border-[#243373] shadow-xs space-y-6">
+        <section className="p-5 sm:p-8 rounded-3xl bg-[#131D4A] border border-[#243373] shadow-xs space-y-5">
           <div className="space-y-1.5">
             <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
               CLEAN SNACKING SPECS

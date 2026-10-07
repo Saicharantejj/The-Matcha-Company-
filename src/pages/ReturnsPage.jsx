@@ -4,8 +4,8 @@ import PageShell from '../components/PageShell'
 export default function ReturnsPage() {
   return (
     <PageShell>
-      <main className="min-h-screen pt-28 pb-24 px-6 sm:px-12 bg-[#0C122C]">
-        <div className="mx-auto max-w-3xl space-y-10">
+      <main className="min-h-screen pt-4 sm:pt-6 pb-12 sm:pb-16 px-6 sm:px-12 bg-[#0C122C]">
+        <div className="mx-auto max-w-3xl space-y-6 sm:space-y-8">
           <div className="space-y-4 text-center">
             <span className="inline-block px-4 py-1.5 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest">
               100% CRUNCH GUARANTEE

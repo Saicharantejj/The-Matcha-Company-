@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from 'react'
 import { useParams, Link } from 'react-router-dom'
 import ProductCard from '../components/ProductCard'
 import { fetchShopifyProducts, fetchShopifyCollectionByHandle } from '../lib/shopify/api'
+import { PRODUCTS_CATALOGUE } from '../data/products'
 
 const COLLECTION_METADATA = {
   all: {
@@ -26,10 +27,10 @@ export default function Shop() {
   const initialCategory = urlHandle ? urlHandle.toLowerCase() : 'all'
 
   const [activeCategory, setActiveCategory] = useState(initialCategory)
-  const [products, setProducts] = useState([])
+  const [products, setProducts] = useState(() => PRODUCTS_CATALOGUE)
   const [searchFilter, setSearchFilter] = useState('')
   const [sortBy, setSortBy] = useState('featured')
-  const [isLoading, setIsLoading] = useState(true)
+  const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState(null)
 
   useEffect(() => {
@@ -39,12 +40,11 @@ export default function Shop() {
   }, [urlHandle])
 
   const loadProducts = async () => {
-    setIsLoading(true)
     setError(null)
     try {
       if (urlHandle && urlHandle !== 'all' && urlHandle !== 'available' && urlHandle !== 'coming-soon') {
         const col = await fetchShopifyCollectionByHandle(urlHandle)
-        if (col && Array.isArray(col.products)) {
+        if (col && Array.isArray(col.products) && col.products.length > 0) {
           setProducts(col.products)
           setIsLoading(false)
           return
@@ -52,15 +52,14 @@ export default function Shop() {
       }
 
       const liveProducts = await fetchShopifyProducts(25)
-      if (liveProducts && Array.isArray(liveProducts)) {
+      if (liveProducts && Array.isArray(liveProducts) && liveProducts.length > 0) {
         setProducts(liveProducts)
       } else {
-        setProducts([])
+        setProducts(PRODUCTS_CATALOGUE)
       }
     } catch (err) {
       console.warn('[Shopify Storefront API Error]', err)
-      setError(err.message || 'Unable to connect to Shopify Storefront API')
-      setProducts([])
+      setProducts(PRODUCTS_CATALOGUE)
     } finally {
       setIsLoading(false)
     }
@@ -105,8 +104,8 @@ export default function Shop() {
   }, [activeCategory, products, searchFilter, sortBy])
 
   return (
-    <main className="min-h-screen pt-24 pb-24 px-4 sm:px-8 bg-[#0C122C]">
-      <div className="mx-auto max-w-7xl space-y-10">
+    <main className="min-h-screen pt-4 sm:pt-6 pb-12 sm:pb-16 px-4 sm:px-8 bg-[#0C122C]">
+      <div className="mx-auto max-w-7xl space-y-6 sm:space-y-8">
 
         {/* Breadcrumb */}
         <nav className="flex items-center gap-2 font-mono text-xs text-stone-400 font-semibold uppercase tracking-wider">
@@ -122,15 +121,15 @@ export default function Shop() {
         </nav>
 
         {/* Header Banner */}
-        <div className="p-8 sm:p-12 lg:p-14 rounded-3xl bg-[#131D4A] text-white space-y-6 shadow-md relative overflow-hidden border border-[#243373]">
-          <div className="max-w-2xl space-y-3.5 relative z-10">
+        <div className="p-6 sm:p-8 rounded-3xl bg-[#131D4A] text-white space-y-4 sm:space-y-5 shadow-md relative overflow-hidden border border-[#243373]">
+          <div className="max-w-2xl space-y-2.5 relative z-10">
             <span className="inline-block px-3.5 py-1 rounded-full bg-[#FF5400] text-white font-mono text-xs font-bold uppercase tracking-widest shadow-xs">
               {currentMeta.badge}
             </span>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-black uppercase text-white tracking-tight leading-none">
+            <h1 className="font-display text-3xl sm:text-5xl font-black uppercase text-white tracking-tight leading-none">
               {currentMeta.title}
             </h1>
-            <p className="font-sans text-sm sm:text-base text-stone-300 leading-relaxed font-normal">
+            <p className="font-sans text-xs sm:text-sm text-stone-300 leading-relaxed font-normal">
               {currentMeta.description}
             </p>
           </div>

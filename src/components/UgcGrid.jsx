@@ -41,10 +41,10 @@ const GALLERY_ITEMS = [
 
 export default function UgcGrid() {
   return (
-    <section className="py-20 sm:py-24 bg-[#FFF9EF] text-[#0B1230] border-b border-[#E5DCC9]">
-      <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-12">
+    <section className="py-10 sm:py-14 bg-[#FFF9EF] text-[#0B1230] border-b border-[#E5DCC9]">
+      <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-8">
         
-        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E5DCC9] pb-8">
+        <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 border-b border-[#E5DCC9] pb-5">
           <div className="space-y-2">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FF5400]/10 text-[#FF5400] font-mono text-xs font-bold uppercase tracking-widest border border-[#FF5400]/20">
               📷 SPOTTED SNACKING

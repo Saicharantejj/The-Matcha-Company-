@@ -43,7 +43,7 @@ export default function BenefitsGrid() {
   ]
 
   return (
-    <section className="py-20 sm:py-28 bg-[#F0F7F2] text-[#0B1230] border-b border-[#D2E7D7] relative overflow-hidden" id="benefits">
+    <section className="py-10 sm:py-14 bg-[#F0F7F2] text-[#0B1230] border-b border-[#D2E7D7] relative overflow-hidden" id="benefits">
       {/* Subtle ambient fresh mint & herbal lighting */}
       <div className="absolute top-1/4 -left-32 w-80 h-80 rounded-full bg-[#52C878]/15 blur-3xl pointer-events-none" />
       <div className="absolute bottom-10 right-0 w-96 h-96 rounded-full bg-[#E2F5E7]/70 blur-3xl pointer-events-none" />
@@ -51,10 +51,10 @@ export default function BenefitsGrid() {
       <div className="mx-auto max-w-7xl px-4 sm:px-8 relative z-10">
         
         {/* Editorial Grid: Left Philosophy & Right 4 Benefit Cards */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-10 items-start">
           
           {/* ── LEFT COLUMN: Headline & Philosophy ──────────────────────── */}
-          <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-7">
+          <div className="lg:col-span-5 lg:sticky lg:top-24 space-y-5">
             <div className="space-y-3">
               <div className="flex flex-wrap items-center gap-2">
                 <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#1B703C]/10 text-[#1B703C] font-mono text-[11px] font-bold uppercase tracking-widest border border-[#1B703C]/20">

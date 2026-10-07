@@ -72,9 +72,10 @@ export default {
         },
       },
       fontFamily: {
-        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
-        display: ['"Bricolage Grotesque"', '"Plus Jakarta Sans"', 'sans-serif'],
-        body: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+        sans: ['"TT Burn"', '"TRT Burn"', '"Bebas Neue"', '"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+        display: ['"TT Burn"', '"TRT Burn"', '"Bebas Neue"', '"Bricolage Grotesque"', 'sans-serif'],
+        heading: ['"TT Burn"', '"TRT Burn"', '"Bebas Neue"', 'sans-serif'],
+        body: ['"TT Burn"', '"TRT Burn"', '"Bebas Neue"', '"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
         hindi: ['"Noto Sans Devanagari"', '"Plus Jakarta Sans"', 'sans-serif'],
         mono: ['"Space Grotesk"', '"Plus Jakarta Sans"', 'sans-serif'],
       },
