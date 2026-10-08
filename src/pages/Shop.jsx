@@ -157,6 +157,29 @@ export default function Shop() {
           </div>
         </div>
 
+        {/* ── OFFICIAL 2026 FLAVOUR SPECTRUM BANNER ────────────────────────── */}
+        <div className="rounded-3xl bg-[#131D4A] border border-[#243373] p-5 sm:p-7 shadow-lg flex flex-col md:flex-row items-center gap-6 justify-between overflow-hidden">
+          <div className="space-y-2 max-w-md">
+            <span className="px-3 py-1 rounded-full bg-[#FF5400]/20 text-[#FF5400] font-mono text-[10px] font-bold uppercase tracking-wider inline-block">
+              2026 BRAND CATALOGUE
+            </span>
+            <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-white leading-tight">
+              FROM GENTLY SALTED TO PROPERLY FIERY
+            </h3>
+            <p className="font-sans text-xs sm:text-sm text-stone-300 font-normal leading-relaxed">
+              Explore our full six-jar family: Himalayan Pink Salt, Cheese &amp; Herbs, Mint Pudhina, Smoky Barbeque, Jalapeño Lime, and Fiery Peri Peri.
+            </p>
+          </div>
+          <div className="w-full md:w-1/2 rounded-2xl overflow-hidden border border-white/10 shrink-0 aspect-[21/9]">
+            <img
+              src="/images/catalog/all_six_jars_lineup.webp"
+              alt="CHASKA 6 Signature Jars"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+
         {/* Controls Bar */}
         <div className="flex flex-col sm:flex-row items-center justify-between gap-4 p-4 rounded-2xl bg-[#131D4A] border border-[#243373] shadow-xs">
           <div className="relative w-full sm:w-80 flex items-center">

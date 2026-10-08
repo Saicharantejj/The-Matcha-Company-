@@ -103,6 +103,32 @@ export default function OurStory() {
         </div>
       </section>
 
+      {/* ── 4-STEP CRAFT JOURNEY FROM POND TO JAR ─────────────────────────── */}
+      <section className="bg-[#131D4A] py-12 sm:py-16 px-4 sm:px-8 border-b border-[#243373] text-white">
+        <div className="mx-auto max-w-7xl space-y-8">
+          <div className="max-w-3xl space-y-3">
+            <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
+              AUTHENTIC HARVEST &amp; ROASTING DISCIPLINE
+            </span>
+            <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-white leading-tight">
+              FROM POND TO JAR: THE 4-STEP JOURNEY
+            </h2>
+            <p className="font-sans text-sm sm:text-base text-stone-300 leading-relaxed font-normal">
+              80% of India's makhana grows in Bihar's Mithila wetlands. We exclusively harvest 5+ Suta Grade jumbo seeds, dry-roast them at low heat without a single drop of palm oil, and seal them fresh with chef-crafted masalas.
+            </p>
+          </div>
+
+          <div className="rounded-3xl overflow-hidden border border-[#243373] bg-[#0C122C] p-4 sm:p-6 shadow-2xl">
+            <img
+              src="/images/catalog/four_step_journey.webp"
+              alt="CHASKA 4-Step Craft Journey: 01 Harvested from Bihar ponds, 02 Graded 5+ Suta Grade, 03 Slow-Roasted Never Fried, 04 Seasoned &amp; Sealed Fresh"
+              className="w-full h-auto rounded-2xl object-cover"
+              loading="lazy"
+            />
+          </div>
+        </div>
+      </section>
+
       {/* Benefits */}
       <BenefitsGrid />
 

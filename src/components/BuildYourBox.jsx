@@ -707,6 +707,47 @@ export default function BuildYourBox() {
 
         </div>
 
+        {/* ── CATALOGUE CURATED GIFT BOXES INSPIRATION ──────────────────────── */}
+        <div className="rounded-3xl bg-[#131D4A] border border-[#243373] p-6 sm:p-8 space-y-6 shadow-xl">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-[#243373] pb-4">
+            <div>
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400] block">
+                FROM OUR 2026 CATALOGUE
+              </span>
+              <h3 className="font-display text-2xl sm:text-3xl font-black uppercase text-white mt-1">
+                PRE-CURATED THEMATIC BOXES
+              </h3>
+            </div>
+            <p className="font-sans text-xs text-stone-300 max-w-sm font-normal">
+              Need inspiration? Check out our top corporate and festive gifting assortments.
+            </p>
+          </div>
+
+          <div className="rounded-2xl overflow-hidden border border-white/10 bg-[#0C122C] aspect-[3/1]">
+            <img
+              src="/images/catalog/curated_gift_boxes.webp"
+              alt="CHASKA Pre-Curated Gift Boxes: The Easy Box, The Full Chaska, The Fire Box"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-center font-sans text-xs text-stone-300">
+            <div className="p-3 rounded-2xl bg-[#0C122C]/60 border border-white/5 space-y-1">
+              <span className="font-mono font-bold text-white uppercase text-[11px] block">THE EASY BOX</span>
+              <p className="text-stone-400">Pink Salt, Cheese, Pudhina</p>
+            </div>
+            <div className="p-3 rounded-2xl bg-[#0C122C]/60 border border-[#FF5400]/30 space-y-1">
+              <span className="font-mono font-bold text-[#FF5400] uppercase text-[11px] block">THE FULL CHASKA ★ RECOMMENDED</span>
+              <p className="text-stone-400">All 6 Signature Flavours</p>
+            </div>
+            <div className="p-3 rounded-2xl bg-[#0C122C]/60 border border-white/5 space-y-1">
+              <span className="font-mono font-bold text-white uppercase text-[11px] block">THE FIRE BOX</span>
+              <p className="text-stone-400">Barbeque, Jalapeño, Peri Peri</p>
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   )

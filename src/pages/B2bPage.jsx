@@ -88,7 +88,7 @@ export default function B2bPage() {
           <div className="lg:col-span-5">
             <div className="aspect-[4/5] max-h-[380px] rounded-3xl overflow-hidden border border-white/10 dark:border-[#243373] shadow-2xl bg-white/5 p-2.5">
               <img
-                src={photos.comingSoonPoster.src}
+                src="/images/catalog/hero_three_jars.webp"
                 alt="CHASKA B2B Bulk Jars and Pouches"
                 className="w-full h-full object-cover rounded-2xl"
               />
@@ -128,6 +128,96 @@ export default function B2bPage() {
                 </p>
               </motion.div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── 2026 CATALOGUE: JARS, SIZES & CORPORATE GIFTING ────────────────── */}
+      <section className="py-12 sm:py-16 bg-[#131D4A] border-b border-[#243373] text-white">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 space-y-10">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 border-b border-[#243373] pb-6">
+            <div className="space-y-2">
+              <span className="font-mono text-xs font-bold uppercase tracking-widest text-[#FF5400]">
+                2026 CATALOGUE LINEUP
+              </span>
+              <h2 className="font-display text-3xl sm:text-5xl font-black uppercase text-white leading-tight">
+                OUR JAR RANGE &amp; GIFT FORMATS
+              </h2>
+            </div>
+            <p className="font-sans text-xs sm:text-sm text-stone-300 max-w-md font-normal leading-relaxed">
+              From our signature 6-flavour spectrum to low-MOQ corporate hampers and custom branding on all jar sizes.
+            </p>
+          </div>
+
+          {/* Full 6 Jars Lineup Showcase */}
+          <div className="rounded-3xl overflow-hidden border border-[#243373] bg-[#0C122C] p-4 sm:p-6 shadow-xl space-y-4">
+            <div className="flex items-center justify-between">
+              <span className="font-mono text-xs font-bold text-stone-300 uppercase tracking-wider">
+                ★ 6 SIGNATURE PROFILES: FROM GENTLY SALTED TO PROPERLY FIERY
+              </span>
+              <span className="px-3 py-1 rounded-full bg-[#FF5400]/20 text-[#FF5400] font-mono text-[11px] font-bold uppercase">
+                100% SLOW-ROASTED
+              </span>
+            </div>
+            <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[21/9] sm:aspect-[24/9]">
+              <img
+                src="/images/catalog/all_six_jars_lineup.webp"
+                alt="CHASKA 6 Jar Flavour Spectrum: Pink Salt, Cheese, Pudhina, Barbeque, Jalapeno, Peri Peri"
+                className="w-full h-full object-cover"
+                loading="lazy"
+              />
+            </div>
+          </div>
+
+          {/* Catalog Format Cards: 70g/100g Jars + Curated Gift Boxes */}
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+            {/* Card 1: 70g & 100g Premium Jars */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-[#0C122C] border border-[#243373] shadow-md flex flex-col sm:flex-row gap-6 items-center">
+              <div className="w-full sm:w-44 aspect-square rounded-2xl overflow-hidden border border-white/10 shrink-0 bg-[#131D4A]">
+                <img
+                  src="/images/catalog/peri_peri_jar_clean.webp"
+                  alt="CHASKA 70g and 100g Premium Jars"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+              <div className="space-y-3">
+                <span className="px-2.5 py-1 rounded-full bg-emerald-500/15 text-emerald-400 font-mono text-[10px] font-bold uppercase tracking-wider">
+                  TWO JAR SIZES: 70G &amp; 100G
+                </span>
+                <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-white leading-tight">
+                  CLEAR RETAIL &amp; DESK JARS
+                </h3>
+                <ul className="font-sans text-xs sm:text-sm text-stone-300 space-y-1.5 font-normal">
+                  <li className="flex items-center gap-2">✓ <strong>Low MOQ:</strong> 100 jars accessible for first orders</li>
+                  <li className="flex items-center gap-2">✓ <strong>Shelf Life:</strong> 12 months sealed freshness</li>
+                  <li className="flex items-center gap-2">✓ <strong>Custom Logo:</strong> Custom branding on 70g &amp; 100g jars</li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Card 2: Curated Corporate Gift Boxes */}
+            <div className="p-6 sm:p-8 rounded-3xl bg-[#0C122C] border border-[#243373] shadow-md flex flex-col justify-between space-y-4">
+              <div className="space-y-2">
+                <span className="px-2.5 py-1 rounded-full bg-[#FF5400]/20 text-[#FF5400] font-mono text-[10px] font-bold uppercase tracking-wider">
+                  CURATED HAMPERS
+                </span>
+                <h3 className="font-display text-xl sm:text-2xl font-black uppercase text-white leading-tight">
+                  THE EASY BOX • THE FULL CHASKA • THE FIRE BOX
+                </h3>
+                <p className="font-sans text-xs text-stone-300 font-normal">
+                  Pre-configured gift boxes tailored for employee appreciation, festive Diwali drops, and VIP conference attendee kits.
+                </p>
+              </div>
+              <div className="rounded-2xl overflow-hidden border border-white/10 aspect-[3/1]">
+                <img
+                  src="/images/catalog/curated_gift_boxes.webp"
+                  alt="Curated CHASKA Gift Boxes: The Easy Box, The Full Chaska, The Fire Box"
+                  className="w-full h-full object-cover"
+                  loading="lazy"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>

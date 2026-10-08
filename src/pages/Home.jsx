@@ -18,6 +18,13 @@ export default function Home() {
 
   const heroPhotos = [
     {
+      src: '/images/catalog/hero_three_jars.webp',
+      tag: 'OFFICIAL 2026 CATALOGUE',
+      badge: 'SIGNATURE JARS',
+      title: 'Premium Roasted Jars',
+      caption: 'Jalapeño, Pudhina & Cheese • Whole Lotus Seeds • Zero Palm Oil',
+    },
+    {
       src: photos.meshBagIngredients.src,
       tag: 'AVAILABLE NOW',
       badge: 'PUDINA',
